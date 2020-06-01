@@ -1,0 +1,137 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Contenedor central */
+.container {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
+/* Tamaños */
+.w-100{ width: 100%; }
+.w-50{ width: 50%; }
+.w-25{ width: 20%; }
+.w-10{ width: 10%; }
+
+.h-100{ height: 100%; }
+
+.font-sz-9{ font-size: 9px !important; }
+.font-sz-12{ font-size: 12px !important; }
+.font-sz-20{ font-size: 20px !important; }
+.bold{ font-weight: 700; }
+
+.flx{ display: flex; }
+.block{ display: block; }
+
+/* Padding */
+.padg-0{ padding: 0 !important; }
+.padg-10{ padding: 10 !important; }
+.padg-lat-10{ padding-left: 10px !important;  padding-right: 10px !important; } 
+
+/* Margenes */
+.mrg-0{ margin: 0;}
+.mrg-10{ margin: 10px;}
+.mrg-15{ margin: 15px;}
+.mrg-20{ margin: 20px;}
+
+.mrg-top-10{ margin-top: 10px; }
+.mrg-top-15{ margin-top: 15px; }
+.mrg-top-20{ margin-top: 20px; }
+.mrg-top-30{ margin-top: 30px; }
+.mrg-top-40{ margin-top: 40px; }
+.mrg-top-15p{ margin-top: 15%; }
+.mrg-botn-10{ margin-bottom: 10px; }
+.mrg-botn-15{ margin-bottom: 15px; }
+.mrg-botn-20{ margin-bottom: 20px; }
+
+.mrg-left-5{ margin-left: 5px !important; }
+.mrg-left-10{ margin-left: 10px; }
+.mrg-left-15{ margin-left: 15px; }
+.mrg-left-20{ margin-left: 20px; }
+
+.mrg-right-5{ margin-right: 5px !important; }
+.mrg-right-10{ margin-right: 10px; }
+.mrg-right-15{ margin-right: 15px; }
+.mrg-right-20{ margin-right: 20px; }
+
+/* End margenes */
+
+/* Bordes */
+.border-rad-mild{  border-radius: 10px; }
+/* .border-rad-medium{  border-radius: 10px; } */
+
+/* Colors */
+.color-gray{ background: #F7F7F7; }
+.text-pink{ color: #FF596A; }
+.text-dark{ color: #353435; }
+
+/*  Text Align */
+.txt-center{ text-align: center;}
+.txt-left{ text-align: left;}
+.txt-right{ text-align: right;}
+
+/* Medias */
+@media (min-width: 768px) {
+    .container {
+        width: 750px !important;
+    }
+}
+@media (min-width: 992px) {
+    .container {
+        width: 970px !important;
+    }
+}
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px !important;
+    }
+}
+
+/* Carousel */
+.owl-carousel .owl-nav button.owl-next{
+    font: initial !important;
+    background: transparent !important;
+    color: inherit !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    height: 100 !important;
+    width: 100px !important;
+    font-size: 80px !important;
+    text-align: right;
+}
+
+
+/*
+STYLE CUSTOM.
+*/
+
+/* Carousel */
+.owl-carousel .owl-nav button.owl-prev{
+    font: initial !important;
+    background: transparent !important;
+    color: inherit !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100 !important;
+    width: 100px !important;
+    font-size: 80px !important;
+    text-align: left;
+}
+
+button.owl-next:focus {
+    outline: none;
+}
+
+button.owl-prev:focus {
+    outline: none;
+}
+
+.mat-form-field-wrapper{
+    padding: 0 !important;
+}
