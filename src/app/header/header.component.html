@@ -1,0 +1,73 @@
+<mat-toolbar color="accent">
+  <mat-toolbar-row class="toolbar-small" *ngIf="!deviceXs">
+    <div fxLayout="row wrap" class="w-100 container" fxLayoutAlign="space-evenly center">
+      <span class="spacer"></span>
+      <mat-icon class="icon-small text-gray" aria-hidden="false">local_phone</mat-icon>
+      <span class="text-gray">3154559876/3154559876</span>
+      <span class="separator"></span>
+      <mat-icon class="icon-small text-gray" aria-hidden="false">local_shipping</mat-icon>
+      <span class="text-gray">Envíos a todo el país</span>
+      <span class="separator"></span>
+      <mat-icon class="icon-small text-gray" aria-hidden="false">compare_arrows</mat-icon>
+      <span class="text-gray">Política de devoluciones</span>
+      <span class="separator"></span>
+      <mat-icon class="icon-small text-gray" aria-hidden="false">pin_drop</mat-icon>
+      <span class="text-gray">¿Necesita ayuda?</span>
+    </div>
+  </mat-toolbar-row>
+  
+  <mat-toolbar-row fxLayoutAlign="space-between center" class="container w-auto">
+    <div fxLayout="row">
+      <button class="line-height-ini" mat-button>
+          <img src="assets/img/icons/menu.png" class="mrg-top-5">
+          <p class="text-menu">Categorias</p> 
+      </button>
+      <button *ngIf="!deviceXs" class="line-height-ini" mat-button>
+        <img src="assets/img/logo_fondo_negro.png">
+      </button>
+    </div>
+    <div *ngIf="deviceXs">
+      <button class="line-height-ini" mat-button fxLayoutAlign="end">
+        <img src="assets/img/logo_fondo_negro.png">
+      </button>
+    </div>
+    <div *ngIf="!deviceXs" fxLayout="row">
+      <button class="line-height-ini" mat-button fxLayoutAlign="end">
+        <img src="assets/img/icons/load-carriage.png" class="mrg-top-5">
+          <p class="text-menu">Pedidos</p> 
+      </button>
+      <button class="line-height-ini" mat-button fxLayoutAlign="end">
+        <mat-icon aria-hidden="false" aria-label="Icon">favorite_outline</mat-icon>
+          <p class="text-menu">Mis favoritos</p> 
+      </button>
+      <button class="line-height-ini" mat-button fxLayoutAlign="end">
+        <mat-icon aria-hidden="false" aria-label="Icon">person_outline</mat-icon>
+        <p class="text-menu">Mi cuenta</p>
+      </button>
+      <button class="line-height-ini" (click)="toggleOpenBolsa()" mat-button fxLayoutAlign="end">
+        <img src="assets/img/icons/bolsa_inactive.png">
+          <p class="text-menu">Bolsa</p> 
+      </button>
+    </div>
+    
+  </mat-toolbar-row>
+  
+  <mat-toolbar-row *ngIf="deviceXs" fxLayoutAlign="space-between end">
+    <button class="line-height-ini" mat-button>
+      <img src="assets/img/icons/load-carriage.png" class="mrg-top-5">
+        <p class="text-menu">Pedidos</p> 
+    </button>
+    <button class="line-height-ini" mat-button>
+      <mat-icon aria-hidden="false" aria-label="Icon">favorite_outline</mat-icon>
+        <p class="text-menu">Mis favoritos</p> 
+    </button>
+    <button class="line-height-ini" mat-button>
+      <mat-icon aria-hidden="false" aria-label="Icon">person_outline</mat-icon>
+      <p class="text-menu">Mi cuenta</p>
+    </button>
+    <button class="line-height-ini" mat-button>
+      <img src="assets/img/icons/bolsa_inactive.png">
+        <p class="text-menu">Bolsa</p> 
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>

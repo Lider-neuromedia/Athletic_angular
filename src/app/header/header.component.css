@@ -1,0 +1,47 @@
+.sticky {
+  padding: 0px;
+  position: fixed;
+  width: 100%;
+  top: 0px;
+  z-index: 10;
+}
+  
+.logo {
+  padding: 0px 5px;
+  font-size: 20px;
+}
+.spacer{
+  flex: 1 1 auto;
+}
+
+.toolbar-small{
+  min-height: 32px;
+  height: 32px;
+  font-size: 9px;
+  background: #ffffff;
+}
+
+.icon-small{
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.separator{
+  border-right: 1px solid #EAEAEA;
+  width: 10px;
+  height: 20px;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.text-menu{
+  font-size: 9px;
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  letter-spacing: 0.79px;
+}

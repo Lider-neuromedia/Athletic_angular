@@ -1,0 +1,341 @@
+<!-- <article style="top: 96px;" [class.content]="!deviceXs" [class.content-mob]="deviceXs" (scroll)="onScroll($event)"> -->
+  <!-- <mat-sidenav-container class="white"> -->
+    <!-- <p>Test</p> -->
+    <mat-sidenav-content>
+      <!-- Contenido 1 -->
+      <div class="mrg-top-10 container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center">
+        <div>
+          <img src="assets/img/home/img-1.png" class="w-100" alt="">
+        </div>
+        <div fxLayout="column" fxLayout.xs="column" fxLayoutAlign="space-between center">
+          <div>
+            <img src="assets/img/home/img-2.png" class="w-100-xs" width="469px" height="219px" alt="">
+          </div>
+          <div>
+            <img src="assets/img/home/img-3.png" class="w-100-xs" width="469px" height="219px" alt="">
+          </div>
+        </div>
+      </div>
+      <!-- Contenido 2 -->
+      <div class="mrg-top-30 container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center">
+        <div class="flx mrg-botn-10">
+          <img src="assets/img/home/rapida_entrega.png" alt="">
+          <span class="txt-icon-home">Rápida entrega <p>Nivel nacional</p> </span>
+        </div>
+        <div class="flx mrg-botn-10">
+          <img src="assets/img/home/pagos_electronicos.png" alt="">
+          <span class="txt-icon-home">Pagos electrónicos <p>Todas las tarjetas</p> </span>
+        </div>
+        <div class="flx mrg-botn-10">
+          <img src="assets/img/home/Bitmap.png" alt="">
+          <span class="txt-icon-home">Compra segura <p>Sin riesgo de robo </p> </span>
+        </div>
+        <div class="flx mrg-botn-10">
+          <img src="assets/img/home/asistencia.png" alt="">
+          <span class="txt-icon-home">Asistencia <p>Appstore y Playstore</p> </span>
+        </div>
+        <div class="flx mrg-botn-10">
+          <img src="assets/img/home/download_app.png" alt="">
+          <span class="txt-icon-home">Descarga nuestra app <p>Nivel nacional</p> </span>
+        </div>
+      </div>
+
+      <!-- Contenido 3 -->
+      <div class="mrg-top-40 mrg-botn-20 container" fxLayout="row wrap" fxLayout.xs="column"
+        fxLayoutAlign="space-evenly center">
+        <div style="width: 271px;" class="w-100-xs">
+          <img src="assets/img/home/img-4.png" class="border-rad-mild w-100" alt="">
+        </div>
+        <div style="width: 400px;" class="w-100-xs">
+          <img src="assets/img/home/img-yellow.png" class="border-rad-mild w-100" alt="">
+        </div>
+        <div style="width: 272px;" class="w-100-xs">
+          <img src="assets/img/home/img-6.png" class="border-rad-mild w-100" alt="">
+        </div>
+      </div>
+
+      <!-- Contenido 4 - Destacados -->
+      <div class=" color-gray mrg-top-40 mrg-botn-20">
+        <div class="container" fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+          <div class="title-home mrg-top-20 w-100 txt-center">
+            <p>Productos destacados </p>
+          </div>
+        </div>
+        <div class="mrg-top-20 container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center">
+          <div class="mrg-botn-20">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-2.png" subtitle="Adidas Original"
+              title="TENIS ADIDAS ORIGINALS HOMBRE MODA NMD_R1" price="$230.000">
+            </app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-2.png" subtitle="Puma"
+              title="TENIS MODA PUMA HOMBRES SF STORM" price="$230.000"></app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-3.png" subtitle="New Balance"
+              title="FRESH FOAM ARISHI" price="$230.000" descuento="30" price_ant="$280.000"></app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-4.png" subtitle="Adidas"
+              title="TENIS ADIDAS HOMBRE MODA SUPERSTAR" price="$230.000"></app-item-producto>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenido 5 -->
+      <div class="mrg-top-40 mrg-botn-20 container" fxLayout="row wrap" fxLayout.xs="column"
+        fxLayoutAlign="space-evenly center">
+        <div style="width: 500px;" class="w-100-xs">
+          <img src="assets/img/home/img-5.png" class="border-rad-mild w-100" alt="">
+        </div>
+        <div style="width: 500px;" class="w-100-xs">
+          <img src="assets/img/home/img-yellow.png" class="border-rad-mild w-100" alt="">
+        </div>
+      </div>
+
+      <!-- Contenido 6 - Destacados -->
+      <div class=" color-gray mrg-top-40 mrg-botn-20">
+        <div class="container" fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+          <div class="title-home mrg-top-20 w-100 txt-center">
+            <p>Productos destacados </p>
+          </div>
+        </div>
+        <div class="mrg-top-20 container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center">
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-2.png" subtitle="Adidas Original"
+              title="TENIS ADIDAS ORIGINALS HOMBRE MODA NMD_R1" price="$230.000" [small]="true">
+            </app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-2.png" subtitle="Puma"
+              title="TENIS MODA PUMA HOMBRES SF STORM" price="$230.000" [small]="true"></app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-3.png" subtitle="New Balance"
+              title="FRESH FOAM ARISHI" price="$230.000" descuento="30" price_ant="$280.000" [small]="true">
+            </app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-4.png" subtitle="Adidas"
+              title="TENIS ADIDAS HOMBRE MODA SUPERSTAR" price="$230.000" [small]="true"></app-item-producto>
+          </div>
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-2.png" subtitle="Adidas Original"
+              title="TENIS ADIDAS ORIGINALS HOMBRE MODA NMD_R1" price="$230.000" [small]="true">
+            </app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-2.png" subtitle="Puma"
+              title="TENIS MODA PUMA HOMBRES SF STORM" price="$230.000" [small]="true"></app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-3.png" subtitle="New Balance"
+              title="FRESH FOAM ARISHI" price="$230.000" descuento="30" price_ant="$280.000" [small]="true">
+            </app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-4.png" subtitle="Adidas"
+              title="TENIS ADIDAS HOMBRE MODA SUPERSTAR" price="$230.000" [small]="true"></app-item-producto>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenido 7 -->
+      <div class="container mrg-botn-20" fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+        <div>
+          <img src="assets/img/home/img-7.png" class="border-rad-mild w-100-xs" height="200px" alt="">
+        </div>
+      </div>
+
+      <!-- Contenido 8 - Destacados -->
+      <div class=" color-gray">
+        <div class="container" fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+          <div class="content-btn-cate w-100-xs  mrg-top-40 mrg-botn-20">
+            <div class="btn-home-cate-act">
+              <mat-icon svgIcon="woman" class="mrg-top-15-prc">woman</mat-icon>
+              <p>Prueba texto</p>
+            </div>
+
+            <div class="btn-home-cate">
+              <mat-icon svgIcon="woman" class="mrg-top-15-prc">woman</mat-icon>
+              <p>Prueba texto</p>
+            </div>
+
+            <div class="btn-home-cate">
+              <mat-icon svgIcon="woman" class="mrg-top-15-prc">woman</mat-icon>
+              <p>Prueba texto</p>
+            </div>
+            <div class="btn-home-cate">
+              <mat-icon svgIcon="woman" class="mrg-top-15-prc">woman</mat-icon>
+              <p>Prueba texto</p>
+            </div>
+          </div>
+        </div>
+        <div class="mrg-top-20 container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center">
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-2.png" subtitle="Adidas Original"
+              title="TENIS ADIDAS ORIGINALS HOMBRE MODA NMD_R1" price="$230.000" [small]="true">
+            </app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-2.png" subtitle="Puma"
+              title="TENIS MODA PUMA HOMBRES SF STORM" price="$230.000" [small]="true"></app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-3.png" subtitle="New Balance"
+              title="FRESH FOAM ARISHI" price="$230.000" descuento="30" price_ant="$280.000" [small]="true">
+            </app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-4.png" subtitle="Adidas"
+              title="TENIS ADIDAS HOMBRE MODA SUPERSTAR" price="$230.000" [small]="true"></app-item-producto>
+          </div>
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-2.png" subtitle="Adidas Original"
+              title="TENIS ADIDAS ORIGINALS HOMBRE MODA NMD_R1" price="$230.000" [small]="true">
+            </app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-2.png" subtitle="Puma"
+              title="TENIS MODA PUMA HOMBRES SF STORM" price="$230.000" [small]="true"></app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-3.png" subtitle="New Balance"
+              title="FRESH FOAM ARISHI" price="$230.000" descuento="30" price_ant="$280.000" [small]="true">
+            </app-item-producto>
+          </div>
+
+          <div class="mrg-botn-20 w-25 flx justify-center">
+            <app-item-producto [nuevo]="true" image="assets/img/home/zap-4.png" subtitle="Adidas"
+              title="TENIS ADIDAS HOMBRE MODA SUPERSTAR" price="$230.000" [small]="true"></app-item-producto>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenido 9 -->
+      <div class="container mrg-botn-20 mrg-top-20" fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+        <div style="width: 100%; background: #353435; padding: 5px; border-radius: 10px;">
+          <p style="color: #FFFFFF;
+          font-size: 31px;
+          font-weight: 400;
+          letter-spacing: 3.98px;
+          line-height: 38.97px;
+          text-align: center;">Envíos nacionales gratis en temporada</p>
+        </div>
+      </div>
+
+      <!-- Contenido 10 -->
+      <div class="container color-gray mrg-botn-20" fxLayout="row wrap" fxLayout.xs="column"
+        fxLayoutAlign="space-evenly center">
+        <div class="w-20 w-100-xs txt-center-xs">
+          <div>
+            <p class="font-sz-20 text-pink bold">Las más populares de la semana </p>
+            <p class="font-sz-16 text-dark">Estas son las zapatillas mejor puntuadas esta semana</p>
+          </div>
+        </div>
+
+        <div class="w-10 w-60-xs">
+          <div class="content-img">
+            <img src="assets/img/home/zap-1.png" class="border-rad-mild" alt="">
+            <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
+          </div>
+          <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
+            Nmd_R1</p>
+        </div>
+
+        <div class="w-10 w-60-xs">
+          <div class="content-img">
+            <img src="assets/img/home/zap-2.png" class="border-rad-mild" alt="">
+          </div>
+          <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
+            Nmd_R1</p>
+        </div>
+
+        <div class="w-10 w-60-xs">
+          <div class="content-img">
+            <img src="assets/img/home/zap-3.png" class="border-rad-mild" alt="">
+          </div>
+          <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
+            Nmd_R1</p>
+        </div>
+
+        <div class="w-10 w-60-xs">
+          <div class="content-img">
+            <img src="assets/img/home/zap-4.png" class="border-rad-mild" alt="">
+          </div>
+          <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
+            Nmd_R1</p>
+        </div>
+
+        <div class="w-10 w-60-xs">
+          <div class="content-img">
+            <img src="assets/img/home/zap-4.png" class="border-rad-mild" alt="">
+          </div>
+          <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
+            Nmd_R1</p>
+        </div>
+      </div>
+
+        <!-- Contenido 11 -->
+        <div class="container mrg-top-40">
+          <owl-carousel [options]="SlideOptions" [carouselClasses]="['owl-theme']">
+            <div class="item" *ngFor="let image of CarouselImages;let i = index">
+              <div>
+                <img src={{image}} />
+              </div>
+            </div>
+          </owl-carousel>
+        </div>
+      <!-- Contenido 12 -->
+      <div class="color-gray">
+        <div class="mrg-top-40 mrg-botn-20 container" fxLayout="row wrap" fxLayout.xs="column"
+          fxLayoutAlign="space-evenly center">
+          <div class="w-70 mrg-top-10 w-100-xs">
+            <img src="assets/img/home/img-8.png" class="w-100 border-rad-mild" alt="">
+          </div>
+          <div class="w-20 mrg-top-10 w-100-xs">
+            <img src="assets/img/home/img-9.png" class=" w-100 border-rad-mild" alt="">
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenido 13 -->
+      <div class="mrg-top-40  container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center">
+        <div class="w-30 w-100-xs mrg-botn-20 " xLayout="column">
+          <div class="mes-home" style="background-color: #4800a1;">
+            <p>JUNIO 2020</p>
+          </div>
+          <div class="mes-home mrg-top-20 mrg-botn-20" style="background-color: #002f6d;">
+            <p>JULIO 2020</p>
+          </div>
+          <div class="mes-home" style="background-color: #ad00d6;">
+            <p>TEMPORADA</p>
+          </div>
+        </div>
+        <div class="w-60 w-100-xs mrg-botn-20" xLayout="column" fxLayoutAlign="space-evenly center">
+          <img src="assets/img/home/img-10.png" class="w-100" alt="">
+        </div>
+      </div>
+
+    </mat-sidenav-content>
+
+    <!-- Bolsa -->
+    <!-- <mat-sidenav [(opened)]="openBolsa" mode="over" position="end" [fixedInViewport]="true">
+      <h1>Bolsaa</h1>
+    </mat-sidenav> -->
+  <!-- </mat-sidenav-container> -->
+<!-- </article> -->

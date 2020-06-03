@@ -133,14 +133,14 @@
     width: auto !important;   
     height: auto !important;   
     position: absolute;
-    top: 15px;
-    left: 7px;
+    top: 0;
+    left: -12px;
 }
 
 .descuento{
     position: absolute;
-    top: 0;
-    right: 0;
+    top: -15px;
+    right: -15px;
     width: 25px;
     padding: 10px 8px 10px 8px;
     border-radius: 25px;

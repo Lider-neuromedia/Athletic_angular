@@ -4,18 +4,33 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Contenedor central */
-.container {
+/* .container {
     padding-right: 15px !important;
     padding-left: 15px !important;
     margin-right: auto !important;
     margin-left: auto !important;
+} */
+.container {
+    margin-right: 100px !important;
+    margin-left: 100px !important;
 }
 
 /* Tamaños */
 .w-100{ width: 100%; }
+.w-90{ width: 90%; }
+.w-80{ width: 80%; }
+.w-70{ width: 70%; }
+.w-60{ width: 60%; }
 .w-50{ width: 50%; }
-.w-25{ width: 20%; }
+.w-45{ width: 45%; }
+.w-40{ width: 40%; }
+.w-35{ width: 35%; }
+.w-30{ width: 30%; }
+.w-20{ width: 20%; }
+.w-25{ width: 25%; }
+.w-15{ width: 15%; }
 .w-10{ width: 10%; }
+.w-auto{ width: auto !important; }
 
 .h-100{ height: 100%; }
 
@@ -24,7 +39,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .font-sz-20{ font-size: 20px !important; }
 .bold{ font-weight: 700; }
 
+/* Flexbox */
 .flx{ display: flex; }
+.justify-center{ justify-content: center; }
 .block{ display: block; }
 
 /* Padding */
@@ -38,15 +55,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mrg-15{ margin: 15px;}
 .mrg-20{ margin: 20px;}
 
+.mrg-top-5{ margin-top: 5px; }
 .mrg-top-10{ margin-top: 10px; }
 .mrg-top-15{ margin-top: 15px; }
 .mrg-top-20{ margin-top: 20px; }
 .mrg-top-30{ margin-top: 30px; }
 .mrg-top-40{ margin-top: 40px; }
-.mrg-top-15p{ margin-top: 15%; }
+.mrg-top-15-prc{ margin-top: 15%; }
+.mrg-botn-5{ margin-bottom: 5px; }
 .mrg-botn-10{ margin-bottom: 10px; }
 .mrg-botn-15{ margin-bottom: 15px; }
 .mrg-botn-20{ margin-bottom: 20px; }
+
+.mrg-lat-50{ margin-left: 50px !important; margin-right: 50px !important; }
 
 .mrg-left-5{ margin-left: 5px !important; }
 .mrg-left-10{ margin-left: 10px; }
@@ -58,6 +79,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mrg-right-15{ margin-right: 15px; }
 .mrg-right-20{ margin-right: 20px; }
 
+.line-height-ini{ line-height: initial !important; }
 /* End margenes */
 
 /* Bordes */
@@ -65,32 +87,73 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* .border-rad-medium{  border-radius: 10px; } */
 
 /* Colors */
+.white{background: white !important;}
 .color-gray{ background: #F7F7F7; }
 .text-pink{ color: #FF596A; }
 .text-dark{ color: #353435; }
-
+.text-gray{ color: #979797; }
 /*  Text Align */
 .txt-center{ text-align: center;}
 .txt-left{ text-align: left;}
 .txt-right{ text-align: right;}
 
 /* Medias */
-@media (min-width: 768px) {
+@media (max-width: 768px) {
     .container {
-        width: 750px !important;
+        margin-right: 15px !important;
+        margin-left: 15px !important;
     }
-}
-@media (min-width: 992px) {
-    .container {
-        width: 970px !important;
-    }
-}
-@media (min-width: 1200px) {
-    .container {
-        width: 1170px !important;
-    }
-}
+    .w-100-xs{ width: 100% !important;}
+    .w-60-xs{ width: 60% !important;}
+    .txt-center-xs{ text-align: center !important;}
 
+    .btn-home-cate{
+        height: 80px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        font-size: 16px !important;
+    }
+    .btn-home-cate-act{
+        height: 80px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        font-size: 16px !important;
+    }
+    .btn-home-cate-act:before{
+        right: 32% !important;
+        top: 79px !important;
+        border-top: 14px solid #ff596a !important;
+    }
+}
+@media (max-width: 992px) {
+    .container {
+        margin-right: 15px !important;
+        margin-left: 15px !important;
+    }
+
+    .w-100-xs{ width: 100% !important;}
+    .w-60-xs{ width: 60% !important;}
+    .txt-center-xs{ text-align: center !important;}
+
+    .btn-home-cate{
+        height: 80px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        font-size: 16px !important;
+    }
+    .btn-home-cate-act{
+        height: 80px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        font-size: 16px !important;
+    }
+    .btn-home-cate-act:before{
+        right: 32% !important;
+        top: 79px !important;
+        border-top: 14px solid #ff596a !important;
+    }
+
+}
 /* Carousel */
 .owl-carousel .owl-nav button.owl-next{
     font: initial !important;

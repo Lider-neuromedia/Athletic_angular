@@ -1,0 +1,15 @@
+<div [class]="(small) ? 'item-product item-small' : 'item-product'">
+    <div [class]="(small) ? 'content-img cont-small' : 'content-img'">
+        <img [src]="image" alt="">
+        <img src="assets/img/home/nuevo.png" *ngIf="nuevo" class="img-nuevo" alt="">
+        <div class="descuento" *ngIf="descuento">{{"-"+descuento+"%"}}</div>
+    </div>
+    <div class="content-product">
+        <p [class]="(small) ? 'subtitle-prod-small' : 'subtitle-prod'">{{subtitle}}</p>
+        <p [class]="(small) ? 'title-prod-small' : 'title-prod'">{{title}}</p>
+        <div [class]="(small) ? 'cont-price-prod-small' : 'cont-price-prod'">
+            <p class="price-prod">{{price}}</p>
+            <p class="price-prod-desc" *ngIf="price_ant">{{price_ant}}</p>
+        </div>
+    </div>
+</div>

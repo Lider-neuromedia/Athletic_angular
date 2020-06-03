@@ -1,0 +1,61 @@
+
+/* Footer */
+.list-footer{
+    list-style: none;
+    padding: 0;
+  }
+  
+  .title-footer{
+    color: #5D5C5D;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.78px;
+    line-height: 16.34px;
+    text-transform: uppercase;
+  }
+  
+  .item-footer{
+    color: #353435;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.66px;
+    line-height: 13.83px;
+    margin-bottom: 10px;
+  }
+  
+  .border-right:before{
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 1px;
+    height: 50%;
+    /*Warning consola.*/
+    background-image: radial-gradient(50% 100%, #D8D8D8 0%, rgba(255, 255, 255, 0) 100%);
+  }
+  
+  .txt-derchos{
+    color: #5D5C5D;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.78px;
+    line-height: 16.34px;
+    text-align: left;
+    margin: 0;
+  }
+  
+  .txt-neuro{
+  color: #5D5C5D;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.78px;
+  line-height: 16.34px;
+  text-align: right;
+  margin: 0;
+  }
+  
+  .copy{
+    background: #D8D8D8; 
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
