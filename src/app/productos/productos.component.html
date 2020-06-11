@@ -1,0 +1,198 @@
+<!-- <div class="container container-center">
+    <div class="row">
+        <mat-card class="col-md-6">UNO</mat-card>
+        <mat-card class="col-md-6">DOS</mat-card>
+        <mat-card class="col-md-6">TRES</mat-card>
+        <mat-card class="col-md-6">CUATRO</mat-card>
+    </div>
+</div> -->
+
+<div class="color-gray">
+    <div class="container">
+        <div class="d-flex">
+            <div class="d-none d-md-block mrg-top-20">
+                <mat-card class="col-md-12" style="width: 200px;">
+                    <p class="title-filter">Talla</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="input-desde" class="mrg-0">Desde</label>
+                            <select class="custom-select mr-sm-2 bold" id="input-desde">
+                                <option selected>38</option>
+                                <option value="1">39</option>
+                                <option value="2">40</option>
+                                <option value="3">41</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="input-hasta" class="mrg-0">Hasta</label>
+                            <select class="custom-select mr-sm-2 bold" id="input-hasta">
+                                <option selected>38</option>
+                                <option value="1">39</option>
+                                <option value="2">40</option>
+                                <option value="3">41</option>
+                            </select>
+                        </div>
+                    </div>
+                </mat-card>
+
+                <mat-card class="col-md-12 mrg-top-20" style="width: 200px;">
+                    <p class="title-filter">Marca</p>
+                    <div class="row">
+                        <div class="col-md-6" *ngFor="let marca of marcas" style="padding-right: 3px;">
+                            <mat-checkbox (change)="changeMarca($event, marca.id)" class="check-filter">{{marca.name}}</mat-checkbox>
+                        </div>
+                        <!-- <div class="col-md-6 d-block p-0">
+                            <mat-checkbox class="check-filter">New Balance</mat-checkbox>
+                        </div> -->
+                    </div>
+                </mat-card>
+
+                <mat-card class="col-md-12 mrg-top-20" style="width: 200px;">
+                    <p class="title-filter">Color</p>
+                    <div class="row">
+                        <div class="col-md-6" style="padding-right: 3px;">
+                            <mat-checkbox class="check-filter">Rojo</mat-checkbox>
+                            <mat-checkbox class="check-filter">Verde</mat-checkbox>
+                            <mat-checkbox class="check-filter">Azul</mat-checkbox>
+                            <mat-checkbox class="check-filter">Negro</mat-checkbox>
+                        </div>
+                        <div class="col-md-6 d-block p-0">
+                            <mat-checkbox class="check-filter">Gris</mat-checkbox>
+                            <mat-checkbox class="check-filter">Rosado</mat-checkbox>
+                            <mat-checkbox class="check-filter">Blanco</mat-checkbox>
+                        </div>
+                    </div>
+                </mat-card>
+
+                <mat-card class="col-md-12 mrg-top-20" style="width: 200px;">
+                    <p class="title-filter">Categoria</p>
+                    <div *ngFor="let categoria of categorias_prin">
+                        <mat-checkbox (change)="changeCategorie($event, categoria.id)" class="check-filter">{{categoria.name}}</mat-checkbox>
+                    </div>
+                </mat-card>
+
+                <mat-card class="col-md-12 mrg-top-20" style="width: 200px;">
+                    <p class="title-filter">Precio</p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ng5-slider>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="min" class="mrg-0">Min</label>
+                            <input class="form-control form-control-sm" id="min" type="text" [(ngModel)]="minValue">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="max" class="mrg-0">Max</label>
+                            <input class="form-control form-control-sm" id="max" type="text"  [(ngModel)]="maxValue">
+                        </div>
+                    </div>
+                </mat-card>
+
+                <mat-card class="col-md-12 mrg-top-20" style="width: 200px;">
+                    <p class="title-filter">Puntaje</p>
+                    <div><mat-checkbox>5</mat-checkbox></div>
+                    <div><mat-checkbox>4</mat-checkbox></div>
+                    <div><mat-checkbox>3</mat-checkbox></div>
+                    <div><mat-checkbox>2</mat-checkbox></div>
+                    <div><mat-checkbox>1</mat-checkbox></div>
+                </mat-card>
+            </div>
+
+            <div class="d-block mrg-top-20">
+                <div class="row w-100" style="margin-left: 10px !important;">
+                    <div class="col-md-12">
+                        <img src="assets/img/productos/baner_productos.png" class="w-100 border-rad-mild" alt=""
+                            srcset="">
+                    </div>
+                </div>
+                <div class="row w-100 mrg-top-20" style="margin-left: 10px !important;">
+                    <div class="col-md-12">
+                        <div class="d-flex prod-pagination w-100">
+                            <div class="d-flex align-items-center mrg-right-10">
+                                <label for="order" class="label-select w-auto">Ordenar Por</label>
+                                <select class="form-control form-control-sm w-auto" id="order">
+                                    <option>De mayor a menor precio</option>
+                                </select>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <label for="page" class="label-select w-auto">Productos por página</label>
+                                <select [ngModel]="5" (ngModelChange)="changePaginate($event)" class="form-control form-control-sm w-auto" id="page">
+                                    <option [value]="5">5</option>
+                                    <option [value]="10">10</option>
+                                    <option [value]="15">15</option>
+                                    <option [value]="20">20</option>
+                                    <option [value]="25">25</option>
+                                </select>
+                            </div>
+                            <div class="d-flex ml-auto align-items-center">
+                                <p class="label-select">Vistas:</p>
+                                <button mat-icon-button aria-label="">
+                                    <mat-icon>border_all</mat-icon>
+                                </button>
+                                <button mat-icon-button aria-label="">
+                                    <mat-icon>crop_din</mat-icon>
+                                </button>
+                                <button mat-icon-button aria-label="">
+                                    <mat-icon>format_list_bulleted</mat-icon>
+                                </button>
+                                <nav aria-label="...">
+                                    <ul class="pagination pagination-sm">
+                                        <li class="page-item mrg-right-5">
+                                            <a class="text-pink" (click)="changePage(null, true)">
+                                                <mat-icon class="center-icon">chevron_left</mat-icon>
+                                            </a>
+                                        </li>
+                                        <!-- <li class="page-item active" aria-current="page">
+                                            <span class="page-link">1<span class="sr-only">(current)</span></span>
+                                        </li> -->
+                                        <li *ngFor="let item of [].constructor(pages); let i = index"[class]="(i+1 ==page_number) ? 'page-item active' : 'page-item'">
+                                            <a class="page-link text-gray" (click)="changePage(i+1)">{{i + 1}}</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="text-pink" (click)="changePage(null, false, true)">
+                                                <mat-icon class="center-icon">chevron_right</mat-icon>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mrg-top-20 w-100" style="margin-left: 10px !important;">
+                    <div class="col-md-4 mrg-botn-20" *ngFor="let item of productos | paginate:page_size:page_number">
+                        <app-item-producto [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
+                        [title]="item.name" [price]="item.price" [showButtons]="true">
+                        </app-item-producto>
+                    </div>
+                </div>
+                <div class="row mrg-top-10 mrg-botn-20 w-100" style="margin-left: 10px !important;">
+                    <div class="d-flex ml-auto">
+                        <nav aria-label="...">
+                            <ul class="pagination pagination-sm">
+                                <li class="page-item mrg-right-5">
+                                    <a class="text-pink" (click)="changePage(null, true)">
+                                        <mat-icon class="center-icon">chevron_left</mat-icon>
+                                    </a>
+                                </li>
+                                <!-- <li class="page-item active" aria-current="page">
+                                    <span class="page-link">1<span class="sr-only">(current)</span></span>
+                                </li> -->
+                                <li *ngFor="let item of [].constructor(pages); let i = index"[class]="(i+1 ==page_number) ? 'page-item active' : 'page-item'">
+                                    <a class="page-link text-gray" (click)="changePage(i+1)">{{i + 1}}</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="text-pink" (click)="changePage(null, false, true)">
+                                        <mat-icon class="center-icon">chevron_right</mat-icon>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

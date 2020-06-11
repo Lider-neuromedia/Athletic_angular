@@ -2,17 +2,24 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
 import { SendHttpData } from '../app/tools/SendHttpData';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
 import { OwlModule } from 'ngx-owl-carousel';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HeaderComponent } from './header/header.component';
-import { ContentComponent } from './content/content.component';
-import { ItemProductoComponent } from './item-producto/item-producto.component';
-import { FooterComponent } from './footer/footer.component';
+import { Ng5SliderModule } from 'ng5-slider';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
+// Components
+import { HeaderComponent } from './header/header.component';
+import { AppComponent } from './app.component';
+import { ContentComponent } from './content/content.component';
+import { FooterComponent } from './footer/footer.component';
+import { ItemProductoComponent } from './item-producto/item-producto.component';
+import { ProductosComponent } from './productos/productos.component';
+import { AppRoutingModule } from './app-routing.module';
+import { PaginatePipe } from './pipes/paginate.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +27,9 @@ import { FooterComponent } from './footer/footer.component';
     HeaderComponent,
     ContentComponent,
     ItemProductoComponent,
-    FooterComponent
+    FooterComponent,
+    ProductosComponent,
+    PaginatePipe
   ],
   imports: [
     BrowserModule,
@@ -28,7 +37,11 @@ import { FooterComponent } from './footer/footer.component';
     BrowserAnimationsModule, 
     MaterialModule,
     OwlModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    Ng5SliderModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [SendHttpData],
   bootstrap: [AppComponent]

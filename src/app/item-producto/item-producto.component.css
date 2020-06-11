@@ -2,9 +2,13 @@
 .item-product{
     position: relative;
     background: #ffffff;
-    width: 250px;
+    width: 100%;
     border-radius: 10px;
   }
+
+.item-shadow{
+  box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
+}
   
   .content-img{
     /* height: 250px; */
@@ -126,3 +130,21 @@
   background: #ff596a;
   color: #ffffffff;
 }
+
+
+.btn-bolsa {
+  border-radius: 20px;
+  font-size: 12px !important;
+}
+
+.btn-vista{
+  border-radius: 20px;
+  border: 1px solid #ff596a;
+  font-size: 12px !important;
+}
+
+.icon-small{
+  transform: scale(0.7);
+}
+
+.cont-btn-prod{ display: none;}

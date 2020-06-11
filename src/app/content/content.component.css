@@ -74,7 +74,7 @@
 /* Botones categorias */
 
 .btn-home-cate-act {
-  width: 100%;
+  width: 200px;
   height: 100px;
   padding-left: 20px;
   padding-right: 20px;
@@ -110,7 +110,7 @@
 
 .btn-home-cate{
   cursor: pointer;
-  width: 100%;
+  width: 200px;
   height: 100px;
   padding-left: 20px;
   padding-right: 20px;

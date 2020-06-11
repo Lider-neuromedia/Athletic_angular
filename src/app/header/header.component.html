@@ -1,6 +1,6 @@
-<mat-toolbar color="accent">
-  <mat-toolbar-row class="toolbar-small" *ngIf="!deviceXs">
-    <div fxLayout="row wrap" class="w-100 container" fxLayoutAlign="space-evenly center">
+<mat-toolbar color="accent" class="sticky">
+  <mat-toolbar-row class="toolbar-small d-none d-md-block">
+    <div class="container" fxLayoutAlign="space-evenly center">
       <span class="spacer"></span>
       <mat-icon class="icon-small text-gray" aria-hidden="false">local_phone</mat-icon>
       <span class="text-gray">3154559876/3154559876</span>
@@ -16,43 +16,44 @@
     </div>
   </mat-toolbar-row>
   
-  <mat-toolbar-row fxLayoutAlign="space-between center" class="container w-auto">
-    <div fxLayout="row">
-      <button class="line-height-ini" mat-button>
+  <mat-toolbar-row class="w-auto">
+    <div class="container">
+      <div class="d-flex flex-md-row">
+        <button class="line-height-ini" [matMenuTriggerFor]="menu" mat-button>
           <img src="assets/img/icons/menu.png" class="mrg-top-5">
           <p class="text-menu">Categorias</p> 
-      </button>
-      <button *ngIf="!deviceXs" class="line-height-ini" mat-button>
-        <img src="assets/img/logo_fondo_negro.png">
-      </button>
+        </button>
+        <button class="line-height-ini d-none d-sm-flex" (click)="router.navigate(['/']);" mat-button>
+          <img src="assets/img/logo_fondo_negro.png">
+        </button>
+        <button class="line-height-ini ml-md-auto d-flex d-sm-none" mat-button>
+          <img src="assets/img/logo_fondo_negro.png">
+        </button>
+        
+        <!-- Position end -->
+        <div class="flex-row ml-md-auto d-none d-sm-flex">
+          <button class="line-height-ini" mat-button fxLayoutAlign="end">
+            <img src="assets/img/icons/load-carriage.png" class="mrg-top-5">
+              <p class="text-menu">Pedidos</p> 
+          </button>
+          <button class="line-height-ini" mat-button fxLayoutAlign="end">
+            <mat-icon aria-hidden="false" aria-label="Icon">favorite_outline</mat-icon>
+              <p class="text-menu">Mis favoritos</p> 
+          </button>
+          <button class="line-height-ini" mat-button fxLayoutAlign="end">
+            <mat-icon aria-hidden="false" aria-label="Icon">person_outline</mat-icon>
+            <p class="text-menu">Mi cuenta</p>
+          </button>
+          <button class="line-height-ini" (click)="toggleOpenBolsa()" mat-button fxLayoutAlign="end">
+            <img src="assets/img/icons/bolsa_inactive.png">
+              <p class="text-menu">Bolsa</p> 
+          </button>
+        </div>
+      </div>
     </div>
-    <div *ngIf="deviceXs">
-      <button class="line-height-ini" mat-button fxLayoutAlign="end">
-        <img src="assets/img/logo_fondo_negro.png">
-      </button>
-    </div>
-    <div *ngIf="!deviceXs" fxLayout="row">
-      <button class="line-height-ini" mat-button fxLayoutAlign="end">
-        <img src="assets/img/icons/load-carriage.png" class="mrg-top-5">
-          <p class="text-menu">Pedidos</p> 
-      </button>
-      <button class="line-height-ini" mat-button fxLayoutAlign="end">
-        <mat-icon aria-hidden="false" aria-label="Icon">favorite_outline</mat-icon>
-          <p class="text-menu">Mis favoritos</p> 
-      </button>
-      <button class="line-height-ini" mat-button fxLayoutAlign="end">
-        <mat-icon aria-hidden="false" aria-label="Icon">person_outline</mat-icon>
-        <p class="text-menu">Mi cuenta</p>
-      </button>
-      <button class="line-height-ini" (click)="toggleOpenBolsa()" mat-button fxLayoutAlign="end">
-        <img src="assets/img/icons/bolsa_inactive.png">
-          <p class="text-menu">Bolsa</p> 
-      </button>
-    </div>
-    
   </mat-toolbar-row>
   
-  <mat-toolbar-row *ngIf="deviceXs" fxLayoutAlign="space-between end">
+  <mat-toolbar-row class="d-flex justify-content-center d-sm-none">
     <button class="line-height-ini" mat-button>
       <img src="assets/img/icons/load-carriage.png" class="mrg-top-5">
         <p class="text-menu">Pedidos</p> 
@@ -71,3 +72,74 @@
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
+
+<!-- Menu -->
+<mat-menu class="menu-categories" #menu="matMenu">
+  <div fxLayout="row"  (click)="$event.stopPropagation();">
+    <div fxLayout="column" class="mrg-top-10 cont-categ" fxLayoutAlign="left">
+      <!-- Ciclo - Categorias -->
+      <div *ngFor="let item of categorias_prin">
+        <p [ngClass]=" item.id == categoria_select ? 'list-categ list-act' : 'list-categ'" > 
+          <a href="#" (click)="changeSubCategoria(item.id)">{{item.name}}</a>
+          <mat-icon aria-hidden="false" class="icon-list-cat" aria-label="Icon">keyboard_arrow_right</mat-icon>
+        </p>
+      </div>
+
+      <div>
+        <p class="list-categ"> <a href="#">Marcas</a></p>
+      </div>
+      <div>
+        <p class="list-categ"> <a href="#">Promociones</a></p>
+      </div>
+    </div>
+    <div fxLayout="row wrap" class="mrg-top-10" fxLayoutAlign="space-evenly left">
+
+      <div *ngFor="let element of sub_categorias">
+        <div class="content-sb-categ">
+          <p class="title-categ">{{element.hijo.name}}</p>
+          <ul class="list-sb-categ">
+            <li class="item-categ" *ngFor="let item of element.nietos"> 
+              <a routerLink="/productos" routerLinkActive="active"> {{item.name}} </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul class="list-sb-categ">
+            <li class="item-categ"> <a href=""> Ver todo</a></li>
+            <li class="item-categ"> <a href=""> Novedades</a></li>
+            <li class="item-categ"> <a href=""> Promociones</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Marca. -->
+      <div>
+        <div class="content-sb-categ">
+          <p class="title-categ">Marcas</p>
+          <ul class="list-sb-categ">
+            <li class="item-categ"> <a href=""> Offcorss</a></li>
+            <li class="item-categ"> <a href=""> Los Gomosos</a></li>
+            <li class="item-categ"> <a href=""> Bubble Gummers</a></li>
+          </ul>
+        </div>
+        <div>
+          <ul class="list-sb-categ">
+            <li class="item-categ"> <a href=""> Ver todo</a></li>
+            <li class="item-categ"> <a href=""> Novedades</a></li>
+            <li class="item-categ"> <a href=""> Promociones</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="mrg-top-10" fxLayout="row wrap">
+      <div class="h-100 w-50">
+        <img src="assets/img/header/menu_1.png" class="w-100" alt="">
+      </div>
+      <div class="h-100 w-50" fxLayout="column">
+        <img src="assets/img/header/menu_2.png" class="w-90" alt="">
+        <img src="assets/img/header/menu_3.png" class="w-90" alt="">
+      </div>
+    </div>
+  </div>
+</mat-menu>
+<!-- Espaciado para que el contenido no quede debajo del fixed -->
+<div style="margin-top: 96px;"></div>

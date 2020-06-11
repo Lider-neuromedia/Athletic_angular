@@ -23,7 +23,7 @@
     margin-bottom: 10px;
   }
   
-  .border-right:before{
+  .brd-right:before{
     content: "";
     position: absolute;
     right: 0;
@@ -36,7 +36,7 @@
   
   .txt-derchos{
     color: #5D5C5D;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 400;
     letter-spacing: 0.78px;
     line-height: 16.34px;
@@ -46,7 +46,7 @@
   
   .txt-neuro{
   color: #5D5C5D;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.78px;
   line-height: 16.34px;

@@ -1,10 +1,10 @@
-<footer class="color-gray">
-    <div class="container mrg-top-20">
-      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center">
-        <div>
-          <p class="text-pink mrg-0 font-sz-20 bold">Suscríbette a nuestro Newsletter</p>
+<footer class="color-gray2">
+    <div class="container">
+      <div class="row  mrg-botn-20">
+        <div class="col-md-3 mrg-top-10 d-flex justify-content-center align-items-center">
+          <p class="text-pink mrg-0 font-sz-20 bold" style="  letter-spacing: 0.72px;">SUSCRÍBETE A NUESTRO NEWSLETTER</p>
         </div>
-        <div class="padg-lat-10 mrg-top-20 mrg-botn-20 w-100-xs">
+        <div class="col-md-6 mrg-top-10">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Correo electrónico</mat-label>
             <input matInput placeholder="Correo electrónico">
@@ -12,7 +12,9 @@
           <mat-checkbox  color="primary">Declaro que he leído y acepto la nueva <span class="text-pink">Política de
               Privacidad y  <br> los Términos y Condiciones</span> de Linio.</mat-checkbox>
         </div>
-        <div>
+        <!-- <div class="padg-lat-10 mrg-top-20 mrg-botn-20 w-100-xs">
+        </div> -->
+        <div class="col-md-3 mrg-top-10 d-flex justify-content-center align-items-center">
           <button mat-raised-button color="primary" class="mrg-right-5">Suscríbete</button>
           <button mat-raised-button color="primary" class="mrg-left-5">Promociones</button>
         </div>
@@ -21,8 +23,9 @@
       <!--  -->
       <mat-divider style=" margin-left: 20%; margin-right: 20%;"></mat-divider>
 
-      <div fxLayout="row wrap" class="mrg-top-20" fxLayout.xs="column" fxLayoutAlign="space-evenly">
-          <div class="w-15 h-100 w-100-xs txt-center-xs">
+      <div class="row mrg-top-20">
+        <div class="col-md-8 col-xs-12 row mrg-top-20">
+          <div class="col-md-3 col-xs-12 txt-center-xs">
             <p class="title-footer">Información Legal</p>
             <ul class="list-footer">
               <li class="item-footer">Legales del día</li>
@@ -37,7 +40,7 @@
             </ul>
           </div>
 
-          <div class="w-15 h-100 w-100-xs txt-center-xs">
+          <div class="col-md-3 col-xs-12 w-100-xs txt-center-xs">
             <p class="title-footer">SERVICIO AL CLIENTE</p>
             <ul class="list-footer">
               <li class="item-footer">Preguntas Frecuentes</li>
@@ -54,7 +57,7 @@
             </ul>
           </div> 
 
-          <div class="w-15 h-100 w-100-xs txt-center-xs">
+          <div class="col-md-3 col-xs-12 w-100-xs txt-center-xs">
             <p class="title-footer">MAS SOBRE NOSOTROS</p>
             <ul class="list-footer">
               <li class="item-footer">¿Quiénes Somos?</li>
@@ -70,7 +73,7 @@
             </ul>
           </div>
 
-          <div class="w-15 h-100  w-100-xs txt-center-xs border-right">
+          <div class="col-md-3 col-xs-12  w-100-xs txt-center-xs brd-right">
             <p class="title-footer">SERVICIOS</p>
             <ul class="list-footer">
               <li class="item-footer">Ventas Corporativas</li>
@@ -80,36 +83,35 @@
               <li class="item-footer">Compra y recoge</li>
             </ul>
           </div>
+        </div>
 
-          <div class="w-30 h-100 w-100-xs txt-center-xs">
+        <div class="col-md-4 col-xs-12 d-flex mrg-top-20">
+          <div class="w-100-xs txt-center-xs">
             <p class="title-footer txt-center">SIGUENOS</p>
             <div class="w-100 txt-center mrg-top-20">
               <img src="assets/img/icons/facebook.png" alt="">
               <img src="assets/img/icons/insta.png" class="mrg-left-10 mrg-right-10" alt="">
               <img src="assets/img/icons/youtube.png" alt="">
             </div>
-            <div class="w-100 txt-center mrg-top-20">
+            <div class="w-100 txt-center mrg-top-20 mrg-botn-20">
               <img src="assets/img/icons/appstore.png" width="40%" alt="">
               <img src="assets/img/icons/playstore.png" width="40%" class="mrg-left-10" alt="">
             </div>
           </div>
+        </div>
       </div>
     </div>
 
     <div class="copy">
-      <div class="container" fxLayout="row wrap" fxLayout.xs="row wrap" fxLayoutAlign="space-evenly">
-          <div class="w-50">
-            <div class="w-100">
-              <p class="txt-derchos">Todos los derechos reservados @ ATLHETIC 2020 | ATHLETIC S.A.S. | NIT:
-                900.005.001</p>
-            </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="txt-derchos txt-center-xs">Todos los derechos reservados @ ATLHETIC 2020 | ATHLETIC S.A.S. | NIT: 900.005.001</p>
           </div>
-          <div class="w-50">
-            <div class="w-100">
-              <p class="txt-neuro">DISEÑADO Y DESARROLLADO POR <span class="bold">NEUROMEDIA DIGITAL AGENCY</span>
-              </p>
-            </div>
+          <div class="col-md-6">
+            <p class="txt-neuro txt-center-xs">DISEÑADO Y DESARROLLADO POR <span class="bold">NEUROMEDIA DIGITAL AGENCY</span>
           </div>
+        </div>          
       </div>
     </div>
   </footer>

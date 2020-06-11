@@ -1,29 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class SendHttpData {
-  private baseUrl = 'http://localhost/athletic/backend/athletic/api/';
+  private baseUrl = 'http://pruebasneuro.co/N-1007/api/';
   // Key prestashop
-  private key = "RGXUNK82QHKWKQXNSR3YX11K59QECPX1";
+  private key = "JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
   // Url que define el output para recibir en formato JSON y no XML.
-  private url_Addons = "output_format=JSON&display=full";
+  private full = "display=full";
 
   constructor(private _http: HttpClient) { }
 
-  private buildUrl(type:string, addons = true){
-    if (addons) {
-      return this.baseUrl + "/" + type + "?ws_key=" + this.key + "&" + this.url_Addons;
-    }else{
-      return this.baseUrl + "/" + type + "?ws_key=" + this.key;
+  private buildUrl(type:string, filter = null, full = true){
+    var url = this.baseUrl + "/" + type + "?ws_key=" + this.key;
+    if (full) {
+      url = url + "&" + this.full;
     }
-    
+    if (filter != null) {
+      url = url + "&" + filter;
+    }
+    return url;
   }
 
   // Peticion Http GET
-  httpGet(route:string):Observable<any>{
-    var url = this.buildUrl(route);
+  httpGet(route:string, filter:string = null):Observable<any>{
+    var url = this.buildUrl(route, filter);
     return this._http.get(url);
   }
 
@@ -37,6 +40,11 @@ export class SendHttpData {
   httpPut(route:string, data:any):Observable<any>{
     var url = this.buildUrl(route, false);
     return this._http.put(url, data);
+  }
+
+  // Imagenes de productos.
+  getImageProduct(id_prod, id_image){
+    return "http://pruebasneuro.co/N-1007/api/images/products/" + id_prod + "/" + id_image +"?ws_key=JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
   }
 
 }

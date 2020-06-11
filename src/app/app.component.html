@@ -1,8 +1,9 @@
 <mat-sidenav-container class="white">
     <!-- Header -->
-    <app-header [deviceXs]="deviceXs" (openBolsa)="openBolsa($event)"></app-header>
+    <app-header (openBolsa)="openBolsa($event)"></app-header>
     <!-- Home -->
-    <app-content [deviceXs]="deviceXs"></app-content>
+    <router-outlet></router-outlet>
+    <!-- <app-content [deviceXs]="deviceXs"></app-content> -->
     <!-- Footer -->
       <app-footer></app-footer>
 
