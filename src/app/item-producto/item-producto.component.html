@@ -14,7 +14,22 @@
             </div>
         </div>
     </div>
-    <div class="row mrg-top-10 cont-btn-prod">
+
+    <div class="cont-btn-prod  w-100 justify-content-between mrg-top-10" *ngIf="small">
+        <div class="w-60">
+            <button mat-raised-button class="btn-bolsa-small" color="primary">
+                <mat-icon class="icon-small">work</mat-icon>Añadir a la bolsa
+            </button>
+        </div>
+        <div class="w-40">
+            <button mat-stroked-button class="btn-vista-small" color="primary">
+                <mat-icon class="icon-small">visibility</mat-icon>Vista rápida
+            </button>
+        </div>
+        
+    </div>
+
+    <div class="row mrg-top-10 cont-btn-prod" *ngIf="!small">
         <div class="col-md-6">
             <button mat-raised-button class="btn-bolsa" color="primary">
                 <mat-icon class="icon-small">work</mat-icon>Añadir a la bolsa

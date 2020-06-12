@@ -84,3 +84,163 @@ a:hover{
 .page-item{
     cursor: pointer;
 }
+
+.view-inactive{
+    color: #979797;
+}
+
+.view-active{
+    color: #ff596a;
+}
+.btn-filter{
+    border-radius: 20px;
+    transform: scale(0.9);
+    border: 1px solid #ff596a;
+}
+
+.card-filter{
+    width: 200px; 
+    border-radius: 10px;
+}
+
+
+/* full vista */
+.item-product{
+  position: relative;
+  background: #ffffff;
+  width: 100%;
+  border-radius: 10px;
+}
+.content-img{
+  /* height: 250px; */
+  margin: 5px;
+}
+
+.content-img img{
+  width: 100%;
+  height: 100%;
+}
+
+.img-nuevo{
+  width: auto !important;   
+  height: auto !important;   
+  position: absolute;
+  top: 0;
+  left: -12px;
+}
+
+.subtitle-prod-full{
+    font-size: 16px;
+    color: #BBBBBB;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    font-weight: 700;
+    letter-spacing: 0.03px;
+  }
+  
+  .title-prod-full{
+    font-size: 24px;
+    color: #353435;
+    margin-left: 10px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    height: 35px;
+  }
+  
+  .cont-price-prod-full{
+    height: auto;
+    line-height: initial;
+    /* position: absolute;
+    bottom: 20px; */
+  }
+  
+  .price-prod-full{
+    font-size: 27px;
+    color: #ff596a;
+    margin-left: 10px;
+    letter-spacing: 0.05px;
+    font-weight: 700;
+    margin-bottom: 0px;
+  }
+  
+  .price-prod-desc-full{
+    font-size: 21px;
+    color: #979797;
+    margin-left: 10px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    letter-spacing: 0.04px;
+  }
+  
+  .btn-select{
+    border-radius: 25px;
+    height: 45px !important;
+    font-size: 12px !important;
+    position: relative;
+    overflow: hidden;
+    background: none;
+    -webkit-appearance: none;
+  }
+  
+  .cantidad{
+    width: 100%;
+    border-radius: 25px;
+    border: 1px solid #BBBBBB;
+  }
+  
+  .input-cant::-webkit-inner-spin-button,
+  .input-cant::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .input-cant {
+    position: absolute;
+    right: 40px;
+    top: 10px;
+    width: 27px;
+    height: 20px;
+    padding: 0px;
+    font-size: 12px;
+    border: solid 0.5px #ccc;
+    border-radius: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+  .input-cant:focus{
+    outline: none;
+  }
+  .spinner-button {
+    position: absolute;
+    margin: 0px;
+    transform: scale(0.3);
+    font-size: 50px;
+  }
+  
+  #inc-button {
+    right: 0;
+    top: -8px;
+  }
+  
+  #dec-button {
+    left: 80px;
+    top: -8px;
+  }
+  
+  .lbl-cant{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  
+  .btn-full-view{
+    width: 100%;
+    height: 45px;
+    border-radius: 25px;
+    border: 1px solid #ff596a;
+  }
+  
+  .dbl-fila-filter .col-md-6:nth-child(even){
+    padding-left: 5px !important;
+  }

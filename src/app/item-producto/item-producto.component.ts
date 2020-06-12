@@ -18,7 +18,7 @@ export class ItemProductoComponent implements OnInit {
   @Input() price_ant: string;
   @Input() small: boolean;
   @Input() showButtons: boolean;
-
+  @Input() full_view: boolean;
 
   ngOnInit(): void {
     if (this.showButtons) {
@@ -36,5 +36,5 @@ export class ItemProductoComponent implements OnInit {
       $(this).children('.item-product').removeClass('item-shadow');
     });
   }
-  
+
 }

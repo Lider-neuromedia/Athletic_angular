@@ -26,6 +26,8 @@ export class ProductosComponent implements OnInit {
   categorias_prin = [];
   filtros = null;
   filtros_check = [];
+  view_active = 2;
+  cantidad = 1;
 
   constructor(private http: SendHttpData) { }
 
@@ -36,6 +38,10 @@ export class ProductosComponent implements OnInit {
     this.getFiltersValue();
   }
 
+  // Cambio de vistas
+  changeView(view){
+    this.view_active = view;
+  }
   // Obtener tarjeta de filtros.
   getFiltersValue() {
     this.http.httpGet('product_options').subscribe(
@@ -194,6 +200,15 @@ export class ProductosComponent implements OnInit {
     this.concatFiltersProducts(filter, 'price', true);
   }
 
+  orderPrice(val) {
+    if (val.target.value != '') {
+      var filter = "price_" + val.target.value;
+      this.concatFiltersProducts(filter, 'price', false);
+    }else{
+      this.concatFiltersProducts(null, 'price', false);
+    }
+  }
+
 
   concatFiltersProducts(string_concat, attr_filter, price = false) {
     var send_filter = null;
@@ -205,14 +220,22 @@ export class ProductosComponent implements OnInit {
     Object.keys(this.filter_products).filter((key, index) => {
       console.log(this.filter_products, key, index);
       if (index == 0) {
-        send_filter = "filter[" + key + "]=" + "[" + this.filter_products[key] + "]";
-        if (price) {
-          send_filter = string_concat;
+        if (this.filter_products[key] == "price_ASC" || this.filter_products[key] == "price_DESC") {
+          send_filter = "sort=" + "[" + this.filter_products[key] + "]";
+        }else{
+          send_filter = "filter[" + key + "]=" + "[" + this.filter_products[key] + "]";
+          if (price) {
+            send_filter = string_concat;
+          }
         }
       } else {
-        send_filter = send_filter + "&filter[" + key + "]=" + "[" + this.filter_products[key] + "]";
-        if (price) {
-          send_filter = "&" + string_concat;
+        if (this.filter_products[key] == "price_ASC" || this.filter_products[key] == "price_DESC") {
+          send_filter = "&sort=" + "[" + this.filter_products[key] + "]";
+        }else{
+          send_filter = send_filter + "&filter[" + key + "]=" + "[" + this.filter_products[key] + "]";
+          if (price) {
+            send_filter = "&" + string_concat;
+          }
         }
       }
     });
@@ -260,6 +283,10 @@ export class ProductosComponent implements OnInit {
     this.productos = productos_filt;
     this.page_number = 1;
     this.calcularPaginas();
+  }
+
+  changeCantidad(sum){
+    (sum) ? this.cantidad = this.cantidad + 1 : this.cantidad = this.cantidad - 1;
   }
 
   /* 

@@ -63,7 +63,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mrg-top-40{ margin-top: 40px; }
 .mrg-top-15-prc{ margin-top: 15%; }
 .mrg-botn-5{ margin-bottom: 5px; }
-.mrg-botn-10{ margin-bottom: 10px; }
+.mrg-botn-10{ margin-bottom: 10px !important; }
 .mrg-botn-15{ margin-bottom: 15px; }
 .mrg-botn-20{ margin-bottom: 20px; }
 .mrg-botn-30{ margin-bottom: 30px; }
@@ -77,7 +77,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mrg-left-20{ margin-left: 20px; }
 
 .mrg-right-5{ margin-right: 5px !important; }
-.mrg-right-10{ margin-right: 10px; }
+.mrg-right-10{ margin-right: 10px !important; }
 .mrg-right-15{ margin-right: 15px; }
 .mrg-right-20{ margin-right: 20px; }
 

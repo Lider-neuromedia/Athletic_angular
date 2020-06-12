@@ -3,9 +3,9 @@
         <div class="d-flex">
             <div class="d-none d-md-block mrg-top-20">
                 
-                <mat-card style="width: 200px;" *ngFor="let item of filtros; let i of index" class="col-md-12 mrg-botn-20">
+                <mat-card *ngFor="let item of filtros; let i of index" class="card-filter col-md-12 mrg-botn-20">
                     <p class="title-filter">{{item.name}}</p>
-                    <div class="row">
+                    <div class="row dbl-fila-filter">
                         <div class="col-md-6" *ngFor="let value of item.valores" style="padding-right: 3px;">
                             <mat-checkbox (change)="changeFilter($event, value.id)" class="check-filter">{{value.name}}</mat-checkbox>
                         </div>
@@ -36,10 +36,10 @@
                     </div>
                 </mat-card> -->
 
-                <mat-card class="col-md-12 mrg-top-20" style="width: 200px;">
+                <mat-card class="col-md-12 mrg-top-20 card-filter">
                     <p class="title-filter">Marca</p>
-                    <div class="row">
-                        <div class="col-md-6" *ngFor="let marca of marcas" style="padding-right: 3px;">
+                    <div class="row dbl-fila-filter">
+                        <div class="col-md-6" *ngFor="let marca of marcas;" style="padding-right: 3px;">
                             <mat-checkbox (change)="changeMarca($event, marca.id)" class="check-filter">{{marca.name}}</mat-checkbox>
                         </div>
                         <!-- <div class="col-md-6 d-block p-0">
@@ -48,14 +48,14 @@
                     </div>
                 </mat-card>
 
-                <mat-card class="col-md-12 mrg-top-20" style="width: 200px;">
+                <mat-card class="col-md-12 mrg-top-20 card-filter">
                     <p class="title-filter">Categoria</p>
                     <div *ngFor="let categoria of categorias_prin">
                         <mat-checkbox (change)="changeCategorie($event, categoria.id)" class="check-filter">{{categoria.name}}</mat-checkbox>
                     </div>
                 </mat-card>
 
-                <mat-card class="col-md-12 mrg-top-20 mrg-botn-40" style="width: 200px;">
+                <mat-card class="col-md-12 mrg-top-20 mrg-botn-40 card-filter">
                     <p class="title-filter">Precio</p>
                     <div class="row">
                         <div class="col-md-12">
@@ -72,17 +72,13 @@
                             <input class="form-control form-control-sm" id="max" type="text"  [(ngModel)]="maxValue">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 mrg-top-10">
-                            <button (click)="addPrice()" mat-raised-button color="primary">
-                                Filtrar
-                            </button>
-                        </div>
-                        <div class="col-md-6 mrg-top-10">
-                            <button (click)="this.concatFiltersProducts(null, 'price')" mat-raised-button color="primary">
-                                Borrar
-                            </button>
-                        </div>
+                    <div class="d-flex justify-content-center mrg-top-10">
+                        <button (click)="addPrice()" class="mrg-right-10 btn-filter" mat-raised-button color="primary">
+                            Filtrar
+                        </button>
+                        <button mat-stroked-button class="btn-filter" (click)="this.concatFiltersProducts(null, 'price')" color="primary">
+                            Borrar
+                        </button>
                     </div>
                 </mat-card>
 
@@ -108,8 +104,10 @@
                         <div class="d-flex prod-pagination w-100">
                             <div class="d-flex align-items-center mrg-right-10">
                                 <label for="order" class="label-select w-auto">Ordenar Por</label>
-                                <select class="form-control form-control-sm w-auto" id="order">
-                                    <option>De mayor a menor precio</option>
+                                <select (change)="orderPrice($event)" class="form-control form-control-sm w-auto" id="order">
+                                    <option value="" selected>Seleccione...</option>
+                                    <option value="ASC">De menor a mayor precio</option>
+                                    <option value="DESC">De mayor a menor precio</option>
                                 </select>
                             </div>
                             <div class="d-flex align-items-center">
@@ -124,13 +122,13 @@
                             </div>
                             <div class="d-flex ml-auto align-items-center">
                                 <p class="label-select">Vistas:</p>
-                                <button mat-icon-button aria-label="">
+                                <button (click)="changeView(1)" mat-icon-button [class]="(view_active == 1) ? 'view-active' : 'view-inactive'" aria-label="">
                                     <mat-icon>border_all</mat-icon>
                                 </button>
-                                <button mat-icon-button aria-label="">
+                                <button (click)="changeView(2)" mat-icon-button [class]="(view_active == 2) ? 'view-active' : 'view-inactive'" aria-label="">
                                     <mat-icon>crop_din</mat-icon>
                                 </button>
-                                <button mat-icon-button aria-label="">
+                                <button (click)="changeView(3)" mat-icon-button [class]="(view_active == 3) ? 'view-active' : 'view-inactive'" aria-label="">
                                     <mat-icon>format_list_bulleted</mat-icon>
                                 </button>
                                 <nav aria-label="...">
@@ -158,11 +156,67 @@
                     </div>
                 </div>
                 <div class="row mrg-top-20 w-100" style="margin-left: 10px !important;">
-                    <div class="col-md-4 mrg-botn-20" *ngFor="let item of productos | paginate:page_size:page_number">
-                        <app-item-producto [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
-                        [title]="item.name" [price]="item.price" [showButtons]="true">
-                        </app-item-producto>
-                    </div>
+                    <ng-container *ngIf="view_active == 1">
+                        <div class="col-md-3 mrg-botn-20" *ngFor="let item of productos | paginate:page_size:page_number">
+                            <app-item-producto [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
+                            [title]="item.name" [price]="item.price" [small]="true" [showButtons]="true">
+                            </app-item-producto>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="view_active == 2">
+                        <div class="col-md-4 mrg-botn-20" *ngFor="let item of productos | paginate:page_size:page_number">
+                            <app-item-producto [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
+                            [title]="item.name" [price]="item.price" [showButtons]="true">
+                            </app-item-producto>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="view_active == 3">
+                        <div class="col-md-12 mrg-botn-20" *ngFor="let item of productos | paginate:page_size:page_number">
+                            <div class="content-item-product">
+                                <div class="item-product d-flex">
+                                    <div class="content-img col-md-4">
+                                        <img [src]="item.image" alt="">
+                                        <img src="assets/img/home/nuevo.png" *ngIf="item.new" class="img-nuevo" alt="">
+                                        <!-- <div class="descuento" *ngIf="item.descuento">{{"-"+item.descuento+"%"}}</div> -->
+                                    </div>
+                                    <div class="content-product col-md-4 mrg-top-10">
+                                        <p class="subtitle-prod-full">{{item.marca}}</p>
+                                        <p class="title-prod-full">{{item.name}}</p>
+                                        <div class="cont-price-prod-full">
+                                            <p class="price-prod-full">{{item.price}}</p>
+                                            <!-- <p class="price-prod-desc-full" *ngIf="price_ant">{{price_ant}}</p> -->
+                                        </div>
+                                    </div>
+                                    <div class="content-product col-md-3 mrg-top-10">
+                                        <div>
+                                            <select class="form-control bold mrg-botn-10 btn-select" placeholder="Elige tu talla" id="talla">
+                                                <option selected value="">Elige tu talla</option>
+                                                <option value="1">39</option>
+                                                <option value="2">40</option>
+                                                <option value="3">41</option>
+                                            </select>
+                                            <div class="cantidad mrg-botn-10 btn-select">
+                                                <label for="input-cant" class="lbl-cant">Cantidad</label>
+                                                <input id="input-cant" class="mrg-botn-10 input-cant" [ngModel]="cantidad" type="number">
+                                                <button id="inc-button" (click)="changeCantidad(true)" mat-fab color="primary" class="spinner-button">
+                                                   +
+                                                </button>
+                                                <button id="dec-button" (click)="changeCantidad(false)" mat-fab color="primary" class="spinner-button">
+                                                    -
+                                                </button>
+                                            </div>
+                                            <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary">
+                                                <mat-icon class="icon-small">work</mat-icon>Añadir a la bolsa
+                                            </button>
+                                            <button mat-stroked-button class="btn-full-view" color="primary">
+                                                <mat-icon class="icon-small">favorite_border</mat-icon>Añadir a la bolsa
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
                 <div class="row mrg-top-10 mrg-botn-20 w-100" style="margin-left: 10px !important;">
                     <div class="d-flex ml-auto">
