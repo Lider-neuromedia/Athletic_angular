@@ -9,11 +9,11 @@ import { SendHttpData } from '../tools/SendHttpData';
 })
 export class ProductosComponent implements OnInit {
 
-  minValue: number = 50;
-  maxValue: number = 200;
+  minValue: number = 0;
+  maxValue: number = 300000;
   options: Options = {
     floor: 0,
-    ceil: 200
+    ceil: 500000
   };
   page_size: number = 5;
   page_number: number = 1;
@@ -24,6 +24,8 @@ export class ProductosComponent implements OnInit {
   filter_categorias = null;
   filter_products = [];
   categorias_prin = [];
+  filtros = null;
+  filtros_check = [];
 
   constructor(private http: SendHttpData) { }
 
@@ -31,29 +33,71 @@ export class ProductosComponent implements OnInit {
     this.getProducts();
     this.getMarcas();
     this.getCategories();
+    this.getFiltersValue();
+  }
+
+  // Obtener tarjeta de filtros.
+  getFiltersValue() {
+    this.http.httpGet('product_options').subscribe(
+      response => {
+        var data = response.product_options;
+        var filtros = [];
+        data.forEach(element => {
+          var search = "display=[id,id_attribute_group, name]&filter[id_attribute_group]=" + element.id;
+          var filter = {id : element.id, name: element.name[0]['value'], valores: null};
+          this.http.httpGet('product_option_values', search).subscribe(
+            response => {
+              var data = response.product_option_values;
+              var values = [];
+              data.forEach(element => {
+                var value = {
+                  id: element.id,
+                  name: element.name[0]['value']
+                };
+                values.push(value);
+              });
+      
+              filter.valores = values;
+              filtros.push(filter);
+            },
+            error => { console.log("error." + error); }
+          );
+        });
+        this.filtros = filtros;
+      },
+      error => { console.log("error." + error); }
+    );
   }
 
   // Productos  
   getProducts(filter = null) {
-
     this.http.httpGet('products', filter).subscribe(
       response => {
-        var data = response.products;
-        var products = [];
-        data.forEach((element) => {
-          var img = this.http.getImageProduct(element.id, element.id_default_image);
-          var product = {
-            id: element.id,
-            name: element.name[0]['value'],
-            marca: element.manufacturer_name,
-            image: img,
-            price: parseInt(element.price),
-            new: (element.condition == "new") ? true : false
-          };
-          products.push(product);
-        });
-        this.productos = products;
-        this.calcularPaginas();
+        if (response.products != undefined) {
+          var data = response.products;
+          var products = [];
+          data.forEach((element) => {
+            var img = this.http.getImageProduct(element.id, element.id_default_image);
+            var product = {
+              id: element.id,
+              name: element.name[0]['value'],
+              marca: element.manufacturer_name,
+              image: img,
+              price: parseInt(element.price),
+              new: (element.condition == "new") ? true : false,
+              product_asoc: element.associations.product_option_values 
+            };
+            products.push(product);
+          });
+          this.productos = products;
+          if (this.filtros_check.length >= 1) {
+            this.filterCombinations();
+          }
+          this.page_number = 1;
+          this.calcularPaginas();
+        }else{
+          this.productos = [];
+        }
       },
       error => { console.log("error." + error); }
     );
@@ -115,7 +159,6 @@ export class ProductosComponent implements OnInit {
           }
         });
         this.categorias_prin = categorias;
-        console.log(this.categorias_prin);
       },
       error => { console.log("error." + error); }
     );
@@ -145,26 +188,78 @@ export class ProductosComponent implements OnInit {
 
   }
 
-  concatFiltersProducts(string_concat, attr_filter) {
+  // Precio
+  addPrice() {
+    var filter = "filter[price]=>[" + this.minValue + "]&filter[price]=<[" + (this.maxValue+1) + "]";
+    this.concatFiltersProducts(filter, 'price', true);
+  }
+
+
+  concatFiltersProducts(string_concat, attr_filter, price = false) {
     var send_filter = null;
-    console.log(string_concat, attr_filter);
     if (string_concat == null) {
       delete this.filter_products[attr_filter];
-    }else{
+    } else {
       this.filter_products[attr_filter] = string_concat;
     }
-    
-    console.log(this.filter_products);
     Object.keys(this.filter_products).filter((key, index) => {
+      console.log(this.filter_products, key, index);
       if (index == 0) {
-          send_filter = "filter[" + key + "]=" + "[" + this.filter_products[key] + "]";
+        send_filter = "filter[" + key + "]=" + "[" + this.filter_products[key] + "]";
+        if (price) {
+          send_filter = string_concat;
+        }
       } else {
-          send_filter = send_filter + "&filter[" + key + "]=" + "[" + this.filter_products[key] + "]";
+        send_filter = send_filter + "&filter[" + key + "]=" + "[" + this.filter_products[key] + "]";
+        if (price) {
+          send_filter = "&" + string_concat;
+        }
       }
     });
     
     // console.log(send_filter);
     this.getProducts(send_filter);
+    this.filterCombinations();
+  }
+
+  // Filtros combinaciones
+  changeFilter($event, id){
+    if ($event.checked) {
+      this.filtros_check.push(id);
+      return this.filterCombinations();
+    }else{
+      for (let i = 0; i < this.filtros_check.length; i++) {
+        if (this.filtros_check[i] == id) {
+          this.filtros_check.splice(i, 1);
+        }
+      }
+      this.concatFiltersProducts(null, null);
+    }
+
+  }
+
+  filterCombinations(){
+    var productos_filt = [];
+    for (let i = 0; i < this.productos.length; i++) {
+      if(this.productos[i]['product_asoc'] != undefined){
+        var contador = 0;
+        
+        this.productos[i]['product_asoc'].forEach((item) =>{
+          for (let j = 0; j < this.filtros_check.length; j++) {
+            if (item.id == this.filtros_check[j]) {
+              contador++;
+            }
+          }
+        });
+
+        if (contador == this.filtros_check.length) {
+          productos_filt.push(this.productos[i]);
+        }
+      }
+    }
+    this.productos = productos_filt;
+    this.page_number = 1;
+    this.calcularPaginas();
   }
 
   /* 

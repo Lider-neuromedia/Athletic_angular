@@ -243,3 +243,11 @@ button.owl-prev:focus {
 .ng5-slider .ng5-slider-pointer:focus{
     outline: none !important;
 }
+
+.ng5-slider .ng5-slider-bubble{
+    display: none !important;
+}
+
+.ng5-slider{
+    margin: 20px 0 15px !important;
+}

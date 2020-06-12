@@ -1,17 +1,18 @@
-<!-- <div class="container container-center">
-    <div class="row">
-        <mat-card class="col-md-6">UNO</mat-card>
-        <mat-card class="col-md-6">DOS</mat-card>
-        <mat-card class="col-md-6">TRES</mat-card>
-        <mat-card class="col-md-6">CUATRO</mat-card>
-    </div>
-</div> -->
-
 <div class="color-gray">
     <div class="container">
         <div class="d-flex">
             <div class="d-none d-md-block mrg-top-20">
-                <mat-card class="col-md-12" style="width: 200px;">
+                
+                <mat-card style="width: 200px;" *ngFor="let item of filtros; let i of index" class="col-md-12 mrg-botn-20">
+                    <p class="title-filter">{{item.name}}</p>
+                    <div class="row">
+                        <div class="col-md-6" *ngFor="let value of item.valores" style="padding-right: 3px;">
+                            <mat-checkbox (change)="changeFilter($event, value.id)" class="check-filter">{{value.name}}</mat-checkbox>
+                        </div>
+                    </div>
+                </mat-card>
+
+                <!-- <mat-card class="col-md-12" style="width: 200px;">
                     <p class="title-filter">Talla</p>
                     <div class="row">
                         <div class="col-md-6">
@@ -33,7 +34,7 @@
                             </select>
                         </div>
                     </div>
-                </mat-card>
+                </mat-card> -->
 
                 <mat-card class="col-md-12 mrg-top-20" style="width: 200px;">
                     <p class="title-filter">Marca</p>
@@ -48,30 +49,13 @@
                 </mat-card>
 
                 <mat-card class="col-md-12 mrg-top-20" style="width: 200px;">
-                    <p class="title-filter">Color</p>
-                    <div class="row">
-                        <div class="col-md-6" style="padding-right: 3px;">
-                            <mat-checkbox class="check-filter">Rojo</mat-checkbox>
-                            <mat-checkbox class="check-filter">Verde</mat-checkbox>
-                            <mat-checkbox class="check-filter">Azul</mat-checkbox>
-                            <mat-checkbox class="check-filter">Negro</mat-checkbox>
-                        </div>
-                        <div class="col-md-6 d-block p-0">
-                            <mat-checkbox class="check-filter">Gris</mat-checkbox>
-                            <mat-checkbox class="check-filter">Rosado</mat-checkbox>
-                            <mat-checkbox class="check-filter">Blanco</mat-checkbox>
-                        </div>
-                    </div>
-                </mat-card>
-
-                <mat-card class="col-md-12 mrg-top-20" style="width: 200px;">
                     <p class="title-filter">Categoria</p>
                     <div *ngFor="let categoria of categorias_prin">
                         <mat-checkbox (change)="changeCategorie($event, categoria.id)" class="check-filter">{{categoria.name}}</mat-checkbox>
                     </div>
                 </mat-card>
 
-                <mat-card class="col-md-12 mrg-top-20" style="width: 200px;">
+                <mat-card class="col-md-12 mrg-top-20 mrg-botn-40" style="width: 200px;">
                     <p class="title-filter">Precio</p>
                     <div class="row">
                         <div class="col-md-12">
@@ -88,26 +72,38 @@
                             <input class="form-control form-control-sm" id="max" type="text"  [(ngModel)]="maxValue">
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6 mrg-top-10">
+                            <button (click)="addPrice()" mat-raised-button color="primary">
+                                Filtrar
+                            </button>
+                        </div>
+                        <div class="col-md-6 mrg-top-10">
+                            <button (click)="this.concatFiltersProducts(null, 'price')" mat-raised-button color="primary">
+                                Borrar
+                            </button>
+                        </div>
+                    </div>
                 </mat-card>
 
-                <mat-card class="col-md-12 mrg-top-20" style="width: 200px;">
+                <!-- <mat-card class="col-md-12 mrg-top-20" style="width: 200px;">
                     <p class="title-filter">Puntaje</p>
                     <div><mat-checkbox>5</mat-checkbox></div>
                     <div><mat-checkbox>4</mat-checkbox></div>
                     <div><mat-checkbox>3</mat-checkbox></div>
                     <div><mat-checkbox>2</mat-checkbox></div>
                     <div><mat-checkbox>1</mat-checkbox></div>
-                </mat-card>
+                </mat-card> -->
             </div>
 
             <div class="d-block mrg-top-20">
-                <div class="row w-100" style="margin-left: 10px !important;">
+                <div class="d-none d-md-block row w-100" style="margin-left: 10px !important;">
                     <div class="col-md-12">
                         <img src="assets/img/productos/baner_productos.png" class="w-100 border-rad-mild" alt=""
                             srcset="">
                     </div>
                 </div>
-                <div class="row w-100 mrg-top-20" style="margin-left: 10px !important;">
+                <div class="d-none d-md-block row w-100 mrg-top-20" style="margin-left: 10px !important;">
                     <div class="col-md-12">
                         <div class="d-flex prod-pagination w-100">
                             <div class="d-flex align-items-center mrg-right-10">
