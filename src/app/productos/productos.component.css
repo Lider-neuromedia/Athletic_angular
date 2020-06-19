@@ -244,3 +244,17 @@ a:hover{
   .dbl-fila-filter .col-md-6:nth-child(even){
     padding-left: 5px !important;
   }
+
+  .descuento{
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 40px;
+    padding: 10px 8px 10px 8px;
+    border-radius: 25px;
+    font-size: 11px;
+    display: flex;
+    justify-content: center;
+    background: #ff596a;
+    color: #ffffffff;
+  }

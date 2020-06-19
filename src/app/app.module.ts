@@ -10,6 +10,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { Ng5SliderModule } from 'ng5-slider';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxGalleryModule } from 'ngx-gallery-9';
 
 // Components
 import { HeaderComponent } from './header/header.component';
@@ -20,6 +21,10 @@ import { ItemProductoComponent } from './item-producto/item-producto.component';
 import { ProductosComponent } from './productos/productos.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PaginatePipe } from './pipes/paginate.pipe';
+import { DetalleProductoComponent } from './detalle-producto/detalle-producto.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { VistaPreviaComponent } from './vista-previa/vista-previa.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +34,10 @@ import { PaginatePipe } from './pipes/paginate.pipe';
     ItemProductoComponent,
     FooterComponent,
     ProductosComponent,
-    PaginatePipe
+    PaginatePipe,
+    DetalleProductoComponent,
+    VistaPreviaComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -41,9 +49,10 @@ import { PaginatePipe } from './pipes/paginate.pipe';
     Ng5SliderModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxGalleryModule
   ],
-  providers: [SendHttpData],
+  providers: [SendHttpData, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

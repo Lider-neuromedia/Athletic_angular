@@ -7,7 +7,7 @@
           </div>
           <div class="col-md-6 col-xs-12">
             <div class="d-flex justify-content-center">
-              <img src="assets/img/home/img-2.png" class="w-100-xs" width="469px" height="219px" alt="">
+              <img src="assets/img/home/img-2.jpg" class="w-100-xs" width="469px" height="219px" alt="">
             </div>
             <div class="mrg-top-5 d-flex justify-content-center">
               <img src="assets/img/home/img-3.png" class="w-100-xs" width="469px" height="219px" alt="">
@@ -68,8 +68,8 @@
           </div>
           <div class="row mrg-top-20">
             <div class="col-md-3  mrg-botn-20 col-xs-12 d-flex justify-content-center" *ngFor="let item of destacados_limt">
-              <app-item-producto [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
-              [title]="item.name" [price]="item.price">
+              <app-item-producto [id]="item.id" [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
+              [title]="item.name" [price]="item.price" [price_ant]="item.price_ant" [descuento]="item.descuento">
               </app-item-producto>
             </div>
           </div>
@@ -100,8 +100,8 @@
           </div>
           <div class="row mrg-top-20">
             <div class="col-md-3  mrg-botn-20 col-xs-12 d-flex justify-content-center" *ngFor="let item of destacados">
-              <app-item-producto [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
-              [title]="item.name" [price]="item.price" [small]="true">
+              <app-item-producto [id]="item.id" [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
+              [title]="item.name" [price]="item.price" [small]="true" [price_ant]="item.price_ant" [descuento]="item.descuento">
               <!-- descuento="30" price_ant="$280.000"  -->
               </app-item-producto>
             </div>
@@ -146,8 +146,8 @@
           
           <div class="row mrg-top-20">
             <div class="col-md-3  mrg-botn-20 col-xs-12 d-flex justify-content-center" *ngFor="let item of destacados">
-              <app-item-producto [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
-              [title]="item.name" [price]="item.price" [small]="true">
+              <app-item-producto [id]="item.id" [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
+              [title]="item.name" [price]="item.price" [small]="true" [price_ant]="item.price_ant" [descuento]="item.descuento">
               <!-- descuento="30" price_ant="$280.000"  -->
               </app-item-producto>
             </div>
@@ -228,9 +228,16 @@
 
         <!-- Contenido 11 -->
         <div class="container mrg-top-40 mrg-botn-40">
-          <owl-carousel [options]="SlideOptions" [carouselClasses]="['owl-theme']">
+          <owl-carousel [options]="SlideOptions" *ngIf="!deviceXs" [carouselClasses]="['owl-theme']">
             <div class="item" *ngFor="let image of CarouselImages;let i = index">
-              <div>
+              <div class="w-40 w-50-xs">
+                <img src={{image}} />
+              </div>
+            </div>
+          </owl-carousel>
+          <owl-carousel [options]="SlideOptionsXs" *ngIf="deviceXs" [carouselClasses]="['owl-theme']">
+            <div class="item" *ngFor="let image of CarouselImages;let i = index">
+              <div class="w-40 w-50-xs">
                 <img src={{image}} />
               </div>
             </div>

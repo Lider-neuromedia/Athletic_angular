@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as $ from 'jquery';
+import { Router } from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {VistaPreviaComponent} from '../vista-previa/vista-previa.component';
 
 @Component({
   selector: 'app-item-producto',
@@ -8,13 +11,15 @@ import * as $ from 'jquery';
 })
 export class ItemProductoComponent implements OnInit {
 
-  constructor() { }
+  constructor(public router:Router, public dialog: MatDialog) { }
+
+  @Input() id: boolean;
   @Input() subtitle: string;
   @Input() image: string;
   @Input() title: string;
   @Input() price: string;
   @Input() nuevo: boolean;
-  @Input() descuento: string;
+  @Input() descuento: any;
   @Input() price_ant: string;
   @Input() small: boolean;
   @Input() showButtons: boolean;
@@ -24,6 +29,13 @@ export class ItemProductoComponent implements OnInit {
     if (this.showButtons) {
       this.jQuery();
     }
+  }
+  
+  openVistaPrevia() {
+    const dialogRef = this.dialog.open(VistaPreviaComponent, {
+      width: '800px',
+      data: {id: this.id}
+    });
   }
 
   jQuery(){

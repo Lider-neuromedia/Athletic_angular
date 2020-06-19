@@ -1,0 +1,80 @@
+<mat-dialog-content class="dialog-lg">
+    <div class="d-flex">
+        <div class="col-md-8 content-images h-xs-300px">
+            <ngx-gallery class="w-100" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+        </div>
+        <div class="col-md-4 mrg-top-10">
+            <div class="content-strech mrg-botn-30">
+                <p class="prod-subtitle">{{producto.marca}}</p>
+                <p class="prod-title">{{producto.name}}</p>
+            </div>
+            <div class="content-strech mrg-botn-15">
+                <p class="title-ref">{{producto.category}}</p>
+                <p class="ref">Ref: {{producto.referencia}}</p>
+            </div>
+            <div class="content-strech mrg-botn-15">
+                <p class="price">{{producto.price |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                <p class="price-des" *ngIf="valor_ant != null">{{producto.precio_ant |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+            </div>
+
+            <div class="w-80">
+                <select class="form-control bold mrg-botn-10 btn-select" placeholder="Elige tu talla" id="talla">
+                    <option selected value="">Elige tu talla</option>
+                    <option *ngFor="let item of tallas;" value="{{item.id}}" >{{item.name}}</option>
+                </select>
+                <div class="cantidad mrg-botn-10 btn-select">
+                    <label for="input-cant" class="lbl-cant">Cantidad</label>
+                    <input id="input-cant" class="mrg-botn-10 input-cant"  [ngModel]="cantidad" type="number">
+                    <button id="inc-button" (click)="changeCantidad(true)" mat-fab color="primary" class="spinner-button">
+                        +
+                    </button>
+                    <button id="dec-button" (click)="changeCantidad(true)" mat-fab color="primary" class="spinner-button">
+                        -
+                    </button>
+                </div>
+                <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary">
+                    <mat-icon class="icon-small">work</mat-icon>Añadir a la bolsa
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="productos_relac.length > 0">
+        <div class="col-md-12">
+            <mat-divider class="divider-black mrg-top-40 mrg-botn-40"></mat-divider>
+            <div class="title mrg-top-40 mrg-botn-40 w-100 txt-center">
+                <p>Productos relacionados</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="gallery" class="carousel slide" data-ride="carousel" *ngIf="productos_relac.length > 0">
+        <div class="carousel-inner ">
+            <div *ngFor="let col of productos_relac; let i = index" [class]="(i == 0) ? 'carousel-item active' : 'carousel-item' ">
+                <div class="row justify-content-center mrg-botn-20">
+                    <div class="col-md-2 d-block justify-content-center"  *ngFor="let item of col">
+                        <div class="content-img" (click)="router.navigate(['/detalle-producto/' + item.id]);">
+                            <img src="{{item.img}}" class="border-rad-mild" alt="">
+                            <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
+                        </div>
+                        <p class="font-sz-9 text-dark bold" style="line-height: initial;">{{item.name}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <a class="carousel-control-prev" href="#gallery" role="button" data-slide="prev">
+            <mat-icon aria-hidden="false" class="icon-lg">navigate_before</mat-icon>
+        </a>
+    
+        <a class="carousel-control-next" href="#gallery" role="button" data-slide="next">
+            <mat-icon aria-hidden="false" class="icon-lg">navigate_next</mat-icon>
+        </a>
+    </div>
+    <!-- <button class="btn-icon-close" mat-mini-fab disabled>
+        <mat-icon>home</mat-icon>
+    </button>    -->
+</mat-dialog-content>
+<!-- <mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+</mat-dialog-actions> -->

@@ -1,16 +1,16 @@
 <div class="content-item-product">
-    <div [class]="(small) ? 'item-product item-small' : 'item-product'">
+    <div (click)="router.navigate(['/detalle-producto/' + id]);" [class]="(small) ? 'item-product item-small' : 'item-product'">
         <div [class]="(small) ? 'content-img cont-small' : 'content-img'">
             <img [src]="image" alt="">
             <img src="assets/img/home/nuevo.png" *ngIf="nuevo" class="img-nuevo" alt="">
-            <div class="descuento" *ngIf="descuento">{{"-"+descuento+"%"}}</div>
+            <div [class]="(small) ? 'descuento-small' : 'descuento'" *ngIf="descuento">{{"-"+descuento+"%"}}</div>
         </div>
         <div class="content-product">
             <p [class]="(small) ? 'subtitle-prod-small' : 'subtitle-prod'">{{subtitle}}</p>
             <p [class]="(small) ? 'title-prod-small' : 'title-prod'">{{title}}</p>
             <div [class]="(small) ? 'cont-price-prod-small' : 'cont-price-prod'">
-                <p class="price-prod">{{price}}</p>
-                <p class="price-prod-desc" *ngIf="price_ant">{{price_ant}}</p>
+                <p class="price-prod">{{price |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                <p class="price-prod-desc" *ngIf="price_ant">{{price_ant |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
             </div>
         </div>
     </div>
@@ -36,7 +36,7 @@
             </button>
         </div>
         <div class="col-md-6">
-            <button mat-stroked-button class="btn-vista" color="primary">
+            <button (click)="openVistaPrevia()" mat-stroked-button class="btn-vista" color="primary">
                 <mat-icon class="icon-small">visibility</mat-icon>Vista rápida
             </button>
         </div>

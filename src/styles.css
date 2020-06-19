@@ -38,7 +38,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .font-sz-12{ font-size: 12px !important; }
 .font-sz-20{ font-size: 20px !important; }
 .bold{ font-weight: 700 !important; }
-
+.font-w-500{   font-weight: 500 !important; }
 /* Flexbox */
 .flx{ display: flex; }
 .justify-center{ justify-content: center; }
@@ -48,26 +48,26 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .padg-0{ padding: 0 !important; }
 .padg-10{ padding: 10 !important; }
 .padg-lat-10{ padding-left: 10px !important;  padding-right: 10px !important; } 
-
+.p-top-50{ padding-top: 50px; }
 /* Margenes */
-.mrg-0{ margin: 0;}
+.mrg-0{ margin: 0 !important;}
 .mrg-10{ margin: 10px;}
 .mrg-15{ margin: 15px;}
-.mrg-20{ margin: 20px;}
+.mrg-20{ margin: 20px !important;}
 
 .mrg-top-5{ margin-top: 5px; }
 .mrg-top-10{ margin-top: 10px; }
-.mrg-top-15{ margin-top: 15px; }
-.mrg-top-20{ margin-top: 20px; }
+.mrg-top-15{ margin-top: 15px !important; }
+.mrg-top-20{ margin-top: 20px !important; }
 .mrg-top-30{ margin-top: 30px; }
-.mrg-top-40{ margin-top: 40px; }
+.mrg-top-40{ margin-top: 40px !important; }
 .mrg-top-15-prc{ margin-top: 15%; }
 .mrg-botn-5{ margin-bottom: 5px; }
 .mrg-botn-10{ margin-bottom: 10px !important; }
 .mrg-botn-15{ margin-bottom: 15px; }
-.mrg-botn-20{ margin-bottom: 20px; }
+.mrg-botn-20{ margin-bottom: 20px !important; }
 .mrg-botn-30{ margin-bottom: 30px; }
-.mrg-botn-40{ margin-bottom: 40px; }
+.mrg-botn-40{ margin-bottom: 40px !important; }
 
 .mrg-lat-50{ margin-left: 50px !important; margin-right: 50px !important; }
 
@@ -75,11 +75,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mrg-left-10{ margin-left: 10px; }
 .mrg-left-15{ margin-left: 15px; }
 .mrg-left-20{ margin-left: 20px; }
+.mrg-left-30{ margin-left: 30px; }
 
 .mrg-right-5{ margin-right: 5px !important; }
 .mrg-right-10{ margin-right: 10px !important; }
-.mrg-right-15{ margin-right: 15px; }
+.mrg-right-15{ margin-right: 15px ; }
 .mrg-right-20{ margin-right: 20px; }
+.mrg-right-30{ margin-right: 30px !important; }
 
 .line-height-ini{ line-height: initial !important; }
 /* End margenes */
@@ -102,6 +104,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 button:focus{ outline: none !important;}
 
+.divider-black{
+    border-top-width: 2px !important;
+    border-top-color: #969696 !important;
+}
+
 /* Medias */
 @media (max-width: 768px) {
 
@@ -111,6 +118,8 @@ button:focus{ outline: none !important;}
 
     .w-100-xs{ width: 100% !important;}
     .w-60-xs{ width: 60% !important;}
+    .w-50-xs{ width: 50% !important;}
+    .w-80-xs{ width: 80% !important;}
     .txt-center-xs{ text-align: center !important;}
 
     .btn-home-cate{
@@ -130,6 +139,8 @@ button:focus{ outline: none !important;}
         top: 79px !important;
         border-top: 14px solid #ff596a !important;
     }
+    .h-xs-300px{ height: 300px !important;}
+
 }
 @media (max-width: 992px) {
 
@@ -158,20 +169,9 @@ button:focus{ outline: none !important;}
         border-top: 14px solid #ff596a !important;
     }
 
-}
+    .h-xs-300px{ height: 300px !important;}
+    /* Carousel */
 
-/* Carousel */
-.owl-carousel .owl-nav button.owl-next{
-    font: initial !important;
-    background: transparent !important;
-    color: inherit !important;
-    position: absolute !important;
-    top: 0 !important;
-    right: 0 !important;
-    height: 100 !important;
-    width: 100px !important;
-    font-size: 80px !important;
-    text-align: right;
 }
 
 
@@ -180,17 +180,40 @@ STYLE CUSTOM.
 */
 
 /* Carousel */
+.owl-carousel .owl-nav button.owl-next{
+    font: initial !important;
+    background: transparent !important;
+    color: inherit !important;
+    position: absolute !important;
+    bottom: 30% !important;
+    right: 0 !important;
+    height: auto !important;
+    width: auto !important;
+    font-size: 60px !important;
+    text-align: right;
+}
+
+.owl-stage-outer{
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
 .owl-carousel .owl-nav button.owl-prev{
     font: initial !important;
     background: transparent !important;
     color: inherit !important;
     position: absolute !important;
-    top: 0 !important;
+    bottom: 30% !important;
     left: 0 !important;
-    height: 100 !important;
-    width: 100px !important;
-    font-size: 80px !important;
+    height: auto !important;
+    width: auto !important;
+    font-size: 60px !important;
     text-align: left;
+}
+
+.owl-carousel .owl-stage{
+    display: flex;
+    align-items: center;
 }
 
 button.owl-next:focus {
@@ -251,3 +274,76 @@ button.owl-prev:focus {
 .ng5-slider{
     margin: 20px 0 15px !important;
 }
+
+/* estilos galeria de imagenes */
+.ngx-gallery-layout.thumbnails-bottom > ngx-gallery-image{
+    z-index: 1 !important;
+}
+.ngx-gallery-icon{
+    color: #353435 !important;
+}
+.mat-tab-label .mat-tab-label-content {
+    font-weight: 700;
+    color: #000000;
+}
+
+
+.breadcrumb{
+    background-color: #f7f7f7 !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.breadcrumb-item{
+    font-size: 10px !important;
+}
+
+.breadcrumb-item a{
+    text-decoration: none !important;
+    color: #969696 !important;
+}
+
+.breadcrumb-item.active{
+    color: #FF596A !important;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick{
+    color: #f44336 !important;
+}
+
+.mat-form-field-invalid .mat-input-element{
+    caret-color: #f44336 !important;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-label{
+    color: #f44336;
+}
+
+.fa-times-circle:before {
+    content: "\f057";
+    color: #fff;
+}
+
+/* Scroll */
+::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #ff596a;
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
+  }

@@ -24,6 +24,9 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSnackBar } from '@angular/material/snack-bar';
 import { MatSliderModule } from '@angular/material/slider';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 @NgModule({
   imports: [
@@ -51,6 +54,8 @@ import { MatSliderModule } from '@angular/material/slider';
      MatStepperModule,
      MatCheckboxModule,
      MatSliderModule,
+     MatProgressBarModule,
+     MatDialogModule
   ],
   exports: [
      MatButtonModule,
@@ -76,6 +81,8 @@ import { MatSliderModule } from '@angular/material/slider';
      MatStepperModule,
      MatCheckboxModule,
      MatSliderModule,
+     MatProgressBarModule,
+     MatDialogModule
   ],
   providers: [
      MatDatepickerModule,

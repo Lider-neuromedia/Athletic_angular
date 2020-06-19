@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class SendHttpData {
@@ -25,8 +24,8 @@ export class SendHttpData {
   }
 
   // Peticion Http GET
-  httpGet(route:string, filter:string = null):Observable<any>{
-    var url = this.buildUrl(route, filter);
+  httpGet(route:string, filter:string = null, full=true):Observable<any>{
+    var url = this.buildUrl(route, filter, full);
     return this._http.get(url);
   }
 

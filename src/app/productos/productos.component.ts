@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Options } from 'ng5-slider';
 import { SendHttpData } from '../tools/SendHttpData';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {VistaPreviaComponent} from '../vista-previa/vista-previa.component';
 
 @Component({
   selector: 'app-productos',
@@ -28,14 +30,30 @@ export class ProductosComponent implements OnInit {
   filtros_check = [];
   view_active = 2;
   cantidad = 1;
+  descuento = null;
+  valor_ant = null;
+  precio_desc = null;
+  descuentos =  {
+    descuento: null, 
+    valor_ant : null, 
+    precio_des : null
+  }
+  id_prd_vstaprev : any = 21;
 
-  constructor(private http: SendHttpData) { }
+  constructor(private http: SendHttpData, public dialog: MatDialog ) {}
 
   ngOnInit(): void {
     this.getProducts();
     this.getMarcas();
     this.getCategories();
     this.getFiltersValue();
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(VistaPreviaComponent, {
+      width: '800px',
+      data: {id: this.id_prd_vstaprev}
+    });
   }
 
   // Cambio de vistas
@@ -75,6 +93,34 @@ export class ProductosComponent implements OnInit {
     );
   }
 
+  async getDescuento(id, price) {
+    return await this.http.httpGet('specific_prices/', 'filter[id_product]=' + id).toPromise().then(
+      response => {
+        if (response.length != 0) {
+          var precios = response.specific_prices[0];
+          this.descuento = precios.reduction;
+          this.valor_ant = parseInt(price),
+          this.precio_desc = this.valor_ant - (this.valor_ant * this.descuento);
+          this.descuentos = {
+            descuento: this.descuento, 
+            valor_ant : this.valor_ant, 
+            precio_des : this.precio_desc
+          };
+        }else{
+          this.descuentos =  {
+            descuento: null, 
+            valor_ant : null, 
+            precio_des : null
+          }
+        }
+        return this.descuentos;
+      },
+      error => {
+
+      }
+    );
+  }
+
   // Productos  
   getProducts(filter = null) {
     this.http.httpGet('products', filter).subscribe(
@@ -89,10 +135,18 @@ export class ProductosComponent implements OnInit {
               name: element.name[0]['value'],
               marca: element.manufacturer_name,
               image: img,
-              price: parseInt(element.price),
+              price: null,
               new: (element.condition == "new") ? true : false,
-              product_asoc: element.associations.product_option_values 
+              product_asoc: element.associations.product_option_values,
+              descuento : null, 
+              price_ant : null
             };
+            var descuento = this.getDescuento(element.id, element.price);
+            descuento.then(res => {
+              product.price = (this.descuentos.precio_des == null) ? parseInt(element.price) : this.descuentos.precio_des;
+              product.descuento = this.descuentos.descuento * 100;
+              product.price_ant = this.descuentos.valor_ant;
+            });
             products.push(product);
           });
           this.productos = products;
@@ -286,7 +340,13 @@ export class ProductosComponent implements OnInit {
   }
 
   changeCantidad(sum){
-    (sum) ? this.cantidad = this.cantidad + 1 : this.cantidad = this.cantidad - 1;
+    if (sum) {
+      this.cantidad = this.cantidad + 1;
+    }else{
+      if (this.cantidad > 1) {
+        this.cantidad = this.cantidad - 1;
+      }
+    }
   }
 
   /* 
@@ -326,6 +386,5 @@ export class ProductosComponent implements OnInit {
       }
     }
   }
-
 
 }

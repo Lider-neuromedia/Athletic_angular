@@ -4,7 +4,9 @@
     background: #ffffff;
     width: 100%;
     border-radius: 10px;
+    cursor: pointer;
   }
+
 
 .item-shadow{
   box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
@@ -68,7 +70,7 @@
     position: absolute;
     top: -15px;
     right: -15px;
-    width: 25px;
+    width: 40px;
     padding: 10px 8px 10px 8px;
     border-radius: 25px;
     font-size: 11px;
@@ -77,7 +79,7 @@
     background: #ff596a;
     color: #ffffffff;
   }
-
+  
   
 .item-small{
   width: 210px !important;
@@ -119,12 +121,12 @@
 
 .descuento-small{
   position: absolute;
-  top: 2px;
-  right: 0;
-  width: 25px;
-  padding: 10px 8px 10px 8px;
+  top: -8px;
+  right: -2px;
+  width: 30px;
+  padding: 5px 8px 5px 8px;
   border-radius: 25px;
-  font-size: 11px;
+  font-size: 9px;
   display: flex;
   justify-content: center;
   background: #ff596a;
