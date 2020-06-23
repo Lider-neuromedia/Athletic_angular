@@ -166,6 +166,11 @@
                     </div>
                 </div>
                 <div class="row mrg-top-20 w-100" style="margin-left: 10px !important;">
+                    <ng-container *ngIf="productos.length == 0">
+                        <div class="not-product">
+                            <p>Ningun producto disponible </p><mat-icon style="color: #ff596a;">sentiment_very_dissatisfied</mat-icon>
+                        </div>
+                    </ng-container>
                     <ng-container *ngIf="view_active == 1">
                         <div class="col-md-3 mrg-botn-20" *ngFor="let item of productos | paginate:page_size:page_number">
                             <app-item-producto [id]="item.id" [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
@@ -256,3 +261,7 @@
         </div>
     </div>
 </div>
+
+<!-- <div class="loader">
+    <mat-spinner></mat-spinner>
+</div> -->

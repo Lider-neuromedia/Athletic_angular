@@ -40,7 +40,7 @@
             <img src="assets/img/icons/heart.png" class="mrg-top-5">
               <p class="text-menu">Mis favoritos</p> 
           </button>
-          <button class="line-height-ini" mat-button fxLayoutAlign="end">
+          <button class="line-height-ini" [matMenuTriggerFor]="belowMenu" mat-button fxLayoutAlign="end">
             <img src="assets/img/icons/user_inactive.png" class="mrg-top-5">
             <p class="text-menu">Mi cuenta</p>
           </button>
@@ -92,7 +92,7 @@
         <p class="list-categ"> <a href="#">Promociones</a></p>
       </div>
     </div>
-    <div fxLayout="row wrap" class="mrg-top-10" fxLayoutAlign="space-evenly left">
+    <div fxLayout="row wrap" class="mrg-top-10" style="width: 520px;" fxLayoutAlign="space-evenly left">
 
       <div *ngFor="let element of sub_categorias">
         <div class="content-sb-categ">
@@ -141,5 +141,12 @@
     </div>
   </div>
 </mat-menu>
+<!-- Menu cuenta -->
+<mat-menu #belowMenu="matMenu">
+  <button mat-menu-item (click)="router.navigate(['/login']);" *ngIf="usuario == null">Iniciar sesión</button>
+  <button mat-menu-item *ngIf="usuario != null">{{usuario.firstname}}</button>
+  <button mat-menu-item (click)="cerrarSesion()" *ngIf="usuario != null">Cerrar sesión</button>
+</mat-menu>
+
 <!-- Espaciado para que el contenido no quede debajo del fixed -->
 <div style="margin-top: 96px;"></div>

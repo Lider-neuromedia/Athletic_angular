@@ -7,7 +7,6 @@ export class SendHttpData {
   private baseUrl = 'http://pruebasneuro.co/N-1007/api/';
   // Key prestashop
   private key = "JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
-  // Url que define el output para recibir en formato JSON y no XML.
   private full = "display=full";
 
   constructor(private _http: HttpClient) { }

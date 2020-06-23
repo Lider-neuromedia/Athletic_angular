@@ -16,11 +16,18 @@ export class HeaderComponent {
   categorias_prin = [];
   sub_categorias = null;
   categoria_select = null;
+  usuario = null;
 
   constructor(public router: Router, private http: SendHttpData, private render:Renderer2) { }
 
   ngOnInit(): void {
+    this.usuario = JSON.parse(sessionStorage.getItem('user')); 
     this.getCategories();
+  }
+  
+  cerrarSesion(){
+    sessionStorage.clear();
+    this.usuario = null;
   }
 
   sonCategories(data, element) {
