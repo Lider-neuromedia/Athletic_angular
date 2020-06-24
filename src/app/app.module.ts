@@ -26,6 +26,13 @@ import { DetalleProductoComponent } from './detalle-producto/detalle-producto.co
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { VistaPreviaComponent } from './vista-previa/vista-previa.component';
 import { LoginComponent } from './login/login.component';
+import { AsideAccountComponent } from './partials/aside-account/aside-account.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
+import { ResenaComponent } from './resena/resena.component';
+import { CuponesComponent } from './cupones/cupones.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { DireccionesComponent } from './direcciones/direcciones.component';
+import { FavoritosComponent } from './favoritos/favoritos.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +45,14 @@ import { LoginComponent } from './login/login.component';
     PaginatePipe,
     DetalleProductoComponent,
     VistaPreviaComponent,
-    LoginComponent
+    LoginComponent,
+    AsideAccountComponent,
+    PedidosComponent,
+    ResenaComponent,
+    CuponesComponent,
+    PerfilComponent,
+    DireccionesComponent,
+    FavoritosComponent
   ],
   imports: [
     BrowserModule,

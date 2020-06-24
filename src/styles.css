@@ -1,7 +1,25 @@
+:root{
+    --bg-color: #F7F7F7;
+    --bg-panel-pedido: #FFE6E9;
+    --bg-estado: #FF596A;
+    --normal-link: #353435;
+    --active-link: #FF596A;
+}
+
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+    background: var(--bg-color);
+    font-family: 'Source Sans Pro', sans-serif !important;
+    height: 100%; 
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Source Sans Pro', sans-serif !important;
+}
+/*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
+img{
+    max-width: 100%;
+}
 
 /* Contenedor central */
 /* .container {
@@ -380,3 +398,304 @@ button.owl-prev:focus {
     background: #b30000; 
   }
   
+
+/*
+Aside menu account page
+*/
+.content-account{
+    background: var(--bg-color);
+    padding: 2em 0em;
+}
+.aside-account{
+    background: white;
+    border-radius: 5px;
+    list-style: none;
+    padding: 1em 3em;
+}
+.aside-account li{
+    margin: 10px 0px;
+}
+.aside-account a{
+    color: var(--normal-link);
+}
+.aside-account a:hover{
+    text-decoration: none;
+    color: var(--active-link);
+}
+.aside-account .active-link{
+    color: var(--active-link);
+    font-weight: bold;
+}
+/*.aside-account .active-link::before{
+    content: '';
+    background: var(--active-link);
+    height: 7px;
+    width: 3px;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+}*/
+.ing5-cerrar-sesion{
+    border-radius: 25px;
+    border: 1px solid #FF596A;
+    color: #FF596A !important;
+    display: block;
+    margin-top: 6em;
+    padding: 16px 0px;
+    text-align: center;
+}
+/* Title page account */
+.account-title{
+    font-size: 24px;
+    font-weight: 900 !important;
+}
+
+/*Pedidos*/
+.row-box-pedidos,
+.info-estado,
+.pedido-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.pedido-info, .pedido-estado{
+    padding: 8px 0px;
+}
+
+.pedido-info{
+    border-radius: 9px 0px 0px 0px;
+}
+.pedido-estado{
+    border-radius: 0px 9px 0px 0px;
+}
+
+.row-box-pedidos{
+    background-color: #FFFFFF;
+    border-radius: 9px;
+    box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
+    flex-wrap: wrap;
+    margin: 1em 0em;
+}
+
+.info-estado{
+    width: 100%;
+    border-radius: 9px 0px 0px 0px;
+    background: var(--bg-panel-pedido);
+}
+
+.pedido-info{
+    width: 60%;
+}
+.pedido-info{
+    padding-left: 15px;
+}
+.pedido-info p{
+    margin-bottom: 0px;
+}
+
+.pedido-info{
+    background: var(--bg-panel-pedido);
+}
+
+.pedido-estado{
+    background: var(--bg-estado);
+    color: white;
+    padding: 0px 11px;
+    display: flex;
+    align-items: center;
+}
+.pedido-estado span{
+    font-weight: bold;
+    font-style: italic;
+}
+.items{
+    padding: 1em 0em;
+    width: 100%;
+}
+
+.flex-items-prod{
+    display: flex;
+}
+.flex-items-prod .item{
+    align-items: center;
+    display: flex;
+}
+.flex-items-prod .item .row{
+    display: flex;
+    align-items: center;
+}
+.flex-items-prod .item-two-col{
+    display: flex;
+}
+.item-photo img{
+    padding: 30px 15px;
+    border: 1px solid #F0F0F0;
+}
+.item-detail h3{
+    font-size: 10px;
+    font-weight: bold;
+    margin: 0;
+    line-height: 12px;
+}
+.item-detail h4{
+    margin: 0;
+    font-size: 10px;
+    line-height: 20px;
+}
+.item-detail p{
+    font-size: 9px;
+    line-height: 20px;
+}
+.item-detail a {
+    color: #FF596A;
+    padding: 3px 8px;
+    border: 1px solid #FF596A;
+    border-radius: 4px;
+    font-size: 12px;
+}
+.item-detail a:hover{
+    color: #FF596A;
+    text-decoration: none;
+}
+
+/* Mis reseñas */
+.row-resena{
+    padding: 20px 0px;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFFFF;
+    border-radius: 9px;
+    box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
+}
+
+.row-resena .col-md-12{
+    text-align: center;
+}
+
+.title-resena{
+    color: #353435;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.row-resena .col-md-12 p {
+    max-width: 362px;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.box-button-shop{
+    margin: 1em auto;
+    display: flex;
+    justify-content: center;
+    padding: 1em 0em;
+}
+
+.go-shop{
+    background: #FF596A;
+    color: white;
+    padding: 15px 70px;
+    border-radius: 25px;
+    position: relative;
+}
+
+.go-shop:hover{
+    text-decoration: none;
+    color: white;
+}
+
+.go-shop .circle-img-shop {
+    background: #F94D5F;
+    position: absolute;
+    left: 0;
+    width: 20px;
+    z-index: 10;
+    padding: 25px;
+    height: 27px;
+    top: 50%;
+    border-radius: 50%;
+    transform: translateY(-50%);
+}
+.go-shop .circle-img-shop img {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    left: 50%;
+}
+
+/* Cupones */
+.row-cupones{
+    background: #FFFFFF;
+    border-radius: 9px;
+    box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
+    padding: 15px 0px;
+    margin: 1em 0em;
+}
+
+.row-cupones .cupon-descuento {
+    color: #FF596A;
+    font-weight: 700;
+
+}
+
+.row-cupones .cupon-expirado {
+    color: #969696;
+}
+
+.row-cupones .title-cupon{
+    text-align: center;
+}
+
+.row-cupones .outline-codigo-cupon{
+    text-align: center;
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+    color: #D9D9D9;
+}
+
+/* Mis Direcciones */
+.row-direcciones{
+    background: #FFFFFF;
+    border-radius: 9px;
+    box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
+    padding: 15px 20px;
+}
+
+
+@media screen and (max-width: 992px){
+    .flex-items-prod{
+        flex-wrap: wrap;
+    }
+    .flex-items-prod .item{
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    .aside-account-column,
+    .content-detail{
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    .item-detail{
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+    .item-detail h3, .item-detail h4, .item-detail p{
+        margin-bottom: 6px;
+        width: 100%;
+    }
+    .item-detail h3, .item-detail h4{
+        font-size: 16px;
+    }
+    .item-detail p{
+        font-size: 12px;
+    }
+    .item-detail a{
+        padding: 5px 20px;
+    }
+    .item-two-col{
+        margin: 1em 0em;
+    }
+}
