@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalVarService } from '../common/global-var.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pedidos',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pedidos.component.css']
 })
 export class PedidosComponent implements OnInit {
-
-  constructor() { }
-
+  globalStorage : any;
+  usuario : any;
+  constructor(public router: Router, private globalVar : GlobalVarService) { 
+    this.globalStorage = this.globalVar.user.subscribe(
+      value => {
+        this.usuario = value;
+      }
+    );
+  }
   ngOnInit(): void {
+    if (this.usuario == null) {
+      this.router.navigate(['/login']);
+    }
   }
 
 }

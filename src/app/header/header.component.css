@@ -157,3 +157,11 @@
 .btn-close-sesion:hover{
   background: #FF596A;
 }
+
+.border-btn-pink{
+  border-bottom: 2px solid #ff596a;
+}
+
+.hide-element{
+  display: none;
+}

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { SendHttpData } from '../tools/SendHttpData';
 import { Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -18,6 +18,18 @@ export class HeaderComponent {
   categoria_select = null;
   globalStorage : any; 
   usuario : any;
+  scrolled = 1;
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll($event) {
+    const numb = window.scrollY;
+    if (numb >= 50){
+      this.scrolled = 0;
+    }
+    else {
+      this.scrolled = 1;
+    }
+  }
 
   constructor(private globalVar : GlobalVarService, public router: Router, private http: SendHttpData, private render:Renderer2) { 
     this.globalStorage = this.globalVar.user.subscribe(

@@ -1,5 +1,5 @@
 <mat-toolbar color="accent" class="sticky">
-  <mat-toolbar-row class="toolbar-small d-none d-md-block">
+  <mat-toolbar-row [class]="(scrolled > 0) ? 'toolbar-small d-none d-md-block' : 'hide-element'">
     <div class="container" fxLayoutAlign="space-evenly center">
       <span class="spacer"></span>
       <mat-icon class="icon-small text-gray" aria-hidden="false">local_phone</mat-icon>
@@ -16,7 +16,7 @@
     </div>
   </mat-toolbar-row>
   
-  <mat-toolbar-row class="w-auto">
+  <mat-toolbar-row class="w-auto border-btn-pink">
     <div class="container">
       <div class="d-flex flex-md-row">
         <button class="line-height-ini" [matMenuTriggerFor]="menu" mat-button>
