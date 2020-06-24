@@ -10,8 +10,11 @@
 
 html, body {
     background: var(--bg-color);
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif !important;
     height: 100%; 
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Source Sans Pro', sans-serif !important;
 }
 /*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
 img{
@@ -423,11 +426,29 @@ Aside menu account page
     color: var(--active-link);
     font-weight: bold;
 }
-
+/*.aside-account .active-link::before{
+    content: '';
+    background: var(--active-link);
+    height: 7px;
+    width: 3px;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+}*/
+.ing5-cerrar-sesion{
+    border-radius: 25px;
+    border: 1px solid #FF596A;
+    color: #FF596A !important;
+    display: block;
+    margin-top: 6em;
+    padding: 16px 0px;
+    text-align: center;
+}
 /* Title page account */
 .account-title{
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 900 !important;
 }
 
 /*Pedidos*/
@@ -454,15 +475,20 @@ Aside menu account page
     border-radius: 9px;
     box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
     flex-wrap: wrap;
+    margin: 1em 0em;
 }
 
 .info-estado{
     width: 100%;
+    border-radius: 9px 0px 0px 0px;
     background: var(--bg-panel-pedido);
 }
 
 .pedido-info{
     width: 60%;
+}
+.pedido-info{
+    padding-left: 15px;
 }
 .pedido-info p{
     margin-bottom: 0px;
@@ -479,9 +505,58 @@ Aside menu account page
     display: flex;
     align-items: center;
 }
-
+.pedido-estado span{
+    font-weight: bold;
+    font-style: italic;
+}
 .items{
+    padding: 1em 0em;
     width: 100%;
+}
+
+.flex-items-prod{
+    display: flex;
+}
+.flex-items-prod .item{
+    align-items: center;
+    display: flex;
+}
+.flex-items-prod .item .row{
+    display: flex;
+    align-items: center;
+}
+.flex-items-prod .item-two-col{
+    display: flex;
+}
+.item-photo img{
+    padding: 30px 15px;
+    border: 1px solid #F0F0F0;
+}
+.item-detail h3{
+    font-size: 10px;
+    font-weight: bold;
+    margin: 0;
+    line-height: 12px;
+}
+.item-detail h4{
+    margin: 0;
+    font-size: 10px;
+    line-height: 20px;
+}
+.item-detail p{
+    font-size: 9px;
+    line-height: 20px;
+}
+.item-detail a {
+    color: #FF596A;
+    padding: 3px 8px;
+    border: 1px solid #FF596A;
+    border-radius: 4px;
+    font-size: 12px;
+}
+.item-detail a:hover{
+    color: #FF596A;
+    text-decoration: none;
 }
 
 /* Mis reseñas */
@@ -524,6 +599,11 @@ Aside menu account page
     padding: 15px 70px;
     border-radius: 25px;
     position: relative;
+}
+
+.go-shop:hover{
+    text-decoration: none;
+    color: white;
 }
 
 .go-shop .circle-img-shop {
@@ -575,3 +655,47 @@ Aside menu account page
     color: #D9D9D9;
 }
 
+/* Mis Direcciones */
+.row-direcciones{
+    background: #FFFFFF;
+    border-radius: 9px;
+    box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
+    padding: 15px 20px;
+}
+
+
+@media screen and (max-width: 992px){
+    .flex-items-prod{
+        flex-wrap: wrap;
+    }
+    .flex-items-prod .item{
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    .aside-account-column,
+    .content-detail{
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    .item-detail{
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+    .item-detail h3, .item-detail h4, .item-detail p{
+        margin-bottom: 6px;
+        width: 100%;
+    }
+    .item-detail h3, .item-detail h4{
+        font-size: 16px;
+    }
+    .item-detail p{
+        font-size: 12px;
+    }
+    .item-detail a{
+        padding: 5px 20px;
+    }
+    .item-two-col{
+        margin: 1em 0em;
+    }
+}
