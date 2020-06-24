@@ -134,6 +134,23 @@
   color: #ffffff;
 }
 
+.btn-home-cate:hover .icon-inactive{
+  display: none;
+}
+
+.btn-home-cate:hover .icon-active{
+  display: inline-block;
+}
+
+.btn-home-cate .icon-active{
+  display: none;
+}
+
+.btn-home-cate-act .icon-inactive{
+  display: none;
+}
+
+
 .content-btn-cate .btn-home-cate:first-child{    
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;

@@ -11,6 +11,7 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxGalleryModule } from 'ngx-gallery-9';
+import { GlobalVarService } from './common/global-var.service';
 
 // Components
 import { HeaderComponent } from './header/header.component';
@@ -52,7 +53,7 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule,
     NgxGalleryModule
   ],
-  providers: [SendHttpData, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [SendHttpData, {provide: LocationStrategy, useClass: HashLocationStrategy}, GlobalVarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -33,7 +33,7 @@
         <!-- Position end -->
         <div class="flex-row ml-md-auto d-none d-sm-flex">
           <button class="line-height-ini" mat-button fxLayoutAlign="end">
-            <img src="assets/img/icons/load-carriage.png" class="mrg-top-5">
+            <img src="assets/img/icons/load-carriage.svg" class="mrg-top-5">
               <p class="text-menu">Pedidos</p> 
           </button>
           <button class="line-height-ini" mat-button fxLayoutAlign="end">
@@ -45,7 +45,7 @@
             <p class="text-menu">Mi cuenta</p>
           </button>
           <button class="line-height-ini" (click)="toggleOpenBolsa()" mat-button fxLayoutAlign="end">
-            <img src="assets/img/icons/bolsa_inactive.png">
+            <img src="assets/img/icons/bolsa_inactive.svg" class="mrg-top-5">
               <p class="text-menu">Bolsa</p> 
           </button>
         </div>
@@ -143,9 +143,39 @@
 </mat-menu>
 <!-- Menu cuenta -->
 <mat-menu #belowMenu="matMenu">
-  <button mat-menu-item (click)="router.navigate(['/login']);" *ngIf="usuario == null">Iniciar sesión</button>
-  <button mat-menu-item *ngIf="usuario != null">{{usuario.firstname}}</button>
-  <button mat-menu-item (click)="cerrarSesion()" *ngIf="usuario != null">Cerrar sesión</button>
+  <div style="width: 150px;">
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/login']);" *ngIf="usuario == null">
+      <span>Iniciar sesión</span>
+      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/login']);" *ngIf="usuario != null">
+      Mi cuenta
+      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <button class="btn-menu" mat-menu-item>
+      Mis pedidos
+      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <button class="btn-menu" mat-menu-item>
+      Mis reseñas
+      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <button class="btn-menu" mat-menu-item>
+      Mis cupones
+      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <button class="btn-menu" mat-menu-item>
+      Mis direcciones
+      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <button class="btn-menu" mat-menu-item>
+      Mis favoritos
+      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <button class="btn-close-sesion" mat-menu-item (click)="cerrarSesion()" *ngIf="usuario != null">
+      Cerrar sesión
+    </button>
+  </div>
 </mat-menu>
 
 <!-- Espaciado para que el contenido no quede debajo del fixed -->

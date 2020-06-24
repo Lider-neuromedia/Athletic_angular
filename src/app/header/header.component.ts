@@ -1,8 +1,8 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { SendHttpData } from '../tools/SendHttpData';
 import { Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { GlobalVarService } from '../common/global-var.service';
 
 @Component({
   selector: 'app-header',
@@ -16,18 +16,27 @@ export class HeaderComponent {
   categorias_prin = [];
   sub_categorias = null;
   categoria_select = null;
-  usuario = null;
+  globalStorage : any; 
+  usuario : any;
 
-  constructor(public router: Router, private http: SendHttpData, private render:Renderer2) { }
+  constructor(private globalVar : GlobalVarService, public router: Router, private http: SendHttpData, private render:Renderer2) { 
+    this.globalStorage = this.globalVar.user.subscribe(
+      value => {
+        this.usuario = value;
+      }
+    );
+  }
 
   ngOnInit(): void {
-    this.usuario = JSON.parse(sessionStorage.getItem('user')); 
     this.getCategories();
+    if (localStorage.getItem('user')) {
+      this.usuario = JSON.parse(localStorage.getItem('user'));
+    }
   }
   
   cerrarSesion(){
-    sessionStorage.clear();
-    this.usuario = null;
+    localStorage.clear();
+    this.globalVar.setUser(null);
   }
 
   sonCategories(data, element) {
@@ -86,6 +95,10 @@ export class HeaderComponent {
 
   toggleOpenBolsa() {
     this.openBolsa.emit(true);
+  }
+
+  ngOnDestroy(): void {
+    this.globalStorage.unsubscribe();
   }
 
 }
