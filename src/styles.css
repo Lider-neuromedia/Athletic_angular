@@ -499,13 +499,18 @@ Aside menu account page
 }
 
 .pedido-estado{
-    background: var(--bg-estado);
     color: white;
     padding: 0px 11px;
     display: flex;
     align-items: center;
 }
-.pedido-estado span{
+.pedido-estado.cerrado{
+    background: var(--bg-estado);
+    font-weight: bold;
+    font-style: italic;
+}
+.pedido-estado.abierto{
+    background: #219DDB;
     font-weight: bold;
     font-style: italic;
 }
@@ -558,6 +563,17 @@ Aside menu account page
     color: #FF596A;
     text-decoration: none;
 }
+.fila-boton{
+    display: flex;
+    text-align: end;
+}
+.fila-boton .detalle{
+    border-radius: 25px;
+    color: var(--active-link);
+    border: 1px solid var(--active-link);
+    padding: 8px 40px;
+    display: inline-block;
+}
 
 /* Mis reseñas */
 .row-resena{
@@ -577,6 +593,11 @@ Aside menu account page
     color: #353435;
     font-size: 24px;
     font-weight: bold;
+}
+
+.resena-icon{
+    transform: scale(1.5);
+    color: var(--active-link);
 }
 
 .row-resena .col-md-12 p {
@@ -642,6 +663,12 @@ Aside menu account page
 
 .row-cupones .cupon-expirado {
     color: #969696;
+    font-weight: 600;
+}
+
+.row-cupones .cupon-disponible {
+    color: #1870F2;
+    font-weight: 600;
 }
 
 .row-cupones .title-cupon{
@@ -655,6 +682,11 @@ Aside menu account page
     color: #D9D9D9;
 }
 
+/* Datos personales */
+.form-data-person{
+    padding: 1em 3em;
+}
+
 /* Mis Direcciones */
 .row-direcciones{
     background: #FFFFFF;
@@ -662,7 +694,9 @@ Aside menu account page
     box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
     padding: 15px 20px;
 }
-
+.form-direcciones label{
+    color: #FF596A;
+}
 
 @media screen and (max-width: 992px){
     .flex-items-prod{
