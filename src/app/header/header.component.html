@@ -32,11 +32,11 @@
         
         <!-- Position end -->
         <div class="flex-row ml-md-auto d-none d-sm-flex">
-          <button class="line-height-ini" mat-button fxLayoutAlign="end">
+          <button class="line-height-ini" mat-button fxLayoutAlign="end" (click)="router.navigate(['/pedidos']);">
             <img src="assets/img/icons/load-carriage.svg" class="mrg-top-5">
               <p class="text-menu">Pedidos</p> 
           </button>
-          <button class="line-height-ini" mat-button fxLayoutAlign="end">
+          <button class="line-height-ini" mat-button fxLayoutAlign="end" (click)="router.navigate(['/favoritos']);">
             <img src="assets/img/icons/heart.png" class="mrg-top-5">
               <p class="text-menu">Mis favoritos</p> 
           </button>
@@ -148,27 +148,27 @@
       <span>Iniciar sesión</span>
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>
-    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/login']);" *ngIf="usuario != null">
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/perfil']);" *ngIf="usuario != null">
       Mi cuenta
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>
-    <button class="btn-menu" mat-menu-item>
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/pedidos']);" *ngIf="usuario != null">
       Mis pedidos
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>
-    <button class="btn-menu" mat-menu-item>
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/resenas']);" *ngIf="usuario != null">
       Mis reseñas
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>
-    <button class="btn-menu" mat-menu-item>
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/cupones']);" *ngIf="usuario != null">
       Mis cupones
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>
-    <button class="btn-menu" mat-menu-item>
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/direcciones']);" *ngIf="usuario != null">
       Mis direcciones
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>
-    <button class="btn-menu" mat-menu-item>
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/favoritos']);" *ngIf="usuario != null">
       Mis favoritos
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>

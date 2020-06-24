@@ -82,12 +82,13 @@
   
   
 .item-small{
-  width: 210px !important;
+  width: 200px !important;
 }
 
 .cont-small{
-  height: 210px !important;
+  height: 200px !important;
 }
+  
 
 .subtitle-prod-small{
   font-size: 9px;

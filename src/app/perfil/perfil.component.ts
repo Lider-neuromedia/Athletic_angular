@@ -8,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class PerfilComponent implements OnInit {
 
 	hide = true;
-
+  usuario : any;
   constructor() { }
 
   ngOnInit(): void {
+    this.usuario = JSON.parse(localStorage.getItem('user'));
+    console.log(this.usuario);
   }
 
 }
