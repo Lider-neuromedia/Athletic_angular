@@ -738,6 +738,17 @@ Aside menu account page
 .mat-drawer.mat-sidenav{
     width: 35% !important;
 }
+.bolsa-general{
+    position: relative;
+}
+    .header-bolsa{
+    background: white;
+    border-bottom: 1px solid #D8D8D8;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 5;
+}
 .header-bolsa,
 .filtro-bolsa,
 .items-productos-bolsa{
@@ -783,7 +794,7 @@ Aside menu account page
 .items-productos-bolsa{
     border: 1px solid #D8D8D8;
     padding: 1em 0em;
-    padding-bottom: 2em;
+    padding-bottom: 3.3em;
 }
 
 .items-productos-bolsa:last-of-type{
@@ -975,4 +986,47 @@ Aside menu account page
 .call-to-action-bolsa .pay-now,
 .call-to-action-bolsa .clear-now{
     width: 45%
+}
+
+@media screen and (max-width: 1290px){
+    .mat-drawer.mat-sidenav{
+        width: 45% !important;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    .items-productos-bolsa{
+        flex-wrap: wrap;
+    }
+    .imagen-producto, .detalle-producto, .precio-acciones{
+        width: 100%;
+    }
+    .detalle-producto h2{
+        font-size: 20px;
+    }
+    .detalle-producto h3{
+        font-size: 22px;
+    }
+    .detalle-producto p{
+        font-size: 14px;
+    }
+    .acciones-cantidad .trash, .acciones-cantidad .less,
+    .acciones-cantidad .cantidad,
+    .acciones-cantidad .plus{
+        position: relative;
+        top: 0;
+        bottom: 0;
+        left: 0;
+    }
+    .acciones-cantidad .cantidad{
+        margin-top: 1em;
+    }
+    .items-productos-bolsa{
+        padding-bottom: 1em;
+    }
+}
+@media screen and (max-width: 768px){
+    .mat-drawer.mat-sidenav{
+        width: 60% !important;
+    }
 }
