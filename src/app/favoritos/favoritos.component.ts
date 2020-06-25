@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalVarService } from '../common/global-var.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-favoritos',
@@ -10,18 +8,10 @@ import { Router } from '@angular/router';
 export class FavoritosComponent implements OnInit {
   globalStorage : any;
   usuario : any;
-  constructor(public router: Router, private globalVar : GlobalVarService) { 
-    this.globalStorage = this.globalVar.user.subscribe(
-      value => {
-        this.usuario = value;
-      }
-    );
-  }
+  constructor() {  }
 
   ngOnInit(): void {
-    if (this.usuario == null) {
-      this.router.navigate(['/login']);
-    }
+
   }
 
 }

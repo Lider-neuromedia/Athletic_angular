@@ -117,13 +117,10 @@ export class LoginComponent implements OnInit {
     let confirmPass = group.controls.confirmPassword.value;
     let controls =  group.controls;
     if (controls.first_name.errors != null || controls.last_name.errors != null || controls.email_new.errors != null) {
-      console.log("Entra 1", controls );
       return {error : true};
     }else if(pass != confirmPass){
-      console.log("Entra 2", controls);
       return  { notSame: true };
     }else{
-      console.log("Entra 3", controls);
       return null;
     }
 

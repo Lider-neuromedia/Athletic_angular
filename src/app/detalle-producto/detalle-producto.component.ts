@@ -41,7 +41,12 @@ export class DetalleProductoComponent implements OnInit {
         width: '600px',
         height: '400px',
         thumbnailsColumns: 4,
-        imageAnimation: NgxGalleryAnimation.Slide
+        arrowPrevIcon: 'fa fa-chevron-left',
+        arrowNextIcon: 'fa fa-chevron-right',
+        imageAnimation: NgxGalleryAnimation.Slide,
+        previewCloseOnEsc: true,
+        previewCloseOnClick: true,
+        previewZoom : true
       },
       // max-width 800
       {
