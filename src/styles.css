@@ -733,3 +733,107 @@ Aside menu account page
         margin: 1em 0em;
     }
 }
+
+/* Estilos Bolsa - sidenav  */
+.header-bolsa,
+.filtro-bolsa,
+.items-productos-bolsa{
+    display: flex;
+    align-items: center;
+}
+
+.items-productos-bolsa{
+    padding: .6em 0em;
+}
+
+.items-productos-bolsa:last-of-type{
+    margin-bottom: 120px;
+}
+
+.imagen-producto,
+.detalle-producto,
+.precio-acciones{
+    padding: 1em;
+    width: 33.3%;
+}
+
+.detalle-producto h2,
+.detalle-producto h3{
+    line-height: 20px;
+}
+
+.detalle-producto h2,
+.detalle-producto h3,
+.detalle-producto p{
+    margin: 0;
+}
+
+.detalle-producto h2{
+    color: #353435;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.detalle-producto h3{
+    color: #969696;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.imagen-producto{
+    position: relative;
+}
+
+.imagen-producto .descuento-producto{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.precio-acciones{
+    padding-top: 0px;
+}
+
+.precio-acciones .precio-descuento,
+.precio-acciones .precio-normal{
+    margin: 0;
+}
+.precio-acciones .precio-descuento{
+    color: #FF596A;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 30px;
+}
+
+.precio-acciones .precio-normal{
+    color: #969696;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.acciones-cantidad{
+    display: flex;
+    position: relative;
+}
+
+.acciones-cantidad .trash,
+.acciones-cantidad .less{
+    color: #FF596A;
+    position: absolute;
+    bottom: -50px;
+    left: -30px;
+}
+
+.acciones-cantidad .cantidad{
+    bottom: -60px;
+    position: absolute;
+    width: 100px;
+}
+
+.acciones-cantidad .plus{
+    color: #FF596A;
+    position: absolute;
+    bottom: -50px;
+    left: 110px;
+}
