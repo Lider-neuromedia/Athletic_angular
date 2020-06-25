@@ -10,11 +10,14 @@
       <!-- Bolsa -->
     <mat-sidenav [(opened)]="bolsa" mode="over" position="end" [fixedInViewport]="true">
       <div class="header-bolsa">
-        <a href=""><span class="material-icons">highlight_off</span></a>
-        <h1 style="padding: 20px;">Contenido de la Bolsa</h1>
+        <a href=""><span class="material-icons close-bolsa">highlight_off</span></a>
+        <h2 style="padding: 20px;">Contenido de la Bolsa</h2>
       </div>
       <div class="filtro-bolsa">
-        <p>ORDENAR SEGÚN:</p> <select name="" id=""></select>
+        <p class="ordenar">ORDENAR SEGÚN:</p>
+        <select class="form-control filter-order" name="" id="">
+          <option value="">Ordenar por</option>
+        </select>
       </div>
 
       <div class="items-productos-bolsa">
