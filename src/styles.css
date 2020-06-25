@@ -735,6 +735,9 @@ Aside menu account page
 }
 
 /* Estilos Bolsa - sidenav  */
+.mat-drawer.mat-sidenav{
+    width: 35% !important;
+}
 .header-bolsa,
 .filtro-bolsa,
 .items-productos-bolsa{
@@ -807,15 +810,19 @@ Aside menu account page
 
 .detalle-producto h2{
     color: #353435;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
 }
 
 .detalle-producto h3{
     color: #969696;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
+}
+
+.detalle-producto p{
+    font-size: 12px;
 }
 
 .imagen-producto{
@@ -838,14 +845,14 @@ Aside menu account page
 }
 .precio-acciones .precio-descuento{
     color: #FF596A;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 30px;
 }
 
 .precio-acciones .precio-normal{
     color: #969696;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 20px;
 }
 
