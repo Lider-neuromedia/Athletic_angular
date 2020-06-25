@@ -747,7 +747,7 @@ Aside menu account page
 }
 
 .items-productos-bolsa:last-of-type{
-    margin-bottom: 120px;
+    margin-bottom: 160px;
 }
 
 .imagen-producto,
@@ -836,4 +836,99 @@ Aside menu account page
     position: absolute;
     bottom: -50px;
     left: 110px;
+}
+
+.total{
+    border-top: 1px solid #bababa;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+}
+
+.aproximado{
+    font-size: 18px;
+    color: #353435;
+    font-weight: 800px;
+}
+
+.valor{
+    color: #FF596A;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.call-to-action-bolsa{
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 3em;
+}
+
+.pay-now{
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+    background: #8BBA59;
+    padding: 1em;
+    color: white;
+}
+.pay-now:hover{
+    list-style: none;
+    color: white;
+}
+.circle-go-shop{
+    background: #719946;
+    border-radius: 50%;
+    left: 0;
+    height: 48px;
+    position: absolute;
+    top: 0;
+    width: 48px;
+}
+
+.circle-go-shop .material-icons{
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.clear-now{
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+    border: 1px solid #FF596A;
+    padding: 1em;
+    color: #FF596A;
+}
+.pay-now:hover{
+    list-style: none;
+    color: white;
+}
+.circle-clear-shop{
+    border-radius: 50%;
+    left: 0;
+    height: 48px;
+    position: absolute;
+    top: 0;
+    width: 48px;
+}
+
+.circle-clear-shop .material-icons{
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/*.call-to-action-bolsa .pay-now{
+    background: #8BBA59;
+    border-radius: 25px;
+    color: white;
+    display: block;
+    padding: 15px 70px;
+    position: relative;
+    text-align: center;
+}*/
+
+.call-to-action-bolsa .pay-now,
+.call-to-action-bolsa .clear-now{
+    width: 45%
 }
