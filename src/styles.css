@@ -738,3 +738,239 @@ Aside menu account page
         margin: 1em 0em;
     }
 }
+
+/* Estilos Bolsa - sidenav  */
+.header-bolsa,
+.filtro-bolsa,
+.items-productos-bolsa{
+    display: flex;
+    align-items: center;
+}
+.header-bolsa{
+    display: flex;
+}
+.header-bolsa,
+.filtro-bolsa{
+    padding: 0em 1.5em;
+}
+.filtro-bolsa{
+    padding-bottom: 1.5em;
+}
+.filtro-bolsa .ordenar{
+    font-size: 12px;
+    font-weight: 800;
+    width: 20%;
+    margin-bottom: 0px !important;
+}
+.ordenar{
+    font-size: 12px;
+    margin: 0;
+}
+.filter-order{  
+    border: none !important;
+    width: 50%;
+}
+
+.close-bolsa{
+    color: #FF596A;
+}
+
+.header-bolsa h2{
+    font-size: 18px;
+    font-weight: 800;
+    padding: 0;
+    margin: 0;
+}
+
+.items-productos-bolsa{
+    border: 1px solid #D8D8D8;
+    padding: 1em 0em;
+    padding-bottom: 2em;
+}
+
+.items-productos-bolsa:last-of-type{
+    margin-bottom: 160px;
+}
+
+.imagen-producto,
+.detalle-producto,
+.precio-acciones{
+    padding: 1em;
+    width: 33.3%;
+}
+
+.detalle-producto h2,
+.detalle-producto h3{
+    line-height: 20px;
+}
+
+.detalle-producto h2,
+.detalle-producto h3,
+.detalle-producto p{
+    margin: 0;
+}
+
+.detalle-producto h2{
+    color: #353435;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.detalle-producto h3{
+    color: #969696;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.imagen-producto{
+    position: relative;
+}
+
+.imagen-producto .descuento-producto{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.precio-acciones{
+    padding-top: 0px;
+}
+
+.precio-acciones .precio-descuento,
+.precio-acciones .precio-normal{
+    margin: 0;
+}
+.precio-acciones .precio-descuento{
+    color: #FF596A;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 30px;
+}
+
+.precio-acciones .precio-normal{
+    color: #969696;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.acciones-cantidad{
+    display: flex;
+    position: relative;
+}
+
+.acciones-cantidad .trash,
+.acciones-cantidad .less{
+    color: #FF596A;
+    position: absolute;
+    bottom: -50px;
+    left: -30px;
+}
+
+.acciones-cantidad .cantidad{
+    bottom: -60px;
+    position: absolute;
+    width: 100px;
+}
+
+.acciones-cantidad .plus{
+    color: #FF596A;
+    position: absolute;
+    bottom: -50px;
+    left: 110px;
+}
+
+.total{
+    border-top: 1px solid #bababa;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+}
+
+.aproximado{
+    font-size: 18px;
+    color: #353435;
+    font-weight: 800;
+}
+
+.valor{
+    color: #FF596A;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.call-to-action-bolsa{
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 3em;
+}
+
+.pay-now{
+    border-radius: 25px;
+    text-align: center;
+    position: relative;
+    background: #8BBA59;
+    padding: 1em;
+    color: white;
+}
+.pay-now:hover{
+    list-style: none;
+    color: white;
+}
+.circle-go-shop{
+    background: #719946;
+    border-radius: 50%;
+    left: 0;
+    height: 48px;
+    position: absolute;
+    top: 0;
+    width: 48px;
+}
+
+.circle-go-shop .material-icons{
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.clear-now{
+    border-radius: 25px;
+    text-align: center;
+    position: relative;
+    border: 1px solid #FF596A;
+    padding: 1em;
+    color: #FF596A;
+}
+.pay-now:hover{
+    list-style: none;
+    color: white;
+}
+.circle-clear-shop{
+    border-radius: 50%;
+    left: 0;
+    height: 48px;
+    position: absolute;
+    top: 0;
+    width: 48px;
+}
+
+.circle-clear-shop .material-icons{
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/*.call-to-action-bolsa .pay-now{
+    background: #8BBA59;
+    border-radius: 25px;
+    color: white;
+    display: block;
+    padding: 15px 70px;
+    position: relative;
+    text-align: center;
+}*/
+
+.call-to-action-bolsa .pay-now,
+.call-to-action-bolsa .clear-now{
+    width: 45%
+}
