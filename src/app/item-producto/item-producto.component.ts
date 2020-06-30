@@ -24,7 +24,6 @@ export class ItemProductoComponent implements OnInit {
   @Input() small: boolean;
   @Input() showButtons: boolean;
   @Input() full_view: boolean;
-  @Input() favorites: boolean;
 
   ngOnInit(): void {
     if (this.showButtons) {

@@ -151,7 +151,7 @@
                                         <!-- <li class="page-item active" aria-current="page">
                                             <span class="page-link">1<span class="sr-only">(current)</span></span>
                                         </li> -->
-                                        <li *ngFor="let item of [].constructor(pages); let i = index" [class]="(i+1 ==page_number) ? 'page-item active' : 'page-item'">
+                                        <li *ngFor="let item of [].constructor(pages); let i = index"[class]="(i+1 ==page_number) ? 'page-item active' : 'page-item'">
                                             <a class="page-link text-gray" (click)="changePage(i+1)">{{i + 1}}</a>
                                         </li>
                                         <li class="page-item">

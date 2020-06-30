@@ -28,40 +28,11 @@ export class ContentComponent implements OnInit {
     valor_ant : null, 
     precio_des : null
   }
-  btn_active = 1;
 
   constructor(public mediaObserver: MediaObserver, private http : SendHttpData, iconRegister : MatIconRegistry, sanitizer: DomSanitizer ) {
     iconRegister.addSvgIcon(
       'woman',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/home_btn/woman.svg')
-    );
-    iconRegister.addSvgIcon(
-      'woman_act',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/home_btn/woman_act.svg')
-    );
-    iconRegister.addSvgIcon(
-      'boy',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/home_btn/boy.svg')
-    );
-    iconRegister.addSvgIcon(
-      'boy_act',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/home_btn/boy_act.svg')
-    );
-    iconRegister.addSvgIcon(
-      'people',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/home_btn/people.svg')
-    );
-    iconRegister.addSvgIcon(
-      'people_act',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/home_btn/people_act.svg')
-    );
-    iconRegister.addSvgIcon(
-      'coupon',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/home_btn/coupon.svg')
-    );
-    iconRegister.addSvgIcon(
-      'coupon_act',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/home_btn/coupon_act.svg')
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/woman.svg')
     );
   }
 
@@ -139,10 +110,6 @@ export class ContentComponent implements OnInit {
 
   ngOnDestroy() {
     this.mediaSub.unsubscribe();
-  }
-
-  btnCatActive(val){
-    this.btn_active = val;
   }
 
 }

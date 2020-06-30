@@ -10,14 +10,14 @@
                                     <mat-form-field class="w-100" appearance="outline">
                                         <mat-label>Correo electrónico</mat-label>
                                         <input name="email" [formControl]="email" matInput placeholder="Correo electrónico">
-                                        <mat-error *ngIf="email.invalid">{{getErrorMessageLogin()}}</mat-error>
+                                        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-6">
                                     <mat-form-field class="w-100" appearance="outline">
                                         <mat-label>Contraseña</mat-label>
                                         <input name="password" [formControl]="password" matInput [type]="hide ? 'password' : 'text'">
-                                        <mat-error *ngIf="password.invalid">{{getErrorMessageLogin()}}</mat-error>
+                                        <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>
                                         <button style="color: #666;" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                         </button>
@@ -37,90 +37,70 @@
                             </div>
                     </mat-tab>
                     <mat-tab label="REGISTRATE">
-                        <form (ngSubmit)="sendRegister()" [formGroup]="myForm" novalidate>
-                            <div class="d-flex mrg-top-20 mrg-botn-20">
-                                <div class="col-md-6">
-                                    <mat-form-field class="w-100" appearance="outline">
-                                        <mat-label>Nombres</mat-label>
-                                        <input name="nombres" formControlName="first_name" matInput placeholder="Nombres">
-                                        <mat-error *ngIf="myForm.hasError('required', 'first_name')">
-                                            El campo es requerido.
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6">
-                                    <mat-form-field class="w-100" appearance="outline">
-                                        <mat-label>Apellidos</mat-label>
-                                        <input name="Apellidos" formControlName="last_name" matInput placeholder="Apellidos">
-                                        <mat-error *ngIf="myForm.hasError('required', 'last_name')">
-                                            El campo es requerido.
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
+                        <div class="d-flex mrg-top-20 mrg-botn-20">
+                            <div class="col-md-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Nombre completo</mat-label>
+                                    <input name="email" [formControl]="email" matInput placeholder="Correo electrónico">
+                                    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                                </mat-form-field>
                             </div>
-                            <div class="d-flex mrg-top-20 mrg-botn-20">
-                                <div class="col-md-12">
-                                    <mat-form-field class="w-100" appearance="outline">
-                                        <mat-label>Correo electrónico</mat-label>
-                                        <input name="email_new" formControlName="email_new" matInput placeholder="Correo electrónico">
-                                        <mat-error *ngIf="myForm.hasError('required', 'email_new')">
-                                            El campo es requerido.
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
+                            <div class="col-md-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Correo electrónico</mat-label>
+                                    <input name="email" [formControl]="email" matInput placeholder="Correo electrónico">
+                                    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                                </mat-form-field>
                             </div>
-                            <div class="d-flex mrg-top-20 mrg-botn-20">
-                                <div class="col-md-6">
-                                    <mat-form-field class="w-100" appearance="outline">
-                                        <mat-label>Contraseña</mat-label>
-                                        <input name="password_reg" formControlName="password" matInput [type]="hide ? 'password' : 'text'">
-                                        <mat-error *ngIf="myForm.hasError('required', 'password')">
-                                            El campo es requerido.
-                                        </mat-error>
-                                        <button style="color: #666;" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                        </button>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6">
-                                    <mat-form-field class="w-100" appearance="outline">
-                                        <mat-label>Confirmacion de contraseña</mat-label>
-                                        <input name="password_conf" formControlName="confirmPassword" [errorStateMatcher]="matcher" matInput [type]="hide ? 'password' : 'text'">
-                                        <mat-error *ngIf="myForm.hasError('notSame')">
-                                            La contraseña no coincide
-                                        </mat-error>
-                                        <button style="color: #666;" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                        </button>
-                                    </mat-form-field>
-                                </div>
+                        </div>
+                        <div class="d-flex mrg-top-20 mrg-botn-20">
+                            <div class="col-md-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Contraseña</mat-label>
+                                    <input name="password" [formControl]="password" matInput [type]="hide ? 'password' : 'text'">
+                                    <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>
+                                    <button style="color: #666;" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                </mat-form-field>
                             </div>
-                            <div class="d-flex mrg-top-20 mrg-botn-20">
-                                <div class="col-md-6">
-                                    <mat-form-field appearance="outline" class="w-100">
-                                        <mat-label>Fecha de cumpleaños</mat-label>
-                                        <input matInput [matDatepicker]="picker" formControlName="fecha_nacimiento">
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6 d-flex align-items-center">
-                                    <mat-radio-group color="primary" name="genero" formControlName="genero" aria-label="Select an option">
-                                        <mat-radio-button class="mrg-right-30" value="1">Masculino</mat-radio-button>
-                                        <mat-radio-button value="2">Femenino</mat-radio-button>
-                                    </mat-radio-group>
-                                </div>
+                            <div class="col-md-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Confirmacion de contraseña</mat-label>
+                                    <input name="password" [formControl]="password" matInput [type]="hide ? 'password' : 'text'">
+                                    <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>
+                                    <button style="color: #666;" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                </mat-form-field>
                             </div>
-                            <div class="d-flex justify-content-center mrg-top-20 mrg-botn-20">
-                                <button mat-raised-button type="submit" color="primary" class="mrg-right-5">Registrarme</button>
+                        </div>
+                        <div class="d-flex mrg-top-20 mrg-botn-20">
+                            <div class="col-md-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Fecha</mat-label>
+                                    <input name="email" [formControl]="email" matInput placeholder="Correo electrónico">
+                                    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                                </mat-form-field>
                             </div>
-                        </form>
-                        <!-- <div class="d-flex justify-content-center mrg-top-20 mrg-botn-20">
+                            <div class="col-md-6">
+                                <mat-radio-group color="primary" aria-label="Select an option">
+                                    <mat-radio-button value="1">Masculino</mat-radio-button>
+                                    <mat-radio-button value="2">Femenino</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mrg-top-20 mrg-botn-20">
+                            <button mat-raised-button type="submit" color="primary" class="mrg-right-5">Registrarme</button>
+                        </div>
+                        
+                        <div class="d-flex justify-content-center mrg-top-20 mrg-botn-20">
                             <mat-checkbox  color="primary">Me gustaría recibir comunicaciones promocionales (Recibirás un e-mail de confirmación)</mat-checkbox>
                         </div>
                         <div class="d-flex justify-content-center mrg-top-20 mrg-botn-20">
-                            <mat-checkbox  color="primary">Declaro que he leído y acepto la nueva <span class="text-pink">Política de Privacidad y  <br> los Términos y Condiciones</span> de Linio.</mat-checkbox>
-                        </div> -->
+                            <mat-checkbox  color="primary">Declaro que he leído y acepto la nueva <span class="text-pink">Política de
+                                Privacidad y  <br> los Términos y Condiciones</span> de Linio.</mat-checkbox>
+                        </div>
                         
                     </mat-tab>
                 </mat-tab-group>

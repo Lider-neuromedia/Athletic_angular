@@ -2,10 +2,32 @@
       <!-- Contenido 1 -->
       <div class="container mrg-top-10 mrg-top-30-xs">
         <div class="row">
-          <div class="col-md-6 col-xs-12 fade-in">
+
+          <!--<div class="col-md-7 col-xs-12 fade-in">
             <img src="assets/img/home/img-1.png" class="w-100" alt="">
+          </div-->
+
+          <div class="col-md-7 col-xs-12 fade-in">
+            <ngb-carousel>
+              <ng-template ngbSlide>
+                <div class="picsum-img-wrapper">
+                  <img src="assets/img/home/img-1.png" alt="Random first slide">
+                </div>
+              </ng-template>
+              <ng-template ngbSlide>
+                <div class="picsum-img-wrapper">
+                  <img src="assets/img/home/img-1.png" alt="Random first slide">
+                </div>
+              </ng-template>
+              <ng-template ngbSlide>
+                <div class="picsum-img-wrapper">
+                  <img src="assets/img/home/img-1.png" alt="Random first slide">
+                </div>
+              </ng-template>
+            </ngb-carousel>
           </div>
-          <div class="col-md-6 col-xs-12 fade-in">
+
+          <div class="col-md-5 col-xs-12 fade-in">
             <div class="d-flex justify-content-center">
               <img src="assets/img/home/img-2.jpg" class="w-100-xs" width="469px" height="219px" alt="">
             </div>
@@ -31,7 +53,7 @@
             <span class="txt-icon-home">Compra segura <p>Sin riesgo de robo </p> </span>
           </div>
           <div class="d-flex justify-content-center fadein-botton">
-            <img src="assets/img/home/asistencia.svg" alt="">
+            <img src="assets/img/home/asistencia.png" alt="">
             <span class="txt-icon-home">Asistencia <p>Appstore y Playstore</p> </span>
           </div>
           <div class="d-flex justify-content-center fadein-botton">
@@ -44,13 +66,13 @@
       <!-- Contenido 3 -->
       <div class="mrg-top-40 mrg-botn-20 container">
         <div class="row">
-          <div class="col-md-3 col-xs-12 mrg-top-10">
+          <div class="col-md-3 col-xs-12 mrg-top-10 scale-image">
             <img src="assets/img/home/img-4.png" style="height: 250px;"  class="border-rad-mild w-100" alt="">
           </div>
-          <div class="col-md-6 col-xs-12 mrg-top-10">
+          <div class="col-md-6 col-xs-12 mrg-top-10 scale-image">
             <img src="assets/img/home/img-yellow.png" style="height: 250px;" class="border-rad-mild w-100" alt="">
           </div>
-          <div class="col-md-3 col-xs-12 mrg-top-10">
+          <div class="col-md-3 col-xs-12 mrg-top-10 scale-image">
             <img src="assets/img/home/img-6.png" style="height: 250px;" class="border-rad-mild w-100" alt="">
           </div>
         </div>
@@ -79,10 +101,10 @@
       <!-- Contenido 5 -->
       <div class="mrg-top-40 mrg-botn-20 container">
         <div class="row">
-          <div class="col-md-6 col-xs-12">
+          <div class="col-md-6 col-xs-12 scale-image">
             <img src="assets/img/home/img-5.png" class="border-rad-mild w-100" alt="">
           </div>
-          <div class="col-md-6 col-xs-12">
+          <div class="col-md-6 col-xs-12 scale-image">
             <img src="assets/img/home/img-yellow.png" class="border-rad-mild w-100" alt="">
           </div>
         </div>
@@ -112,7 +134,15 @@
       <!-- Contenido 7 -->
       <div class="container mrg-top-20 mrg-botn-20">
         <div class="row">
-          <div class="col-md-12 col-xs-12">
+          <div class="col-md-12 col-xs-12 banner-download-app">
+            <div class="download-app">
+              <h3>Descarga y usa nuestra app</h3>
+              <p>Contenido exclusivo, promociones y mucho más</p>
+              <div class="call-to-action-download">
+                <img src="assets/img/home/download-on-the-app-store-apple.svg" alt="">
+                <img src="assets/img/home/google-play-download-android-app.svg" alt="">
+              </div>
+            </div>
             <img src="assets/img/home/img-7.png" class="border-rad-mild w-100" height="200px" alt="">
           </div>
         </div>
@@ -123,26 +153,25 @@
         <div class="container">
           <div class="row d-flex justify-content-center">
             <div class="content-btn-cate w-100-xs  mrg-top-40 mrg-botn-20">
-              <div (click)="btnCatActive(1)" [class]="(btn_active == 1) ? 'btn-home-cate-act' : 'btn-home-cate'">
-                <mat-icon svgIcon="woman" class="mrg-top-15-prc icon-inactive">woman</mat-icon>
-                <mat-icon svgIcon="woman_act" class="mrg-top-15-prc icon-active">woman_act</mat-icon>
+              <div class="btn-home-cate-act">
+                <!-- <mat-icon svgIcon="woman" class="mrg-top-15-prc">woman</mat-icon> -->
+                <!-- <img src="assets/img/home/women-white.svg" alt=""> -->
+                <i class="women"></i>
                 <p>Femenino</p>
               </div>
   
-              <div (click)="btnCatActive(2)" [class]="(btn_active == 2) ? 'btn-home-cate-act' : 'btn-home-cate'">
-                <mat-icon svgIcon="people" class="mrg-top-15-prc icon-inactive">people</mat-icon>
-                <mat-icon svgIcon="people_act" class="mrg-top-15-prc icon-active">people_act</mat-icon>
+              <div class="btn-home-cate">
+                <i class="masculino"></i>
                 <p>Masculino</p>
               </div>
   
-              <div (click)="btnCatActive(3)" [class]="(btn_active == 3) ? 'btn-home-cate-act' : 'btn-home-cate'">
-                <mat-icon svgIcon="boy" class="mrg-top-15-prc icon-inactive">boy</mat-icon>
-                <mat-icon svgIcon="boy_act" class="mrg-top-15-prc icon-active">boy_act</mat-icon>
-                <p>Niños</p>
+              <div class="btn-home-cate">
+                <i class="kids"></i>
+                <p>Kids</p>
               </div>
-              <div (click)="btnCatActive(4)" [class]="(btn_active == 4) ? 'btn-home-cate-act' : 'btn-home-cate d-none d-sm-block'">
-                <mat-icon svgIcon="coupon" class="mrg-top-15-prc icon-inactive">coupon</mat-icon>
-                <mat-icon svgIcon="coupon_act" class="mrg-top-15-prc icon-active">coupon_act</mat-icon>
+              <!-- <div class="btn-home-cate d-none d-sm-block"> -->
+              <div class="btn-home-cate">
+                <i class="promociones"></i>
                 <p>Promociones</p>
               </div>
             </div>
@@ -163,13 +192,11 @@
       <div class="container mrg-top-40 mrg-botn-40">
         <div class="row">
           <div class="col-md-12 col-xs-12">
-            <div style="width: 100%; background: #353435; padding: 5px; border-radius: 10px;">
-              <p style="color: #FFFFFF;
-              font-size: 31px;
-              font-weight: 400;
-              letter-spacing: 3.98px;
-              line-height: 38.97px;
-              text-align: center;">Envíos nacionales gratis en temporada</p>
+            <div style="width: 100%; background: #353435; position: relative;">
+              <div class="ribbon-date">
+                <img src="assets/img/home/ribbon.svg" alt="">
+              </div>
+              <p class="envios-nacionales" >Envíos nacionales gratis en temporada</p>
             </div>
           </div>
         </div>
@@ -181,7 +208,7 @@
           
           <div class="col-md-2 d-flex align-items-center w-100-xs txt-center-xs">
             <div>
-              <p class="font-sz-20 text-pink bold">Las más populares de la semana </p>
+              <p class="font-sz-20 text-pink bold populares-semana">Las más populares de la semana </p>
               <p class="font-sz-16 text-dark">Estas son las zapatillas mejor puntuadas esta semana</p>
             </div>
           </div>
@@ -252,10 +279,10 @@
       <div class="color-gray p-3">
         <div class="mrg-top-40 mrg-botn-20 container">
           <div class="row">
-            <div class="col-md-9 col-xs-12 mrg-botn-10">
-              <img src="assets/img/home/img-8.png"tyle="height: 250px;" class="w-100 border-rad-mild d-none d-sm-flex" alt="">
+            <div class="col-md-9 col-xs-12 mrg-botn-10 scale-image">
+              <img src="assets/img/home/img-8.png" tyle="height: 250px;" class="w-100 border-rad-mild d-none d-sm-flex" alt="">
             </div>
-            <div class="col-md-3 col-xs-12">
+            <div class="col-md-3 col-xs-12 scale-image">
               <img src="assets/img/home/img-9.png" style="height: 250px;" class=" w-100 border-rad-mild" alt="">
             </div>
           </div>  
@@ -276,7 +303,7 @@
                 <p>TEMPORADA</p>
               </div>
             </div>
-            <div class="col-md-8 col-xs-12 mrg-top-20-xs">
+            <div class="col-md-8 col-xs-12 mrg-top-20-xs scale-image">
                 <img src="assets/img/home/img-10.png" style=" height: 340px;" class="w-100" alt="">
             </div>
           </div>

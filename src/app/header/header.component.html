@@ -1,7 +1,7 @@
 <mat-toolbar color="accent" class="sticky">
-  <mat-toolbar-row [class]="(scrolled > 0) ? 'toolbar-small d-none d-md-block' : 'hide-element'">
-    <div class="container" fxLayoutAlign="space-evenly center">
-      <span class="spacer"></span>
+  <mat-toolbar-row class="toolbar-small d-none d-md-block">
+    <div class="container ing5-flex-end" fxLayoutAlign="space-evenly center">
+      <!-- <span class="spacer"></span> -->
       <mat-icon class="icon-small text-gray" aria-hidden="false">local_phone</mat-icon>
       <span class="text-gray">3154559876/3154559876</span>
       <span class="separator"></span>
@@ -16,9 +16,9 @@
     </div>
   </mat-toolbar-row>
   
-  <mat-toolbar-row class="w-auto border-btn-pink">
+  <mat-toolbar-row class="w-auto">
     <div class="container">
-      <div class="d-flex flex-md-row">
+      <div class="d-flex flex-md-row ing5-items-content-header">
         <button class="line-height-ini" [matMenuTriggerFor]="menu" mat-button>
           <img src="assets/img/icons/menu.png" class="mrg-top-5">
           <p class="text-menu">Categorias</p> 
@@ -29,14 +29,21 @@
         <button class="line-height-ini ml-md-auto d-flex d-sm-none" mat-button>
           <img src="assets/img/logo_fondo_negro.png">
         </button>
+
+        <div class="ing5-box-buscador">
+          <input class="buscador" type="text" placeholder="Busca por producto, marca o categoría">
+          <div class="lupa">
+            <img src="assets/img/blanco.svg" alt="">
+          </div>
+        </div>
         
         <!-- Position end -->
         <div class="flex-row ml-md-auto d-none d-sm-flex">
-          <button class="line-height-ini" mat-button fxLayoutAlign="end" (click)="router.navigate(['/pedidos']);">
-            <img src="assets/img/icons/load-carriage.svg" class="mrg-top-5">
+          <button class="line-height-ini" mat-button fxLayoutAlign="end">
+            <img src="assets/img/icons/load-carriage.png" class="mrg-top-5">
               <p class="text-menu">Pedidos</p> 
           </button>
-          <button class="line-height-ini" mat-button fxLayoutAlign="end" (click)="router.navigate(['/favoritos']);">
+          <button class="line-height-ini" mat-button fxLayoutAlign="end">
             <img src="assets/img/icons/heart.png" class="mrg-top-5">
               <p class="text-menu">Mis favoritos</p> 
           </button>
@@ -45,7 +52,7 @@
             <p class="text-menu">Mi cuenta</p>
           </button>
           <button class="line-height-ini" (click)="toggleOpenBolsa()" mat-button fxLayoutAlign="end">
-            <img src="assets/img/icons/bolsa_inactive.svg" class="mrg-top-5">
+            <img src="assets/img/icons/bolsa_inactive.png">
               <p class="text-menu">Bolsa</p> 
           </button>
         </div>
@@ -74,7 +81,7 @@
 </mat-toolbar>
 
 <!-- Menu -->
-<mat-menu class="menu-categories" #menu="matMenu">
+<mat-menu class="menu-categories" #menu="matMenu" style="padding-top: 0px !important; padding-bottom: 0px !important;">
   <div fxLayout="row"  (click)="$event.stopPropagation();">
     <div fxLayout="column" class="mrg-top-10 cont-categ" fxLayoutAlign="left">
       <!-- Ciclo - Categorias -->
@@ -92,7 +99,7 @@
         <p class="list-categ"> <a href="#">Promociones</a></p>
       </div>
     </div>
-    <div fxLayout="row wrap" class="mrg-top-10" style="width: 520px;" fxLayoutAlign="space-evenly left">
+    <div fxLayout="row wrap" class="content-categories-menu-header" style="width: 520px;" fxLayoutAlign="space-evenly left">
 
       <div *ngFor="let element of sub_categorias">
         <div class="content-sb-categ">
@@ -130,7 +137,7 @@
         </div>
       </div>
     </div>
-    <div class="mrg-top-10" fxLayout="row wrap">
+    <div class="" fxLayout="row wrap">
       <div class="h-100 w-50">
         <img src="assets/img/header/menu_1.png" class="w-100" alt="">
       </div>
@@ -143,39 +150,9 @@
 </mat-menu>
 <!-- Menu cuenta -->
 <mat-menu #belowMenu="matMenu">
-  <div style="width: 150px;">
-    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/login']);" *ngIf="usuario == null">
-      <span>Iniciar sesión</span>
-      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
-    </button>
-    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/perfil']);" *ngIf="usuario != null">
-      Mi cuenta
-      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
-    </button>
-    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/pedidos']);" *ngIf="usuario != null">
-      Mis pedidos
-      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
-    </button>
-    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/resenas']);" *ngIf="usuario != null">
-      Mis reseñas
-      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
-    </button>
-    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/cupones']);" *ngIf="usuario != null">
-      Mis cupones
-      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
-    </button>
-    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/direcciones']);" *ngIf="usuario != null">
-      Mis direcciones
-      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
-    </button>
-    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/favoritos']);" *ngIf="usuario != null">
-      Mis favoritos
-      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
-    </button>
-    <button class="btn-close-sesion" mat-menu-item (click)="cerrarSesion()" *ngIf="usuario != null">
-      Cerrar sesión
-    </button>
-  </div>
+  <button mat-menu-item (click)="router.navigate(['/login']);" *ngIf="usuario == null">Iniciar sesión</button>
+  <button mat-menu-item *ngIf="usuario != null">{{usuario.firstname}}</button>
+  <button mat-menu-item (click)="cerrarSesion()" *ngIf="usuario != null">Cerrar sesión</button>
 </mat-menu>
 
 <!-- Espaciado para que el contenido no quede debajo del fixed -->

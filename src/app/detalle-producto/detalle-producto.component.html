@@ -9,6 +9,7 @@
                 </ol>
             </nav>
         </div>
+
         <div class="row">
             <div class="col-md-9 content-images h-xs-300px">
                 <ngx-gallery class="w-100" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
@@ -54,6 +55,53 @@
                 </div>
             </div>
         </div>
+
+        <!--<div class="row">
+            <div class="col-md-9 content-images h-xs-300px">
+                <ngx-gallery class="w-100" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+            </div>
+            <div class="col-md-3 mrg-top-10">
+                <div class="content-strech mrg-botn-30">
+                    <p class="prod-subtitle">{{producto.marca}}</p>
+                    <p class="prod-title">{{producto.name}}</p>
+                </div>
+                <div class="content-strech mrg-botn-15">
+                    <p class="title-ref">{{producto.category}}</p>
+                    <p class="ref">Ref: {{producto.referencia}}</p>
+                </div>
+                <div class="content-strech mrg-botn-15">
+                    <p class="price">{{producto.price |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                    <p class="price-des" *ngIf="valor_ant != null">{{producto.precio_ant |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                </div>
+                <div class="content-strech content-cuotas">
+                    <p class="cuotas">Hasta 12 cuotas de <span class="txt-dark-bold">$13.345</span></p>
+                </div>
+                <div class="content-strech mrg-botn-15" *ngIf="descuento != null">
+                    <p class="txt-descuento">Aplica descuento de {{producto.descuento * 100}}%</p>
+                    <a href="#" class="link-terminos">Ver términos y condiciones</a>
+                </div>
+                <div class="w-80">
+                    <select class="form-control bold mrg-botn-10 btn-select" placeholder="Elige tu talla" id="talla">
+                        <option selected value="">Elige tu talla</option>
+                        <option *ngFor="let item of tallas;" value="{{item.id}}" >{{item.name}}</option>
+                    </select>
+                    <div class="cantidad mrg-botn-10 btn-select">
+                        <label for="input-cant" class="lbl-cant">Cantidad</label>
+                        <input id="input-cant" class="mrg-botn-10 input-cant"  [ngModel]="cantidad" type="number">
+                        <button id="inc-button" (click)="changeCantidad(true)" mat-fab color="primary" class="spinner-button">
+                            +
+                        </button>
+                        <button id="dec-button"  (click)="changeCantidad(false)" mat-fab color="primary" class="spinner-button">
+                            -
+                        </button>
+                    </div>
+                    <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary">
+                        <mat-icon class="icon-small">work</mat-icon>Añadir a la bolsa
+                    </button>
+                </div>
+            </div>
+        </div>-->
+        
         <mat-tab-group class="mrg-top-20">
             <mat-tab label="Descripcion">
                 <div class="content-tab d-block d-sm-flex p-top-50  mrg-botn-20">

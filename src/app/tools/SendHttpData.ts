@@ -30,7 +30,7 @@ export class SendHttpData {
 
   // Peticion Http GET
   httpPost(route:string, data:any):Observable<any>{
-    var url = this.buildUrl(route,null, false);
+    var url = this.buildUrl(route, false);
     return this._http.post(url, data);
   }
 

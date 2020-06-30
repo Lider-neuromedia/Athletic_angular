@@ -11,7 +11,6 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxGalleryModule } from 'ngx-gallery-9';
-import { GlobalVarService } from './common/global-var.service';
 
 // Components
 import { HeaderComponent } from './header/header.component';
@@ -33,6 +32,7 @@ import { CuponesComponent } from './cupones/cupones.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { DireccionesComponent } from './direcciones/direcciones.component';
 import { FavoritosComponent } from './favoritos/favoritos.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -65,9 +65,10 @@ import { FavoritosComponent } from './favoritos/favoritos.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    NgbModule
   ],
-  providers: [SendHttpData, {provide: LocationStrategy, useClass: HashLocationStrategy}, GlobalVarService],
+  providers: [SendHttpData, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
