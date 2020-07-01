@@ -233,16 +233,6 @@
   cursor: pointer;
 }
 
-.animation-zoom{
-  cursor: pointer;
-}
-
-.animation-zoom:hover {
-  -ms-transform: scale(1.1); /* IE 9 */
-  -webkit-transform: scale(1.1); /* Safari 3-8 */
-  transform: scale(1.1); 
-}
-
 .hover-shadow{
   cursor: pointer;
 }
@@ -256,47 +246,4 @@
 }
 .hover-shadow-dark:hover{
   box-shadow: 2px 1px 6px 3px rgba(99, 80, 80, 0.51);
-}
-
-.animation-bounce img {
-  animation: bounce 0.5s infinite alternate;
-  -webkit-animation: bounce 0.5s infinite alternate;
-}
-
-.animation-pulse  img{
-  transform: scale(1);
-  animation: pulse 2s infinite alternate;
-  -webkit-animation: pulse 2s infinite alternate;
-}
-
-
-@keyframes bounce {
-  from {
-    transform: translateY(0px);
-  }
-  to {
-    transform: translateY(-15px);
-  }
-}
-@-webkit-keyframes bounce {
-  from {
-    transform: translateY(0px);
-  }
-  to {
-    transform: translateY(-15px);
-  }
-}
-
-@keyframes pulse {
-	0% {
-		transform: scale(0.8);
-	}
-
-	70% {
-		transform: scale(1);
-	}
-
-	100% {
-		transform: scale(0.8);
-	}
 }

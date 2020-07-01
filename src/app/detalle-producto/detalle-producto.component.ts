@@ -36,6 +36,11 @@ export class DetalleProductoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts(this.route_params.snapshot.params.id);
+    this.galleryImages = [{
+      small: "/assets/img/productos/producto_interna.png",
+      medium: "/assets/img/productos/producto_interna.png",
+      big: "/assets/img/productos/producto_interna.png"
+    }];
     this.galleryOptions = [
       {
         width: '600px',
@@ -186,7 +191,7 @@ export class DetalleProductoComponent implements OnInit {
                 descuento : this.descuento,
                 precio_ant : this.valor_ant
               };
-              this.galleryImages = gallery;
+              // this.galleryImages = gallery;
               this.producto = product;
             },
             error => { console.log("error." + error); }
