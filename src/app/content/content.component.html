@@ -153,25 +153,26 @@
         <div class="container">
           <div class="row d-flex justify-content-center">
             <div class="content-btn-cate w-100-xs  mrg-top-40 mrg-botn-20">
-              <div class="btn-home-cate-act">
-                <!-- <mat-icon svgIcon="woman" class="mrg-top-15-prc">woman</mat-icon> -->
-                <!-- <img src="assets/img/home/women-white.svg" alt=""> -->
-                <i class="women"></i>
+              <div (click)="btnCatActive(1)" [class]="(btn_active == 1) ? 'btn-home-cate-act' : 'btn-home-cate'">
+                <mat-icon svgIcon="woman" class="mrg-top-15-prc icon-inactive">woman</mat-icon>
+                <mat-icon svgIcon="woman_act" class="mrg-top-15-prc icon-active">woman_act</mat-icon>
                 <p>Femenino</p>
               </div>
   
-              <div class="btn-home-cate">
-                <i class="masculino"></i>
+              <div (click)="btnCatActive(2)" [class]="(btn_active == 2) ? 'btn-home-cate-act' : 'btn-home-cate'">
+                <mat-icon svgIcon="people" class="mrg-top-15-prc icon-inactive">people</mat-icon>
+                <mat-icon svgIcon="people_act" class="mrg-top-15-prc icon-active">people_act</mat-icon>
                 <p>Masculino</p>
               </div>
   
-              <div class="btn-home-cate">
-                <i class="kids"></i>
-                <p>Kids</p>
+              <div (click)="btnCatActive(3)" [class]="(btn_active == 3) ? 'btn-home-cate-act' : 'btn-home-cate'">
+                <mat-icon svgIcon="boy" class="mrg-top-15-prc icon-inactive">boy</mat-icon>
+                <mat-icon svgIcon="boy_act" class="mrg-top-15-prc icon-active">boy_act</mat-icon>
+                <p>Niños</p>
               </div>
-              <!-- <div class="btn-home-cate d-none d-sm-block"> -->
-              <div class="btn-home-cate">
-                <i class="promociones"></i>
+              <div (click)="btnCatActive(4)" [class]="(btn_active == 4) ? 'btn-home-cate-act' : 'btn-home-cate d-none d-sm-block'">
+                <mat-icon svgIcon="coupon" class="mrg-top-15-prc icon-inactive">coupon</mat-icon>
+                <mat-icon svgIcon="coupon_act" class="mrg-top-15-prc icon-active">coupon_act</mat-icon>
                 <p>Promociones</p>
               </div>
             </div>
