@@ -1162,4 +1162,8 @@ Aside menu account page
     .ing5-items-content-header{
         flex-wrap: wrap;
     }
+    .container{
+        max-width: 95% !important;
+    }
 }
+

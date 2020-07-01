@@ -292,3 +292,57 @@
   padding: 5px 0px;
   margin-left: 420px;
 }
+
+.logo-ribbon{
+  position: absolute;
+  left: 5%;
+}
+
+.ribbon-fecha{
+  position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 29px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+@media screen and (max-width: 1199px){
+  .content-slider{
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .content-slider img{
+    width: 100%;
+  }
+  .promociones-side{
+    flex: 0 0 100%;
+    max-width: 100%;
+    display: flex;
+    margin-top: 1em;
+  }
+  .envios-nacionales{
+    font-size: 18px;
+  }
+  .ribbon-fecha{
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 992px){
+  .hide-small{
+    display: none;
+  }
+  .section-2{
+    flex-wrap: wrap !important;
+  }
+  .section-2 .d-flex{
+    margin: 1em 0em;
+  }
+  .promocion-11{
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

@@ -26,8 +26,8 @@
 }
 
 .toolbar-small{
-  min-height: 32px;
-  height: 32px;
+  min-height: 30px;
+  height: 30px;
   font-size: 9px;
   background: #ffffff;
 }
@@ -35,7 +35,7 @@
 .icon-small{
   margin-left: 5px;
   margin-right: 5px;
-  font-size: 15px;
+  font-size: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
