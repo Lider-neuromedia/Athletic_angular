@@ -1095,8 +1095,16 @@ Aside menu account page
 
 .ing5-btn-suscribete,
 .ing5-btn-promociones{
+    transition: all .6s ease;
     width: 50%;
 }
+
+.ing5-btn-suscribete:hover,
+.ing5-btn-promociones:hover{
+    background: #e0505f;
+    font-weight: 600;
+}
+
 
 .ing5-align-top{
     align-items: flex-start;
