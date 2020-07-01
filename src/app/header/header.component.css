@@ -128,3 +128,17 @@
 .content-categories-menu-header{
   padding: 8px 0px;
 }
+
+.ing5-items-header{
+  justify-content: flex-end;
+  width: 300px;
+}
+
+.ing5-items-header button{
+  padding: 0px 8px;
+  margin-top: 5px;
+}
+
+.ing5-items-header button p{
+  margin-bottom: 0px;
+}

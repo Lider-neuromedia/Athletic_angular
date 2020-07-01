@@ -38,24 +38,26 @@
         </div>
         
         <!-- Position end -->
-        <div class="flex-row ml-md-auto d-none d-sm-flex">
+        <div class="flex-row ml-md-auto d-none d-sm-flex ing5-items-header">
           <button class="line-height-ini" mat-button fxLayoutAlign="end">
-            <img src="assets/img/icons/load-carriage.png" class="mrg-top-5">
-              <p class="text-menu">Pedidos</p> 
+            <!-- <img src="assets/img/icons/load-carriage.png" class="mrg-top-5"> -->
+            <img class="header-pedidos" src="assets/img/header/pedidos.svg">
+            <p class="text-menu">Pedidos</p> 
           </button>
           <button class="line-height-ini" mat-button fxLayoutAlign="end">
-            <img src="assets/img/icons/heart.png" class="mrg-top-5">
-              <p class="text-menu">Mis favoritos</p> 
+            <img class="header-favoritos" src="assets/img/header/favoritos.svg">
+            <p class="text-menu">Mis favoritos</p> 
           </button>
           <button class="line-height-ini" [matMenuTriggerFor]="belowMenu" mat-button fxLayoutAlign="end">
-            <img src="assets/img/icons/user_inactive.png" class="mrg-top-5">
+            <img class="header-cuenta" src="assets/img/header/user.svg">
             <p class="text-menu">Mi cuenta</p>
           </button>
           <button class="line-height-ini" (click)="toggleOpenBolsa()" mat-button fxLayoutAlign="end">
-            <img src="assets/img/icons/bolsa_inactive.png">
-              <p class="text-menu">Bolsa</p> 
+            <img class="bolsa" src="assets/img/header/bolsa.svg">
+            <p class="text-menu">Bolsa</p> 
           </button>
         </div>
+
       </div>
     </div>
   </mat-toolbar-row>

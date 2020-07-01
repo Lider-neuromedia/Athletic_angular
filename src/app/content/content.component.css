@@ -309,6 +309,31 @@
     letter-spacing: 3px;
 }
 
+.entrega{
+  height: 35px;
+  width: 53px;
+}
+
+.pagos{
+  height: 35px;
+  width: 53px;
+}
+
+.compra{
+  height: 35px;
+  width: 54px;
+}
+
+.asistencia{
+  height: 35px;
+  width: 53px;
+}
+
+.descarga{
+  height: 44px;
+  width: 44px;
+}
+
 @media screen and (max-width: 1199px){
   .content-slider{
     flex: 0 0 100%;

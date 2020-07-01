@@ -111,7 +111,7 @@ img{
 /* Colors */
 .white{background: white !important;}
 .color-gray{ background: #F7F7F7; }
-.color-gray2{ background: #EEEEEE; }
+.color-gray2{ background: #EEEEEE; padding-top: 2.5em; }
 .text-pink{ color: #FF596A !important; }
 .text-dark{ color: #353435 !important; }
 .text-gray{ color: #979797 !important; }
@@ -1086,6 +1086,7 @@ Aside menu account page
 
 .ing5-items-content-header .ml-md-auto{
     margin-left: 0px !important;
+    align-items: center;
 }
 
 .populares-semana{

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 62 (91390) - https://sketch.com -->
+    <title>iconos_footer/Icon/facebook</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="FOOTER" transform="translate(-1034.000000, -237.000000)">
+            <g id="Group-10-Copy">
+                <g id="Group-9" transform="translate(158.000000, 173.000000)">
+                    <g id="Group-8" transform="translate(0.000000, 25.000000)">
+                        <g id="Group-5" transform="translate(799.000000, 0.000000)">
+                            <g id="Icon/facebook" transform="translate(78.000000, 40.000000)">
+                                <g id="Group-3">
+                                    <path d="M19.03,38.061 L19.03,38.061 C8.52,38.061 -1.56319402e-13,29.54 -1.56319402e-13,19.03 C-1.56319402e-13,8.52 8.52,-1.56319402e-13 19.03,-1.56319402e-13 C29.541,-1.56319402e-13 38.061,8.52 38.061,19.03 C38.061,29.54 29.541,38.061 19.03,38.061 Z" id="Stroke-7" stroke="#FF596A" stroke-width="1.5"></path>
+                                    <path d="M16.1306,30.5332 L20.7636,30.5332 L20.7636,18.9322 L23.9946,18.9322 L24.3396,15.0482 L20.7636,15.0482 L20.7636,12.8362 C20.7636,11.9202 20.9466,11.5582 21.8326,11.5582 L24.3396,11.5582 L24.3396,7.5272 L21.1316,7.5272 C17.6856,7.5272 16.1306,9.0462 16.1306,11.9512 L16.1306,15.0482 L13.7216,15.0482 L13.7216,18.9812 L16.1306,18.9812 L16.1306,30.5332 Z" id="Fill-9" fill="#FF596A"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
