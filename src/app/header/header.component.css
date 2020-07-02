@@ -142,3 +142,15 @@
 .ing5-items-header button p{
   margin-bottom: 0px;
 }
+
+@media screen and (max-width: 1134px){
+  .hide-image-mega-menu{
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 992px){
+  .mat-menu-panel{
+    margin-top: 42px !important;
+  }
+}
