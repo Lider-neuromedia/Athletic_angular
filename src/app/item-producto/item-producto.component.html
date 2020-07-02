@@ -1,5 +1,4 @@
-<div class="content-item-product">
-
+<div class="content-item-product item-shadow-h">
     <div (click)="router.navigate(['/detalle-producto/' + id]);" [class]="(small) ? 'item-product item-small' : 'item-product'">
         <div [class]="(small) ? 'content-img cont-small' : 'content-img'">
             <img [src]="image" alt="">
@@ -23,8 +22,11 @@
             </button>
         </div>
         <div class="w-40">
-            <button mat-stroked-button class="btn-vista-small" color="primary">
+            <button mat-stroked-button class="btn-vista-small" color="primary" *ngIf="!favorites">
                 <mat-icon class="icon-small">visibility</mat-icon>Vista rápida
+            </button>
+            <button mat-stroked-button class="btn-vista-small" color="primary" *ngIf="favorites">
+                <mat-icon class="icon-small">delete</mat-icon>Eliminar
             </button>
         </div>
         

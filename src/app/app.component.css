@@ -369,3 +369,11 @@
   text-align: right;
   margin: 0;
 }
+
+.footer-bolsa{
+    position: fixed;
+    bottom: 0;
+    background: white;
+    width: 100%;
+    max-width: 425px;
+}

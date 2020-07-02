@@ -849,6 +849,7 @@ Aside menu account page
     position: absolute;
     right: 0;
     top: 0;
+    width: 31px;
 }
 
 .precio-acciones{
@@ -875,6 +876,11 @@ Aside menu account page
 .acciones-cantidad{
     display: flex;
     position: relative;
+    margin-left: -20px;
+}
+
+.acciones-cantidad .trash{
+    transform: scale(1.2);
 }
 
 .acciones-cantidad .trash,
@@ -930,10 +936,14 @@ Aside menu account page
     background: #8BBA59;
     padding: 1em;
     color: white;
+    transition: all .6s ease;
 }
 .pay-now:hover{
+    background: #7fa952;
     list-style: none;
     color: white;
+    text-decoration: none;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .3);
 }
 .circle-go-shop{
     background: #719946;
@@ -958,10 +968,14 @@ Aside menu account page
     border: 1px solid #FF596A;
     padding: 1em;
     color: #FF596A;
+    transition: all .6s ease;
 }
-.pay-now:hover{
+.clear-now:hover{
     list-style: none;
     color: white;
+    background: #da4c5a;
+    text-decoration: none;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .3);
 }
 .circle-clear-shop{
     border-radius: 50%;
@@ -976,6 +990,10 @@ Aside menu account page
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+.clear-now:hover .material-icons{
+    color: white;
 }
 
 /*.call-to-action-bolsa .pay-now{
@@ -1030,10 +1048,10 @@ Aside menu account page
         padding-bottom: 1em;
     }
 }
-@media screen and (max-width: 768px){
-    .mat-drawer.mat-sidenav{
-        width: 60% !important;
-    }
+
+.mat-drawer.mat-sidenav{
+    max-width: 425px;
+    width: 60% !important;
 }
 
 /* Efecto escalar imagen enmascarada */
