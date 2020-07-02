@@ -256,6 +256,10 @@
   margin-top: 10px;
 }
 
+.hover-shadow{
+  cursor: pointer;
+}
+
 .call-to-action-download{
   display: flex;
   justify-content: center;

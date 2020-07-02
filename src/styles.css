@@ -759,6 +759,7 @@ Aside menu account page
     width: 100%;
     z-index: 5;
 }
+
 .header-bolsa,
 .filtro-bolsa,
 .items-productos-bolsa{
@@ -845,7 +846,6 @@ Aside menu account page
 .detalle-producto p{
     font-size: 12px;
 }
-
 .imagen-producto{
     position: relative;
 }

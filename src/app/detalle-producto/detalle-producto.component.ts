@@ -192,7 +192,7 @@ export class DetalleProductoComponent implements OnInit {
                 descuento : this.descuento,
                 precio_ant : this.valor_ant
               };
-              this.galleryImages = gallery;
+              // this.galleryImages = gallery;
               this.producto = product;
             },
             error => { console.log("error." + error); }
