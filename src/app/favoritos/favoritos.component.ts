@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./favoritos.component.css']
 })
 export class FavoritosComponent implements OnInit {
-
+  
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
+
 
 }

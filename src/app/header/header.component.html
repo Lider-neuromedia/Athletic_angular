@@ -152,9 +152,41 @@
 </mat-menu>
 <!-- Menu cuenta -->
 <mat-menu #belowMenu="matMenu">
-  <button mat-menu-item (click)="router.navigate(['/login']);" *ngIf="usuario == null">Iniciar sesión</button>
-  <button mat-menu-item *ngIf="usuario != null">{{usuario.firstname}}</button>
-  <button mat-menu-item (click)="cerrarSesion()" *ngIf="usuario != null">Cerrar sesión</button>
+
+  <div style="width: 150px;">
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/login']);" *ngIf="usuario == null">
+      <span>Iniciar sesión</span>
+      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/perfil']);">
+      Mi cuenta
+      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/pedidos']);">
+      Mis pedidos
+      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/resenas']);">
+      Mis reseñas
+      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/cupones']);">
+      Mis cupones
+      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/direcciones']);">
+      Mis direcciones
+      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/favoritos']);">
+      Mis favoritos
+      <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <button class="btn-close-sesion" mat-menu-item (click)="cerrarSesion()" *ngIf="usuario != null">
+      Cerrar sesión
+    </button>
+  </div>
+
 </mat-menu>
 
 <!-- Espaciado para que el contenido no quede debajo del fixed -->

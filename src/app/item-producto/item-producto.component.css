@@ -11,6 +11,9 @@
 .item-shadow{
   box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
 }
+.item-shadow-h:hover{
+  box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
+}
   
   .content-img{
     /* height: 250px; */

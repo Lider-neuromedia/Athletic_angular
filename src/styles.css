@@ -380,7 +380,12 @@ button.owl-prev:focus {
     content: "\f057";
     color: #fff;
 }
-
+.fa-search-plus:before{
+    color: #fff;
+}
+.fa-search-minus:before{
+    color: #fff;
+}
 /* Scroll */
 ::-webkit-scrollbar {
     width: 6px;

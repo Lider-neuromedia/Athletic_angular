@@ -192,6 +192,11 @@
   /* height: 250px; */
   margin: 5px;
   position: relative;
+  cursor: pointer;
+}
+
+.content-img:hover{
+  box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
 }
 
 .content-img img{
