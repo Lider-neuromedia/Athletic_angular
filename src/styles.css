@@ -1066,6 +1066,14 @@ Aside menu account page
     width: 50%;
 }
 
+.ing5-box-buscador ::-webkit-input-placeholder { color: #D9D9D9; } 
+
+.ing5-box-buscador :-moz-placeholder { /* Firefox 18- */ color: #D9D9D9; } 
+
+.ing5-box-buscador ::-moz-placeholder { /* Firefox 19+ */ color: #D9D9D9; } 
+
+.ing5-box-buscador :-ms-input-placeholder { color: #D9D9D9; }
+
 .lupa{
     background: #FF596A;
     border-radius: 0px 5px 5px 0px;

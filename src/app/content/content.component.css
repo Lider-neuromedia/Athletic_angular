@@ -374,15 +374,15 @@
   cursor: pointer;
 }
 
-.content-img{
+.color-gray .content-img{
   margin: 5px;
 }
 
-.content-img:nth-child(1){
+.color-gray .content-img:nth-child(1){
   padding-top: 5em;
 }
 
-.subtitle-prod{
+.color-gray .subtitle-prod{
   font-size: 12px;
   color: #BBBBBB;
   margin-left: 10px;
@@ -390,7 +390,7 @@
   font-weight: 700;
 }
 
-.title-prod{
+.color-gray .title-prod{
   font-size: 14px;
   color: #353435;
   margin-left: 10px;
@@ -399,15 +399,24 @@
   height: 35px;
 }
 
-.cont-price-prod{
+.color-gray .cont-price-prod{
   height: 45px;
   line-height: initial;
 }
 
-.price-prod{
+.color-gray .price-prod{
   font-size: 14px;
   color: #ff596a;
   margin-left: 10px;
   font-weight: 700;
   margin-bottom: 0px;
+}
+
+.productos-destacados-col-5 .col-md-2{
+  flex: 0 0 20% !important;
+  max-width: 20% !important;
+}
+
+.shoes-bg-pd{
+  padding-bottom: 46px;
 }
