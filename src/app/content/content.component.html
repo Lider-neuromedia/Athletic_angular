@@ -79,7 +79,7 @@
       </div>
 
       <!-- Contenido 4 - Destacados -->
-      <div class=" color-gray">
+      <div class=" color-gray destacados-row1">
         <div class="container">
           <div class="row">
             <div class="col-md-12">
@@ -96,7 +96,7 @@
               </app-item-producto>
             </div> -->
 
-            <div class="col-md-3 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
+            <!-- <div class="col-md-3 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
               <div class="content-item-product">
                   <div class="item-product">
                       <div class="content-img">
@@ -174,7 +174,30 @@
                       </div>
                   </div>
               </div>
+            </div> -->
+
+            <div class="container">
+              <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno" [carouselClasses]="['owl-carousel', 'owl-theme']" > 
+                  <div class="content-item-product" *ngFor="let img of carouselDescatadosUno">
+                      <div class="item-product">
+                          <div class="content-img">
+                              <img src="{{img.img}}" alt="">
+                              <img *ngIf="img.descuento" src="assets/img/home/descuento.png" class="img-descuento" alt="">
+                              <div></div>
+                          </div>
+                          <div class="content-product">
+                              <p class="subtitle-prod">Adidas</p>
+                              <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
+                              <div>
+                                  <p class="price-prod">$300,000</p>
+                                  <p class="price-prod-desc"></p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </owl-carousel> 
             </div>
+
 
           </div>
         </div>
@@ -214,8 +237,8 @@
               <div class="content-item-product">
                   <div class="item-product">
                       <div class="content-img">
-                          <img src="assets/img/zapatillas/uno.jpg" alt="">
                           <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
+                          <img src="assets/img/zapatillas/uno.jpg" alt="">
                           <div></div>
                       </div>
                       <div class="content-product">
@@ -256,6 +279,7 @@
                       <div class="content-img">
                           <img src="assets/img/zapatillas/tres.jpg" alt="">
                           <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
+                          <img src="assets/img/home/descuento.png" class="img-descuento" alt="">
                           <div></div>
                       </div>
                       <div class="content-product">
@@ -356,6 +380,7 @@
                       <div class="content-img">
                           <img src="assets/img/zapatillas/tres.jpg" alt="">
                           <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
+                          <img src="assets/img/home/descuento.png" class="img-descuento" alt="">
                           <div></div>
                       </div>
                       <div class="content-product">
@@ -515,6 +540,7 @@
                       <div class="content-img">
                           <img src="assets/img/zapatillas/tres.jpg" alt="">
                           <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
+                          <img src="assets/img/home/descuento.png" class="img-descuento" alt="">
                           <div></div>
                       </div>
                       <div class="content-product">
@@ -615,6 +641,7 @@
                       <div class="content-img">
                           <img src="assets/img/zapatillas/tres.jpg" alt="">
                           <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
+                          <img src="assets/img/home/descuento.png" class="img-descuento" alt="">
                           <div></div>
                       </div>
                       <div class="content-product">
@@ -689,7 +716,7 @@
       </div>
 
       <!-- Contenido 10 -->
-      <div class="container color-gray p-5 border-rad-mild mrg-botn-40 mrg-top-40">
+      <div class="container color-gray p-5 border-rad-mild mrg-botn-40 mrg-top-40 box-populares">
         <div class="row">
           
           <div class="col-md-2 d-flex align-items-center w-100-xs txt-center-xs">

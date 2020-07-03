@@ -127,6 +127,7 @@
 
 .content-categories-menu-header{
   padding: 8px 0px;
+  place-content: normal !important;
 }
 
 .ing5-items-header{
@@ -141,6 +142,24 @@
 
 .ing5-items-header button p{
   margin-bottom: 0px;
+}
+
+.ing5-box-buscador input{
+  outline: none !important;
+}
+
+.hide-image-mega-menu{
+  padding: 8px 0px;
+  padding-bottom: 10px;
+}
+
+.content-slider,
+.ng-star-inserted.active,
+.ng-star-inserted img,
+.ng-star-inserted:active,
+.ng-star-inserted:focus{
+  border: none;
+  outline: none !important;
 }
 
 /* Style Inge2 */

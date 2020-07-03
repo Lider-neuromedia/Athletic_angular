@@ -30,6 +30,32 @@ export class ContentComponent implements OnInit {
   }
   btn_active = 1;
 
+  /*
+   * Carrusel productos primeros productos destacados 4 columnas
+   */
+  carouselDescatadosUno = [
+    {"img": 'assets/img/zapatillas/uno.jpg',"descuento":false},
+    {"img": 'assets/img/zapatillas/dos.jpg',"descuento":false},
+    {"img": 'assets/img/zapatillas/tres.jpg',"descuento":true},
+    {"img": 'assets/img/zapatillas/cuatro.jpg',"descuento":false},
+    {"img": 'assets/img/zapatillas/uno.jpg',"descuento":false},
+    {"img": 'assets/img/zapatillas/dos.jpg',"descuento":false},
+    {"img": 'assets/img/zapatillas/tres.jpg',"descuento":false},
+    {"img": 'assets/img/zapatillas/cuatro.jpg',"descuento":true}
+  ];
+
+  optionSlideDestacados = {
+    items: 4,
+    dots: false,
+    nav: true
+  }
+
+  optionCarouselSlide = {
+    // items: 3,
+    dots: true,
+    nav: true
+  }
+
 
   constructor(public mediaObserver: MediaObserver, private http : SendHttpData, iconRegister : MatIconRegistry, sanitizer: DomSanitizer ) {
     iconRegister.addSvgIcon(

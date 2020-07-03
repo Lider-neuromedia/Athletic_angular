@@ -1199,6 +1199,29 @@ footer input{
     padding: 5px;
 }
 
+.destacados-row1 .owl-carousel .owl-stage-outer{
+    width: 100% !important;
+    margin: 0px !important;
+}
+
+.destacados-row1 .owl-item,
+.destacados-row1 .owl-item.active{
+    margin: 0em 1em !important;
+}
+
+.destacados-row1 .owl-carousel .owl-nav button.owl-prev,
+.destacados-row1 .owl-carousel .owl-nav button.owl-next{
+    font-size: 70px !important;
+}
+
+.destacados-row1 .owl-carousel .owl-nav button.owl-prev{
+    left: -30px !important;
+}
+
+.destacados-row1 .owl-carousel .owl-nav button.owl-next{
+    right: -30px !important;
+}
+
 @media screen and (max-width: 992px){
     .mat-toolbar-row{
         height: auto !important;
