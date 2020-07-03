@@ -1,5 +1,5 @@
 <div class="color-gray">
-    <div class="container">
+    <div class="container detalles-producto-box">
         <div class="row">
             <nav aria-label="breadcrumb" class="mrg-left-30">
                 <ol class="breadcrumb">
@@ -10,6 +10,33 @@
             </nav>
         </div>
 
+        <!-- <div class="container details-content">
+            <div class="row">
+                <div class="col-md-9 slider"></div>
+                <div class="col-md-3">
+                    <div class="valoraciones">
+                        <div class="starts"></div>
+                        <div class="texto-valoracion">12 valoraciones</div>
+                    </div>
+                    <div class="marca-nombre">
+                        <h3 class="marca">New Balance</h3>
+                        <h2 class="nombre">Fresh Foam Arishi</h2>
+                    </div>
+                    <div class="tipo-referencia">
+                        <p class="tipo">Deportivas</p>
+                        <p class="referencia">Ref: atk-1030492390f</p>
+                    </div>
+                    <div class="coutas">
+                        <p class="outline-coutas">Hasta 12 coutas de <strong>$13.345</strong></p>
+                    </div>
+                    <div class="aplicar-descuento">
+                        Aplica descuento del 30%
+                        <small class="terminos">Ver térmitos y condiciones</small>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
         <div class="row">
             <div class="col-md-9 content-images h-xs-300px">
                 <ngx-gallery class="w-100" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
@@ -50,59 +77,13 @@
                         </button>
                     </div>
                     <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary">
-                        <mat-icon class="icon-small">work</mat-icon>Añadir a la bolsa
+                        <mat-icon class="icon-small">work</mat-icon>Añadir pedido
                     </button>
                 </div>
             </div>
         </div>
-
-        <!--<div class="row">
-            <div class="col-md-9 content-images h-xs-300px">
-                <ngx-gallery class="w-100" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
-            </div>
-            <div class="col-md-3 mrg-top-10">
-                <div class="content-strech mrg-botn-30">
-                    <p class="prod-subtitle">{{producto.marca}}</p>
-                    <p class="prod-title">{{producto.name}}</p>
-                </div>
-                <div class="content-strech mrg-botn-15">
-                    <p class="title-ref">{{producto.category}}</p>
-                    <p class="ref">Ref: {{producto.referencia}}</p>
-                </div>
-                <div class="content-strech mrg-botn-15">
-                    <p class="price">{{producto.price |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
-                    <p class="price-des" *ngIf="valor_ant != null">{{producto.precio_ant |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
-                </div>
-                <div class="content-strech content-cuotas">
-                    <p class="cuotas">Hasta 12 cuotas de <span class="txt-dark-bold">$13.345</span></p>
-                </div>
-                <div class="content-strech mrg-botn-15" *ngIf="descuento != null">
-                    <p class="txt-descuento">Aplica descuento de {{producto.descuento * 100}}%</p>
-                    <a href="#" class="link-terminos">Ver términos y condiciones</a>
-                </div>
-                <div class="w-80">
-                    <select class="form-control bold mrg-botn-10 btn-select" placeholder="Elige tu talla" id="talla">
-                        <option selected value="">Elige tu talla</option>
-                        <option *ngFor="let item of tallas;" value="{{item.id}}" >{{item.name}}</option>
-                    </select>
-                    <div class="cantidad mrg-botn-10 btn-select">
-                        <label for="input-cant" class="lbl-cant">Cantidad</label>
-                        <input id="input-cant" class="mrg-botn-10 input-cant"  [ngModel]="cantidad" type="number">
-                        <button id="inc-button" (click)="changeCantidad(true)" mat-fab color="primary" class="spinner-button">
-                            +
-                        </button>
-                        <button id="dec-button"  (click)="changeCantidad(false)" mat-fab color="primary" class="spinner-button">
-                            -
-                        </button>
-                    </div>
-                    <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary">
-                        <mat-icon class="icon-small">work</mat-icon>Añadir a la bolsa
-                    </button>
-                </div>
-            </div>
-        </div>-->
         
-        <mat-tab-group class="mrg-top-20">
+        <!-- <mat-tab-group class="mrg-top-20">
             <mat-tab label="Descripcion">
                 <div class="content-tab d-block d-sm-flex p-top-50  mrg-botn-20">
                     <div class="col-md-6 col-xs-12">
@@ -159,8 +140,7 @@
                             <p class="prod-subtitle">18 comentarios</p>
                         </div>
                         <div class="d-flex">
-                            <!-- <mat-progress-bar mode="determinate" value="40"></mat-progress-bar> -->
-                            <!-- <p>hola</p> -->
+                            Barra de progreso
                         </div>
                     </div>
                     <div class="col-md-1"></div>
@@ -172,7 +152,7 @@
                     </div>
                 </div>
             </mat-tab>
-        </mat-tab-group>
+        </mat-tab-group> -->
 
         <div class="row" *ngIf="productos_relac.length > 0">
             <div class="col-md-12">
@@ -206,6 +186,195 @@
                 <mat-icon aria-hidden="false" class="icon-lg">navigate_next</mat-icon>
             </a>
         </div>
+
+
+        <div class="container descripcion-producto">
+            <div class="row">
+                <div class="col-md-7">
+                    <p class="descripcion">Descripción</p>
+                    <h2 class="titulo-descripcion">Fres Foam Arishi</h2>
+
+                    <p class="text-cta">TENIS NEW BALANCE QUE COMBINAN DETALLES RETRO CON LO ÚLTIMO EN TECNOLOGÍA</p>
+                    
+                    <p class="parrafo producto">
+                        NMD toma lo mejor de la tecnología de running de adidas y lo incorpora en un distintivo calzado urbano.  Estos tenis NMD lucen detalles inspirados en modelos clásicos de los archivos de adidas. Lucen las distintivas inserciones en color de contraste en la mediasuela.
+                    </p>
+                </div>
+                <div class="col-md-5">
+                    <img src="assets/img/home/zap-9.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <section class="container detalles-producto">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>DETALLES</h2>
+                </div>
+
+                <div class="col-md-4">
+                    <ul>
+                        <li>Sistema de amarre de cordones</li>
+                        <li>Exterior tejido con refuerzo de TPU</li>
+                        <li>Diseño ajustado y elástico</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <ul>
+                        <li>mediasuela receptiva Boost</li>
+                        <li>Suela de caucho</li>
+                        <li>Número de artículo: EF4268</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <ul>
+                        <li>Tenis urbanos icónicos</li>
+                        <li>Color de artículo: Core Black</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="container valoraciones-comentarios">
+            <div class="row">
+                <div class="col-md-3 valoraciones">
+                    <h2>Valoraciones</h2>
+                    <p>18 valoraciones</p>
+
+                    <div class="puntane-barra">
+                        <div class="puntaje">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                        </div>
+                        <div class="barra">
+                            <div class="box-porcentaje">
+                                <div class="porcentaje-color-82"></div>
+                            </div>
+                        </div>
+                        <small>2 valoraciones</small>
+                    </div>
+
+                    <div class="puntane-barra">
+                        <div class="puntaje">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                        </div>
+                        <div class="barra">
+                            <div class="box-porcentaje">
+                                <div class="porcentaje-color porcentaje-color-90"></div>
+                            </div>
+                        </div>
+                        <small>2 valoraciones</small>
+                    </div>
+
+                    <div class="puntane-barra">
+                        <div class="puntaje">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                            <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                        </div>
+                        <div class="barra">
+                            <div class="box-porcentaje">
+                                <div class="porcentaje-color porcentaje-color-30"></div>
+                            </div>
+                        </div>
+                        <small>2 valoraciones</small>
+                    </div>
+
+                    <div class="puntane-barra">
+                        <div class="puntaje">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                            <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                            <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                        </div>
+                        <div class="barra">
+                            <div class="box-porcentaje">
+                                <div class="porcentaje-color porcentaje-color-10"></div>
+                            </div>
+                        </div>
+                        <small>1 valoraciones</small>
+                    </div>
+
+                    <div class="puntane-barra">
+                        <div class="puntaje">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                            <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                            <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                        </div>
+                        <div class="barra">
+                            <div class="box-porcentaje">
+                                <div class="porcentaje-color porcentaje-color-2"></div>
+                            </div>
+                        </div>
+                        <small>1 valoraciones</small>
+                    </div>
+
+                    <div class="valorar-escribir">
+                        <p>Valorar y escribir un comentario</p>
+                    </div>
+
+                </div>
+                <div class="col-md-8 comentarios">
+                    <h2>Comentarios</h2>
+                    <p class="small-comment">12 comentarios</p>
+
+                    <div class="box-comment">
+                        <h3>Excelentes zapatillas</h3>
+                        <div class="estrellas-comentarios">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                        </div>
+                        <p class="resena">Las sillas son bastante lindas y el paquete cuenta con las herramientas necesarias para armarlas. El único detalle que no es completamente favorable es el acabado de las bases de madera, no cuenta con un barniz por lo que la madera se ensucia fácilmente.
+                        </p>
+                        <p class="persons">Primera prueba</p>
+                    </div>
+
+                    <div class="box-comment">
+                        <h3>Entrega sin demora</h3>
+                        <div class="estrellas-comentarios">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                        </div>
+                        <p class="resena">Las sillas son bastante lindas y el paquete cuenta con las herramientas necesarias para armarlas. El único detalle que no es completamente favorable es el acabado de las bases de madera, no cuenta con un barniz por lo que la madera se ensucia fácilmente.
+                        </p>
+                        <p class="persons">Primera prueba</p>
+                    </div>
+
+                    <a class="ver-mas-comentarios" href="">Ver más</a>
+                </div>
+            </div>
+        </section>
+
+        <hr class="separador-detalle">
+
+        <section class="producto-relacionados-detalle">
+            <div class="container">
+                <div class="col-md-12">
+                    <h2 class="text-center">Productos Relacionados</h2>
+                </div>
+            </div>
+        </section>
+
+
         
     </div>
 </div>

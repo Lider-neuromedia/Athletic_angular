@@ -1,8 +1,7 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
 import { SendHttpData } from '../tools/SendHttpData';
 import { Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-header',
@@ -17,6 +16,18 @@ export class HeaderComponent {
   sub_categorias = null;
   categoria_select = null;
   usuario = null;
+  scrolled = 1;
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll($event) {
+    const numb = window.scrollY;
+    if (numb >= 50){
+      this.scrolled = 0;
+    }
+    else {
+      this.scrolled = 1;
+    }
+  }
 
   constructor(public router: Router, private http: SendHttpData, private render:Renderer2) { }
 

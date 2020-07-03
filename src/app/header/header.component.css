@@ -124,6 +124,10 @@
   height: 130px;
 }
 
+.hide-element{
+  display: none;
+}
+
 
 .content-categories-menu-header{
   padding: 8px 0px;

@@ -6,6 +6,10 @@
     --active-link: #FF596A;
 }
 
+*:focus {
+    outline: none;
+}
+
 /* You can add global styles to this file, and also import other style files */
 
 html, body {
@@ -1221,6 +1225,12 @@ footer input{
 .destacados-row1 .owl-carousel .owl-nav button.owl-next{
     right: -30px !important;
 }
+
+.ngx-gallery-clickable.ng-star-inserted,
+.ngx-gallery-thumbnail{
+  background-size: contain !important;
+}
+
 
 @media screen and (max-width: 992px){
     .mat-toolbar-row{
