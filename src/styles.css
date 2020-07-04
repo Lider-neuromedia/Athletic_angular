@@ -1231,6 +1231,13 @@ footer input{
   background-size: contain !important;
 }
 
+.cont-btn-prod{
+    position: absolute !important;
+  }
+  
+  .col-md-4.mrg-botn-20{
+    margin-bottom: 80px !important;
+  }
 
 @media screen and (max-width: 992px){
     .mat-toolbar-row{

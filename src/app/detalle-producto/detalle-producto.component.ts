@@ -34,6 +34,32 @@ export class DetalleProductoComponent implements OnInit {
 
   constructor(private route_params: ActivatedRoute, public router : Router, private http: SendHttpData) { }
 
+  /*
+   * Carrusel productos primeros productos destacados 4 columnas
+   */
+  carouselDescatadosUno = [
+    {"img": 'assets/img/zapatillas/uno.jpg',"descuento":false},
+    {"img": 'assets/img/zapatillas/dos.jpg',"descuento":false},
+    {"img": 'assets/img/zapatillas/tres.jpg',"descuento":true},
+    {"img": 'assets/img/zapatillas/cuatro.jpg',"descuento":false},
+    {"img": 'assets/img/zapatillas/uno.jpg',"descuento":false},
+    {"img": 'assets/img/zapatillas/dos.jpg',"descuento":false},
+    {"img": 'assets/img/zapatillas/tres.jpg',"descuento":false},
+    {"img": 'assets/img/zapatillas/cuatro.jpg',"descuento":true}
+  ];
+
+  optionSlideDestacados = {
+    items: 5,
+    dots: false,
+    nav: true
+  }
+
+  optionCarouselSlide = {
+    // items: 3,
+    dots: true,
+    nav: true
+  }
+
   ngOnInit(): void {
     this.getProducts(this.route_params.snapshot.params.id);
     /*this.galleryImages = [{

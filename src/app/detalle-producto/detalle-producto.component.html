@@ -304,12 +304,13 @@
                                 <div class="porcentaje-color porcentaje-color-10"></div>
                             </div>
                         </div>
-                        <small>1 valoraciones</small>
+                        <small>0 valoraciones</small>
                     </div>
 
                     <div class="puntane-barra">
                         <div class="puntaje">
                             <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                            <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
                             <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
                             <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
                             <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
@@ -371,6 +372,27 @@
                 <div class="col-md-12">
                     <h2 class="text-center">Productos Relacionados</h2>
                 </div>
+
+                <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno" [carouselClasses]="['owl-carousel', 'owl-theme']" > 
+                    <div class="content-item-product" *ngFor="let img of carouselDescatadosUno">
+                        <div class="item-product">
+                            <div class="content-img">
+                                <img src="{{img.img}}" alt="">
+                                <img *ngIf="img.descuento" src="assets/img/home/descuento.png" class="img-descuento" alt="">
+                                <div></div>
+                            </div>
+                            <div class="content-product">
+                                <p class="subtitle-prod">Adidas</p>
+                                <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
+                                <div>
+                                    <p class="price-prod">$300,000</p>
+                                    <p class="price-prod-desc"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </owl-carousel> 
+                
             </div>
         </section>
 
