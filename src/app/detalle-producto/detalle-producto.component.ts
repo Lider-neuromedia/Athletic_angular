@@ -4,7 +4,7 @@ import { SendHttpData } from '../tools/SendHttpData';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery-9';
 
 
-import * as jQuery from '$';
+import * as jQuery from 'jquery';
 
 @Component({
   selector: 'app-detalle-producto',

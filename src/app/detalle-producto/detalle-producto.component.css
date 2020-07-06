@@ -571,6 +571,10 @@ ul.mas-detalle a.active-mas::after{
   margin: 0px !important;
 }
 
+.ngx-gallery-100{
+  height: 100% !important;
+}
+
 /* 
 .my-own-form-control::before{
   content: '.';

@@ -1281,6 +1281,11 @@ footer input{
 ul.mas-detalle a::before{
     display: none !important;
   }
+
+.detalle-slider .ngx-gallery-thumbnails{
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+}
   
 
 @media screen and (max-width: 992px){
