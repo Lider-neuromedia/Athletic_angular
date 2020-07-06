@@ -1,0 +1,113 @@
+.favorites-account{
+    margin-bottom: 80px !important;
+}
+
+.favorites-account .item-small{
+    width: 100% !important;
+}
+
+.favorites-account .content-item-products{
+    margin-bottom: 80px;
+}
+
+.favorites-account .col-md-3{
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+}
+
+.content-item-products{
+    position: relative;
+}
+
+.content-item-products:hover{
+    box-shadow: 5px 5px 5px #8080802b !important;
+}
+
+.content-item-products:hover .cta-item-product{
+    display: flex;
+}
+
+.item-product{
+    background: white;
+    padding: 10px 15px;
+}
+
+.cta-item-product{
+    display: none;
+    justify-content: space-between;
+    transition: all .6s ease;
+    position: absolute;
+    width: 90%;
+    padding: 1em 0em;
+}
+
+.tag-new{
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+
+.producto{
+    padding-top: 3em;
+}
+
+.cta-item-product .add-item{
+    background: #ff596a;
+    cursor: pointer;
+    border-radius: 25px;
+    font-size: 11px;
+    color: white;
+    padding: 4px 8px;
+}
+
+.add-item-img{
+    width: 10px;
+    margin-right: 3px;
+}
+
+.remove-item-trash{
+    width: 10px;
+    margin-right: 3px;
+}
+
+.cta-item-product .remove-item{
+    border: 1px solid #ff596a;
+    cursor: pointer;
+    border-radius: 25px;
+    font-size: 11px;
+    color: #ff596a;
+    padding: 4px 8px;
+}
+
+
+.favorites-account .subtitle-prod{
+    font-size: 12px;
+    color: #BBBBBB;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.favorites-account .title-prod{
+    font-size: 14px;
+    color: #353435;
+    margin-left: 10px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    height: 35px;
+}
+
+.favorites-account .precio-descuento{
+    font-size: 18px;
+    color: #ff596a;
+    margin-left: 10px;
+    font-weight: 700;
+    margin-bottom: 0px;
+}
+
+.favorites-account .precio-normal{
+    font-size: 16px;
+    margin-left: 10px;
+    color: #BBBBBB;
+}
+

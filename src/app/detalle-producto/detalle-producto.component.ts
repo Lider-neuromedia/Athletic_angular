@@ -92,24 +92,24 @@ export class DetalleProductoComponent implements OnInit {
     this.getProducts(this.route_params.snapshot.params.id);
     this.galleryImages = [
       {
-        small: "/assets/img/productos/producto-interna.png",
-        medium: "/assets/img/productos/producto-interna.png",
-        big: "/assets/img/productos/producto-interna.png"
+        small: "/N-1008/assets/img/productos/producto-interna.png",
+        medium: "/N-1008/assets/img/productos/producto-interna.png",
+        big: "/N-1008/assets/img/productos/producto-interna.png"
       },
       {
-        small: "/assets/img/productos/producto-interna.png",
-        medium: "/assets/img/productos/producto-interna.png",
-        big: "/assets/img/productos/producto-interna.png"
+        small: "/N-1008/assets/img/productos/producto-interna.png",
+        medium: "/N-1008//assets/img/productos/producto-interna.png",
+        big: "/N-1008//assets/img/productos/producto-interna.png"
       },
       {
-        small: "/assets/img/productos/producto-interna.png",
-        medium: "/assets/img/productos/producto-interna.png",
-        big: "/assets/img/productos/producto-interna.png"
+        small: "/N-1008/assets/img/productos/producto-interna.png",
+        medium: "/N-1008/assets/img/productos/producto-interna.png",
+        big: "/N-1008/assets/img/productos/producto-interna.png"
       },
       {
-        small: "/assets/img/productos/producto-interna.png",
-        medium: "/assets/img/productos/producto-interna.png",
-        big: "/assets/img/productos/producto-interna.png"
+        small: "/N-1008/assets/img/productos/producto-interna.png",
+        medium: "/N-1008/assets/img/productos/producto-interna.png",
+        big: "/N-1008/assets/img/productos/producto-interna.png"
       }
     ];
     /*console.log(this.galleryImages);*/

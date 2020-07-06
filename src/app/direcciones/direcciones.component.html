@@ -31,7 +31,7 @@
 						</div>
 
 						<div class="col-md-12">
-							<p>Quiero recibir información sobre promociones y anuncios por <strong>whatsapp</strong></p>
+							<mat-checkbox class="recibir-info">Quiero recibir información sobre promociones y anuncios por <strong>whatsapp</strong></mat-checkbox>
 						</div>
 
 						<div class="col-md-6">
@@ -45,7 +45,9 @@
 							</div>
 							<div class="form-group">
 								<label for="">Departamento</label>
-								<input type="text" class="form-control" id="">
+								<select class="form-control" name="" id="">
+									<option value="">Seleccione un Departamento</option>
+								</select>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -63,8 +65,18 @@
 							</div>
 						</div>
 
+						<div class="col-md-12">
+							<mat-checkbox class="direccion-predeterminada">Definir como dirección predeterminada</mat-checkbox>
+						</div>
+
 					</div>
 				</form>
+
+				<div class="row">
+					<div class="col-sm-12">
+						<a href="#">Guardar dirección</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

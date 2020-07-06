@@ -1286,6 +1286,10 @@ ul.mas-detalle a::before{
     left: 50% !important;
     transform: translateX(-50%) !important;
 }
+
+.favorites-account .item-small{
+    width: 100% !important;
+}
   
 
 @media screen and (max-width: 992px){

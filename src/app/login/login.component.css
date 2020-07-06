@@ -12,3 +12,17 @@
 .mat-error{
     color: #f44336 !important;
 }
+
+
+.ingresar-login{
+    border-radius: 25px;
+    background-color: #FF596A;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 0em 3em;
+    transition: all .6 ease;
+}
+
+.ingresar-login:hover{
+    background-color: #e44f5d;
+}
