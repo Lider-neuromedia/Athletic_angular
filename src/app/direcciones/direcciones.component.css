@@ -1,3 +1,21 @@
 .recibir-info .mat-checkbox-label{
     color: #353435 !important;
 }
+
+.row-save-adress{
+    justify-content: center;
+    margin-top: 2em;
+}
+
+.row-save-adress .save-adrres{
+    background: #FF596A;
+    color: white;
+    border-radius: 25px;
+    width: 133px;
+    padding: 10px 0px;
+    text-align: center;
+}
+
+.row-save-adress .save-adrres:hover{
+    text-decoration: none;
+}
