@@ -41,12 +41,12 @@
         
         <!-- Position end -->
         <div class="flex-row ml-md-auto d-none d-sm-flex ing5-items-header">
-          <button class="line-height-ini" mat-button fxLayoutAlign="end">
+          <button (click)="router.navigate(['/pedidos']);" class="line-height-ini" mat-button fxLayoutAlign="end">
             <!-- <img src="assets/img/icons/load-carriage.png" class="mrg-top-5"> -->
             <img class="header-pedidos" src="assets/img/header/pedidos.svg">
             <p class="text-menu">Pedidos</p> 
           </button>
-          <button class="line-height-ini" mat-button fxLayoutAlign="end">
+          <button (click)="router.navigate(['/favoritos']);" class="line-height-ini" mat-button fxLayoutAlign="end">
             <img class="header-favoritos" src="assets/img/header/favoritos.svg">
             <p class="text-menu">Mis favoritos</p> 
           </button>
@@ -65,11 +65,11 @@
   </mat-toolbar-row>
   
   <mat-toolbar-row class="d-flex justify-content-center d-sm-none">
-    <button class="line-height-ini" mat-button>
+    <button (click)="router.navigate(['/pedidos']);" class="line-height-ini" mat-button>
       <img src="assets/img/icons/load-carriage.png" class="mrg-top-5">
         <p class="text-menu">Pedidos</p> 
     </button>
-    <button class="line-height-ini" mat-button>
+    <button (click)="router.navigate(['/favoritos']);" class="line-height-ini" mat-button>
       <mat-icon aria-hidden="false" aria-label="Icon">favorite_outline</mat-icon>
         <p class="text-menu">Mis favoritos</p> 
     </button>

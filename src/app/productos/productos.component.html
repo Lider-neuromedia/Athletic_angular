@@ -195,11 +195,24 @@
                                         <div class="descuento" *ngIf="item.descuento">{{"-"+item.descuento+"%"}}</div>
                                     </div>
                                     <div class="content-product col-md-4 mrg-top-10">
+                                        <div class="puntaje-valoracion">
+                                            <div class="puntaje">
+                                                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                                                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                                                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                                                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                                                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                                            </div>
+                                            <div class="valoracion">
+                                                <p>12 valoraciones</p>
+                                            </div>
+                                        </div>
                                         <p class="subtitle-prod-full">{{item.marca}}</p>
                                         <p class="title-prod-full">{{item.name}}</p>
                                         <div class="cont-price-prod-full">
                                             <p class="price-prod-full">{{item.price |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
                                             <p class="price-prod-desc-full" *ngIf="item.price_ant">{{item.price_ant |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                                            <a class="ver-detalle" href="#">Ver Detalles →</a>
                                         </div>
                                     </div>
                                     <div class="content-product col-md-3 mrg-top-10">
@@ -220,11 +233,21 @@
                                                     -
                                                 </button>
                                             </div>
-                                            <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary">
-                                                <mat-icon class="icon-small">work</mat-icon>Añadir a la bolsa
+                                            <button mat-raised-button class="btn-full-view mrg-botn-10 btn-bolsa-favoritos" color="primary">
+                                                <div class="favoritos-bolsa">
+                                                    <div class="img-bolsa">
+                                                        <img src="assets/img/icons/inactive.png" alt="">
+                                                    </div>
+                                                    <p>Añadir a la bolsa</p>
+                                                </div>
                                             </button>
-                                            <button mat-stroked-button class="btn-full-view" color="primary">
-                                                <mat-icon class="icon-small">favorite_border</mat-icon>Añadir a la bolsa
+                                            <button mat-stroked-button class="btn-full-view btn-corazon-favoritos" color="primary">
+                                                <div class="favoritos-productos">
+                                                    <div class="img-corazon">
+                                                        <mat-icon class="icon-small">favorite_border</mat-icon>
+                                                    </div>
+                                                    <p>Añadir a mis favoritos</p>
+                                                </div>
                                             </button>
                                         </div>
                                     </div>

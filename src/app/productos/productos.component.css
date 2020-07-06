@@ -286,3 +286,90 @@ a:hover{
     transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
     opacity: 1;
   }
+
+
+
+/* Estilos adicionales */
+.puntaje-valoracion{
+  display: flex;
+  padding: 0em 10px;
+  justify-content: space-between;
+}
+
+.puntaje-valoracion .valoracion{
+  color: #969696;
+}
+
+.ver-detalle{
+  color: #F94D5F;
+  text-transform: uppercase;
+  padding: 0px 10px;
+  margin-top: 15px;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.btn-full-view{
+  position: relative;
+  transition: all .6s ease;
+}
+
+.btn-bolsa-favoritos:hover{
+  background: #e44b5a;
+}
+
+.favoritos-bolsa,
+.favoritos-productos{
+  display: flex;
+  justify-content: center;
+}
+
+.favoritos-bolsa .img-bolsa{
+  background: #F94D5F;
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.favoritos-bolsa p{
+  margin-left: 15px;
+  margin-bottom: 0px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.favoritos-productos .img-corazon{
+  border: 1px solid #F94D5F;
+  height: 43px;
+  width: 43px;
+  border-radius: 50%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.btn-corazon-favoritos:hover{
+  background: #FF596A;
+  color: white;
+}
+
+.btn-corazon-favoritos:hover .img-corazon{
+  border: 1px solid white;
+}
+
+.img-corazon .icon-small{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.favoritos-productos p{
+  font-size: 10px;
+  font-weight: 800;
+  margin-left: 30px;
+  margin-bottom: 0px;
+}

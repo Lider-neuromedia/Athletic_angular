@@ -451,8 +451,14 @@ Aside menu account page
     color: #FF596A !important;
     display: block;
     margin-top: 6em;
-    padding: 16px 0px;
+    padding: 12px 0px;
     text-align: center;
+    font-weight: 700;
+    transition: all .6s ease;
+}
+.ing5-cerrar-sesion:hover{
+    background: #FF596A;
+    color: white !important;
 }
 /* Title page account */
 .account-title{
@@ -773,6 +779,7 @@ Aside menu account page
 }
 .filtro-bolsa{
     padding-bottom: 1.5em;
+    margin-bottom: 19px;
 }
 .filtro-bolsa .ordenar{
     font-size: 12px;
@@ -831,6 +838,7 @@ Aside menu account page
 .detalle-producto h2{
     color: #353435;
     font-size: 14px;
+    line-height: 14px;
     font-weight: 700;
     text-transform: uppercase;
 }
@@ -838,11 +846,13 @@ Aside menu account page
 .detalle-producto h3{
     color: #969696;
     font-size: 16px;
+    line-height: 16px;
     font-weight: 700;
 }
 
 .detalle-producto p{
     font-size: 12px;
+    line-height: 14px;
 }
 
 .imagen-producto{
@@ -867,8 +877,8 @@ Aside menu account page
 .precio-acciones .precio-descuento{
     color: #FF596A;
     font-size: 20px;
-    font-weight: 600;
-    line-height: 30px;
+    font-weight: 800;
+    line-height: 16px;
 }
 
 .precio-acciones .precio-normal{
@@ -1257,8 +1267,7 @@ footer input{
 }
 
 .grid-cuadros,
-.grid-cuadro,
-.grid-fila{
+.grid-cuadro{
   margin-bottom: 80px !important;
 }
 

@@ -59,3 +59,12 @@
     padding-top: 12px;
     padding-bottom: 12px;
   }
+
+.list-footer a{
+  color: #353435;
+}
+
+.list-footer a:hover{
+  font-weight: 700;
+  text-decoration: none;
+}

@@ -15,7 +15,7 @@ const routes : Routes = [
   { path: '', component: ContentComponent },
   { path: 'productos', component: ProductosComponent },
   { path: 'pedidos', component: PedidosComponent },
-  { path: 'resena', component: ResenaComponent },
+  { path: 'resenas', component: ResenaComponent },
   { path: 'cupones', component: CuponesComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'direcciones', component: DireccionesComponent },
