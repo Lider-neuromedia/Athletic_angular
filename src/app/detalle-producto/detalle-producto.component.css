@@ -424,6 +424,34 @@
   margin-bottom: 44px;
 }
 
+.producto-relacionados-detalle .item-product{
+  position: relative;
+  background: #ffffff;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.destacados-row1 .owl-stage-outer{
+  padding: 1em 0em;
+}
+
+.producto-relacionados-detalle .content-img{
+  margin: 5px;
+}
+
+.producto-relacionados-detalle .content-img:nth-child(1){
+  padding-top: 5em;
+}
+
+.producto-relacionados-detalle .item-product{
+  padding-bottom: 1.5em;
+}
+
+.producto-relacionados-detalle .owl-stage-outer{
+  padding: 1em 0em;
+}
+
 .producto-relacionados-detalle .subtitle-prod{
   font-size: 12px;
   color: #BBBBBB;
@@ -453,3 +481,104 @@
   font-weight: 700;
   margin-bottom: 0px;
 }
+
+.grid-cuadros,
+.grid-cuadro,
+.grid-fila{
+  margin-bottom: 80px !important;
+}
+
+.detalles-producto-box{}
+
+.detalles-producto-box .detalle-slider{}
+
+.detalles-producto-box .detalle-info{
+  margin-bottom: 0px !important;
+}
+
+.detalle-puntaje-valoracion{
+  display: flex;
+}
+
+.detalle-puntaje-valoracion .puntaje{
+  margin-right: 15px;
+}
+
+.box-select-talla{
+  position: relative;
+}
+
+.flecha-select{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: #FF596A;
+}
+
+.my-own-form-control{
+  border: 1px solid #D3D3D3;
+  border-radius: 25px;
+  width: 208px;
+  height: 50px;
+  margin-bottom: 10px;
+  padding: 0em 1em;
+  -moz-appearance: none;
+	-webkit-appearance: none;
+  appearance: none;
+  font-weight: 800;
+}
+
+ul.mas-detalle{
+  display: flex;
+  margin-top: 3em;
+  padding-left: 0px;
+  list-style: none;
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+
+ul.mas-detalle li {
+  margin: 0em 1em;
+}
+
+ul.mas-detalle li::before{
+  display: none;
+}
+
+ul.mas-detalle a{
+  color: #353435;
+  font-weight: 700;
+  position: relative;
+}
+
+ul.mas-detalle a:hover{
+  text-decoration: none;
+}
+
+ul.mas-detalle a.active-mas::after{
+  background: #FF596A;
+  content: '';
+  height: 3px;
+  width: 100%;
+  display: block;
+  position: absolute;
+}
+
+.separador-mas-detalle{
+  background: #969696;
+  height: 1px;
+  width: 100%;
+  margin: 0px !important;
+}
+
+/* 
+.my-own-form-control::before{
+  content: '.';
+  display: block;
+  position: absolute;
+  background: #FF596A;
+  height: 8px;
+  width: 8px;
+  right: 5px;
+  top: 5px;
+} */

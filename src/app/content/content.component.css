@@ -439,6 +439,13 @@
 
 .destacados-row1{}
 
+.destacados-row1 .owl-stage-outer{
+  padding: 1em 0em;
+}
+.destacados-row1 .owl-stage-outer .content-item-product{
+  box-shadow: 5px 5px 5px #8080802b !important;
+}
+
 .destacados-row1 .item-product{
   padding-bottom: 1em;
 }
@@ -455,6 +462,7 @@
 }
 
 .destacados-row1 .img-descuento,
+.producto-relacionados-detalle .img-descuento,
 .img-descuento{
   position: absolute;
   right: 0px;

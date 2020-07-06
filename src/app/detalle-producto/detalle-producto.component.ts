@@ -1,13 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SendHttpData } from '../tools/SendHttpData';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery-9';
+
+
+import * as jQuery from '$';
 
 @Component({
   selector: 'app-detalle-producto',
   templateUrl: './detalle-producto.component.html',
   styleUrls: ['./detalle-producto.component.css']
 })
+
 export class DetalleProductoComponent implements OnInit {
 
   producto = {
@@ -32,7 +36,31 @@ export class DetalleProductoComponent implements OnInit {
   cantidad = 1;
   tallas = [];
 
-  constructor(private route_params: ActivatedRoute, public router : Router, private http: SendHttpData) { }
+  constructor(private route_params: ActivatedRoute, public router : Router, private http: SendHttpData) {}
+
+  goDescripcion(){
+    $('html, body').animate({
+      scrollTop: $('#godescripcion').offset().top - 80
+    },1000)
+  }
+
+  goDetalle(){
+    $('html, body').animate({
+      scrollTop: $('#godetalle').offset().top - 80
+    },1000)
+  }
+
+  goValoracion(){
+    $('html, body').animate({
+      scrollTop: $('#govaloracion').offset().top - 80
+    },1000)
+  }
+
+  goSugerencias(){
+    $('html, body').animate({
+      scrollTop: $('#gosugerencias').offset().top - 80
+    },1000)
+  }
 
   /*
    * Carrusel productos primeros productos destacados 4 columnas
@@ -62,12 +90,29 @@ export class DetalleProductoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts(this.route_params.snapshot.params.id);
-    /*this.galleryImages = [{
-      small: "/assets/img/productos/producto-interna.png",
-      medium: "/assets/img/productos/producto-interna.png",
-      big: "/assets/img/productos/producto-interna.png"
-    }];
-    console.log(this.galleryImages);*/
+    this.galleryImages = [
+      {
+        small: "/assets/img/productos/producto-interna.png",
+        medium: "/assets/img/productos/producto-interna.png",
+        big: "/assets/img/productos/producto-interna.png"
+      },
+      {
+        small: "/assets/img/productos/producto-interna.png",
+        medium: "/assets/img/productos/producto-interna.png",
+        big: "/assets/img/productos/producto-interna.png"
+      },
+      {
+        small: "/assets/img/productos/producto-interna.png",
+        medium: "/assets/img/productos/producto-interna.png",
+        big: "/assets/img/productos/producto-interna.png"
+      },
+      {
+        small: "/assets/img/productos/producto-interna.png",
+        medium: "/assets/img/productos/producto-interna.png",
+        big: "/assets/img/productos/producto-interna.png"
+      }
+    ];
+    /*console.log(this.galleryImages);*/
     this.galleryOptions = [
       {
         width: '600px',
@@ -213,7 +258,7 @@ export class DetalleProductoComponent implements OnInit {
                 descuento : this.descuento,
                 precio_ant : this.valor_ant
               };
-              this.galleryImages = gallery;
+              //this.galleryImages = gallery;
               this.producto = product;
             },
             error => { console.log("error." + error); }

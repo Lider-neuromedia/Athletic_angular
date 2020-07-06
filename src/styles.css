@@ -1203,27 +1203,43 @@ footer input{
     padding: 5px;
 }
 
-.destacados-row1 .owl-carousel .owl-stage-outer{
+.destacados-row1 .owl-carousel .owl-stage-outer,
+.producto-relacionados-detalle .owl-stage-outer{
     width: 100% !important;
     margin: 0px !important;
 }
 
 .destacados-row1 .owl-item,
-.destacados-row1 .owl-item.active{
+.destacados-row1 .owl-item.active,
+.producto-relacionados-detalle .owl-stage-outer .owl-item,
+.producto-relacionados-detalle .owl-stage-outer .owl-item.active{
     margin: 0em 1em !important;
 }
 
 .destacados-row1 .owl-carousel .owl-nav button.owl-prev,
-.destacados-row1 .owl-carousel .owl-nav button.owl-next{
+.destacados-row1 .owl-carousel .owl-nav button.owl-next,
+.producto-relacionados-detalle .owl-nav button.owl-prev,
+.producto-relacionados-detalle .owl-nav button.owl-next{
     font-size: 70px !important;
 }
 
-.destacados-row1 .owl-carousel .owl-nav button.owl-prev{
+.destacados-row1 .owl-carousel .owl-nav button.owl-prev,
+.producto-relacionados-detalle .owl-nav button.owl-prev{
     left: -30px !important;
 }
 
-.destacados-row1 .owl-carousel .owl-nav button.owl-next{
+.destacados-row1 .owl-carousel .owl-nav button.owl-next,
+.producto-relacionados-detalle .owl-nav button.owl-next{
     right: -30px !important;
+}
+
+.producto-relacionados-detalle .img-descuento{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  max-width: 100%;
+  height: 35px !important;
+  width: 35px !important ;
 }
 
 .ngx-gallery-clickable.ng-star-inserted,
@@ -1233,11 +1249,39 @@ footer input{
 
 .cont-btn-prod{
     position: absolute !important;
+}
+
+.col-md-4.mrg-botn-20,
+.color-gray .col-md-3{
+    margin-bottom: 80px !important;
+}
+
+.grid-cuadros,
+.grid-cuadro,
+.grid-fila{
+  margin-bottom: 80px !important;
+}
+
+.destacados-row1 .owl-stage-outer{
+    padding: 1em 0em;
+}
+
+.producto-relacionados-detalle .owl-stage-outer{
+    padding: 1em 0em;
+}
+  
+.destacados-row1 .owl-stage-outer .content-item-product:hover{
+    box-shadow: 5px 5px 5px #8080802b !important;
+  }
+
+.content-item-product:hover{
+    box-shadow: 5px 5px 5px #8080802b !important;
+}
+
+ul.mas-detalle a::before{
+    display: none !important;
   }
   
-  .col-md-4.mrg-botn-20{
-    margin-bottom: 80px !important;
-  }
 
 @media screen and (max-width: 992px){
     .mat-toolbar-row{

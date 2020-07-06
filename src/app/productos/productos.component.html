@@ -1,4 +1,4 @@
-<div class="color-gray">
+<div class="color-gray producto-component">
     <div class="container">
         <div class="row">
             <nav aria-label="breadcrumb" class="mrg-left-30">
@@ -172,21 +172,21 @@
                         </div>
                     </ng-container>
                     <ng-container *ngIf="view_active == 1">
-                        <div class="col-md-3 mrg-botn-20" *ngFor="let item of productos | paginate:page_size:page_number">
+                        <div class="col-md-3 mrg-botn-20 grid-cuadros" *ngFor="let item of productos | paginate:page_size:page_number">
                             <app-item-producto [id]="item.id" [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
                             [title]="item.name" [price]="item.price" [small]="true" [showButtons]="true" [price_ant]="item.price_ant" [descuento]="item.descuento">
                             </app-item-producto>
                         </div>
                     </ng-container>
                     <ng-container *ngIf="view_active == 2">
-                        <div class="col-md-4 mrg-botn-20" *ngFor="let item of productos | paginate:page_size:page_number">
+                        <div class="col-md-4 mrg-botn-20 grid-cuadro" *ngFor="let item of productos | paginate:page_size:page_number">
                             <app-item-producto [id]="item.id" [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
                             [title]="item.name" [price]="item.price" [showButtons]="true" [price_ant]="item.price_ant" [descuento]="item.descuento">
                             </app-item-producto>
                         </div>
                     </ng-container>
                     <ng-container *ngIf="view_active == 3">
-                        <div class="col-md-12 mrg-botn-20" *ngFor="let item of productos | paginate:page_size:page_number">
+                        <div class="col-md-12 mrg-botn-20 grid-fila" *ngFor="let item of productos | paginate:page_size:page_number">
                             <div class="content-item-product">
                                 <div class="item-product d-flex">
                                     <div class="content-img col-md-4">

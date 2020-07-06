@@ -10,38 +10,23 @@
             </nav>
         </div>
 
-        <!-- <div class="container details-content">
-            <div class="row">
-                <div class="col-md-9 slider"></div>
-                <div class="col-md-3">
-                    <div class="valoraciones">
-                        <div class="starts"></div>
-                        <div class="texto-valoracion">12 valoraciones</div>
-                    </div>
-                    <div class="marca-nombre">
-                        <h3 class="marca">New Balance</h3>
-                        <h2 class="nombre">Fresh Foam Arishi</h2>
-                    </div>
-                    <div class="tipo-referencia">
-                        <p class="tipo">Deportivas</p>
-                        <p class="referencia">Ref: atk-1030492390f</p>
-                    </div>
-                    <div class="coutas">
-                        <p class="outline-coutas">Hasta 12 coutas de <strong>$13.345</strong></p>
-                    </div>
-                    <div class="aplicar-descuento">
-                        Aplica descuento del 30%
-                        <small class="terminos">Ver térmitos y condiciones</small>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
         <div class="row">
-            <div class="col-md-9 content-images h-xs-300px">
+            <div class="col-md-9 content-images h-xs-300px detalle-slider">
                 <ngx-gallery class="w-100" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
             </div>
-            <div class="col-md-3 mrg-top-10">
+            <div class="col-md-3 mrg-top-10 detalle-info">
+                <div class="detalle-puntaje-valoracion">
+                    <div class="puntaje">
+                        <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                        <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                        <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                        <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                        <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                    </div>
+                    <div class="valoracion">
+                        <p>12 valoraciones</p>
+                    </div>
+                </div>
                 <div class="content-strech mrg-botn-30">
                     <p class="prod-subtitle">{{producto.marca}}</p>
                     <p class="prod-title">{{producto.name}}</p>
@@ -62,10 +47,14 @@
                     <a href="#" class="link-terminos">Ver términos y condiciones</a>
                 </div>
                 <div class="w-80">
-                    <select class="form-control bold mrg-botn-10 btn-select" placeholder="Elige tu talla" id="talla">
-                        <option selected value="">Elige tu talla</option>
-                        <option *ngFor="let item of tallas;" value="{{item.id}}" >{{item.name}}</option>
-                    </select>
+                    <!-- <select class="form-control bold mrg-botn-10 btn-select" placeholder="Elige tu talla" id="talla"> -->
+                    <div class="box-select-talla">
+                        <i class="flecha-select">▼</i>
+                        <select class="my-own-form-control" placeholder="Elige tu talla" id="talla">
+                            <option selected value="">Elige tu talla</option>
+                            <option *ngFor="let item of tallas;" value="{{item.id}}" >{{item.name}}</option>
+                        </select>
+                    </div>
                     <div class="cantidad mrg-botn-10 btn-select">
                         <label for="input-cant" class="lbl-cant">Cantidad</label>
                         <input id="input-cant" class="mrg-botn-10 input-cant"  [ngModel]="cantidad" type="number">
@@ -84,6 +73,7 @@
         </div>
         
         <!-- <mat-tab-group class="mrg-top-20">
+
             <mat-tab label="Descripcion">
                 <div class="content-tab d-block d-sm-flex p-top-50  mrg-botn-20">
                     <div class="col-md-6 col-xs-12">
@@ -100,8 +90,8 @@
                         <img src="assets/img/home/zap-9.png" class="w-80" alt="">
                     </div>
                 </div>
-
             </mat-tab>
+
             <mat-tab label="Detalle">
                 <div class="content-tab mrg-top-20">
                     <div class="col-md-12 mrg-botn-30">
@@ -132,6 +122,7 @@
                     </div>
                 </div>
             </mat-tab>
+
             <mat-tab label="Valoraciones & Sugerencias">
                 <div class="d-block d-sm-flex mrg-top-20">
                     <div class="col-md-4 content-tab mrg-botn-20">
@@ -152,7 +143,22 @@
                     </div>
                 </div>
             </mat-tab>
+
         </mat-tab-group> -->
+
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="mas-detalle">
+                    <li><a href="#godescripcion" (click)="goDescripcion()" routerLinkActive="active-link">Descripción</a></li>
+                    <li><a href="#godetalle" (click)="goDetalle()">Detalle</a></li>
+                    <li><a href="#govaloracion" (click)="goValoracion()">Valoraciones</a></li>
+                    <li><a href="#gosugerencias" (click)="goSugerencias()">Sugerencias</a></li>
+                </ul>
+                <hr class="separador-mas-detalle">
+            </div>
+        </div>
 
         <div class="row" *ngIf="productos_relac.length > 0">
             <div class="col-md-12">
@@ -187,8 +193,7 @@
             </a>
         </div>
 
-
-        <div class="container descripcion-producto">
+        <div id="godescripcion" class="container descripcion-producto">
             <div class="row">
                 <div class="col-md-7">
                     <p class="descripcion">Descripción</p>
@@ -206,7 +211,7 @@
             </div>
         </div>
 
-        <section class="container detalles-producto">
+        <section id="godetalle" class="container detalles-producto">
             <div class="row">
                 <div class="col-md-12">
                     <h2>DETALLES</h2>
@@ -237,7 +242,7 @@
             </div>
         </section>
 
-        <section class="container valoraciones-comentarios">
+        <section id="govaloracion" class="container valoraciones-comentarios">
             <div class="row">
                 <div class="col-md-3 valoraciones">
                     <h2>Valoraciones</h2>
@@ -367,7 +372,7 @@
 
         <hr class="separador-detalle">
 
-        <section class="producto-relacionados-detalle">
+        <section id="gosugerencias" class="producto-relacionados-detalle">
             <div class="container">
                 <div class="col-md-12">
                     <h2 class="text-center">Productos Relacionados</h2>
