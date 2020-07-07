@@ -211,3 +211,13 @@
 .icon-lg{
   transform: scale(2.5);
 }
+
+.vista-previa .ngx-gallery-thumbnails-wrapper{
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.vista-previa-relacionados{
+    background: #F3F3F3;
+}

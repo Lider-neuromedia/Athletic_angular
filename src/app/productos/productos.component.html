@@ -183,7 +183,7 @@
                             <app-item-producto [id]="item.id" [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
                             [title]="item.name" [price]="item.price" [showButtons]="true" [price_ant]="item.price_ant" [descuento]="item.descuento">
                             </app-item-producto>
-                        </div>
+                        </div>                          
                     </ng-container>
                     <ng-container *ngIf="view_active == 3">
                         <div class="col-md-12 mrg-botn-20 grid-fila" *ngFor="let item of productos | paginate:page_size:page_number">

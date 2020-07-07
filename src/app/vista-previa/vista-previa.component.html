@@ -1,4 +1,5 @@
-<mat-dialog-content class="dialog-lg">
+<mat-dialog-content class="dialog-lg vista-previa">
+
     <div class="d-flex">
         <div class="col-md-8 content-images h-xs-300px">
             <ngx-gallery class="w-100" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
@@ -38,12 +39,29 @@
             </div>
         </div>
     </div>
-    <div class="row" *ngIf="productos_relac.length > 0">
+
+    <!-- <div class="row" *ngIf="productos_relac.length > 0"> -->
+    <div class="row vista-previa-relacionados">
         <div class="col-md-12">
-            <mat-divider class="divider-black mrg-top-40 mrg-botn-40"></mat-divider>
             <div class="title mrg-top-40 mrg-botn-40 w-100 txt-center">
                 <p>Productos relacionados</p>
             </div>
+
+            <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno" [carouselClasses]="['owl-carousel', 'owl-theme']" > 
+                <div class="content-item-product" *ngFor="let img of carouselDescatadosUno">
+                    <div class="item-product">
+                        <div class="content-img">
+                            <img src="{{img.img}}" alt="">
+                            <img *ngIf="img.descuento" src="assets/img/home/descuento.png" class="img-descuento" alt="">
+                            <div></div>
+                        </div>
+                        <div class="content-product">
+                            <p class="subtitle-prod">Adidas</p>
+                            <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
+                        </div>
+                    </div>
+                </div>
+            </owl-carousel> 
         </div>
     </div>
 

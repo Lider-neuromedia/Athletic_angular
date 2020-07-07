@@ -40,7 +40,51 @@ export class VistaPreviaComponent implements OnInit {
   cantidad = 1;
   tallas = [];
 
+  carouselDescatadosUno:any = [];
+  optionSlideDestacados:any = [];
+
   ngOnInit(): void {
+
+    this.galleryImages = [
+      {
+        small: "/assets/img/productos/producto-interna.png",
+        medium: "/assets/img/productos/producto-interna.png",
+        big: "/assets/img/productos/producto-interna.png"
+      },
+      {
+        small: "/assets/img/productos/producto-interna.png",
+        medium: "/assets/img/productos/producto-interna.png",
+        big: "/assets/img/productos/producto-interna.png"
+      },
+      {
+        small: "/assets/img/productos/producto-interna.png",
+        medium: "/assets/img/productos/producto-interna.png",
+        big: "/assets/img/productos/producto-interna.png"
+      },
+      {
+        small: "/assets/img/productos/producto-interna.png",
+        medium: "/assets/img/productos/producto-interna.png",
+        big: "/assets/img/productos/producto-interna.png"
+      }
+    ];
+
+    this.carouselDescatadosUno = [
+      {"img": 'assets/img/zapatillas/uno.jpg',"descuento":false},
+      {"img": 'assets/img/zapatillas/dos.jpg',"descuento":false},
+      {"img": 'assets/img/zapatillas/tres.jpg',"descuento":true},
+      {"img": 'assets/img/zapatillas/cuatro.jpg',"descuento":false},
+      {"img": 'assets/img/zapatillas/uno.jpg',"descuento":false},
+      {"img": 'assets/img/zapatillas/dos.jpg',"descuento":false},
+      {"img": 'assets/img/zapatillas/tres.jpg',"descuento":false},
+      {"img": 'assets/img/zapatillas/cuatro.jpg',"descuento":true}
+    ];
+
+    this.optionSlideDestacados = {
+      items: 5,
+      dots: false,
+      nav: true
+    }
+
     this.galleryOptions = [
       {
         width: '600px',
@@ -186,7 +230,7 @@ export class VistaPreviaComponent implements OnInit {
                 descuento : this.descuento,
                 precio_ant : this.valor_ant
               };
-              this.galleryImages = gallery;
+              //this.galleryImages = gallery;
               this.producto = product;
             },
             error => { console.log("error." + error); }

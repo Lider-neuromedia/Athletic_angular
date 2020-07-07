@@ -32,16 +32,18 @@
         
     </div>
 
-    <div class="row mrg-top-10 cont-btn-prod" *ngIf="!small">
-        <div class="col-md-6">
+    <div class="row cont-btn-prod" *ngIf="!small">
+        <div class="">
             <button mat-raised-button class="btn-bolsa" color="primary">
-                <mat-icon class="icon-small">work</mat-icon>Añadir a la bolsa
+                <img src="assets/img/icons/inactive.png">Añadir a la bolsa
             </button>
         </div>
-        <div class="col-md-6">
+        <div class="">
             <button (click)="openVistaPrevia()" mat-stroked-button class="btn-vista" color="primary">
                 <mat-icon class="icon-small">visibility</mat-icon>Vista rápida
             </button>
         </div>
     </div>
+
+
 </div>

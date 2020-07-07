@@ -166,3 +166,17 @@
 }
 
 .cont-btn-prod{ display: none;}
+
+
+.cont-btn-prod{
+  margin: 0;
+  padding: 1em 0em;
+  width: 90%;
+  justify-content: space-between;
+}
+
+.cont-btn-prod .btn-bolsa img{
+  height: 15px;
+  margin-right: 5px;
+  margin-top: -5px;
+}

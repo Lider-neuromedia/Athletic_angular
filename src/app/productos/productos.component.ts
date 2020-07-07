@@ -40,7 +40,7 @@ export class ProductosComponent implements OnInit {
   }
   id_prd_vstaprev : any = 21;
 
-  constructor(private http: SendHttpData, public dialog: MatDialog ) {}
+  constructor(private http: SendHttpData, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getProducts();
