@@ -586,8 +586,10 @@ Aside menu account page
     border-radius: 25px;
     color: var(--active-link);
     border: 1px solid var(--active-link);
-    padding: 8px 40px;
+    padding: 5px 30px;
     display: inline-block;
+    font-weight: 700;
+    font-size: 12px;
 }
 
 /* Mis reseñas */
