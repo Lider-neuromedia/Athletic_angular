@@ -373,3 +373,13 @@ a:hover{
   margin-left: 30px;
   margin-bottom: 0px;
 }
+
+.grid-fila .content-product{
+  align-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid-fila  .remove-margin{
+  margin: 0 !important;
+}
