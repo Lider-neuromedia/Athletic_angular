@@ -16,13 +16,13 @@
     </div>
 
     <div class="cont-btn-prod  w-100 justify-content-between mrg-top-10" *ngIf="small">
-        <div class="w-60">
-            <button mat-raised-button class="btn-bolsa-small" color="primary">
-                <mat-icon class="icon-small">work</mat-icon>Añadir a la bolsa
+        <div class="">
+            <button (click)="agregarABolsa()" mat-raised-button class="btn-bolsa-small" color="primary">
+                <img style="height: 14px; margin-right: 5px;" src="assets/img/icons/inactive.png">Añadir a la bolsa
             </button>
         </div>
-        <div class="w-40">
-            <button mat-stroked-button class="btn-vista-small" color="primary" *ngIf="!favorites">
+        <div class="">
+            <button (click)="openVistaPrevia()" mat-stroked-button class="btn-vista-small" color="primary" *ngIf="!favorites">
                 <mat-icon class="icon-small">visibility</mat-icon>Vista rápida
             </button>
             <button mat-stroked-button class="btn-vista-small" color="primary" *ngIf="favorites">

@@ -228,7 +228,7 @@
   }
   
   .vista-previa .title-prod{
-    font-size: 14px;
+    font-size: 10px;
     color: #353435;
     margin-left: 10px;
     font-weight: 700;
@@ -289,4 +289,8 @@
 .vista-previa-relacionados .owl-carousel{
     margin: 0 auto !important;
     width: 80% !important;
+}
+
+.dialog-lg.vista-previa .col-md-9{
+    box-shadow: none;
 }

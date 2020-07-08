@@ -451,7 +451,7 @@ Aside menu account page
     color: #FF596A !important;
     display: block;
     margin-top: 6em;
-    padding: 12px 0px;
+    padding: 8px 0px;
     text-align: center;
     font-weight: 700;
     transition: all .6s ease;
@@ -1281,11 +1281,11 @@ footer input{
     padding: 1em 0em;
 }
   
-.destacados-row1 .owl-stage-outer .content-item-product:hover{
+/* .destacados-row1 .owl-stage-outer .content-item-product:hover{
     box-shadow: 5px 5px 5px #8080802b !important;
-  }
+  } */
 
-.content-item-product:hover{
+.content-item-product .item-product:hover{
     box-shadow: 5px 5px 5px #8080802b !important;
 }
 

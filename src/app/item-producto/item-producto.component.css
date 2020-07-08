@@ -145,16 +145,12 @@
 }
 
 .btn-bolsa-small{
-  padding-right: 10px;
-  padding-left: 5px;
   font-size: 10px !important;
   transform: scale(0.9);
   border-radius: 20px;
 }
 
 .btn-vista-small{
-  padding-right: 10px;
-  padding-left: 5px;
   font-size: 10px !important;
   transform: scale(0.9);
   border-radius: 20px;

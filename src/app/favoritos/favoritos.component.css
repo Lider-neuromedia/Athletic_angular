@@ -19,7 +19,7 @@
     position: relative;
 }
 
-.content-item-products:hover{
+.item-product:hover{
     box-shadow: 5px 5px 5px #8080802b !important;
 }
 
