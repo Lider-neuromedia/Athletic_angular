@@ -1,0 +1,75 @@
+.guardar-direcciones{
+    background: #F7F7F7;
+    color: #353435;
+    padding-top: 2em;
+}
+
+.guardar-direcciones .agregar-mas-direcciones{
+    font-size: 11px;
+    background-color: #FF596A;
+    border-radius: 25px;
+    color: white;
+    padding: 10px 15px;
+    margin-left: 32px;
+}
+
+.guardar-direcciones .agregar-mas-direcciones:hover{
+    text-decoration: none;
+}
+
+.guardar-direcciones .direccion-box{
+    background: white;
+    border-radius: 6px;
+    padding: 1.5em .6em;
+    transition: all .4s ease;
+}
+.guardar-direcciones .direccion-box:hover{
+    box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
+}
+
+.guardar-direcciones .mb-20{
+    margin-bottom: 20px;
+}
+
+.guardar-direcciones .nombre{
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.guardar-direcciones .botones{
+    display: flex;
+    justify-content: space-around;
+}
+
+.guardar-direcciones .direccion,
+.guardar-direcciones .barrio,
+.guardar-direcciones .telefono{
+    margin-bottom: 8px;
+}
+
+.guardar-direcciones .editar,
+.guardar-direcciones .eliminar{
+    border: 1px solid #FF596A;
+    border-radius: 25px;
+    color: #FF596A;
+    text-align: center;
+    padding: 4px 0px;
+    width: 45%;
+    transition: all .6s ease;
+}
+
+.guardar-direcciones .editar:hover,
+.guardar-direcciones .eliminar:hover{
+    background: #FF596A;
+    color: white;
+    text-decoration: none;
+}
+
+.guardar-direcciones .direccion-predeterminada,
+.guardar-direcciones .actualizar-direccion{
+    margin: 2em 0em;
+}
+
+.guardar-direcciones .actualizar-direccion{
+    color: #969696;
+}

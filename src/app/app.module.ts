@@ -33,6 +33,9 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { DireccionesComponent } from './direcciones/direcciones.component';
 import { FavoritosComponent } from './favoritos/favoritos.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AgregarCarritoComponent } from './agregar-carrito/agregar-carrito.component';
+import { ResenaDetalleComponent } from './resena-detalle/resena-detalle.component';
+import { GuardarDireccionesComponent } from './guardar-direcciones/guardar-direcciones.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CuponesComponent,
     PerfilComponent,
     DireccionesComponent,
-    FavoritosComponent
+    FavoritosComponent,
+    AgregarCarritoComponent,
+    ResenaDetalleComponent,
+    GuardarDireccionesComponent
   ],
   imports: [
     BrowserModule,

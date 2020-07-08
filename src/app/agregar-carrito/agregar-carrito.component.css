@@ -1,0 +1,133 @@
+.agregar-carrito-content{}
+
+.agregar-carrito-content .bolsa-compra{
+    color: #969696;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 16px;
+}
+
+.agregar-carrito-content .producto-anadido{
+    color: #353435;
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 18px;
+}
+
+.agregar-carrito-content .marca{
+    color: #969696;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.agregar-carrito-content .nombre{
+    color: #353435;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 24px;
+}
+
+.agregar-carrito-content .tipo{
+    margin-top: 2em;
+    margin-bottom: 0;
+    font-weight: 800;
+    font-size: 12px;
+}
+
+.agregar-carrito-content .ref{
+    color: #969696;
+    font-size: 12px;
+}
+
+.agregar-carrito-content .valor-total{
+    color: #353435;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 0;
+    line-height: 14px;
+}
+
+.agregar-carrito-content .precio{
+    color: #FF596A;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.agregar-carrito-content .articulos{
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 18px;
+    margin-top: 10px;
+}
+
+.agregar-carrito-content  .articulos::before{
+    background: #FF596A;
+    content: '';
+    display: block;
+    height: 2px;
+    width: 103px;
+    position: absolute;
+    left: 15px;
+    top: 0;
+}
+
+.agregar-carrito-content .total-producto,
+.agregar-carrito-content .costo-envio{
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 10px;
+}
+
+.agregar-carrito-content .total-producto-valor,
+.agregar-carrito-content .costo-envio-valor{
+    color: #353435;
+    font-size: 17px;
+    margin-bottom: 6px;
+}
+
+.agregar-carrito-content  .total-articulo{
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 10px;
+    position: relative;
+}
+
+.agregar-carrito-content .precio-total{
+    color: #FF596A;
+    font-size: 17px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 15px;
+}
+
+.agregar-carrito-content .continuar-compra{
+    display: block;
+    color: #353435;
+    font-weight: 700;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid #D3D3D3;
+    border-radius: 25px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.agregar-carrito-content .continuar-compra:hover{
+    text-decoration: none;
+}
+
+.agregar-carrito-content .ir-a-bolsa{
+    background: #FF596A;
+    display: block;
+    font-weight: 700;
+    font-size: 12px;
+    text-align: center;
+    color: white;
+    border-radius: 25px;
+}
+
+.agregar-carrito-content .ir-a-bolsa:hover{
+    text-decoration: none;
+}

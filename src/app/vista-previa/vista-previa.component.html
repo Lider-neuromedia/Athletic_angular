@@ -1,10 +1,10 @@
 <mat-dialog-content class="dialog-lg vista-previa">
 
-    <div class="d-flex">
-        <div class="col-md-8 content-images h-xs-300px">
+    <div class="d-flex" style="padding-bottom: 2em;">
+        <div class="col-md-9 content-images h-xs-300px">
             <ngx-gallery class="w-100" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
         </div>
-        <div class="col-md-4 mrg-top-10">
+        <div class="col-md-3 mrg-top-10">
             <div class="content-strech mrg-botn-30">
                 <p class="prod-subtitle">{{producto.marca}}</p>
                 <p class="prod-title">{{producto.name}}</p>
@@ -18,7 +18,7 @@
                 <p class="price-des" *ngIf="valor_ant != null">{{producto.precio_ant |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
             </div>
 
-            <div class="w-80">
+            <div class="">
                 <select class="form-control bold mrg-botn-10 btn-select" placeholder="Elige tu talla" id="talla">
                     <option selected value="">Elige tu talla</option>
                     <option *ngFor="let item of tallas;" value="{{item.id}}" >{{item.name}}</option>

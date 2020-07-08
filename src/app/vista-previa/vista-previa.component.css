@@ -1,6 +1,6 @@
-.dialog-lg{
+/* .dialog-lg{
     width: 800px !important;
-}
+} */
 
 
 /* Anular estilos material para que funcione galeria de imagenes */
@@ -284,4 +284,9 @@
     height: 16px;
     margin-right: 5px;
     margin-top: -5px;
+}
+
+.vista-previa-relacionados .owl-carousel{
+    margin: 0 auto !important;
+    width: 80% !important;
 }

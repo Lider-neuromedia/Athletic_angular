@@ -34,7 +34,7 @@
 
     <div class="row cont-btn-prod" *ngIf="!small">
         <div class="">
-            <button mat-raised-button class="btn-bolsa" color="primary">
+            <button (click)="agregarABolsa()" mat-raised-button class="btn-bolsa" color="primary">
                 <img src="assets/img/icons/inactive.png">Añadir a la bolsa
             </button>
         </div>

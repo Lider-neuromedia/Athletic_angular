@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {VistaPreviaComponent} from '../vista-previa/vista-previa.component';
+import { AgregarCarritoComponent } from '../agregar-carrito/agregar-carrito.component';
 
 @Component({
   selector: 'app-item-producto',
@@ -34,7 +35,14 @@ export class ItemProductoComponent implements OnInit {
   
   openVistaPrevia() {
     const dialogRef = this.dialog.open(VistaPreviaComponent, {
-      width: '800px',
+      width: '900px',
+      data: {id: this.id}
+    });
+  }
+
+  agregarABolsa() {
+    const dialogRef = this.dialog.open(AgregarCarritoComponent, {
+      width: '900px',
       data: {id: this.id}
     });
   }

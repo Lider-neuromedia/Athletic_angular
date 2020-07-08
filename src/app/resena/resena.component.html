@@ -5,10 +5,10 @@
 				<app-aside-account></app-aside-account>
 			</div>
 			<div class="col-md-9">
-				<h2 class="account-title">Mis reseñas <a class="escribir-resena" href="#">Escribir reseña</a></h2>
+				<h2 class="account-title">Mis reseñas <a class="escribir-resena" [routerLink]="['/resena-detalle']">Escribir reseña</a></h2>
 				<div class="row row-resena">
 					<div class="col-md-12">
-						<img src="assets/img/icons/lapiz.svg" alt="">
+						<a [routerLink]="['/resena-detalle']"><img src="assets/img/icons/lapiz.svg" alt=""></a>
 						<h2 class="title-resena">No has realizado una reseña</h2>
 						<p>Cuando hagas una reseña podrás verla aquí, valorar productos y editar reseñas.</p>
 					</div>
