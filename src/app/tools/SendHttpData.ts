@@ -4,39 +4,41 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class SendHttpData {
-  private baseUrl = 'http://pruebasneuro.co/N-1007/api/';
+
+  private baseUrl = 'http://pruebasneuro.co/N-1041/public/api/';
+  // private baseUrl = 'http://127.0.0.1:8000/api/';
   // Key prestashop
-  private key = "JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
-  private full = "display=full";
+  // private key = "JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
+  // private full = "display=full";
 
   constructor(private _http: HttpClient) { }
 
-  private buildUrl(type:string, filter = null, full = true){
-    var url = this.baseUrl + "/" + type + "?ws_key=" + this.key;
-    if (full) {
-      url = url + "&" + this.full;
-    }
-    if (filter != null) {
-      url = url + "&" + filter;
-    }
-    return url;
-  }
+  // private buildUrl(type:string, filter = null, full = true){
+  //   var url = this.baseUrl + "/" + type + "?ws_key=" + this.key;
+  //   if (full) {
+  //     url = url + "&" + this.full;
+  //   }
+  //   if (filter != null) {
+  //     url = url + "&" + filter;
+  //   }
+  //   return url;
+  // }
 
   // Peticion Http GET
   httpGet(route:string, filter:string = null, full=true):Observable<any>{
-    var url = this.buildUrl(route, filter, full);
+    var url = this.baseUrl + route;
     return this._http.get(url);
   }
 
   // Peticion Http GET
   httpPost(route:string, data:any):Observable<any>{
-    var url = this.buildUrl(route, false);
+    var url = this.baseUrl + route;
     return this._http.post(url, data);
   }
 
   // Peticion Http PUT
   httpPut(route:string, data:any):Observable<any>{
-    var url = this.buildUrl(route, false);
+    var url = this.baseUrl + route;
     return this._http.put(url, data);
   }
 

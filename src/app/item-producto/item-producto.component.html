@@ -10,7 +10,7 @@
             <p [class]="(small) ? 'title-prod-small' : 'title-prod'">{{title}}</p>
             <div [class]="(small) ? 'cont-price-prod-small' : 'cont-price-prod'">
                 <p class="price-prod">{{price |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
-                <p class="price-prod-desc" *ngIf="price_ant">{{price_ant |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                <p class="price-prod-desc" *ngIf="descuento != null">{{price_ant |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
             </div>
         </div>
     </div>

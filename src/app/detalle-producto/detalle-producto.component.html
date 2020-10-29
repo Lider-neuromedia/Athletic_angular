@@ -5,14 +5,15 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
                     <li class="breadcrumb-item"><a routerLink="/productos">Producto</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{producto.name}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{producto.name_prod}}</li>
                 </ol>
             </nav>
         </div>
 
         <div class="row">
             <div class="col-md-9 content-images h-xs-300px detalle-slider">
-                <ngx-gallery class="w-100 ngx-gallery-100" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+                <ngx-gallery class="w-100 ngx-gallery-100" [options]="galleryOptions" [images]="galleryImages">
+                </ngx-gallery>
             </div>
             <div class="col-md-3 mrg-top-10 detalle-info">
                 <div class="detalle-puntaje-valoracion">
@@ -28,22 +29,23 @@
                     </div>
                 </div>
                 <div class="content-strech mrg-botn-30">
-                    <p class="prod-subtitle">{{producto.marca}}</p>
-                    <p class="prod-title">{{producto.name}}</p>
+                    <p class="prod-subtitle">{{producto.name_marca}}</p>
+                    <p class="prod-title">{{producto.name_prod}}</p>
                 </div>
                 <div class="content-strech mrg-botn-15">
-                    <p class="title-ref">{{producto.category}}</p>
+                    <p class="title-ref">{{producto.last_categoria}}</p>
                     <p class="ref">Ref: {{producto.referencia}}</p>
                 </div>
                 <div class="content-strech mrg-botn-15">
-                    <p class="price">{{producto.price |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
-                    <p class="price-des" *ngIf="valor_ant != null">{{producto.precio_ant |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                    <p class="price">{{producto.precio |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                    <p class="price-des" *ngIf="producto.valor_descuento != null">
+                        {{producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
                 </div>
                 <div class="content-strech content-cuotas">
                     <p class="cuotas">Hasta 12 cuotas de <span class="txt-dark-bold">$13.345</span></p>
                 </div>
-                <div class="content-strech mrg-botn-15" *ngIf="descuento != null">
-                    <p class="txt-descuento">Aplica descuento de {{producto.descuento * 100}}%</p>
+                <div class="content-strech mrg-botn-15" *ngIf="producto.valor_descuento != null">
+                    <p class="txt-descuento">Aplica descuento de {{producto.valor_descuento}}%</p>
                     <a href="#" class="link-terminos">Ver términos y condiciones</a>
                 </div>
                 <div class="w-80">
@@ -52,16 +54,19 @@
                         <i class="flecha-select">▼</i>
                         <select class="my-own-form-control" placeholder="Elige tu talla" id="talla">
                             <option selected value="">Elige tu talla</option>
-                            <option *ngFor="let item of tallas;" value="{{item.id}}" >{{item.name}}</option>
+                            <option *ngFor="let item of producto.combinaciones;" value="{{item.id_combinacion}}">
+                                {{item.valor}}</option>
                         </select>
                     </div>
                     <div class="cantidad mrg-botn-10 btn-select">
                         <label for="input-cant" class="lbl-cant">Cantidad</label>
-                        <input id="input-cant" class="mrg-botn-10 input-cant"  [ngModel]="cantidad" type="number">
-                        <button id="inc-button" (click)="changeCantidad(true)" mat-fab color="primary" class="spinner-button">
+                        <input id="input-cant" class="mrg-botn-10 input-cant" [ngModel]="cantidad" type="number">
+                        <button id="inc-button" (click)="changeCantidad(true)" mat-fab color="primary"
+                            class="spinner-button">
                             +
                         </button>
-                        <button id="dec-button"  (click)="changeCantidad(false)" mat-fab color="primary" class="spinner-button">
+                        <button id="dec-button" (click)="changeCantidad(false)" mat-fab color="primary"
+                            class="spinner-button">
                             -
                         </button>
                     </div>
@@ -71,7 +76,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- <mat-tab-group class="mrg-top-20">
 
             <mat-tab label="Descripcion">
@@ -151,7 +156,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <ul class="mas-detalle">
-                    <li><a href="#godescripcion" (click)="goDescripcion()" routerLinkActive="active-link">Descripción</a></li>
+                    <li><a href="#godescripcion" (click)="goDescripcion()"
+                            routerLinkActive="active-link">Descripción</a></li>
                     <li><a href="#godetalle" (click)="goDetalle()">Detalle</a></li>
                     <li><a href="#govaloracion" (click)="goValoracion()">Valoraciones</a></li>
                     <li><a href="#gosugerencias" (click)="goSugerencias()">Sugerencias</a></li>
@@ -171,9 +177,10 @@
 
         <div id="gallery" class="carousel slide" data-ride="carousel" *ngIf="productos_relac.length > 0">
             <div class="carousel-inner ">
-                <div *ngFor="let col of productos_relac; let i = index" [class]="(i == 0) ? 'carousel-item active' : 'carousel-item' ">
+                <div *ngFor="let col of productos_relac; let i = index"
+                    [class]="(i == 0) ? 'carousel-item active' : 'carousel-item' ">
                     <div class="row justify-content-center mrg-botn-20">
-                        <div class="col-md-2 d-block justify-content-center"  *ngFor="let item of col">
+                        <div class="col-md-2 d-block justify-content-center" *ngFor="let item of col">
                             <div class="content-img" (click)="router.navigate(['/detalle-producto/' + item.id]);">
                                 <img src="{{item.img}}" class="border-rad-mild" alt="">
                                 <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
@@ -183,11 +190,11 @@
                     </div>
                 </div>
             </div>
-        
+
             <a class="carousel-control-prev" href="#gallery" role="button" data-slide="prev">
                 <mat-icon aria-hidden="false" class="icon-lg">navigate_before</mat-icon>
             </a>
-        
+
             <a class="carousel-control-next" href="#gallery" role="button" data-slide="next">
                 <mat-icon aria-hidden="false" class="icon-lg">navigate_next</mat-icon>
             </a>
@@ -197,48 +204,24 @@
             <div class="row">
                 <div class="col-md-7">
                     <p class="descripcion">Descripción</p>
-                    <h2 class="titulo-descripcion">Fres Foam Arishi</h2>
+                    <h2 class="titulo-descripcion">{{producto.name_prod}}</h2>
 
-                    <p class="text-cta">TENIS NEW BALANCE QUE COMBINAN DETALLES RETRO CON LO ÚLTIMO EN TECNOLOGÍA</p>
-                    
-                    <p class="parrafo producto">
-                        NMD toma lo mejor de la tecnología de running de adidas y lo incorpora en un distintivo calzado urbano.  Estos tenis NMD lucen detalles inspirados en modelos clásicos de los archivos de adidas. Lucen las distintivas inserciones en color de contraste en la mediasuela.
+                    <p class="text-cta">TENIS {{producto.name_marca}} QUE COMBINAN DETALLES RETRO CON LO ÚLTIMO EN
+                        TECNOLOGÍA</p>
+                    <p class="parrafo producto" [innerHtml]="producto.resumen">
                     </p>
                 </div>
                 <div class="col-md-5">
-                    <img src="assets/img/home/zap-9.png" alt="">
+                    <!-- <img src="assets/img/home/zap-9.png" alt=""> -->
+                    <img src="{{producto.imagen_destacada}}" alt="">
                 </div>
             </div>
         </div>
 
         <section id="godetalle" class="container detalles-producto">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>DETALLES</h2>
-                </div>
-
-                <div class="col-md-4">
-                    <ul>
-                        <li>Sistema de amarre de cordones</li>
-                        <li>Exterior tejido con refuerzo de TPU</li>
-                        <li>Diseño ajustado y elástico</li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4">
-                    <ul>
-                        <li>mediasuela receptiva Boost</li>
-                        <li>Suela de caucho</li>
-                        <li>Número de artículo: EF4268</li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4">
-                    <ul>
-                        <li>Tenis urbanos icónicos</li>
-                        <li>Color de artículo: Core Black</li>
-                    </ul>
-                </div>
+            <h2>DETALLES</h2>
+            <!-- <div class="row" [innerHtml]="producto.descripcion_prod"> -->
+            <div class="row" id="detalle">
             </div>
         </section>
 
@@ -346,7 +329,9 @@
                             <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
                             <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
                         </div>
-                        <p class="resena">Las sillas son bastante lindas y el paquete cuenta con las herramientas necesarias para armarlas. El único detalle que no es completamente favorable es el acabado de las bases de madera, no cuenta con un barniz por lo que la madera se ensucia fácilmente.
+                        <p class="resena">Las sillas son bastante lindas y el paquete cuenta con las herramientas
+                            necesarias para armarlas. El único detalle que no es completamente favorable es el acabado
+                            de las bases de madera, no cuenta con un barniz por lo que la madera se ensucia fácilmente.
                         </p>
                         <p class="persons">Primera prueba</p>
                     </div>
@@ -360,7 +345,9 @@
                             <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
                             <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
                         </div>
-                        <p class="resena">Las sillas son bastante lindas y el paquete cuenta con las herramientas necesarias para armarlas. El único detalle que no es completamente favorable es el acabado de las bases de madera, no cuenta con un barniz por lo que la madera se ensucia fácilmente.
+                        <p class="resena">Las sillas son bastante lindas y el paquete cuenta con las herramientas
+                            necesarias para armarlas. El único detalle que no es completamente favorable es el acabado
+                            de las bases de madera, no cuenta con un barniz por lo que la madera se ensucia fácilmente.
                         </p>
                         <p class="persons">Primera prueba</p>
                     </div>
@@ -378,12 +365,14 @@
                     <h2 class="text-center">Productos Relacionados</h2>
                 </div>
 
-                <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno" [carouselClasses]="['owl-carousel', 'owl-theme']" > 
+                <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno"
+                    [carouselClasses]="['owl-carousel', 'owl-theme']">
                     <div class="content-item-product" *ngFor="let img of carouselDescatadosUno">
                         <div class="item-product">
                             <div class="content-img">
                                 <img src="{{img.img}}" alt="">
-                                <img *ngIf="img.descuento" src="assets/img/home/descuento.png" class="img-descuento" alt="">
+                                <img *ngIf="img.descuento" src="assets/img/home/descuento.png" class="img-descuento"
+                                    alt="">
                                 <div></div>
                             </div>
                             <div class="content-product">
@@ -396,12 +385,12 @@
                             </div>
                         </div>
                     </div>
-                </owl-carousel> 
-                
+                </owl-carousel>
+
             </div>
         </section>
 
 
-        
+
     </div>
 </div>

@@ -256,7 +256,7 @@
   justify-content: center;
 }
 
-.call-to-action-download img{
+.call-to-action-download a{
   width: 30%;
   margin: 0px 15px;
 }

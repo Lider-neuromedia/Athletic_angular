@@ -17,6 +17,10 @@ export class HeaderComponent {
   categoria_select = null;
   usuario = null;
   scrolled = 1;
+  disenoMenu = {
+    column_1 : [],
+    column_2 : []
+  };
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll($event) {
@@ -34,11 +38,20 @@ export class HeaderComponent {
   ngOnInit(): void {
     this.usuario = JSON.parse(sessionStorage.getItem('user')); 
     this.getCategories();
+    this.getImagenesMenu();
   }
   
-  cerrarSesion(){
-    sessionStorage.clear();
-    this.usuario = null;
+  getCategories() {
+    this.http.httpGet('categorias/cascade').subscribe(
+      response => {
+        var data = response.categorias;
+        this.categorias_prin = data.hijos;
+        this.categorias = data.hijos;
+        var cat_inicial = this.categorias_prin[0];
+        this.changeSubCategoria(cat_inicial.id_categoria, cat_inicial.hijos);
+      },
+      error => { console.log("error." + error); }
+    );
   }
 
   sonCategories(data, element) {
@@ -51,38 +64,15 @@ export class HeaderComponent {
     });
   }
 
-  getCategories() {
-    var filter_categories = "filter[id]=![1|2]";
-    this.http.httpGet('categories', filter_categories).subscribe(
-      response => {
-        var data = response.categories;
-        data.forEach((element) => {
-          if (element.id_parent == 2) {
-            var hijos = this.getSons(data, element.id);
-            this.categorias.push({ padre: { id: element.id, name: element.name[0]['value'] }, hijos: hijos });
-            this.categorias_prin.push({ id: element.id, name: element.name[0]['value'] });
-          }
-        });
-        this.changeSubCategoria(10);
-      },
-      error => { console.log("error." + error); }
-    );
-  }
-
-  changeSubCategoria(id_padre){
+  changeSubCategoria(id_padre, hijos){
     this.categoria_select = id_padre;
-    this.categorias.forEach(element => {
-      if (element.padre.id == id_padre) {
-        this.sub_categorias = null;
-        this.sub_categorias = element.hijos;
-      }
-    });
+    this.sub_categorias = hijos;
   }
 
-  getSons(data, id_padre) {
+  getSons(data, id_padre){
     var hijos = [];
     data.forEach(element => {
-      if (element.id_parent == id_padre) {
+      if(element.id_parent == id_padre) {
         var nietos = [];
         data.forEach(item => {
           if (element.id == item.id_parent) {
@@ -97,6 +87,22 @@ export class HeaderComponent {
 
   toggleOpenBolsa() {
     this.openBolsa.emit(true);
+  }
+
+  cerrarSesion(){
+    sessionStorage.clear();
+    this.usuario = null;
+  }
+  
+  getImagenesMenu(){
+    this.http.httpGet('disenoOneSesion/16').subscribe(
+      response => {
+        this.disenoMenu = response;
+      }, 
+      error => {
+        console.error("Error en el diseño.");
+      }
+    );
   }
 
 }

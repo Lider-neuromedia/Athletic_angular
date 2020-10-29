@@ -18,18 +18,7 @@ export class VistaPreviaComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<VistaPreviaComponent>,
   @Inject(MAT_DIALOG_DATA) public data: DialogData, public router : Router, private http: SendHttpData) { }
-  producto = {
-    id : null,
-    marca : null,
-    name : null,
-    referencia : null,
-    price : null,
-    resumen : null,
-    descripcion : null,
-    category : null,
-    precio_ant : null,
-    descuento : null
-  };
+  producto : any;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   descuento;
@@ -195,73 +184,22 @@ export class VistaPreviaComponent implements OnInit {
 
   // Productos  
   getProducts(id) {
-    this.http.httpGet('products/' + id, null, false).subscribe(
+    this.http.httpGet('productos/' + id, null, false).subscribe(
       response => {
-        if (response.product != undefined) {
-          if (response.product.associations.accessories != undefined) {
-            this.getProductsRelac(response.product.associations.accessories);
+        this.producto = response;
+        $('#detalle').html(response.descripcion_prod);
+        $('blockquote').addClass('col-md-4');
+        var gallery = [];
+        response.imagenes.forEach(element => {
+          var img = {
+            small: element.img,
+            medium: element.img,
+            big: element.img
           }
-          if (response.product.associations.product_option_values != undefined) {
-            this.getProductValue(response.product.associations.product_option_values);
-          }
-          
-          var data = response.product;
-          var images = data.associations.images;
-          var gallery = [];
-          // Imagenes.
-          images.forEach(element => {
-            var img = {
-              small: this.http.getImageProduct(data.id, element.id),
-              medium: this.http.getImageProduct(data.id, element.id),
-              big: this.http.getImageProduct(data.id, element.id)
-            }
-            gallery.push(img);
-          });
-          // Categorias.
-          var categorias = data.associations.categories;
-          var ultima_categoria = categorias[categorias.length - 1]['id']; 
-          var sub_categoria = null;
-          this.http.httpGet('specific_prices/', 'filter[id_product]=' + data.id).subscribe(
-            response => {
-              if (response.length != 0) {
-                var precios = response.specific_prices[0];
-                this.descuento = precios.reduction;
-                this.valor_ant = parseInt(data.price),
-                this.precio_desc = this.valor_ant - (this.valor_ant * this.descuento);
-              }else{
-                this.descuento = null;
-                this.valor_ant = null,
-                this.precio_desc = null;
-              }
-            },
-            error => {
 
-            }
-          );
-          this.http.httpGet('categories/' + ultima_categoria, null, false).subscribe(
-            response => {
-              sub_categoria = response.category.name[0]['value'];
-              var product = {
-                id : data.id,
-                marca : data.manufacturer_name,
-                name : data.name[0]['value'],
-                referencia : data.reference,
-                price : (this.precio_desc == null) ? parseInt(data.price) : this.precio_desc,
-                resumen : data.description_short[0]['value'].replace(/<[^>]*>?/g, ''),
-                descripcion : data.description[0]['value'].replace(/<[^>]*>?/g, ''),
-                category : sub_categoria,
-                descuento : this.descuento,
-                precio_ant : this.valor_ant
-              };
-              //this.galleryImages = gallery;
-              this.producto = product;
-            },
-            error => { console.log("error." + error); }
-          );
-
-        } else {
-          // this.producto = [];
-        }
+          gallery.push(img);
+        });
+        this.galleryImages = gallery;
       },
       error => { console.log("error." + error); }
     );

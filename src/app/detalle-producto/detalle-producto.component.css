@@ -205,21 +205,6 @@
     padding-bottom: 15px;
   }
 
-  ul{
-    padding-left: 16px;
-    list-style: none;
-  }
-
-  ul li::before {
-    content: "\2022";
-    color: #ff596a;
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
-    font-size: 16px;
-  }
-
   /* .divider{
     border-bottom: 1px solid #353435;
   } */
@@ -493,10 +478,6 @@
 .grid-fila{
   margin-bottom: 80px !important;
 }
-
-.detalles-producto-box{}
-
-.detalles-producto-box .detalle-slider{}
 
 .detalles-producto-box .detalle-info{
   margin-bottom: 0px !important;

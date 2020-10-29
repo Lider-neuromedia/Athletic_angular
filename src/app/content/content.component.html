@@ -1,102 +1,92 @@
-    <mat-sidenav-content>
-      <!-- Contenido 1 -->
-      <div class="container mrg-top-10 mrg-top-30-xs">
-        <div class="row">
+<mat-sidenav-content>
+  <!-- Contenido 1 -->
+  <div class="container mrg-top-10 mrg-top-30-xs">
+    <div class="row">
 
-          <!--<div class="col-md-7 col-xs-12 fade-in">
+      <!--<div class="col-md-7 col-xs-12 fade-in">
             <img src="assets/img/home/img-1.png" class="w-100" alt="">
           </div-->
 
-          <div class="col-md-7 col-xs-12 fade-in content-slider">
-            <ngb-carousel>
-              <ng-template ngbSlide>
-                <div class="picsum-img-wrapper">
-                  <img src="assets/img/home/img-1.png" alt="Random first slide">
-                </div>
-              </ng-template>
-              <ng-template ngbSlide>
-                <div class="picsum-img-wrapper">
-                  <img src="assets/img/home/img-1.png" alt="Random first slide">
-                </div>
-              </ng-template>
-              <ng-template ngbSlide>
-                <div class="picsum-img-wrapper">
-                  <img src="assets/img/home/img-1.png" alt="Random first slide">
-                </div>
-              </ng-template>
-            </ngb-carousel>
-          </div>
-
-          <div class="col-md-5 col-xs-12 fade-in promociones-side">
-            <div class="d-flex justify-content-center">
-              <img src="assets/img/home/img-2.jpg" class="w-100-xs" alt="">
+      <div class="col-md-7 col-xs-12 fade-in content-slider">
+        <ngb-carousel>
+          <ng-template ngbSlide *ngFor="let sesion of disenoHome.sesion_1">
+            <div class="picsum-img-wrapper">
+              <a href="{{sesion.link_to}}" *ngIf="sesion.link_to != null">
+                <img src="{{sesion.url_imagen}}" alt="{{sesion.texto_alternativo}}">
+              </a>
+              <img *ngIf="sesion.link_to == null" src="{{sesion.url_imagen}}" alt="{{sesion.texto_alternativo}}">
             </div>
-            <div class="mrg-top-5 d-flex justify-content-center fade-in">
-              <img src="assets/img/home/img-3.png" class="w-100-xs" alt="">
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Contenido 2 -->
-      <div class="container mrg-top-30">
-        <div class="d-block d-sm-flex justify-content-around section-2">
-          <div class="d-flex justify-content-center fadein-botton">
-            <img class="entrega" src="assets/img/home/entrega.svg" alt="">
-            <span class="txt-icon-home">Rápida entrega <p>Nivel nacional</p> </span>
-          </div>
-          <div class="d-flex justify-content-center fadein-botton">
-            <img class="pagos" src="assets/img/home/pagos.svg" alt="">
-            <span class="txt-icon-home">Pagos electrónicos <p>Todas las tarjetas</p> </span>
-          </div>
-          <div class="d-flex justify-content-center fadein-botton">
-            <img class="compra" src="assets/img/home/compra.svg" alt="">
-            <span class="txt-icon-home">Compra segura <p>Sin riesgo de robo </p> </span>
-          </div>
-          <div class="d-flex justify-content-center fadein-botton">
-            <img class="asistencia" src="assets/img/home/asistencia.svg" alt="">
-            <span class="txt-icon-home">Asistencia <p>Appstore y Playstore</p> </span>
-          </div>
-          <div class="d-flex justify-content-center fadein-botton">
-            <img class="descarga" src="assets/img/home/descarga.svg" alt="">
-            <span class="txt-icon-home">Descarga nuestra app <p>Nivel nacional</p> </span>
-          </div>
-        </div>
+          </ng-template>
+        </ngb-carousel>
       </div>
 
-      <!-- Contenido 3 -->
-      <div class="mrg-top-40 mrg-botn-20 container">
-        <div class="row">
-          <div class="col-md-3 col-xs-12 mrg-top-10 scale-image">
-            <img src="assets/img/home/img-4.png" class="border-rad-mild w-100" alt="">
-          </div>
-          <div class="col-md-6 col-xs-12 mrg-top-10 scale-image">
+      <div class="col-md-5 col-xs-12 fade-in promociones-side">
+        <div class="d-flex justify-content-center" *ngFor="let sesion of disenoHome.sesion_2">
+          <a href="{{sesion.link_to}}" *ngIf="sesion.link_to != null">
+            <img src="{{sesion.url_imagen}}" alt="{{sesion.texto_alternativo}}" class="w-100-xs">
+          </a>
+          <img *ngIf="sesion.link_to == null" src="{{sesion.url_imagen}}" alt="{{sesion.texto_alternativo}}"
+            class="w-100-xs">
+        </div>
+        <div class="mrg-top-5 d-flex justify-content-center fade-in">
+          <img *ngFor="let sesion of disenoHome.sesion_3" src="{{sesion.url_imagen}}" alt="{{sesion.texto_alternativo}}"
+            class="w-100-xs">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Contenido 2 -->
+  <div class="container mrg-top-30">
+    <div class="d-block d-sm-flex justify-content-around section-2">
+      <div class="d-flex justify-content-center fadein-botton" *ngFor="let sesion of disenoHome.sesion_4">
+        <img class="entrega" src="{{sesion.url_imagen}}" alt="{{sesion.texto_alternativo}}">
+        <span class="txt-icon-home">
+          {{sesion.titulo}}
+          <p>{{sesion.sub_titulo}}</p>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenido 3 -->
+  <div class="mrg-top-40 mrg-botn-20 container">
+    <div class="row">
+      <div *ngFor="let sesion of disenoHome.sesion_5; let i = index;"
+        [ngClass]="{'col-md-6' : i == 1, 'col-md-3' : i != 1}" class="col-xs-12 mrg-top-10 scale-image">
+        <a href="{{sesion.link_to}}" *ngIf="sesion.link_to != null">
+          <img src="{{sesion.url_imagen}}" alt="{{sesion.texto_alternativo}}" class="border-rad-mild w-100">
+        </a>
+        <img *ngIf="sesion.link_to == null" src="{{sesion.url_imagen}}" alt="{{sesion.texto_alternativo}}"
+          class="border-rad-mild w-100">
+      </div>
+      <!-- <div class="col-md-6 col-xs-12 mrg-top-10 scale-image">
             <img src="assets/img/home/img-yellow.png" class="border-rad-mild w-100" alt="">
           </div>
           <div class="col-md-3 col-xs-12 mrg-top-10 scale-image">
             <img src="assets/img/home/banner_5.jpg" class="border-rad-mild w-100" alt="">
+          </div> -->
+    </div>
+  </div>
+
+  <!-- Contenido 4 - Destacados -->
+  <div class=" color-gray destacados-row1">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title-home mrg-top-20 w-100 txt-center" *ngFor="let sesion of disenoHome.sesion_6">
+            <p>{{sesion.titulo}} </p>
           </div>
         </div>
       </div>
+      <div class="row mrg-top-20">
 
-      <!-- Contenido 4 - Destacados -->
-      <div class=" color-gray destacados-row1">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="title-home mrg-top-20 w-100 txt-center">
-                <p>Productos destacados </p>
-              </div>
-            </div>
-          </div>
-          <div class="row mrg-top-20">
-
-            <!-- <div class="col-md-3  mrg-botn-20 col-xs-12 d-flex justify-content-center" *ngFor="let item of destacados_limt">
+        <!-- <div class="col-md-3  mrg-botn-20 col-xs-12 d-flex justify-content-center" *ngFor="let item of destacados_limt">
               <app-item-producto [id]="item.id" [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
               [title]="item.name" [price]="item.price" [price_ant]="item.price_ant" [descuento]="item.descuento">
               </app-item-producto>
             </div> -->
 
-            <!-- <div class="col-md-3 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
+        <!-- <div class="col-md-3 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
               <div class="content-item-product">
                   <div class="item-product">
                       <div class="content-img">
@@ -176,650 +166,271 @@
               </div>
             </div> -->
 
-            <div class="container">
-              <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno" [carouselClasses]="['owl-carousel', 'owl-theme']" > 
-                  <div class="content-item-product" *ngFor="let img of carouselDescatadosUno">
-                      <div class="item-product">
-                          <div class="content-img">
-                              <img src="{{img.img}}" alt="">
-                              <img *ngIf="img.descuento" src="assets/img/home/descuento.png" class="img-descuento" alt="">
-                              <div></div>
-                          </div>
-                          <div class="content-product">
-                              <p class="subtitle-prod">Adidas</p>
-                              <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                              <div>
-                                  <p class="price-prod">$300,000</p>
-                                  <p class="price-prod-desc"></p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </owl-carousel> 
-            </div>
-
-
-          </div>
-        </div>
-      </div>
-
-      <!-- Contenido 5 -->
-      <div class="mrg-top-40 mrg-botn-20 container shoes-bg-pd">
-        <div class="row">
-          <div class="col-md-6 col-xs-12 scale-image">
-            <img src="assets/img/home/img-5.png" class="border-rad-mild w-100" alt="">
-          </div>
-          <div class="col-md-6 col-xs-12 scale-image">
-            <img src="assets/img/home/img-yellow.png" class="border-rad-mild w-100" alt="">
-          </div>
-        </div>
-      </div>
-
-      <!-- Contenido 6 - Destacados -->
-      <div class=" color-gray">
         <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="title-home mrg-top-20 w-100 txt-center">
-                <p>Productos destacados </p>
-              </div>
-            </div>
-          </div>
-          <div class="row mrg-top-20 productos-destacados-col-5">
-            <!-- <div class="col-md-3  mrg-botn-20 col-xs-12 d-flex justify-content-center" *ngFor="let item of destacados">
-              <app-item-producto [id]="item.id" [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
-              [title]="item.name" [price]="item.price" [small]="true" [price_ant]="item.price_ant" [descuento]="item.descuento">
-               descuento="30" price_ant="$280.000"
+          <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno"
+            [carouselClasses]="['owl-carousel', 'owl-theme']">
+            <div class="content-item-product" *ngFor="let item of carouselDescatadosUno">
+              <app-item-producto [id]="item.id_producto" [nuevo]="item.nuevo" [image]="item.imagen_portada.img" [subtitle]="item.name_marca"
+                [title]="item.name_prod" [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto" [showButtons]="false" [price_ant]="item.precio_general" [descuento]="item.valor_descuento">
               </app-item-producto>
-            </div> -->
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <img src="assets/img/zapatillas/uno.jpg" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
             </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/dos.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/tres.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <img src="assets/img/home/descuento.png" class="img-descuento" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/cuatro.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/cuatro.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/uno.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/dos.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/tres.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <img src="assets/img/home/descuento.png" class="img-descuento" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/cuatro.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/cuatro.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
+          </owl-carousel>
+        </div>
 
 
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenido 5 -->
+  <div class="mrg-top-40 mrg-botn-20 container shoes-bg-pd">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 scale-image" *ngFor="let sesion of disenoHome.sesion_7">
+        <a href="{{sesion.link_to}}" *ngIf="sesion.link_to != null">
+          <img src="{{sesion.url_imagen}}" alt="{{sesion.texto_alternativo}}" class="border-rad-mild w-100">
+        </a>
+        <img *ngIf="sesion.link_to == null" src="{{sesion.url_imagen}}" alt="{{sesion.texto_alternativo}}"
+          class="border-rad-mild w-100">
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenido 6 - Destacados -->
+  <div class=" color-gray">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title-home mrg-top-20 w-100 txt-center" *ngFor="let sesion of disenoHome.sesion_8">
+            <p>{{sesion.titulo}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="row mrg-top-20 productos-destacados-col-5">
+        <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center"  *ngFor="let item of carouselDescatadosUno">
+          <app-item-producto [id]="item.id_producto" [nuevo]="item.nuevo" [image]="item.imagen_portada.img" [subtitle]="item.name_marca"
+            [title]="item.name_prod" [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto" [showButtons]="false" [price_ant]="item.precio_general" [descuento]="item.valor_descuento">
+          </app-item-producto>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenido 7 -->
+  <div class="container mrg-top-20 mrg-botn-20">
+    <div class="row">
+      <div class="col-md-12 col-xs-12 banner-download-app" *ngFor="let sesion of disenoHome.sesion_9">
+        <div class="download-app">
+          <h3>{{sesion.titulo}}</h3>
+          <p>{{sesion.sub_titulo}}</p>
+          <div class="call-to-action-download">
+            <a *ngFor="let sesion_img of disenoHome.sesion_10"
+              href="{{(sesion_img.link_to == null ? '#' : sesion_img.link_to)}}">
+              <img src="{{sesion_img.url_imagen}}" alt="{{sesion_img.texto_alternativo}}">
+            </a>
+          </div>
+        </div>
+        <img src="{{sesion.url_imagen}}" class="border-rad-mild w-100" height="200px"
+          alt="{{sesion.texto_alternativo}}">
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenido 8 - Destacados -->
+  <div class=" color-gray">
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        <div class="content-btn-cate w-100-xs  mrg-top-40 mrg-botn-20">
+          <div (click)="btnCatActive(1)" [class]="(btn_active == 1) ? 'btn-home-cate-act' : 'btn-home-cate'">
+            <mat-icon svgIcon="woman" class="mrg-top-15-prc icon-inactive">woman</mat-icon>
+            <mat-icon svgIcon="woman_act" class="mrg-top-15-prc icon-active">woman_act</mat-icon>
+            <p>Femenino</p>
+          </div>
+
+          <div (click)="btnCatActive(2)" [class]="(btn_active == 2) ? 'btn-home-cate-act' : 'btn-home-cate'">
+            <mat-icon svgIcon="people" class="mrg-top-15-prc icon-inactive">people</mat-icon>
+            <mat-icon svgIcon="people_act" class="mrg-top-15-prc icon-active">people_act</mat-icon>
+            <p>Masculino</p>
+          </div>
+
+          <div (click)="btnCatActive(3)" [class]="(btn_active == 3) ? 'btn-home-cate-act' : 'btn-home-cate'">
+            <mat-icon svgIcon="boy" class="mrg-top-15-prc icon-inactive">boy</mat-icon>
+            <mat-icon svgIcon="boy_act" class="mrg-top-15-prc icon-active">boy_act</mat-icon>
+            <p>Niños</p>
+          </div>
+          <div (click)="btnCatActive(4)"
+            [class]="(btn_active == 4) ? 'btn-home-cate-act' : 'btn-home-cate d-none d-sm-block'">
+            <mat-icon svgIcon="coupon" class="mrg-top-15-prc icon-inactive">coupon</mat-icon>
+            <mat-icon svgIcon="coupon_act" class="mrg-top-15-prc icon-active">coupon_act</mat-icon>
+            <p>Promociones</p>
           </div>
         </div>
       </div>
 
-      <!-- Contenido 7 -->
-      <div class="container mrg-top-20 mrg-botn-20">
-        <div class="row">
-          <div class="col-md-12 col-xs-12 banner-download-app">
-            <div class="download-app">
-              <h3>Descarga y usa nuestra app</h3>
-              <p>Contenido exclusivo, promociones y mucho más</p>
-              <div class="call-to-action-download">
-                <img src="assets/img/home/download-on-the-app-store-apple.svg" alt="">
-                <img src="assets/img/home/google-play-download-android-app.svg" alt="">
-              </div>
-            </div>
-            <img src="assets/img/home/img-7.png" class="border-rad-mild w-100" height="200px" alt="">
-          </div>
-        </div>
-      </div>
-
-      <!-- Contenido 8 - Destacados -->
-      <div class=" color-gray">
-        <div class="container">
-          <div class="row d-flex justify-content-center">
-            <div class="content-btn-cate w-100-xs  mrg-top-40 mrg-botn-20">
-              <div (click)="btnCatActive(1)" [class]="(btn_active == 1) ? 'btn-home-cate-act' : 'btn-home-cate'">
-                <mat-icon svgIcon="woman" class="mrg-top-15-prc icon-inactive">woman</mat-icon>
-                <mat-icon svgIcon="woman_act" class="mrg-top-15-prc icon-active">woman_act</mat-icon>
-                <p>Femenino</p>
-              </div>
-  
-              <div (click)="btnCatActive(2)" [class]="(btn_active == 2) ? 'btn-home-cate-act' : 'btn-home-cate'">
-                <mat-icon svgIcon="people" class="mrg-top-15-prc icon-inactive">people</mat-icon>
-                <mat-icon svgIcon="people_act" class="mrg-top-15-prc icon-active">people_act</mat-icon>
-                <p>Masculino</p>
-              </div>
-  
-              <div (click)="btnCatActive(3)" [class]="(btn_active == 3) ? 'btn-home-cate-act' : 'btn-home-cate'">
-                <mat-icon svgIcon="boy" class="mrg-top-15-prc icon-inactive">boy</mat-icon>
-                <mat-icon svgIcon="boy_act" class="mrg-top-15-prc icon-active">boy_act</mat-icon>
-                <p>Niños</p>
-              </div>
-              <div (click)="btnCatActive(4)" [class]="(btn_active == 4) ? 'btn-home-cate-act' : 'btn-home-cate d-none d-sm-block'">
-                <mat-icon svgIcon="coupon" class="mrg-top-15-prc icon-inactive">coupon</mat-icon>
-                <mat-icon svgIcon="coupon_act" class="mrg-top-15-prc icon-active">coupon_act</mat-icon>
-                <p>Promociones</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="row mrg-top-20 productos-destacados-col-5">
-            <!-- <div class="col-md-3  mrg-botn-20 col-xs-12 d-flex justify-content-center" *ngFor="let item of destacados">
+      <div class="row mrg-top-20 productos-destacados-col-5">
+        <!-- <div class="col-md-3  mrg-botn-20 col-xs-12 d-flex justify-content-center" *ngFor="let item of destacados">
               <app-item-producto [id]="item.id" [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
               [title]="item.name" [price]="item.price" [small]="true" [price_ant]="item.price_ant" [descuento]="item.descuento">
               descuento="30" price_ant="$280.000"
               </app-item-producto>
             </div> -->
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/uno.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center"  *ngFor="let item of carouselDescatadosUno">
+              <app-item-producto [id]="item.id_producto" [nuevo]="item.nuevo" [image]="item.imagen_portada.img" [subtitle]="item.name_marca"
+                [title]="item.name_prod" [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto" [showButtons]="false" [price_ant]="item.precio_general" [descuento]="item.valor_descuento">
+              </app-item-producto>
             </div>
+      </div>
+    </div>
+  </div>
 
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/dos.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/tres.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <img src="assets/img/home/descuento.png" class="img-descuento" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/cuatro.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/cuatro.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/uno.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/dos.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/tres.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <img src="assets/img/home/descuento.png" class="img-descuento" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/cuatro.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center">
-              <div class="content-item-product">
-                  <div class="item-product">
-                      <div class="content-img">
-                          <img src="assets/img/zapatillas/cuatro.jpg" alt="">
-                          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-                          <div></div>
-                      </div>
-                      <div class="content-product">
-                          <p class="subtitle-prod">Adidas</p>
-                          <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                          <div>
-                              <p class="price-prod">$300,000</p>
-                              <p class="price-prod-desc"></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
+  <!-- Contenido 9 -->
+  <div class="container mrg-top-40 mrg-botn-40">
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div style="width: 100%; background: #353435; position: relative;" *ngFor="let sesion of disenoHome.sesion_11">
+          <div class="ribbon-date">
+            <img class="logo-ribbon" src="assets/img/home/logo-ribbon.svg" alt="">
+            <p class="ribbon-fecha">{{sesion.titulo}}</p>
+            <img src="{{sesion.url_imagen}}" alt="{{sesion.texto_alternativo}}">
           </div>
+          <p class="envios-nacionales">{{sesion.sub_titulo}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenido 10 -->
+  <div class="container color-gray p-5 border-rad-mild mrg-botn-40 mrg-top-40 box-populares">
+    <div class="row">
+
+      <div class="col-md-2 d-flex align-items-center w-100-xs txt-center-xs">
+        <div *ngFor="let sesion of disenoHome.sesion_12">
+          <p class="font-sz-20 text-pink bold populares-semana">{{sesion.titulo}} </p>
+          <p class="font-sz-16 text-dark">{{sesion.sub_titulo}}</p>
         </div>
       </div>
 
-      <!-- Contenido 9 -->
-      <div class="container mrg-top-40 mrg-botn-40">
-        <div class="row">
-          <div class="col-md-12 col-xs-12">
-            <div style="width: 100%; background: #353435; position: relative;">
-              <div class="ribbon-date">
-                <img class="logo-ribbon" src="assets/img/home/logo-ribbon.svg" alt="">
-                <p class="ribbon-fecha">Junio 2020</p>
-                <img src="assets/img/home/ribbon.svg" alt="">
+      <div class="col-md-10 col-xs-12 fade-in content-slider">
+        <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno"
+        [carouselClasses]="['owl-carousel', 'owl-theme']">
+            <div *ngFor="let item of carouselDescatadosUno" class="col-md-10 col-xs-12 d-block justify-content-center">
+              <div class="content-img">
+                <img src="{{item.imagen_portada.img}}" class="border-rad-mild" alt="">
+                <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="" *ngIf="item.nuevo == 1">
               </div>
-              <p class="envios-nacionales" >Envíos nacionales gratis en temporada</p>
+              <p class="font-sz-9 text-dark bold" style="line-height: initial;">{{item.name_prod}}</p>
             </div>
-          </div>
-        </div>
+        </owl-carousel>
       </div>
 
-      <!-- Contenido 10 -->
-      <div class="container color-gray p-5 border-rad-mild mrg-botn-40 mrg-top-40 box-populares">
-        <div class="row">
+<!-- 
+      <div class="col-md-2 col-xs-12 d-block justify-content-center">
+        <div class="content-img">
+          <img src="assets/img/home/zap-1.png" class="border-rad-mild" alt="">
+          <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
+        </div>
+        <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
+          Nmd_R1</p>
+      </div>
+
+      <div class="col-md-2 col-xs-12">
+        <div class="content-img">
+          <img src="assets/img/home/zap-2.png" class="border-rad-mild" alt="">
+        </div>
+        <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
+          Nmd_R1</p>
+      </div>
+
+      <div class="col-md-2 col-xs-12">
+        <div class="content-img">
+          <img src="assets/img/home/zap-3.png" class="border-rad-mild" alt="">
+        </div>
+        <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
+          Nmd_R1</p>
+      </div>
+
+      <div class="col-md-2 col-xs-12">
+        <div class="content-img">
+          <img src="assets/img/home/zap-4.png" class="border-rad-mild" alt="">
+        </div>
+        <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
+          Nmd_R1</p>
+      </div>
+
+      <div class="col-md-2 col-xs-12">
+        <div class="content-img">
+          <img src="assets/img/home/zap-4.png" class="border-rad-mild" alt="">
+        </div>
+        <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
+          Nmd_R1</p>
+      </div> -->
+    </div>
+
+  </div>
+
+  <!-- Contenido 11 -->
+  <div class="container mrg-top-40 mrg-botn-40 slide-marcas">
+    <owl-carousel [options]="SlideOptions" *ngIf="!deviceXs" [carouselClasses]="['owl-theme']">
+      <div class="item" *ngFor="let image of CarouselImages;let i = index">
+        <div class="w-40 w-50-xs">
+          <img src={{image}} />
+        </div>
+      </div>
+    </owl-carousel>
+    <owl-carousel [options]="SlideOptionsXs" *ngIf="deviceXs" [carouselClasses]="['owl-theme']">
+      <div class="item" *ngFor="let image of CarouselImages;let i = index">
+        <div class="w-40 w-50-xs">
+          <img src={{image}} />
+        </div>
+      </div>
+    </owl-carousel>
+  </div>
+
+  <!-- Contenido 12 -->
+  <div class="color-gray p-3">
+    <div class="mrg-top-40 mrg-botn-20 container">
+      <div class="row">
+        <div *ngFor="let sesion of disenoHome.sesion_13; let i = index;"
+          [ngClass]="{'col-md-9 promocion-11' : i == 0, 'col-md-3 hide-small' : i != 0}" class="col-xs-12 mrg-botn-10 scale-image">
           
-          <div class="col-md-2 d-flex align-items-center w-100-xs txt-center-xs">
-            <div>
-              <p class="font-sz-20 text-pink bold populares-semana">Las más populares de la semana </p>
-              <p class="font-sz-16 text-dark">Estas son las zapatillas mejor puntuadas esta semana</p>
-            </div>
-          </div>
+          <a href="{{sesion.link_to}}" *ngIf="sesion.link_to != null">
+            <img src="{{sesion.url_imagen}}" tyle="height: 250px;" 
+          [ngClass]="{'d-none d-sm-flex' : i == 0, '' : i != 0}" class="w-100 border-rad-mild" alt="">
+          </a>
 
-          <div class="col-md-2 col-xs-12 d-block justify-content-center">
-            <div class="content-img">
-              <img src="assets/img/home/zap-1.png" class="border-rad-mild" alt="">
-              <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="">
-            </div>
-            <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
-              Nmd_R1</p>
-          </div>
-  
-          <div class="col-md-2 col-xs-12">
-            <div class="content-img">
-              <img src="assets/img/home/zap-2.png" class="border-rad-mild" alt="">
-            </div>
-            <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
-              Nmd_R1</p>
-          </div>
-  
-          <div class="col-md-2 col-xs-12">
-            <div class="content-img">
-              <img src="assets/img/home/zap-3.png" class="border-rad-mild" alt="">
-            </div>
-            <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
-              Nmd_R1</p>
-          </div>
-  
-          <div class="col-md-2 col-xs-12">
-            <div class="content-img">
-              <img src="assets/img/home/zap-4.png" class="border-rad-mild" alt="">
-            </div>
-            <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
-              Nmd_R1</p>
-          </div>
-  
-          <div class="col-md-2 col-xs-12">
-            <div class="content-img">
-              <img src="assets/img/home/zap-4.png" class="border-rad-mild" alt="">
-            </div>
-            <p class="font-sz-9 text-dark bold" style="line-height: initial;">Tenis Adidas Originals Hombre Moda
-              Nmd_R1</p>
-          </div>
+          <img src="{{sesion.url_imagen}}" tyle="height: 250px;" 
+          [ngClass]="{'d-none d-sm-flex' : i == 0, '' : i != 0}" class="w-100 border-rad-mild" alt="">
         </div>
-
+        <!-- <div class="col-md-3 col-xs-12 scale-image">
+          <img src="assets/img/home/img-9.png" style="height: 250px;" class=" w-100 border-rad-mild" alt="">
+        </div> -->
       </div>
+    </div>
+  </div>
 
-        <!-- Contenido 11 -->
-        <div class="container mrg-top-40 mrg-botn-40 slide-marcas">
-          <owl-carousel [options]="SlideOptions" *ngIf="!deviceXs" [carouselClasses]="['owl-theme']">
-            <div class="item" *ngFor="let image of CarouselImages;let i = index">
-              <div class="w-40 w-50-xs">
-                <img src={{image}} />
-              </div>
-            </div>
-          </owl-carousel>
-          <owl-carousel [options]="SlideOptionsXs" *ngIf="deviceXs" [carouselClasses]="['owl-theme']">
-            <div class="item" *ngFor="let image of CarouselImages;let i = index">
-              <div class="w-40 w-50-xs">
-                <img src={{image}} />
-              </div>
-            </div>
-          </owl-carousel>
+  <!-- Contenido 13 -->
+  <div class="container mrg-top-40 mrg-botn-20 fechas-before-footer">
+    <div class="row">
+      <div class="col-md-4 col-xs-12">
+        <div *ngFor="let sesion of disenoHome.sesion_14; let i = index" [ngClass]="{'mrg-top-20 mrg-botn-20' : i== 1}" class="mes-home" style="background-color: #4800a1;">
+          <p>{{sesion.titulo}}</p>
         </div>
-
-      <!-- Contenido 12 -->
-      <div class="color-gray p-3">
-        <div class="mrg-top-40 mrg-botn-20 container">
-          <div class="row">
-            <div class="col-md-9 col-xs-12 mrg-botn-10 scale-image promocion-11">
-              <img src="assets/img/home/img-8.png" tyle="height: 250px;" class="w-100 border-rad-mild d-none d-sm-flex" alt="">
-            </div>
-            <div class="col-md-3 col-xs-12 scale-image hide-small">
-              <img src="assets/img/home/img-9.png" style="height: 250px;" class=" w-100 border-rad-mild" alt="">
-            </div>
-          </div>  
+        <!-- <div class="mes-home mrg-top-20 mrg-botn-20" style="background-color: #002f6d;">
+          <p>JULIO 2020</p>
         </div>
+        <div class="mes-home" style="background-color: #ad00d6;">
+          <p>TEMPORADA</p>
+        </div>
+         -->
       </div>
-
-      <!-- Contenido 13 -->
-      <div class="container mrg-top-40 mrg-botn-20 fechas-before-footer">
-          <div class="row">
-            <div class="col-md-4 col-xs-12">
-              <div class="mes-home" style="background-color: #4800a1;">
-                <p>JUNIO 2020</p>
-              </div>
-              <div class="mes-home mrg-top-20 mrg-botn-20" style="background-color: #002f6d;">
-                <p>JULIO 2020</p>
-              </div>
-              <div class="mes-home" style="background-color: #ad00d6;">
-                <p>TEMPORADA</p>
-              </div>
-            </div>
-            <div class="col-md-8 col-xs-12 mrg-top-20-xs scale-image">
-                <img src="assets/img/home/img-10.png" style=" height: 340px;" class="w-100" alt="">
-            </div>
-          </div>
+      <div class="col-md-8 col-xs-12 mrg-top-20-xs scale-image" *ngFor="let sesion of disenoHome.sesion_15">
+        <a href="{{sesion.link_to}}" *ngIf="sesion.link_to != null">
+          <img src="{{sesion.url_imagen}}" style=" height: 340px;" class="w-100" alt="{{sesion.texto_alternativo}}">
+        </a>
+        
+        <img src="{{sesion.url_imagen}}" style=" height: 340px;" *ngIf="sesion.link_to == null"
+        class="w-100" alt="{{sesion.texto_alternativo}}">
       </div>
+    </div>
+  </div>
 
-    </mat-sidenav-content>
+</mat-sidenav-content>

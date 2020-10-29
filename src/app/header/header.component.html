@@ -90,8 +90,8 @@
     <div fxLayout="column" class="mrg-top-10 cont-categ" fxLayoutAlign="left">
       <!-- Ciclo - Categorias -->
       <div *ngFor="let item of categorias_prin">
-        <p [ngClass]=" item.id == categoria_select ? 'list-categ list-act' : 'list-categ'" > 
-          <a href="#" (click)="changeSubCategoria(item.id)">{{item.name}}</a>
+        <p [ngClass]=" item.id_categoria == categoria_select ? 'list-categ list-act' : 'list-categ'" > 
+          <a href="#" (mouseover)="changeSubCategoria(item.id_categoria, item.hijos)">{{item.name_cat}}</a>
           <mat-icon aria-hidden="false" class="icon-list-cat" aria-label="Icon">keyboard_arrow_right</mat-icon>
         </p>
       </div>
@@ -99,26 +99,22 @@
       <div>
         <p class="list-categ"> <a href="#">Marcas</a></p>
       </div>
-      <div>
-        <p class="list-categ"> <a href="#">Promociones</a></p>
-      </div>
     </div>
     <div fxLayout="row wrap" class="content-categories-menu-header" style="width: 520px;" fxLayoutAlign="space-evenly left">
-
       <div *ngFor="let element of sub_categorias">
         <div class="content-sb-categ">
-          <p class="title-categ">{{element.hijo.name}}</p>
+          <p class="title-categ">{{element.name_cat}}</p>
           <ul class="list-sb-categ">
-            <li class="item-categ" *ngFor="let item of element.nietos"> 
-              <a routerLink="/productos" routerLinkActive="active"> {{item.name}} </a>
+            <li class="item-categ" *ngFor="let item of element.hijos"> 
+              <a routerLink="/productos" routerLinkActive="active"> {{item.name_cat}} </a>
             </li>
           </ul>
         </div>
         <div>
           <ul class="list-sb-categ">
-            <li class="item-categ"> <a href=""> Ver todo</a></li>
-            <li class="item-categ"> <a href=""> Novedades</a></li>
-            <li class="item-categ"> <a href=""> Promociones</a></li>
+            <li class="item-categ-btn"> <a href=""> Ver todo</a></li>
+            <li class="item-categ-btn"> <a href=""> Novedades</a></li>
+            <li class="item-categ-btn"> <a href=""> Promociones</a></li>
           </ul>
         </div>
       </div>
@@ -134,20 +130,23 @@
         </div>
         <div>
           <ul class="list-sb-categ">
-            <li class="item-categ"> <a href=""> Ver todo</a></li>
-            <li class="item-categ"> <a href=""> Novedades</a></li>
-            <li class="item-categ"> <a href=""> Promociones</a></li>
+            <li class="item-categ-btn"> <a href=""> Ver todo</a></li>
+            <li class="item-categ-btn"> <a href=""> Novedades</a></li>
+            <li class="item-categ-btn"> <a href=""> Promociones</a></li>
           </ul>
         </div>
       </div>
     </div>
     <div class="hide-image-mega-menu" fxLayout="row wrap">
       <div class="h-100 w-50">
-        <img src="assets/img/header/menu_1.png" class="w-100" alt="">
+        <a *ngFor="let sesion of disenoMenu.column_1" href="{{(sesion.link_to != null ? sesion.link_to : '#')}}">
+          <img src="{{sesion.url_imagen}}" class="w-100" alt="">
+        </a>
       </div>
-      <div class="h-100 w-50" fxLayout="column">
-        <img src="assets/img/header/menu_2.png" class="w-90" alt="">
-        <img src="assets/img/header/menu_3.png" class="w-90" alt="">
+      <div class="h-100 w-50" class="menu-column">
+        <a *ngFor="let sesion of disenoMenu.column_2" href="{{(sesion.link_to != null ? sesion.link_to : '#')}}">
+          <img src="{{sesion.url_imagen}}" class="w-90" alt="">
+        </a>
       </div>
     </div>
   </div>

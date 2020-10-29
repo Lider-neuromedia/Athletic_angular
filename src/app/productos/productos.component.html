@@ -14,7 +14,7 @@
                     <p class="title-filter">{{item.name}}</p>
                     <div class="row dbl-fila-filter">
                         <div class="col-md-6" *ngFor="let value of item.valores" style="padding-right: 3px;">
-                            <mat-checkbox (change)="changeFilter($event, value.id)" class="check-filter">{{value.name}}</mat-checkbox>
+                            <mat-checkbox class="check-filter">{{value.name}}</mat-checkbox>
                         </div>
                     </div>
                 </mat-card>
@@ -47,7 +47,7 @@
                     <p class="title-filter">Marca</p>
                     <div class="row dbl-fila-filter">
                         <div class="col-md-6" *ngFor="let marca of marcas;" style="padding-right: 3px;">
-                            <mat-checkbox (change)="changeMarca($event, marca.id)" class="check-filter">{{marca.name}}</mat-checkbox>
+                            <mat-checkbox (change)="changeMarca($event, marca.id_marca)" class="check-filter">{{marca.name_marca}}</mat-checkbox>
                         </div>
                         <!-- <div class="col-md-6 d-block p-0">
                             <mat-checkbox class="check-filter">New Balance</mat-checkbox>
@@ -58,7 +58,7 @@
                 <mat-card class="col-md-12 mrg-top-20 card-filter">
                     <p class="title-filter">Categoria</p>
                     <div *ngFor="let categoria of categorias_prin">
-                        <mat-checkbox (change)="changeCategorie($event, categoria.id)" class="check-filter">{{categoria.name}}</mat-checkbox>
+                        <mat-checkbox (change)="changeCategorie($event, categoria.id_categoria)" class="check-filter">{{categoria.name_cat}}</mat-checkbox>
                     </div>
                 </mat-card>
 
@@ -83,7 +83,7 @@
                         <button (click)="addPrice()" class="mrg-right-10 btn-filter" mat-raised-button color="primary">
                             Filtrar
                         </button>
-                        <button mat-stroked-button class="btn-filter" (click)="this.concatFiltersProducts(null, 'price')" color="primary">
+                        <button mat-stroked-button class="btn-filter" (click)="clearPrice()" color="primary">
                             Borrar
                         </button>
                     </div>
@@ -151,8 +151,8 @@
                                         <!-- <li class="page-item active" aria-current="page">
                                             <span class="page-link">1<span class="sr-only">(current)</span></span>
                                         </li> -->
-                                        <li *ngFor="let item of [].constructor(pages); let i = index"[class]="(i+1 ==page_number) ? 'page-item active' : 'page-item'">
-                                            <a class="page-link text-gray" (click)="changePage(i+1)">{{i + 1}}</a>
+                                        <li *ngFor="let item of [].constructor(pages.max_pages); let i = index" [class]="(pages.first_page+i == page_number) ? 'page-item active' : 'page-item'">
+                                            <a class="page-link text-gray" (click)="changePage(pages.first_page+i)">{{pages.first_page+i}}</a>
                                         </li>
                                         <li class="page-item">
                                             <a class="text-pink" (click)="changePage(null, false, true)">
@@ -173,15 +173,15 @@
                     </ng-container>
                     <ng-container *ngIf="view_active == 1">
                         <div class="col-md-3 mrg-botn-20 grid-cuadros" *ngFor="let item of productos | paginate:page_size:page_number">
-                            <app-item-producto [id]="item.id" [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
-                            [title]="item.name" [price]="item.price" [small]="true" [showButtons]="true" [price_ant]="item.price_ant" [descuento]="item.descuento">
+                            <app-item-producto [id]="item.id_producto" [nuevo]="item.nuevo" [image]="item.imagen_portada.img" [subtitle]="item.name_marca"
+                            [title]="item.name_prod" [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto" [small]="true" [showButtons]="true" [price_ant]="item.precio_general" [descuento]="item.valor_descuento">
                             </app-item-producto>
                         </div>
                     </ng-container>
                     <ng-container *ngIf="view_active == 2">
                         <div class="col-md-4 mrg-botn-20 grid-cuadro" *ngFor="let item of productos | paginate:page_size:page_number">
-                            <app-item-producto [id]="item.id" [nuevo]="item.new" [image]="item.image" [subtitle]="item.marca"
-                            [title]="item.name" [price]="item.price" [showButtons]="true" [price_ant]="item.price_ant" [descuento]="item.descuento">
+                            <app-item-producto [id]="item.id_producto" [nuevo]="item.nuevo" [image]="item.imagen_portada.img" [subtitle]="item.name_marca"
+                            [title]="item.name_prod" [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto" [showButtons]="true" [price_ant]="item.precio_general" [descuento]="item.valor_descuento">
                             </app-item-producto>
                         </div>                          
                     </ng-container>
@@ -190,9 +190,9 @@
                             <div class="content-item-product">
                                 <div class="item-product d-flex">
                                     <div class="content-img col-md-4">
-                                        <img [src]="item.image" alt="">
-                                        <img src="assets/img/home/nuevo.png" *ngIf="item.new" class="img-nuevo" alt="">
-                                        <div class="descuento" *ngIf="item.descuento">{{"-"+item.descuento+"%"}}</div>
+                                        <img [src]="item.imagen_portada.img" alt="">
+                                        <img src="assets/img/home/nuevo.png" *ngIf="item.nuevo" class="img-nuevo" alt="">
+                                        <div class="descuento" *ngIf="item.valor_descuento">{{"-"+item.valor_descuento+"%"}}</div>
                                     </div>
                                     <div class="content-product col-md-4 mrg-top-10">
                                         <div class="puntaje-valoracion">
@@ -207,11 +207,11 @@
                                                 <p>12 valoraciones</p>
                                             </div>
                                         </div>
-                                        <p class="subtitle-prod-full">{{item.marca}}</p>
-                                        <p class="title-prod-full">{{item.name}}</p>
+                                        <p class="subtitle-prod-full">{{item.name_marca}}</p>
+                                        <p class="title-prod-full">{{item.name_prod}}</p>
                                         <div class="cont-price-prod-full">
-                                            <p class="price-prod-full">{{item.price |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
-                                            <p class="price-prod-desc-full" *ngIf="item.price_ant">{{item.price_ant |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                                            <p class="price-prod-full">{{item.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                                            <p class="price-prod-desc-full" *ngIf="item.precio_impuesto">{{item.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
                                             <a class="ver-detalle" href="#">Ver Detalles →</a>
                                         </div>
                                     </div>
@@ -268,8 +268,8 @@
                                 <!-- <li class="page-item active" aria-current="page">
                                     <span class="page-link">1<span class="sr-only">(current)</span></span>
                                 </li> -->
-                                <li *ngFor="let item of [].constructor(pages); let i = index"[class]="(i+1 ==page_number) ? 'page-item active' : 'page-item'">
-                                    <a class="page-link text-gray" (click)="changePage(i+1)">{{i + 1}}</a>
+                                <li *ngFor="let item of [].constructor(pages.max_pages); let i = index" [class]="(pages.first_page+i == page_number) ? 'page-item active' : 'page-item'">
+                                    <a class="page-link text-gray" (click)="changePage(pages.first_page+i)">{{pages.first_page+i}}</a>
                                 </li>
                                 <li class="page-item">
                                     <a class="text-pink" (click)="changePage(null, false, true)">

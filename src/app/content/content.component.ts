@@ -29,20 +29,30 @@ export class ContentComponent implements OnInit {
     precio_des : null
   }
   btn_active = 1;
+  //Objeto que almacenara todos los elementos del home que vienen del backend.
+  disenoHome = {
+    sesion_1 : [],
+    sesion_2 : [],
+    sesion_3 : [],
+    sesion_4 : [],
+    sesion_5 : [],
+    sesion_6 : [],
+    sesion_7 : [],
+    sesion_8 : [],
+    sesion_9 : [],
+    sesion_10 : [],
+    sesion_11 : [],
+    sesion_12 : [],
+    sesion_13 : [],
+    sesion_14 : [],
+    sesion_15 : [],
+  };
+  
 
   /*
    * Carrusel productos primeros productos destacados 4 columnas
    */
-  carouselDescatadosUno = [
-    {"img": 'assets/img/zapatillas/uno.jpg',"descuento":false},
-    {"img": 'assets/img/zapatillas/dos.jpg',"descuento":false},
-    {"img": 'assets/img/zapatillas/tres.jpg',"descuento":true},
-    {"img": 'assets/img/zapatillas/cuatro.jpg',"descuento":false},
-    {"img": 'assets/img/zapatillas/uno.jpg',"descuento":false},
-    {"img": 'assets/img/zapatillas/dos.jpg',"descuento":false},
-    {"img": 'assets/img/zapatillas/tres.jpg',"descuento":false},
-    {"img": 'assets/img/zapatillas/cuatro.jpg',"descuento":true}
-  ];
+  carouselDescatadosUno = [];
 
   optionSlideDestacados = {
     items: 4,
@@ -93,8 +103,13 @@ export class ContentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProducts();
+    // this.getProducts();
     this.size();
+
+    // Obtener diseño.
+    this.getDisenoHome();
+    // Obtener productos destacados
+    this.getProductsDest();
   }
 
   size(){
@@ -158,7 +173,6 @@ export class ContentComponent implements OnInit {
             this.destacados.push(product);
           
           });
-          console.log(this.destacados);
         },
         error => { console.log("error." + error); }
       );
@@ -168,6 +182,27 @@ export class ContentComponent implements OnInit {
     this.btn_active = val;
   }
 
+  getDisenoHome(){
+    this.http.httpGet('disenoHome').subscribe(
+      response => {
+        this.disenoHome = response;
+      }, 
+      error => {
+        console.error("Error en el diseño.");
+      }
+    );
+  }
+
+  getProductsDest(){
+    this.http.httpGet('productosDestacados').subscribe(
+      response => {
+        this.carouselDescatadosUno = response;
+      }, 
+      error => {
+        console.error("Error consumiento productos destacados.");
+      }
+    );
+  }
 
   ngOnDestroy() {
     this.mediaSub.unsubscribe();

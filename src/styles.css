@@ -1301,7 +1301,29 @@ ul.mas-detalle a::before{
 .favorites-account .item-small{
     width: 100% !important;
 }
-  
+
+/* Detalle producto. */
+div#detalle blockquote {
+    padding: 15px;
+}
+div#detalle blockquote h2 {
+    font-weight: 900 !important;
+}
+
+blockquote > ul{
+    padding-left: 16px;
+    list-style: none;
+}
+
+blockquote > ul li::before {
+    content: "\2022";
+    color: #ff596a;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+    font-size: 16px;
+}
 
 @media screen and (max-width: 992px){
     .mat-toolbar-row{

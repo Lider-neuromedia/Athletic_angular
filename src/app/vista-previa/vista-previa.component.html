@@ -6,16 +6,17 @@
         </div>
         <div class="col-md-3 mrg-top-10">
             <div class="content-strech mrg-botn-30">
-                <p class="prod-subtitle">{{producto.marca}}</p>
-                <p class="prod-title">{{producto.name}}</p>
+                <p class="prod-subtitle">{{producto.name_marca}}</p>
+                <p class="prod-title">{{producto.name_prod}}</p>
             </div>
             <div class="content-strech mrg-botn-15">
-                <p class="title-ref">{{producto.category}}</p>
+                <p class="title-ref">{{producto.last_categoria}}</p>
                 <p class="ref">Ref: {{producto.referencia}}</p>
             </div>
             <div class="content-strech mrg-botn-15">
-                <p class="price">{{producto.price |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
-                <p class="price-des" *ngIf="valor_ant != null">{{producto.precio_ant |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                <p class="price">{{producto.precio |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                <p class="price-des" *ngIf="producto.valor_descuento != null">
+                    {{producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
             </div>
 
             <div class="">

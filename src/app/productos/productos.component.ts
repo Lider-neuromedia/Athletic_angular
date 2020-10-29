@@ -19,34 +19,28 @@ export class ProductosComponent implements OnInit {
   };
   page_size: number = 5;
   page_number: number = 1;
-  pages: number;
+  pages: any;
   productos = [];
   marcas = [];
-  filter_marcas = null;
-  filter_categorias = null;
-  filter_products = [];
+  filter_marcas = [];
+  filter_categorias = [];
+  filter_precio = '[]';
+  filter_order = null;
   categorias_prin = [];
   filtros = null;
   filtros_check = [];
   view_active = 2;
   cantidad = 1;
-  descuento = null;
-  valor_ant = null;
-  precio_desc = null;
-  descuentos =  {
-    descuento: null, 
-    valor_ant : null, 
-    precio_des : null
-  }
+  
   id_prd_vstaprev : any = 21;
 
   constructor(private http: SendHttpData, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getProducts();
-    this.getMarcas();
     this.getCategories();
-    this.getFiltersValue();
+    this.getMarcas();
+    // this.getFiltersValue();
   }
 
   openDialog() {
@@ -60,124 +54,29 @@ export class ProductosComponent implements OnInit {
   changeView(view){
     this.view_active = view;
   }
-  // Obtener tarjeta de filtros.
-  getFiltersValue() {
-    this.http.httpGet('product_options').subscribe(
-      response => {
-        var data = response.product_options;
-        var filtros = [];
-        data.forEach(element => {
-          var search = "display=[id,id_attribute_group, name]&filter[id_attribute_group]=" + element.id;
-          var filter = {id : element.id, name: element.name[0]['value'], valores: null};
-          this.http.httpGet('product_option_values', search).subscribe(
-            response => {
-              var data = response.product_option_values;
-              var values = [];
-              data.forEach(element => {
-                var value = {
-                  id: element.id,
-                  name: element.name[0]['value']
-                };
-                values.push(value);
-              });
-      
-              filter.valores = values;
-              filtros.push(filter);
-            },
-            error => { console.log("error." + error); }
-          );
-        });
-        this.filtros = filtros;
-      },
-      error => { console.log("error." + error); }
-    );
-  }
 
-  async getDescuento(id, price) {
-    return await this.http.httpGet('specific_prices/', 'filter[id_product]=' + id).toPromise().then(
-      response => {
-        if (response.length != 0) {
-          var precios = response.specific_prices[0];
-          this.descuento = precios.reduction;
-          this.valor_ant = parseInt(price),
-          this.precio_desc = this.valor_ant - (this.valor_ant * this.descuento);
-          this.descuentos = {
-            descuento: this.descuento, 
-            valor_ant : this.valor_ant, 
-            precio_des : this.precio_desc
-          };
-        }else{
-          this.descuentos =  {
-            descuento: null, 
-            valor_ant : null, 
-            precio_des : null
-          }
-        }
-        return this.descuentos;
-      },
-      error => {
-
-      }
-    );
-  }
+  // Obtener tarjetas de filtros -> Ejemplo: talla, color, etc...
+  getFiltersValue() { 
+    // inactivo por el momento.
+   }
 
   // Productos  
   getProducts(filter = null) {
-    this.http.httpGet('products', filter).subscribe(
+    this.http.httpGet('productos').subscribe(
       response => {
-        if (response.products != undefined) {
-          var data = response.products;
-          var products = [];
-          data.forEach((element) => {
-            var img = this.http.getImageProduct(element.id, element.id_default_image);
-            var product = {
-              id: element.id,
-              name: element.name[0]['value'],
-              marca: element.manufacturer_name,
-              image: img,
-              price: null,
-              new: (element.condition == "new") ? true : false,
-              product_asoc: element.associations.product_option_values,
-              descuento : null, 
-              price_ant : null
-            };
-            var descuento = this.getDescuento(element.id, element.price);
-            descuento.then(res => {
-              product.price = (this.descuentos.precio_des == null) ? parseInt(element.price) : this.descuentos.precio_des;
-              product.descuento = this.descuentos.descuento * 100;
-              product.price_ant = this.descuentos.valor_ant;
-            });
-            products.push(product);
-          });
-          this.productos = products;
-          if (this.filtros_check.length >= 1) {
-            this.filterCombinations();
-          }
-          this.page_number = 1;
-          this.calcularPaginas();
-        }else{
-          this.productos = [];
-        }
+        this.productos = response;
+        this.calcularPaginas();
       },
-      error => { console.log("error." + error); }
+      error => { console.error("error." + error); }
     );
   }
 
   // Marcas
   getMarcas() {
-    var asc_name = 'sort=[name_ASC]';
-    this.http.httpGet('manufacturers', asc_name).subscribe(
+    this.http.httpGet('marcas').subscribe(
       response => {
-        var data = response.manufacturers;
-        var marcas = [];
-        data.forEach((element) => {
-          var marca = {
-            id: element.id,
-            name: element.name,
-          };
-          marcas.push(marca);
-        });
-        this.marcas = marcas;
+        var data = response.marcas;
+        this.marcas = data;
       },
       error => { console.log("error." + error); }
     );
@@ -197,25 +96,18 @@ export class ProductosComponent implements OnInit {
         }
       }
     }
-    var string = this.filter_marcas.join('|');
-
-    if (this.filter_marcas.length >= 1) {
-      this.concatFiltersProducts(string, 'id_manufacturer');
-    } else {
-      this.concatFiltersProducts(null, 'id_manufacturer');
-    }
+    this.setFilter();
   }
 
   // Categorias
   getCategories() {
-    var filter_categories = "filter[id]=![1|2]";
-    this.http.httpGet('categories', filter_categories).subscribe(
+    this.http.httpGet('categorias').subscribe(
       response => {
-        var data = response.categories;
+        var data = response.categorias;
         var categorias = [];
         data.forEach((element) => {
-          if (element.id_parent == 2) {
-            categorias.push({ id: element.id, name: element.name[0]['value'] });
+          if (element.id_parent == 1) {
+            categorias.push({ id_categoria: element.id_categoria, name_cat: element.name_cat });
           }
         });
         this.categorias_prin = categorias;
@@ -238,107 +130,50 @@ export class ProductosComponent implements OnInit {
         }
       }
     }
-    var string = this.filter_categorias.join('|');
-
-    if (this.filter_categorias.length >= 1) {
-      this.concatFiltersProducts(string, 'id_category_default');
-    } else {
-      this.concatFiltersProducts(null, 'id_category_default');
-    }
-
+    this.setFilter();
   }
 
   // Precio
   addPrice() {
-    var filter = "filter[price]=>[" + this.minValue + "]&filter[price]=<[" + (this.maxValue+1) + "]";
-    this.concatFiltersProducts(filter, 'price', true);
+    var filter = "[" + this.minValue + "," + (this.maxValue+1) + "]";
+    this.filter_precio = filter;
+    this.setFilter();
   }
 
+  clearPrice(){
+    this.filter_precio = "[]";
+    this.setFilter();
+  }
+
+  // Ordenar precios de mayor a menor o viceversa.
   orderPrice(val) {
     if (val.target.value != '') {
-      var filter = "price_" + val.target.value;
-      this.concatFiltersProducts(filter, 'price', false);
+      this.filter_order = val.target.value;
     }else{
-      this.concatFiltersProducts(null, 'price', false);
+      this.filter_order = null;
     }
+    this.setFilter();
   }
 
-
-  concatFiltersProducts(string_concat, attr_filter, price = false) {
-    var send_filter = null;
-    if (string_concat == null) {
-      delete this.filter_products[attr_filter];
-    } else {
-      this.filter_products[attr_filter] = string_concat;
+  // Filtros
+  setFilter(){
+    var params = "?marcas=["+ this.filter_marcas +"]&categorias=["+ this.filter_categorias+"]&precio="+this.filter_precio;
+    if (this.filter_order != null) {
+      params += "&orderProd=" + this.filter_order;
     }
-    Object.keys(this.filter_products).filter((key, index) => {
-      console.log(this.filter_products, key, index);
-      if (index == 0) {
-        if (this.filter_products[key] == "price_ASC" || this.filter_products[key] == "price_DESC") {
-          send_filter = "sort=" + "[" + this.filter_products[key] + "]";
-        }else{
-          send_filter = "filter[" + key + "]=" + "[" + this.filter_products[key] + "]";
-          if (price) {
-            send_filter = string_concat;
-          }
-        }
-      } else {
-        if (this.filter_products[key] == "price_ASC" || this.filter_products[key] == "price_DESC") {
-          send_filter = "&sort=" + "[" + this.filter_products[key] + "]";
-        }else{
-          send_filter = send_filter + "&filter[" + key + "]=" + "[" + this.filter_products[key] + "]";
-          if (price) {
-            send_filter = "&" + string_concat;
-          }
-        }
+
+    this.http.httpGet('filters' + params).subscribe(
+      response => {
+        this.productos = response;
+        this.calcularPaginas();
+      }, 
+      error => {
+
       }
-    });
-    
-    // console.log(send_filter);
-    this.getProducts(send_filter);
-    this.filterCombinations();
+    );
   }
 
-  // Filtros combinaciones
-  changeFilter($event, id){
-    if ($event.checked) {
-      this.filtros_check.push(id);
-      return this.filterCombinations();
-    }else{
-      for (let i = 0; i < this.filtros_check.length; i++) {
-        if (this.filtros_check[i] == id) {
-          this.filtros_check.splice(i, 1);
-        }
-      }
-      this.concatFiltersProducts(null, null);
-    }
-
-  }
-
-  filterCombinations(){
-    var productos_filt = [];
-    for (let i = 0; i < this.productos.length; i++) {
-      if(this.productos[i]['product_asoc'] != undefined){
-        var contador = 0;
-        
-        this.productos[i]['product_asoc'].forEach((item) =>{
-          for (let j = 0; j < this.filtros_check.length; j++) {
-            if (item.id == this.filtros_check[j]) {
-              contador++;
-            }
-          }
-        });
-
-        if (contador == this.filtros_check.length) {
-          productos_filt.push(this.productos[i]);
-        }
-      }
-    }
-    this.productos = productos_filt;
-    this.page_number = 1;
-    this.calcularPaginas();
-  }
-
+  //Cantidad vista previa 
   changeCantidad(sum){
     if (sum) {
       this.cantidad = this.cantidad + 1;
@@ -362,20 +197,54 @@ export class ProductosComponent implements OnInit {
   // Calcula las paginas totales que existen.
   calcularPaginas() {
     var cant_pages = Math.ceil(this.productos.length / this.page_size);
-    this.pages = cant_pages;
+
+    this.pages = {
+      first_page : 1,
+      last_page : cant_pages,
+      max_pages : 6
+    }
+    // this.pages = cant_pages;
   }
 
   // Cambia de pagina. 
   changePage(page, left = null, right = null) {
     if (page != null) {
       this.page_number = page;
+      // ultimas 6 paginas restantes. Se le resta 5 porque no se cuenta el mismo.
+      var ultimo_tramo = this.pages.last_page - 5;
+      var first_page : any;
+      // Si la pagina a ver es mayor o igual al ultimo tramo de paginas restantes. Se planta en el ultimo tramo.
+      if (this.page_number >= ultimo_tramo) {
+        first_page = ultimo_tramo;
+      }else{
+        first_page = this.page_number;
+      }
+      this.pages = {
+        first_page : first_page,
+        last_page : this.pages.last_page,
+        max_pages : 6
+      }
     }
 
     if (left) {
       var total_pages = Math.ceil(this.productos.length / this.page_size);
-      console.log(this.page_number, total_pages);
       if (this.page_number > 1 && this.page_number <= total_pages) {
         this.page_number = this.page_number - 1;
+        // ultimas 6 paginas restantes. Se le resta 5 porque no se cuenta el mismo.
+        var ultimo_tramo = this.pages.last_page - 5;
+        var first_page : any;
+        // Si la pagina a ver es mayor o igual al ultimo tramo de paginas restantes. Se planta en el ultimo tramo.
+        if (this.page_number >= ultimo_tramo) {
+          first_page = ultimo_tramo;
+        }else{
+          first_page = this.page_number;
+        }
+
+        this.pages = {
+          first_page : first_page,
+          last_page : this.pages.last_page,
+          max_pages : 6
+        }
       }
     }
 
@@ -383,6 +252,22 @@ export class ProductosComponent implements OnInit {
       var total_pages = Math.ceil(this.productos.length / this.page_size);
       if (this.page_number < total_pages) {
         this.page_number = this.page_number + 1;
+        // ultimas 6 paginas restantes. Se le resta 5 porque no se cuenta el mismo.
+        var ultimo_tramo = this.pages.last_page - 5;
+        var first_page : any;
+        // Si la pagina a ver es mayor o igual al ultimo tramo de paginas restantes. Se planta en el ultimo tramo.
+        if (this.page_number >= ultimo_tramo) {
+          first_page = ultimo_tramo;
+        }else{
+          first_page = this.page_number;
+        }
+        // console.log(first_page);
+        this.pages = {
+          first_page : first_page,
+          last_page : this.pages.last_page,
+          max_pages : 6
+        }
+
       }
     }
   }
