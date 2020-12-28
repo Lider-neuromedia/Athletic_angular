@@ -3,6 +3,7 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gal
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SendHttpData } from '../tools/SendHttpData';
+import {AlertasService} from "../servicio/alertas/alertas.service";
 
 export interface DialogData {
   id: any;
@@ -17,7 +18,8 @@ export interface DialogData {
 export class VistaPreviaComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<VistaPreviaComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: DialogData, public router : Router, private http: SendHttpData) { }
+  @Inject(MAT_DIALOG_DATA) public data: DialogData, public router : Router, private http: SendHttpData,
+              private  alertaS: AlertasService) { }
   producto : any;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
@@ -131,12 +133,12 @@ export class VistaPreviaComponent implements OnInit {
           id : producto.id,
           name : producto.name[0]['value'],
           img : this.http.getImageProduct(producto.id, producto.id_default_image)
-        } 
+        }
 
         return prod_relac;
       },
       error => {
-        
+
       });
   }
 
@@ -145,7 +147,7 @@ export class VistaPreviaComponent implements OnInit {
     products.forEach((element, index) => {
       this.getDataProdRelac(element.id).then(
         response => {
-          if ((index + 1) == 5) { 
+          if ((index + 1) == 5) {
             this.prod.push(response);
             productos.push(this.prod);
             this.prod = [];
@@ -167,7 +169,7 @@ export class VistaPreviaComponent implements OnInit {
       this.http.httpGet('product_option_values/' + element.id, null, false).subscribe(
         response => {
           var data = response.product_option_value;
-          if (data.id_attribute_group == 5) { 
+          if (data.id_attribute_group == 5) {
             var value = {
               id: data.id,
               name: data.name[0]['value']
@@ -182,7 +184,7 @@ export class VistaPreviaComponent implements OnInit {
     console.log(this.tallas);
   }
 
-  // Productos  
+  // Productos
   getProducts(id) {
     this.http.httpGet('productos/' + id, null, false).subscribe(
       response => {
@@ -204,7 +206,7 @@ export class VistaPreviaComponent implements OnInit {
       error => { console.log("error." + error); }
     );
   }
-  
+
   changeCantidad(sum){
     if (sum) {
       this.cantidad = this.cantidad + 1;
@@ -212,6 +214,15 @@ export class VistaPreviaComponent implements OnInit {
       if (this.cantidad > 1) {
         this.cantidad = this.cantidad - 1;
       }
+    }
+  }
+
+  agregarProductosAlCarrito() {
+
+    if (this.cantidad > 0) {
+      this.alertaS.showToasterFull('Articulo Agregado Corectamente');
+    } else {
+      this.alertaS.showToasterError('Debes agregar Minimo un producto');
     }
   }
 

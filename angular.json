@@ -32,11 +32,14 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap/dist/css/bootstrap-reboot.min.css",
               "node_modules/bootstrap/dist/css/bootstrap-grid.min.css",
-              "node_modules/font-awesome/css/font-awesome.css"
+              "node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
-            "scripts": ["./node_modules/jquery/dist/jquery.min.js",
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/owl.carousel/dist/owl.carousel.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"]
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -132,5 +135,8 @@
       }
     }
   },
-  "defaultProject": "athletic"
+  "defaultProject": "athletic",
+  "cli": {
+    "analytics": "29b37217-ecc4-419e-9ffb-f8ee1125e25d"
+  }
 }

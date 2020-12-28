@@ -36,7 +36,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgregarCarritoComponent } from './agregar-carrito/agregar-carrito.component';
 import { ResenaDetalleComponent } from './resena-detalle/resena-detalle.component';
 import { GuardarDireccionesComponent } from './guardar-direcciones/guardar-direcciones.component';
-
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +63,7 @@ import { GuardarDireccionesComponent } from './guardar-direcciones/guardar-direc
   imports: [
     BrowserModule,
     HttpClientModule,
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
     MaterialModule,
     OwlModule,
     FlexLayoutModule,
@@ -72,7 +72,12 @@ import { GuardarDireccionesComponent } from './guardar-direcciones/guardar-direc
     ReactiveFormsModule,
     AppRoutingModule,
     NgxGalleryModule,
-    NgbModule
+    NgbModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
   ],
   providers: [SendHttpData, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

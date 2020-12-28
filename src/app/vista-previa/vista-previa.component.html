@@ -34,7 +34,7 @@
                         -
                     </button>
                 </div>
-                <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary">
+                <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary" (click)="agregarProductosAlCarrito()">
                     <img class="bolsa-modal-producto" src="assets/img/icons/inactive.png" alt=""> Añadir a la bolsa
                 </button>
             </div>
@@ -48,7 +48,7 @@
                 <p>Productos relacionados</p>
             </div>
 
-            <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno" [carouselClasses]="['owl-carousel', 'owl-theme']" > 
+            <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno" [carouselClasses]="['owl-carousel', 'owl-theme']" >
                 <div class="content-item-product" *ngFor="let img of carouselDescatadosUno">
                     <div class="item-product">
                         <div class="content-img">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-            </owl-carousel> 
+            </owl-carousel>
         </div>
     </div>
 
@@ -80,11 +80,11 @@
                 </div>
             </div>
         </div>
-    
+
         <a class="carousel-control-prev" href="#gallery" role="button" data-slide="prev">
             <mat-icon aria-hidden="false" class="icon-lg">navigate_before</mat-icon>
         </a>
-    
+
         <a class="carousel-control-next" href="#gallery" role="button" data-slide="next">
             <mat-icon aria-hidden="false" class="icon-lg">navigate_next</mat-icon>
         </a>
