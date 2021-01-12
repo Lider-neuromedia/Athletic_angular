@@ -15,7 +15,7 @@
 html, body {
     background: var(--bg-color);
     font-family: 'Source Sans Pro', sans-serif !important;
-    height: 100%; 
+    height: 100%;
 }
 h1,h2,h3,h4,h5,h6{
     font-family: 'Source Sans Pro', sans-serif !important;
@@ -69,7 +69,7 @@ img{
 /* Padding */
 .padg-0{ padding: 0 !important; }
 .padg-10{ padding: 10 !important; }
-.padg-lat-10{ padding-left: 10px !important;  padding-right: 10px !important; } 
+.padg-lat-10{ padding-left: 10px !important;  padding-right: 10px !important; }
 .p-top-50{ padding-top: 50px; }
 /* Margenes */
 .mrg-0{ margin: 0 !important;}
@@ -389,24 +389,24 @@ button.owl-prev:focus {
 ::-webkit-scrollbar {
     width: 6px;
   }
-  
+
   /* Track */
   ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
+    box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
   }
-   
+
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: #ff596a;
     border-radius: 10px;
   }
-  
+
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #b30000; 
+    background: #b30000;
   }
-  
+
 
 /*
 Aside menu account page
@@ -793,7 +793,7 @@ Aside menu account page
     font-size: 12px;
     margin: 0;
 }
-.filter-order{  
+.filter-order{
     border: none !important;
     width: 50%;
 }
@@ -1100,11 +1100,11 @@ Aside menu account page
     width: 50%;
 }
 
-.ing5-box-buscador ::-webkit-input-placeholder { color: #D9D9D9; } 
+.ing5-box-buscador ::-webkit-input-placeholder { color: #D9D9D9; }
 
-.ing5-box-buscador :-moz-placeholder { /* Firefox 18- */ color: #D9D9D9; } 
+.ing5-box-buscador :-moz-placeholder { /* Firefox 18- */ color: #D9D9D9; }
 
-.ing5-box-buscador ::-moz-placeholder { /* Firefox 19+ */ color: #D9D9D9; } 
+.ing5-box-buscador ::-moz-placeholder { /* Firefox 19+ */ color: #D9D9D9; }
 
 .ing5-box-buscador :-ms-input-placeholder { color: #D9D9D9; }
 
@@ -1280,7 +1280,7 @@ footer input{
 .producto-relacionados-detalle .owl-stage-outer{
     padding: 1em 0em;
 }
-  
+
 /* .destacados-row1 .owl-stage-outer .content-item-product:hover{
     box-shadow: 5px 5px 5px #8080802b !important;
   } */
@@ -1360,3 +1360,4 @@ blockquote > ul li::before {
         order: 2 !important;
     }
 }
+

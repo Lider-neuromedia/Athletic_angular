@@ -1,0 +1,549 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@700&display=swap');
+.row-box-pedidos {
+  background-color: #FFFFFF;
+  border-radius: 9px;
+  box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
+  flex-wrap: wrap;
+  margin: 0em 0em !important;
+}
+
+.item-detail .nombre-producto {
+  color: #353435;
+  font-family: SourceSansPro;
+  font-size: 16px;
+  letter-spacing: 0.03px;
+  line-height: 20px;
+  text-align: left;
+}
+
+.item-detail .marca-producto {
+  color: #969696;
+  font-family: SourceSansPro;
+  font-size: 16px;
+  letter-spacing: 0.03px;
+  line-height: 20px;
+  text-align: left;
+}
+.item-detail .referencia-producto {
+  color: #969696;
+  font-family: SourceSansPro;
+  font-size: 11px;
+  letter-spacing: 0.02px;
+  line-height: 13.83px;
+  text-align: left;
+}
+.valor-nuevo-producto {
+  color: #FF596A;
+  font-family: SourceSansPro;
+  font-size: 20px;
+  letter-spacing: 0.04px;
+  line-height: 25px;
+  text-align: left;
+}
+
+.valor-anterior-producto {
+  color: #969696;
+  font-family: SourceSansPro;
+  font-size: 15px;
+  letter-spacing: 0.03px;
+  line-height: 18.85px;
+  text-align: left;
+}
+
+.descuento-producto{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 31px;
+}
+
+.resumen-del-pedido {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.05px;
+  line-height: 30.17px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.cantidad-productos {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.03px;
+  line-height: 20px;
+  text-align: left;
+  font-weight: 600;
+
+}
+
+.precio-original, .precio-con-descuento {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+.total-del-producto {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+.gastos-envio {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+.valor-total {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.03px;
+  line-height: 20px;
+  text-align: left;
+  font-weight: 800;
+}
+.valor-precio-original {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+.valor-precio-con-descuento {
+  color: #FF596A;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+.valor-total-del-producto {
+  color: #FF596A;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+.valor-gastos-envio {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+.precio-valor-total {
+  color: #FF596A;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.pay-now {
+  background-color: #6DD400 !important;
+  border-radius: 25px;
+  width: 100%;
+  height: 51px;
+  color: #FFFFFF;
+  color: #FFFFFF;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.7px;
+  line-height: 20px;
+  text-align: center;
+  border: none !important;
+}
+.pay-now:hover {
+  background-color: #6DD400 !important;
+  border-radius: 25px;
+  width: 100%;
+  height: 51px;
+  color: #FFFFFF !important;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.7px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.circle-go-shop {
+  background-color: #FFFFFF;
+  border: 1px solid #8BBA59;
+  border-radius: 100%;
+  width: 51px;
+  height: 51px;
+  color: #6DD400 !important;
+}
+
+.contenedor-registro-local {
+  height: 80vh;
+  overflow: auto;
+}
+.row-box-pedidos-superior {
+  margin-bottom: 10px !important;
+}
+
+.mat-form-field {
+  width: 100%!important;
+}
+
+.clase-row-formulario {
+  margin-top: 39px;
+}
+
+.campo-formulario {
+  color: #FF596A;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.02px;
+  line-height: 14px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+mat-checkbox {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  width: 519px;
+  text-align: left;
+}
+
+mat-checkbox span {
+  color: #FF596A;
+}
+
+.campo-direcciones {
+  background-color: #FFFFFF;
+  border-radius: 6px;
+  box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.30);
+  height: 295px;
+  cursor: pointer;
+  width: 218px;
+  padding: 1.5em .6em;
+}
+.campo-direcciones:hover {
+  background-color: #FFFFFF;
+  border-radius: 6px;
+  box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.80);
+  height: 295px;
+  cursor: pointer;
+  width: 218px;
+  padding: 1.5em .6em;
+}
+
+.fila-boton .detalle {
+  border-radius: 25px !important;
+  color: var(--active-link)  !important;
+  border: 1px solid var(--active-link)  !important;
+  padding: 5px 30px  !important;
+  display: inline-block  !important;
+  font-weight: 700  !important;
+  font-size: 12px  !important;
+}
+
+.clas-contenedor-direccion {
+  margin-bottom: 10px;
+}
+
+.nombre-direccion {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.03px;
+  line-height: 20px;
+  text-align: left;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.direccion {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+.barrio-direccion{
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+.telefono-direccion {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+
+
+.fila-boton-2{
+  display: flex;
+  text-align: end;
+}
+.fila-boton-2 .detalle{
+  border-radius: 25px;
+  color: var(--active-link);
+  border: 1px solid var(--active-link);
+  padding: 5px 30px;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.titulo-secciones {
+  margin-top: 30px;
+  margin-bottom: 36px;
+}
+.span-tuitulo {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.05px;
+  line-height: 30.17px;
+  text-align: left;
+}
+
+.agregar-direccion-boton {
+  border-radius: 22px !important;
+}
+
+.titulo-mineatura {
+  margin: -25px 0 37px 0;
+
+
+}
+.titulo-mineatura  p {
+  color: #969696;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.02px;
+  line-height: 12.57px;
+  text-align: left;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+.titulo-tarjeta-credito {
+  color: #FF596A;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.03px;
+  line-height: 19px;
+  width: 121px;
+  text-align: left;
+}
+
+.pago-electronico {
+  width: 30px;
+  padding: 1px;
+}
+
+.separador {
+  width: 100%;
+}
+
+.titulo-tarjeta-contactenos {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.03px;
+  line-height: 20px;
+  text-align: left;
+}
+
+.clase-boto-seleccionar {
+
+  text-align: center;
+}
+
+.agregar-direccion-boton {
+  width: 218px;
+  margin-top: 13px;
+
+}
+
+.items-productos-bolsa {
+  width: 100% !important;
+  border: none;
+}
+
+.hr-separador-productos {
+  width: 100%;
+}
+
+.detalle-producto .marca-pro {
+  color: #969696;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 700;
+}
+
+.detalle-producto .nombre-pro {
+  color: #353435;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.precio-acciones .precio-descuento {
+  color: #FF596A;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 16px;
+}
+
+.precio-acciones .precio-normal {
+  color: #969696;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.precio-acciones input {
+
+}
+
+.contenedor-campos-finales {
+
+}
+
+.alignear-trash {
+  text-align: center;
+}
+
+span {
+    cursor: pointer;
+}
+
+.material-icons {
+  color: #FF596A;
+}
+
+.alignear-cantidad {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.03px;
+  line-height: 18.85px;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.fila-boton-3 {
+  margin-top: 10px;
+}
+.fila-boton-3
+.detalle{
+  border-radius: 5px;
+  color: var(--active-link);
+  padding: 1px 3px;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.fila-boton-3 .detalle-eliminar {
+  border-radius: 5px;
+  color: var(--active-link);
+  border: 1px solid var(--active-link);
+  padding: 1px 3px;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.fila-boton-3
+.detalle:hover{
+  border-radius: 5px;
+  color: var(--active-link);
+  border: 1px solid var(--active-link);
+  padding: 1px 3px;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.separador-separanes .col-md-6 {
+  flex: 0 0 50%;
+  max-width: 35% !important;
+}
+
+.items-productos-bolsa:last-of-type {
+  margin-bottom: 10px !important;
+}
+
+.items-productos-bolsa {
+  padding: 0em 0em;
+  padding-bottom: 0em !important;
+}
+
+.titulo-tarjeta-contactenos-columna {
+  margin-bottom: 20px;
+}
+
+.div-pago-en-efectivo {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.05px;
+  line-height: 30.17px;
+  text-align: center;
+  font-weight: 800;
+}
+
+.div-contre-entrega {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.03px;
+  line-height: 20.11px;
+  width: 362px;
+  text-align: center;
+}
+
+.centrar-boton {
+  text-align: center;
+}
+
+.circle-go-shop span {
+  color: #6DD400  !important;
+}

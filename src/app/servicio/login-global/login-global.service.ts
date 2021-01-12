@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class VariablesService {
+export class LoginGlobalService {
 
 
   private data = new BehaviorSubject(null);
@@ -22,10 +22,8 @@ export class VariablesService {
   }
 
   consultarDatosLocales() {
-    this.data.next(JSON.parse(localStorage.getItem('athletic'))) ;
+    this.data.next(JSON.parse(localStorage.getItem('userAthletic'))) ;
     console.log(this.data)
 
   }
-
-
 }

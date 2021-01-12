@@ -19,3 +19,11 @@
 .row-save-adress .save-adrres:hover{
     text-decoration: none;
 }
+
+.ng-autocomplete {
+  width: 374px !important;
+}
+
+.save-adrres {
+  cursor: pointer;
+}

@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SendHttpData } from '../tools/SendHttpData';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery-9';
 import * as $ from 'jquery';
+import {AlertasService} from "../servicio/alertas/alertas.service";
+import {VariablesService} from "../servicio/variable-global/variables.service";
 
 @Component({
   selector: 'app-detalle-producto',
@@ -23,8 +25,15 @@ export class DetalleProductoComponent implements OnInit {
   cantidad = 1;
   tallas = [];
   precio;
+  carritoAnterior = [];
+  addProductoCarrito = [];
 
-  constructor(private route_params: ActivatedRoute, public router : Router, private http: SendHttpData) {}
+  constructor(
+    private route_params: ActivatedRoute,
+    public router : Router,
+    private http: SendHttpData,
+    private alertaS: AlertasService,
+    private variablesGl: VariablesService) {}
 
   goDescripcion(){
     $('html, body').animate({
@@ -133,12 +142,12 @@ export class DetalleProductoComponent implements OnInit {
           id : producto.id,
           name : producto.name[0]['value'],
           img : this.http.getImageProduct(producto.id, producto.id_default_image)
-        } 
+        }
 
         return prod_relac;
       },
       error => {
-        
+
       });
   }
 
@@ -147,7 +156,7 @@ export class DetalleProductoComponent implements OnInit {
     products.forEach((element, index) => {
       this.getDataProdRelac(element.id).then(
         response => {
-          if ((index + 1) == 5) { 
+          if ((index + 1) == 5) {
             this.prod.push(response);
             productos.push(this.prod);
             this.prod = [];
@@ -170,7 +179,7 @@ export class DetalleProductoComponent implements OnInit {
       this.http.httpGet('product_option_values/' + element.id, null, false).subscribe(
         response => {
           var data = response.product_option_value;
-          if (data.id_attribute_group == 5) { 
+          if (data.id_attribute_group == 5) {
             var value = {
               id: data.id,
               name: data.name[0]['value']
@@ -185,7 +194,7 @@ export class DetalleProductoComponent implements OnInit {
     console.log(this.tallas);
   }
 
-  // Productos  
+  // Productos
   getProducts(id) {
     this.http.httpGet('productos/' + id, null, false).subscribe(
       response => {
@@ -207,7 +216,7 @@ export class DetalleProductoComponent implements OnInit {
       error => { console.log("error." + error); }
     );
   }
-  
+
   changeCantidad(sum){
     if (sum) {
       this.cantidad = this.cantidad + 1;
@@ -217,5 +226,41 @@ export class DetalleProductoComponent implements OnInit {
       }
     }
   }
+
+  agregarProductosAlCarrito() {
+    console.log(this.cantidad,  this.producto );
+
+    this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
+    console.log(this.carritoAnterior);
+
+    if (this.cantidad > 0) {
+
+      this.producto['cantidad'] = this.cantidad;
+      this.addProductoCarrito.push(this.producto);
+      console.log(this.addProductoCarrito);
+
+      if (this.addProductoCarrito) {
+        if (this.carritoAnterior) {
+        } else {
+          this.carritoAnterior = [];
+        }
+
+        this.carritoAnterior.push(this.producto);
+        localStorage.setItem('athletic', JSON.stringify(this.carritoAnterior));
+      }
+
+
+      this.addProductoCarrito = [];
+      this.cantidad = 1;
+
+      this.alertaS.showToasterFull(`Articulo Agregado Corectamente`);
+
+
+    } else {
+      this.alertaS.showToasterError(`Debes agregar Minimo un producto ,  ${this.cantidad}`);
+    }
+    this.variablesGl.changeMessage();
+  }
+
 
 }

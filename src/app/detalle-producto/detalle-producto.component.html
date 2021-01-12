@@ -5,7 +5,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
                     <li class="breadcrumb-item"><a routerLink="/productos">Producto</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{producto.name_prod}}</li>
+                    <li class="breadcrumb-item active" aria-current="page" *ngIf="producto">{{producto.name_prod}}</li>
                 </ol>
             </nav>
         </div>
@@ -29,23 +29,23 @@
                     </div>
                 </div>
                 <div class="content-strech mrg-botn-30">
-                    <p class="prod-subtitle">{{producto.name_marca}}</p>
-                    <p class="prod-title">{{producto.name_prod}}</p>
+                    <p class="prod-subtitle" *ngIf="producto">{{producto.name_marca}}</p>
+                    <p class="prod-title" *ngIf="producto">{{producto.name_prod}}</p>
                 </div>
                 <div class="content-strech mrg-botn-15">
-                    <p class="title-ref">{{producto.last_categoria}}</p>
-                    <p class="ref">Ref: {{producto.referencia}}</p>
+                    <p class="title-ref" *ngIf="producto">{{producto.last_categoria}}</p>
+                    <p class="ref">Ref: {{producto?producto.referencia : ''}}</p>
                 </div>
                 <div class="content-strech mrg-botn-15">
-                    <p class="price">{{producto.precio |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
-                    <p class="price-des" *ngIf="producto.valor_descuento != null">
+                    <p class="price">{{producto?(producto.precio |currency:'COP':'symbol-narrow' :'1.0-0'): 0 }}</p>
+                    <p class="price-des" *ngIf="producto && producto.valor_descuento != null">
                         {{producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
                 </div>
                 <div class="content-strech content-cuotas">
                     <p class="cuotas">Hasta 12 cuotas de <span class="txt-dark-bold">$13.345</span></p>
                 </div>
-                <div class="content-strech mrg-botn-15" *ngIf="producto.valor_descuento != null">
-                    <p class="txt-descuento">Aplica descuento de {{producto.valor_descuento}}%</p>
+                <div class="content-strech mrg-botn-15" *ngIf="producto && producto.valor_descuento != null">
+                    <p class="txt-descuento">Aplica descuento de {{producto?producto.valor_descuento: 0}}%</p>
                     <a href="#" class="link-terminos">Ver términos y condiciones</a>
                 </div>
                 <div class="w-80">
@@ -54,7 +54,7 @@
                         <i class="flecha-select">▼</i>
                         <select class="my-own-form-control" placeholder="Elige tu talla" id="talla">
                             <option selected value="">Elige tu talla</option>
-                            <option *ngFor="let item of producto.combinaciones;" value="{{item.id_combinacion}}">
+                            <option *ngFor="let item of producto?producto.combinaciones: producto;" value="{{item.id_combinacion}}">
                                 {{item.valor}}</option>
                         </select>
                     </div>
@@ -70,7 +70,7 @@
                             -
                         </button>
                     </div>
-                    <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary">
+                    <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary" (click)="agregarProductosAlCarrito()">
                         <mat-icon class="icon-small">work</mat-icon>Añadir pedido
                     </button>
                 </div>
@@ -204,16 +204,16 @@
             <div class="row">
                 <div class="col-md-7">
                     <p class="descripcion">Descripción</p>
-                    <h2 class="titulo-descripcion">{{producto.name_prod}}</h2>
+                    <h2 class="titulo-descripcion" *ngIf="producto">{{producto.name_prod}}</h2>
 
-                    <p class="text-cta">TENIS {{producto.name_marca}} QUE COMBINAN DETALLES RETRO CON LO ÚLTIMO EN
+                    <p class="text-cta">TENIS {{producto?producto.name_marca: '' }} QUE COMBINAN DETALLES RETRO CON LO ÚLTIMO EN
                         TECNOLOGÍA</p>
-                    <p class="parrafo producto" [innerHtml]="producto.resumen">
+                    <p class="parrafo producto" [innerHtml]="producto?producto.resumen: '' ">
                     </p>
                 </div>
                 <div class="col-md-5">
                     <!-- <img src="assets/img/home/zap-9.png" alt=""> -->
-                    <img src="{{producto.imagen_destacada}}" alt="">
+                    <img src="{{producto?producto.imagen_destacada:''}}" alt="">
                 </div>
             </div>
         </div>

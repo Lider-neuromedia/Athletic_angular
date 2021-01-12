@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center mrg-top-20 mrg-botn-20">
-                                <button mat-raised-button type="submit" color="primary" class="mrg-right-5 btn-page-register">Registrarme</button>
+                                <button mat-raised-button type="submit" color="primary" class="mrg-right-5 btn-page-register" [disabled]="validarCampos()">Registrarme</button>
                             </div>
                         </form>
                         <!-- <div class="d-flex justify-content-center mrg-top-20 mrg-botn-20">
@@ -121,7 +121,7 @@
                         <div class="d-flex justify-content-center mrg-top-20 mrg-botn-20">
                             <mat-checkbox  color="primary">Declaro que he leído y acepto la nueva <span class="text-pink">Política de Privacidad y  <br> los Términos y Condiciones</span> de Linio.</mat-checkbox>
                         </div> -->
-                        
+
                     </mat-tab>
                 </mat-tab-group>
             </mat-card>

@@ -12,26 +12,60 @@ import { FavoritosComponent } from './favoritos/favoritos.component';
 import { ContentComponent } from './content/content.component';
 import { DetalleProductoComponent } from './detalle-producto/detalle-producto.component';
 import { LoginComponent } from './login/login.component';
+import {DetalleCompraComponent} from "./detalle-compra/detalle-compra.component";
+import {AuthGuard} from "./guards/auth.guard";
 
 const routes : Routes = [
-  { path: '', component: ContentComponent },
-  { path: 'productos', component: ProductosComponent },
-  { path: 'pedidos', component: PedidosComponent },
-  { path: 'resenas', component: ResenaComponent },
-  { path: 'resena-detalle', component: ResenaDetalleComponent },
-  { path: 'cupones', component: CuponesComponent },
-  { path: 'perfil', component: PerfilComponent },
-  { path: 'direcciones', component: DireccionesComponent },
-  { path: 'mis-direcciones', component: GuardarDireccionesComponent },
-  { path: 'favoritos', component: FavoritosComponent },
-  { path: 'detalle-producto/:id', component: DetalleProductoComponent },
-  { path: 'login', component: LoginComponent },
+  {
+    path: '', component: ContentComponent
+  },
+  {
+    path: 'productos', component: ProductosComponent
+  },
+  {
+    path: 'pedidos', component: PedidosComponent
+  },
+  {
+    path: 'resenas', component: ResenaComponent
+  },
+  {
+    path: 'resena-detalle', component: ResenaDetalleComponent
+  },
+  {
+    path: 'cupones', component: CuponesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'perfil', component: PerfilComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'direcciones', component: DireccionesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'mis-direcciones', component: GuardarDireccionesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'favoritos', component: FavoritosComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'detalle-producto/:id', component: DetalleProductoComponent
+  },
+  {
+    path: 'detalle-de-la-compra', component: DetalleCompraComponent
+  },
+  {
+    path: 'login', component: LoginComponent
+  },
 ];
 
 @NgModule({
   declarations: [],
   imports: [
-    RouterModule.forRoot(routes, { useHash: true }), 
+    RouterModule.forRoot(routes, { useHash: true }),
   ],
   exports: [RouterModule]
 })

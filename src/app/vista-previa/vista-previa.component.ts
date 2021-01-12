@@ -218,7 +218,8 @@ export class VistaPreviaComponent implements OnInit {
   }
 
   agregarProductosAlCarrito() {
-
+    this.alertaS.showToasterFull('Articulo Agregado Corectamente');
+    alert(",sdncnfsdkfdssdkfnklsdnfk");
     if (this.cantidad > 0) {
       this.alertaS.showToasterFull('Articulo Agregado Corectamente');
     } else {

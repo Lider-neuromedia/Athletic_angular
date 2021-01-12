@@ -5,6 +5,8 @@ import * as bcrypt from 'bcryptjs';
 import { GlobalVarService } from '../common/global-var.service';
 import { Router } from '@angular/router';
 import { ErrorStateMatcher } from '@angular/material/core';
+import {LoginGlobalService} from "../servicio/login-global/login-global.service";
+import {AlertasService} from "../servicio/alertas/alertas.service";
 
 @Component({
   selector: 'app-login',
@@ -22,7 +24,13 @@ export class LoginComponent implements OnInit {
   myForm: FormGroup;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private formBuilder: FormBuilder, public globalVar: GlobalVarService, private http: SendHttpData, public router: Router) {
+  constructor(
+              private formBuilder: FormBuilder,
+              public globalVar: GlobalVarService,
+              private http: SendHttpData,
+              public router: Router,
+              private alertaS: AlertasService,
+              private loginGlobal: LoginGlobalService) {
 
     this.myForm = this.formBuilder.group({
       password: ['', [Validators.required]],
@@ -46,9 +54,10 @@ export class LoginComponent implements OnInit {
           if (response.response == 'error') {
             alert('credenciales invalidas');
           } else {
-            localStorage.setItem('user', JSON.stringify(response.user));
+            localStorage.setItem('userAthletic', JSON.stringify(response.user));
             localStorage.setItem('token', JSON.stringify(response.token));
-            this.globalVar.setUser(JSON.parse(localStorage.getItem('user')));
+            this.loginGlobal.changeMessage();
+            this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
             this.router.navigate(['/']);
           }
         },
@@ -61,34 +70,39 @@ export class LoginComponent implements OnInit {
 
   // Falta Validar Registro.
   sendRegister() {
+
+    console.log(this.myForm);
+
+
     if (this.myForm.errors == null) {
       var salt = bcrypt.genSaltSync(10);
       var passwd = bcrypt.hashSync(this.myForm.value.password, salt);
       var fecha_nacimiento = this.myForm.value.fecha_nacimiento.toISOString().slice(0, 10);
-      var data = {
-        "customers": {
-          "id_default_group": 3,
-          "active": 1,
-          "deleted": 0,
-          "passwd": passwd,
-          "lastname": this.myForm.value.last_name,
-          "firstname": this.myForm.value.first_name,
-          "email": this.myForm.value.email_new,
-          "birthday": fecha_nacimiento,
-          "id_gender": this.myForm.value.genero
-        }
-      };
 
-      this.http.httpPost('customers', data).toPromise().then(
-        response => {
-          localStorage.setItem('user', JSON.stringify(response.customer));
-          this.globalVar.setUser(JSON.parse(localStorage.getItem('user')));
+      const data = {
+          estado: 1,
+          deleted: 0,
+          id_tienda: 1,
+          password: passwd,
+          apellidos: this.myForm.value.last_name,
+          nombres: this.myForm.value.first_name,
+          email: this.myForm.value.email_new,
+          fecha_nacimiento: fecha_nacimiento,
+          genero: this.myForm.value.genero
+      }
+
+      this.http.httpPost('clientes-register', data).toPromise().then(response => {
+        console.log(response[`user`]);
+        if (response[`user`]) {
+          console.log(response[`user`]);
+          localStorage.setItem('userAthletic', JSON.stringify(response[`user`]));
+          this.loginGlobal.changeMessage();
+          this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
           this.router.navigate(['/']);
-        },
-        error => {
-
         }
-      );
+        }).catch( error => {
+          console.log(error);
+      })
     }
   }
 
@@ -117,6 +131,22 @@ export class LoginComponent implements OnInit {
       return null;
     }
 
+  }
+
+
+  validarCampos() {
+    if (this.myForm.value.confirmPassword === '' || this.myForm.value.confirmPassword === null ||
+      this.myForm.value.password === '' || this.myForm.value.password === null ||
+      this.myForm.value.first_name === '' || this.myForm.value.first_name === null ||
+      this.myForm.value.last_name === '' || this.myForm.value.last_name === null ||
+      this.myForm.value.email_new === '' || this.myForm.value.email_new === null ||
+      this.myForm.value.fecha_nacimiento === '' || this.myForm.value.fecha_nacimiento === null ||
+      this.myForm.value.genero === '' || this.myForm.value.genero === null
+    ) {
+      return  true;
+    } else {
+      return false;
+    }
   }
 
 }

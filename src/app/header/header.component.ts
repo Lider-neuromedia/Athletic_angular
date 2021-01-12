@@ -1,7 +1,9 @@
-import { Component, Input, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
-import { SendHttpData } from '../tools/SendHttpData';
-import { Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, EventEmitter, HostListener, Output, Renderer2} from '@angular/core';
+import {SendHttpData} from '../tools/SendHttpData';
+import {Router} from '@angular/router';
+import {AlertasService} from "../servicio/alertas/alertas.service";
+import {VariablesService} from "../servicio/variable-global/variables.service";
+import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 
 @Component({
   selector: 'app-header',
@@ -18,29 +20,44 @@ export class HeaderComponent {
   usuario = null;
   scrolled = 1;
   disenoMenu = {
-    column_1 : [],
-    column_2 : []
+    column_1: [],
+    column_2: []
   };
+  carrito: any;
+  carritoAnterior: any;
+  cantidadCarrito: number = 0;
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll($event) {
     const numb = window.scrollY;
-    if (numb >= 50){
+    if (numb >= 50) {
       this.scrolled = 0;
-    }
-    else {
+    } else {
       this.scrolled = 1;
     }
   }
 
-  constructor(public router: Router, private http: SendHttpData, private render:Renderer2) { }
+  constructor(
+    public router: Router,
+    private http: SendHttpData,
+    private render: Renderer2,
+    private alertaS: AlertasService,
+    private loginGlobal: LoginGlobalService,
+    private variablesGl: VariablesService) {
+   // this.usuario = JSON.parse(localStorage.getItem('user'));
+    //console.log(this.usuario);
+    this.llamarDatoLocalesUsuario();
+  }
 
   ngOnInit(): void {
-    this.usuario = JSON.parse(sessionStorage.getItem('user')); 
+    this.llamarDatoLocales();
+
     this.getCategories();
     this.getImagenesMenu();
+    this.llamarDatoLocalesUsuario();
+
   }
-  
+
   getCategories() {
     this.http.httpGet('categorias/cascade').subscribe(
       response => {
@@ -90,20 +107,45 @@ export class HeaderComponent {
   }
 
   cerrarSesion(){
+
     sessionStorage.clear();
+    localStorage.removeItem('userAthletic');
+    this.loginGlobal.changeMessage();
     this.usuario = null;
+    this.llamarDatoLocalesUsuario();
+    this.router.navigate(['/']);
   }
-  
-  getImagenesMenu(){
+
+  getImagenesMenu() {
     this.http.httpGet('disenoOneSesion/16').subscribe(
       response => {
         this.disenoMenu = response;
-      }, 
+      },
       error => {
         console.error("Error en el diseño.");
       }
     );
   }
+
+
+  llamarDatoLocales() {
+
+    this.variablesGl.currentMessage.subscribe(response => {
+      this.carritoAnterior = response;
+      //console.log(this.carritoAnterior);
+    });
+
+  }
+
+  llamarDatoLocalesUsuario() {
+
+    this.loginGlobal.currentMessage.subscribe(response => {
+      this.usuario = response;
+    });
+
+  }
+
+
 
 }
 

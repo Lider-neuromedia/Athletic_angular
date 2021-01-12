@@ -16,7 +16,7 @@
 .menu-categories{
   margin-top: 9px !important;
 }
-  
+
 .logo {
   padding: 0px 5px;
   font-size: 20px;
@@ -125,7 +125,7 @@
   letter-spacing: 0.66px;
   line-height: 13.83px;
   margin-bottom: 2px;
-  text-align: left; 
+  text-align: left;
 }
 
 .item-categ-btn a{
@@ -260,4 +260,19 @@
 
 .icon-info{
   margin: 0px 5px;
+}
+
+.cantidad-producto {
+  position: relative;
+  left: 0;
+  bottom: 9px;
+  color: #FF596A;
+  font-weight: 700;
+}
+.cantidad-producto:hover {
+  position: relative;
+  left: 0;
+  bottom: 9px;
+  color: #FFFFFF;
+  font-weight: 700;
 }

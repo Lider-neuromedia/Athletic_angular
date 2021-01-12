@@ -17,13 +17,13 @@
       <span class="text-gray">¿Necesita ayuda?</span>
     </div>
   </mat-toolbar-row>
-  
+
   <mat-toolbar-row class="w-auto">
     <div class="container">
       <div class="d-flex flex-md-row ing5-items-content-header">
         <button class="line-height-ini" [matMenuTriggerFor]="menu" mat-button>
           <img src="assets/img/icons/menu.png" class="mrg-top-5">
-          <p class="text-menu">Categorias</p> 
+          <p class="text-menu">Categorias</p>
         </button>
         <button class="line-height-ini d-none d-sm-flex" (click)="router.navigate(['/']);" mat-button>
           <img src="assets/img/logo_fondo_negro.png">
@@ -38,17 +38,17 @@
             <img src="assets/img/blanco.svg" alt="">
           </div>
         </div>
-        
+
         <!-- Position end -->
         <div class="flex-row ml-md-auto d-none d-sm-flex ing5-items-header">
-          <button (click)="router.navigate(['/pedidos']);" class="line-height-ini" mat-button fxLayoutAlign="end">
+          <button [routerLink]="usuario?'/pedidos':'/login'" class="line-height-ini" mat-button fxLayoutAlign="end">
             <!-- <img src="assets/img/icons/load-carriage.png" class="mrg-top-5"> -->
             <img class="header-pedidos" src="assets/img/header/pedidos.svg">
-            <p class="text-menu">Pedidos</p> 
+            <p class="text-menu">Pedidoss</p>
           </button>
-          <button (click)="router.navigate(['/favoritos']);" class="line-height-ini" mat-button fxLayoutAlign="end">
+          <button [routerLink]="usuario?'/favoritos':'/login'"   class="line-height-ini" mat-button fxLayoutAlign="end">
             <img class="header-favoritos" src="assets/img/header/favoritos.svg">
-            <p class="text-menu">Mis favoritos</p> 
+            <p class="text-menu">Mis favoritos</p>
           </button>
           <button class="line-height-ini" [matMenuTriggerFor]="belowMenu" mat-button fxLayoutAlign="end">
             <img class="header-cuenta" src="assets/img/header/user.svg">
@@ -56,22 +56,23 @@
           </button>
           <button class="line-height-ini" (click)="toggleOpenBolsa()" mat-button fxLayoutAlign="end">
             <img class="bolsa" src="assets/img/header/bolsa.svg">
-            <p class="text-menu">Bolsa</p> 
+            <span class="cantidad-producto">{{carritoAnterior? carritoAnterior.length: 0}}</span>
+            <p class="text-menu">Bolsa</p>
           </button>
         </div>
 
       </div>
     </div>
   </mat-toolbar-row>
-  
+
   <mat-toolbar-row class="d-flex justify-content-center d-sm-none">
     <button (click)="router.navigate(['/pedidos']);" class="line-height-ini" mat-button>
       <img src="assets/img/icons/load-carriage.png" class="mrg-top-5">
-        <p class="text-menu">Pedidos</p> 
+        <p class="text-menu">Pedidos</p>
     </button>
     <button (click)="router.navigate(['/favoritos']);" class="line-height-ini" mat-button>
       <mat-icon aria-hidden="false" aria-label="Icon">favorite_outline</mat-icon>
-        <p class="text-menu">Mis favoritos</p> 
+        <p class="text-menu">Mis favoritos</p>
     </button>
     <button class="line-height-ini" mat-button>
       <mat-icon aria-hidden="false" aria-label="Icon">person_outline</mat-icon>
@@ -79,7 +80,7 @@
     </button>
     <button class="line-height-ini" mat-button>
       <img src="assets/img/icons/bolsa_inactive.png">
-        <p class="text-menu">Bolsa</p> 
+        <p class="text-menu">Bolsa</p>
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -90,7 +91,7 @@
     <div fxLayout="column" class="mrg-top-10 cont-categ" fxLayoutAlign="left">
       <!-- Ciclo - Categorias -->
       <div *ngFor="let item of categorias_prin">
-        <p [ngClass]=" item.id_categoria == categoria_select ? 'list-categ list-act' : 'list-categ'" > 
+        <p [ngClass]=" item.id_categoria == categoria_select ? 'list-categ list-act' : 'list-categ'" >
           <a href="#" (mouseover)="changeSubCategoria(item.id_categoria, item.hijos)">{{item.name_cat}}</a>
           <mat-icon aria-hidden="false" class="icon-list-cat" aria-label="Icon">keyboard_arrow_right</mat-icon>
         </p>
@@ -105,7 +106,7 @@
         <div class="content-sb-categ">
           <p class="title-categ">{{element.name_cat}}</p>
           <ul class="list-sb-categ">
-            <li class="item-categ" *ngFor="let item of element.hijos"> 
+            <li class="item-categ" *ngFor="let item of element.hijos">
               <a routerLink="/productos" routerLinkActive="active"> {{item.name_cat}} </a>
             </li>
           </ul>
@@ -158,27 +159,27 @@
       <span>Iniciar sesión</span>
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>
-    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/perfil']);">
+    <button class="btn-menu" mat-menu-item  [routerLink]="usuario?'/perfil':'/login'" >
       Mi cuenta
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>
-    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/pedidos']);">
+    <button class="btn-menu" mat-menu-item  [routerLink]="usuario?'/pedidos':'/login'">
       Mis pedidos
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>
-    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/resenas']);">
+    <button class="btn-menu" mat-menu-item [routerLink]="usuario?'/resenas':'/login'">
       Mis reseñas
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>
-    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/cupones']);">
+    <button class="btn-menu" mat-menu-item [routerLink]="usuario?'/cupones':'/login'" >
       Mis cupones
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>
-    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/direcciones']);">
+    <button class="btn-menu" mat-menu-item [routerLink]="usuario?'/direcciones':'/login'" >
       Mis direcciones
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>
-    <button class="btn-menu" mat-menu-item (click)="router.navigate(['/favoritos']);">
+    <button class="btn-menu" mat-menu-item [routerLink]="usuario?'/favoritos':'/login'" >
       Mis favoritos
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>
