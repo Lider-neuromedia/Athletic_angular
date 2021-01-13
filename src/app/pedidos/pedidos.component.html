@@ -7,7 +7,75 @@
 			<div class="col-md-9 content-detail">
 				<h2 class="account-title">Mis pedidos</h2>
 
-				<div class="row-box-pedidos">
+        <div class="montar-pedido" *ngFor="let data of pedidos">
+          <div class="row-box-pedidos">
+            <div class="info-estado">
+              <div class="pedido-info">
+                <p>Pedido No. {{ data['codigo']}}</p>
+                <p>Fecha de compra: {{ data['created_at']}}</p>
+                <p>Total: {{ data['pedido_valor'] | currency}}</p>
+              </div>
+              <div class="pedido-estado cerrado">Estado: <span>{{data['pedido_estado']}}</span></div>
+            </div>
+            <div class="items">
+
+              <div class="flex-items-prod">
+
+                <div class="item col-md-4">
+                  <div class="item-two-col">
+                    <div class="col-6 item-photo">
+                      <img [src]="rutaPedido+'/'+data['img']" alt="">
+                    </div>
+                    <div class="col-6 item-detail">
+                      <h3>{{data['name_prod']}}</h3>
+                      <h4>{{data['name_marca']}}</h4>
+                      <p>Ref: {{data['pedido_referencia']}}</p>
+                      <a href="">Reseña</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="item col-md-4">
+                  <div class="item-two-col">
+                    <div class="col-6 item-photo">
+                      <img [src]="rutaPedido+'/'+data['img']" alt="">
+                    </div>
+                    <div class="col-6 item-detail">
+                      <h3>{{data['name_prod']}}</h3>
+                      <h4>{{data['name_marca']}}</h4>
+                      <p>Ref: {{data['pedido_referencia']}}</p>
+                      <a href="">Reseña</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="item col-md-4">
+                  <div class="item-two-col">
+                    <div class="col-6 item-photo">
+                      <img [src]="rutaPedido+'/'+data['img']" alt="">
+                    </div>
+                    <div class="col-6 item-detail">
+                      <h3>{{data['name_prod']}}</h3>
+                      <h4>{{data['name_marca']}}</h4>
+                      <p>Ref: {{data['pedido_referencia']}}</p>
+                      <a href="">Reseña</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row fila-boton">
+            <div class="col-md-12">
+              <a class="detalle" (click)="detallePedido(data['pedido_codigo'])">Ver detalles</a>
+            </div>
+          </div>
+        </div>
+
+				<!--<div class="row-box-pedidos">
 					<div class="info-estado">
 						<div class="pedido-info">
 							<p>Pedido No. 123456</p>
@@ -203,7 +271,7 @@
 					<div class="col-md-12">
 						<a class="detalle" href="">Ver detalles</a>
 					</div>
-				</div>
+				</div>-->
 
 			</div>
 		</div>

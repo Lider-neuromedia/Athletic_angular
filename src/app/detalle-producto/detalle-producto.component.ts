@@ -1,10 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SendHttpData } from '../tools/SendHttpData';
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery-9';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SendHttpData} from '../tools/SendHttpData';
+import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery-9';
 import * as $ from 'jquery';
 import {AlertasService} from "../servicio/alertas/alertas.service";
 import {VariablesService} from "../servicio/variable-global/variables.service";
+import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 
 @Component({
   selector: 'app-detalle-producto',
@@ -27,13 +28,21 @@ export class DetalleProductoComponent implements OnInit {
   precio;
   carritoAnterior = [];
   addProductoCarrito = [];
+  usuario: any;
+  condicionBotonFavorito: any;
+
 
   constructor(
     private route_params: ActivatedRoute,
-    public router : Router,
+    public router: Router,
     private http: SendHttpData,
     private alertaS: AlertasService,
-    private variablesGl: VariablesService) {}
+    private ruta: Router,
+    private loginGlobal: LoginGlobalService,
+    private variablesGl: VariablesService) {
+
+    this.llamarDatoLocalesUsuario();
+  }
 
   goDescripcion(){
     $('html, body').animate({
@@ -87,6 +96,7 @@ export class DetalleProductoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts(this.route_params.snapshot.params.id);
+    this.validarFavoritos(this.route_params.snapshot.params.id)
     this.galleryImages = [
       {
         small: "/N-1008/assets/img/productos/producto-interna.png",
@@ -132,6 +142,8 @@ export class DetalleProductoComponent implements OnInit {
         preview: false
       }
     ];
+
+
   }
 
   async getDataProdRelac(id){
@@ -215,6 +227,7 @@ export class DetalleProductoComponent implements OnInit {
       },
       error => { console.log("error." + error); }
     );
+
   }
 
   changeCantidad(sum){
@@ -260,6 +273,56 @@ export class DetalleProductoComponent implements OnInit {
       this.alertaS.showToasterError(`Debes agregar Minimo un producto ,  ${this.cantidad}`);
     }
     this.variablesGl.changeMessage();
+  }
+
+
+  agregarProductoFavorito() {
+    const data = {
+      usuario: this.usuario.id_cliente,
+      producto: this.producto.id_producto
+    };
+
+    this.http.httpPost('agregar-productos-favorito', data).toPromise().then(respuesta => {
+      if (respuesta[`estado`]) {
+        this.alertaS.showToasterFull(`Articulo agregado a favoritos`);
+      }
+    }).catch(error => {
+
+    })
+
+
+    console.log(this.producto, data);
+  }
+
+
+  llamarDatoLocalesUsuario() {
+
+    this.loginGlobal.currentMessage.subscribe(response => {
+      this.usuario = response;
+    });
+
+  }
+
+
+  validarFavoritos(producto) {
+    if (this.usuario) {
+      const data = {
+        usuario: this.usuario.id_cliente,
+        producto: producto
+      };
+      console.log(data);
+      this.http.httpPost('valirdar-agregado-favorito', data).toPromise().then(respuesta => {
+
+        this.condicionBotonFavorito = respuesta[`data`];
+
+      }).catch(error => {
+
+      });
+    }
+
+  }
+  ingresar() {
+    this.ruta.navigate(['login']);
   }
 
 

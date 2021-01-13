@@ -73,6 +73,9 @@
                     <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary" (click)="agregarProductosAlCarrito()">
                         <mat-icon class="icon-small">work</mat-icon>Añadir pedido
                     </button>
+                  <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary" (click)="usuario?agregarProductoFavorito(): ingresar()" *ngIf="!condicionBotonFavorito">
+                    <mat-icon aria-hidden="false" aria-label="Icon">favorite_outline</mat-icon>Añadir favoritos
+                  </button>
                 </div>
             </div>
         </div>

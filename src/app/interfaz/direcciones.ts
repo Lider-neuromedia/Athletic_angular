@@ -8,4 +8,5 @@ export interface Direcciones {
   cliente_codigo: string;
   direccion_nombre?: string;
   direccion_estado?: number;
+  direccion_visible?: number;
 }

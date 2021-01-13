@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {AlertasService} from "../servicio/alertas/alertas.service";
 import {VariablesService} from "../servicio/variable-global/variables.service";
 import {NgxGalleryImage, NgxGalleryOptions} from "ngx-gallery-9";
+import {SendHttpData} from "../tools/SendHttpData";
+import {LoginGlobalService} from "../servicio/login-global/login-global.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-favoritos',
@@ -17,47 +20,65 @@ export class FavoritosComponent implements OnInit {
   precio;
   carritoAnterior = [];
   addProductoCarrito = [];
+  usuario: any;
+  misFavoritos: any;
+  dominio: any;
 
   constructor( private alertaS: AlertasService,
-               private variablesGl: VariablesService) { }
+               private http: SendHttpData,
+               private ruta: Router,
+               private loginGlobal: LoginGlobalService,
+               private variablesGl: VariablesService) {
+    this.llamarDatoLocalesUsuario();
+  }
 
   ngOnInit(): void {
+
+    this.listarFavoritos();
   }
 
 
-  agregarProductosAlCarrito() {
-    console.log(this.cantidad,  this.producto );
+  agregarProductosAlCarrito(codigo) {
+    console.log( codigo);
+    this.ruta.navigate(['detalle-producto/',codigo])
+  }
 
-    this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
-    console.log(this.carritoAnterior);
-
-    if (this.cantidad > 0) {
-
-      this.producto['cantidad'] = this.cantidad;
-      this.addProductoCarrito.push(this.producto);
-      console.log(this.addProductoCarrito);
-
-      if (this.addProductoCarrito) {
-        if (this.carritoAnterior) {
-        } else {
-          this.carritoAnterior = [];
-        }
-
-        this.carritoAnterior.push(this.producto);
-        localStorage.setItem('athletic', JSON.stringify(this.carritoAnterior));
-      }
-
-
-      this.addProductoCarrito = [];
-      this.cantidad = 1;
-
-      this.alertaS.showToasterFull(`Articulo Agregado Corectamente`);
-
-
-    } else {
-      this.alertaS.showToasterError(`Debes agregar Minimo un producto ,  ${this.cantidad}`);
+  listarFavoritos() {
+    const data = {
+      codigo: this.usuario.id_cliente
     }
-    this.variablesGl.changeMessage();
+    this.http.httpPost('listar-mis-favoritos', data).toPromise()
+      .then(respuesta => {
+          this.misFavoritos = respuesta[`data`];
+          this.dominio = respuesta[`dominio`];
+          console.log( this.misFavoritos);
+         console.log( this.dominio);
+      }).catch(error => {
+
+    });
+
+  }
+
+  eliminarDeFavoritos(favorito) {
+    const data = {
+      codigo: favorito
+    }
+    this.http.httpPost('eliminar-mis-favoritos', data).toPromise()
+      .then(respuesta => {
+        this.alertaS.showToasterWarning(respuesta[`data`]);
+        this.listarFavoritos();
+      }).catch(error => {
+
+    });
+  }
+
+
+  llamarDatoLocalesUsuario() {
+
+    this.loginGlobal.currentMessage.subscribe(response => {
+      this.usuario = response;
+    });
+
   }
 
 }

@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 import {Pedidos} from "../interfaz/pedidos";
 import {SendHttpData} from "../tools/SendHttpData";
+import {Router} from "@angular/router";
 
 
 
@@ -50,6 +51,7 @@ export class DetalleCompraComponent implements OnInit {
     private alertaS: AlertasService,
     private _formBuilder: FormBuilder,
     private setHtpp: SendHttpData,
+    private ruta: Router,
     private loginGlobal: LoginGlobalService) {
 
     this.llamarDatoLocalesUsuario();
@@ -74,8 +76,9 @@ export class DetalleCompraComponent implements OnInit {
       pedido_codigo: null,
       pedido_referencia: null,
       pedido_valor: null,
-      pedido_estado: null,
+      pedido_estado: 'APROBADO',
       cliente_codigo: null,
+
     }
 
 
@@ -338,6 +341,13 @@ export class DetalleCompraComponent implements OnInit {
   }
 
   realizarPedidos() {
+
+
+    if (!this.direccionEstado) {
+      this.alertaS.showToasterError('Marcar la dirección de envio del pedido');
+          return;
+    }
+
     this.referencia = new Date().getFullYear() + '' + new Date().getMonth() + '' + new Date().getDate() + '' + new  Date().getHours() + '' + new Date().getMinutes() + '' + new Date().getSeconds();
     this.valorPedido =  this.valorTotal;
 
@@ -396,6 +406,27 @@ export class DetalleCompraComponent implements OnInit {
     console.log(value);
     this.direccionEstado = value;
   }
+
+  removerDirecciones(direccion) {
+    const  data = {
+      direccion: direccion
+    };
+    this.setHtpp.httpPost('eliminar-direcciones', data).toPromise().then(respuesta => {
+      console.log(respuesta[`data`]);
+      this.alertaS.showToasterFull(respuesta[`data`]);
+      this.cargarTodasLasDirecciones();
+    }).catch(error => {
+
+    });
+  }
+
+  editarDireccion(codigo) {
+      console.log(codigo);
+    this.ruta.navigate(['modificar-direcciones/', codigo])
+
+  }
+
+
 
 }
 

@@ -8,92 +8,24 @@
 				<h2 class="account-title">Mis direcciones <a class="agregar-mas-direcciones" [routerLink]="['/direcciones']">Agregar más direcciones</a></h2>
 				<div class="row ">
 
-                    <div class="col-md-4 mb-20">
-                        <div class="direccion-box">
-                            <h3 class="nombre">Nombre prueba</h3>
-                            <p class="direccion">Carrera 1 # 2 - 33</p>
-                            <p class="barrio">EL Diamante, Cali, Valle del Cauca</p>
-                            <p class="telefono">Teléfono: 3212223344</p>
-                            <p class="direccion-predeterminada">Dirección predeterminada</p>
-                            <div class="botones">
-                                <a class="editar" href="#">Editar</a>
-                                <a class="eliminar" href="#">Eliminar</a>
-                            </div>
+                    <div class="col-md-4 mb-20 tarjetas" *ngFor="let data of cargarDirecciones">
+                      <div class="direccion-box">
+                        <p class="nombre-direccion">{{data['direccion_nombre']}}</p>
+                        <p class="direccion">{{data['departamento']}}</p>
+                        <p class="direccion">{{data['ciudad']}}</p>
+                        <p class="direccion">{{data['direccion_ubicacion']}}</p>
+                        <p class="barrio-direccion">{{data['direccion_barrio']}}</p>
+                        <p class="telefono-direccion">{{data['direccion_celular']}}</p>
+                        <div class="botones">
+                          <a class="editar" (click)="editarDireccion(data['direccion_codigo'])">Editar</a>
+                          <a class="eliminar" (click)="removerDirecciones(data['direccion_codigo'])">Eliminar</a>
                         </div>
-                    </div>
-                
-                    <div class="col-md-4 mb-20">
-                        <div class="direccion-box">
-                            <h3 class="nombre">Nombre prueba</h3>
-                            <p class="direccion">Carrera 1 # 2 - 33</p>
-                            <p class="barrio">EL Diamante, Cali, Valle del Cauca</p>
-                            <p class="telefono">Teléfono: 3212223344</p>
-                            <p class="actualizar-direccion">Actualizar dirección</p>
-                            <div class="botones">
-                                <a class="editar" href="#">Editar</a>
-                                <a class="eliminar" href="#">Eliminar</a>
-                            </div>
-                        </div>
+                      </div>
                     </div>
 
-                    <div class="col-md-4 mb-20">
-                        <div class="direccion-box">
-                            <h3 class="nombre">Nombre prueba</h3>
-                            <p class="direccion">Carrera 1 # 2 - 33</p>
-                            <p class="barrio">EL Diamante, Cali, Valle del Cauca</p>
-                            <p class="telefono">Teléfono: 3212223344</p>
-                            <p class="actualizar-direccion">Actualizar dirección</p>
-                            <div class="botones">
-                                <a class="editar" href="#">Editar</a>
-                                <a class="eliminar" href="#">Eliminar</a>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-md-4 mb-20">
-                        <div class="direccion-box">
-                            <h3 class="nombre">Nombre prueba</h3>
-                            <p class="direccion">Carrera 1 # 2 - 33</p>
-                            <p class="barrio">EL Diamante, Cali, Valle del Cauca</p>
-                            <p class="telefono">Teléfono: 3212223344</p>
-                            <p class="direccion-predeterminada">Dirección predeterminada</p>
-                            <div class="botones">
-                                <a class="editar" href="#">Editar</a>
-                                <a class="eliminar" href="#">Eliminar</a>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div class="col-md-4 mb-20">
-                        <div class="direccion-box">
-                            <h3 class="nombre">Nombre prueba</h3>
-                            <p class="direccion">Carrera 1 # 2 - 33</p>
-                            <p class="barrio">EL Diamante, Cali, Valle del Cauca</p>
-                            <p class="telefono">Teléfono: 3212223344</p>
-                            <p class="actualizar-direccion">Actualizar dirección</p>
-                            <div class="botones">
-                                <a class="editar" href="#">Editar</a>
-                                <a class="eliminar" href="#">Eliminar</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 mb-20">
-                        <div class="direccion-box">
-                            <h3 class="nombre">Nombre prueba</h3>
-                            <p class="direccion">Carrera 1 # 2 - 33</p>
-                            <p class="barrio">EL Diamante, Cali, Valle del Cauca</p>
-                            <p class="telefono">Teléfono: 3212223344</p>
-                            <p class="actualizar-direccion">Actualizar dirección</p>
-                            <div class="botones">
-                                <a class="editar" href="#">Editar</a>
-                                <a class="eliminar" href="#">Eliminar</a>
-                            </div>
-                        </div>
-                    </div>
-
-				</div>
-			</div>
-		</div>
-	</div>    
+        </div>
+      </div>
+    </div>
+    </div>
 </div>

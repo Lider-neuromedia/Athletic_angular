@@ -16,6 +16,7 @@
                   <ng-autocomplete
                     [data]="departamentos"
                     [searchKeyword]="keywordDepartamento"
+                    [(ngModel)]="codigoDepartamento"
                     (selected)='selectEventDepartamento($event)'
                     (inputChanged)='onChangeSearchDepartamento($event)'
                     (inputFocused)='onFocusedDepartamento($event)'
@@ -41,6 +42,7 @@
                   <ng-autocomplete
                     [data]="ciudades"
                     [searchKeyword]="keywordCiudad"
+                    [(ngModel)]="codigoCiudad"
                     (selected)='selectEventCiudad($event)'
                     (inputChanged)='onChangeSearchCiudad($event)'
                     (inputFocused)='onFocusedCiudad($event)'
@@ -105,8 +107,9 @@
 					</div>
 				</div>
 
-				<div class="row row-save-adress">
-					<a class="save-adrres" (click)="crearDirecciones()">Guardar dirección</a>
+				<div class="row row-save-adress" >
+					<a class="save-adrres" (click)="crearDirecciones()" *ngIf="!codigo">Guardar dirección</a>
+          <a class="save-adrres" (click)=" actualizarDirecciones()" *ngIf="codigo">Actualizar dirección</a>
 				</div>
 			</div>
 		</div>

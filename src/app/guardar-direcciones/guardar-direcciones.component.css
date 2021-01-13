@@ -73,3 +73,50 @@
 .guardar-direcciones .actualizar-direccion{
     color: #969696;
 }
+
+
+.clas-contenedor-direccion {
+  margin-bottom: 10px;
+}
+
+.nombre-direccion {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.03px;
+  line-height: 20px;
+  text-align: left;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.direccion {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+.barrio-direccion{
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+.telefono-direccion {
+  color: #353435;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+
+.tarjetas {
+  cursor: pointer;
+}

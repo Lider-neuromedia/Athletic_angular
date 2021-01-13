@@ -3,6 +3,7 @@ import {SendHttpData} from "../tools/SendHttpData";
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 import {Direcciones} from "../interfaz/direcciones";
 import {AlertasService} from "../servicio/alertas/alertas.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-direcciones',
@@ -15,7 +16,9 @@ export class DireccionesComponent implements OnInit {
   departamentos: any;
   ciudades: any;
   capturarDepartamento: any;
-
+  codigoDepartamento: any;
+  codigoCiudad: any;
+  codigo: any;
 
   keywordDepartamento = 'nombre';
   keywordCiudad = 'nombre';
@@ -33,6 +36,7 @@ export class DireccionesComponent implements OnInit {
 
   constructor(
     private setHtpp: SendHttpData,
+    private route_params: ActivatedRoute,
     private loginGlobal: LoginGlobalService,
     private alertaService: AlertasService) {
     this.llamarDatoLocalesUsuario();
@@ -49,8 +53,15 @@ export class DireccionesComponent implements OnInit {
         direccion_ubicacion: null,
         direccion_estado: 0,
         direccion_nombre: null,
+        direccion_visible: 1
       }
+      this.codigo = this.route_params.snapshot.params.id
+      if(this.codigo) {
+        this.editarDirecciones(this.route_params.snapshot.params.id);
+      }
+
   }
+
 
 
   llamarDatoLocalesUsuario() {
@@ -127,6 +138,43 @@ export class DireccionesComponent implements OnInit {
     }).catch(error => {
       console.log(error);
     })
+  }
+
+  editarDirecciones(value) {
+    const data = {
+      direccion: value
+    }
+    this.setHtpp.httpPost('editar-direcciones', data).toPromise().then(respuesta => {
+      console.log(respuesta);
+
+      this.direcciones.direccion_nombre = respuesta['data'][0]['direccion_nombre'];
+      this.direcciones.direccion_codigo = respuesta['data'][0]['direccion_codigo'];
+      this.direcciones.direccion_telefono = respuesta['data'][0]['direccion_telefono'];
+      this.direcciones.direccion_celular = respuesta['data'][0]['direccion_celular'];
+      this.direcciones.direccion_barrio = respuesta['data'][0]['direccion_barrio'];
+      this.direcciones.direccion_ubicacion = respuesta['data'][0]['direccion_ubicacion'];
+      this.direcciones.ciudad_codigo = respuesta['data'][0]['ciudad_codigo'];
+      this.codigoDepartamento = respuesta['data'][0]['departamento'];
+      this.codigoCiudad = respuesta['data'][0]['ciudad'];
+      console.log(this.direcciones);
+    }).catch(error => {
+      console.log(error);
+    });
+
+  }
+  actualizarDirecciones() {
+    this.direcciones.cliente_codigo =   this.usuario.id_cliente;
+    console.log(this.direcciones);
+
+    this.setHtpp.httpPost('actualizar-direcciones', this.direcciones).toPromise().then(respuesta => {
+      if (respuesta[`estado`]) {
+        this.alertaService.showToasterFull(respuesta[`data`]);
+      } else {
+        this.alertaService.showToasterError(respuesta[`data`]);
+      }
+    }).catch(error=> {
+      console.log(error)
+    });
   }
 
 }

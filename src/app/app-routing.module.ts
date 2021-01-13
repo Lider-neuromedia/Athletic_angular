@@ -14,6 +14,7 @@ import { DetalleProductoComponent } from './detalle-producto/detalle-producto.co
 import { LoginComponent } from './login/login.component';
 import {DetalleCompraComponent} from "./detalle-compra/detalle-compra.component";
 import {AuthGuard} from "./guards/auth.guard";
+import {DetallePedidoComponent} from "./detalle-pedido/detalle-pedido.component";
 
 const routes : Routes = [
   {
@@ -59,6 +60,14 @@ const routes : Routes = [
   },
   {
     path: 'login', component: LoginComponent
+  },
+  {
+    path: 'modificar-direcciones/:id', component: DireccionesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'detalle-pedido/:id', component: DetallePedidoComponent,
+    canActivate: [AuthGuard]
   },
 ];
 

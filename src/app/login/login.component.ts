@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       this.http.httpPost('clientes-login', data).subscribe(
         response => {
           if (response.response == 'error') {
-            alert('credenciales invalidas');
+            this.alertaS.showToasterError('credenciales invalidas');
           } else {
             localStorage.setItem('userAthletic', JSON.stringify(response.user));
             localStorage.setItem('token', JSON.stringify(response.token));

@@ -262,8 +262,8 @@
                         </p>
 
                         <div class="row fila-boton-2">
-                          <div class="col-md-5"><a class="detalle">Editar</a></div>
-                          <div class="col-md-5"><a class="detalle">Eliminar</a></div>
+                          <div class="col-md-5"><a class="detalle" (click)="editarDireccion(data['direccion_codigo'])" >Editar</a></div>
+                          <div class="col-md-5"><a class="detalle" (click)="removerDirecciones(data['direccion_codigo'])">Eliminar</a></div>
                         </div>
 
                       </div>

@@ -38,6 +38,7 @@ import {ToastrModule} from 'ngx-toastr';
 import { DetalleCompraComponent } from './detalle-compra/detalle-compra.component';
 import {MatTreeModule} from '@angular/material/tree';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     AgregarCarritoComponent,
     ResenaDetalleComponent,
     GuardarDireccionesComponent,
-    DetalleCompraComponent
+    DetalleCompraComponent,
+    DetallePedidoComponent
   ],
   imports: [
     BrowserModule,
