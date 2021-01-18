@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./resena-detalle.component.css']
 })
 export class ResenaDetalleComponent implements OnInit {
+  productoResenia: any;
+  constructor() {
 
-  constructor() { }
+
+  }
 
   ngOnInit(): void {
+    this.productoResenia = JSON.parse(localStorage.getItem('comentarioAtlhe'));
+    console.log( this.productoResenia )
   }
 
 }

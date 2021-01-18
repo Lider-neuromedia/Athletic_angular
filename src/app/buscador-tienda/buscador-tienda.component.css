@@ -1,0 +1,142 @@
+
+
+
+
+.registro-buscador {
+  cursor: pointer !important;
+}
+.imagen-buscador {
+  width: 60px !important;
+}
+
+.form-row > .col, .form-row > [class*=col-] {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+.form-group {
+  margin-bottom: .1rem !important
+}
+
+.form-row-2 {
+
+  display: flex !important;
+  -ms-flex-wrap: wrap !important;
+  margin-right: 1px !important;
+  margin-left: 1px !important;
+  justify-content: center !important;
+  align-items: center !important;
+  transition: 0.3s !important;
+  padding: 10px !important;
+  background-color: #FFFFFF !important;
+}
+
+.container-buscador-nombre {
+  flex: 1 !important;
+  padding: 0 10px !important;
+}
+
+.color-precio {
+  color: #4caf50 !important;
+  font-weight: bold !important;
+}
+.container-buscador-imagen {
+  width: 50px !important;
+  height: 50px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: cover !important;
+  overflow: hidden !important;
+  border-radius: 5px !important;
+}
+
+span .botton-buscar {
+  background-color: #f50 !important;
+  color: #ffffff !important;
+}
+
+.pintar-informacion {
+  position: absolute !important;
+  /*background-color: #FFFFFF !important;*/
+  background-color: #f9f8f8 !important;
+  z-index: 1000 !important;
+  padding: 5px !important;
+  margin-top: 18px;
+}
+
+
+.descuento-producto{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 31px;
+}
+
+
+
+.detalle-producto {
+  color: #5D5C5D;
+  /*overflow: hidden;
+  text-overflow: ellipsis;*/
+}
+
+
+
+.marca-pro {
+  white-space: initial;
+  margin-bottom: 5px;
+}
+
+.nombre-pro {
+  white-space: initial;
+  margin-bottom: 5px;
+}
+
+.categoria-pro {
+  white-space: initial;
+}
+.pintar-informacion {
+  height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.items-productos-bolsas {
+  align-items: center;
+  border-bottom: #7f6a6a;
+  cursor: pointer;
+
+}
+.items-productos-bolsas:hover {
+  background-color: #f5f4f4;
+  cursor: pointer;
+}
+
+.items-productos-bolsas2 {
+  align-items: center;
+  border-bottom: #7f6a6a;
+  cursor: pointer;
+  text-align: center;
+}
+.items-productos-bolsas2 img {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.items-productos-bolsas2 p {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+.items-productos-bolsas2:hover {
+  /*background-color: #f5f4f4;*/
+  cursor: pointer;
+  text-align: center;
+}
+
+
+#pintar-informacion2 {
+  width: 100%;
+}
+
+
+#pintar-informacion2 .descuento-producto {
+
+
+}

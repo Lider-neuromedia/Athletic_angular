@@ -1,0 +1,65 @@
+<div class="modal-body">
+
+  <div class="row">
+    <div class="col-md-9">
+      <span>
+        Cuéntanos, ¿te gusto el producto?
+      </span>
+
+    </div>
+    <div class="col-md-3">
+      <button class="boton-salir" (click)="onNoClick()">
+         X
+      </button>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row ver-producto-resenia">
+      <div class="col-md-4">
+         <img [src]="infor['datos']['imagen_destacada']">
+      </div>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-12">
+            <span class="nombre-categoria" >{{infor['datos']['last_categoria']}}</span>
+          </div>
+          <div class="col-md-12">
+            <span class="nombre-pro">{{infor['datos']['name_prod']}}</span>
+          </div>
+          <div class="col-md-12">
+            <span class="marca-pro">{{infor['datos']['name_marca']}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="form-group">
+      <label  class="col-form-label">Calificación</label>
+      <div class="calificaciones">
+
+        <mat-icon class="icon-small" (click)="calificacion(1)" [style]="'color:'+color1">grade</mat-icon>
+        <mat-icon class="icon-small" (click)="calificacion(2)" [style]="'color:'+color2">grade</mat-icon>
+        <mat-icon class="icon-small" (click)="calificacion(3)" [style]="'color:'+color3">grade</mat-icon>
+        <mat-icon class="icon-small" (click)="calificacion(4)" [style]="'color:'+color4">grade</mat-icon>
+        <mat-icon class="icon-small" (click)="calificacion(5)" [style]="'color:'+color5">grade</mat-icon>
+        <span [style]="'color:'+colorTexto" >{{texto}}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="recipient-name" class="col-form-label">Título</label>
+      <input type="text" [(ngModel)]="almacenarDatos.titulo" class="form-control" id="recipient-name">
+    </div>
+    <div class="form-group">
+      <label for="message-text" class="col-form-label">Comentarios</label>
+      <textarea [(ngModel)]="almacenarDatos.descripcion" class="form-control" id="message-text"></textarea>
+    </div>
+
+    <div class="form-group">
+
+      <div class="valorar-escribir" >
+        <button type="button" (click)="crearCalificacionUsuario()" class="btn-lg btn-block">Enviar Reseña</button>
+      </div>
+    </div>
+
+</div>

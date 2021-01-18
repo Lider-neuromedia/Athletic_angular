@@ -18,14 +18,62 @@
             <div class="col-md-3 mrg-top-10 detalle-info">
                 <div class="detalle-puntaje-valoracion">
                     <div class="puntaje">
+
+                     <!-- <div class="box-comment" *ngFor="let data of totalComentario?totalComentario:0">
+                        <h3>{{data['comentario_titulo']}}</h3>
+
+                        <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 1">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                        </div>
+
+                        <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 2">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                        </div>
+
+                        <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 3">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                        </div>
+
+                        <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 4">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                        </div>
+
+                        <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 5">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                        </div>
+                        <p class="resena">
+                          {{data['comentario_descripcion']}}
+                        </p>
+                      </div>-->
+
                         <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
                         <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
                         <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                        <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                        <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                        <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                        <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
                     </div>
                     <div class="valoracion">
-                        <p>12 valoraciones</p>
+                        <p>{{ todas ? todas['todas'] : 0 }} valoraciones</p>
                     </div>
                 </div>
                 <div class="content-strech mrg-botn-30">
@@ -232,7 +280,25 @@
             <div class="row">
                 <div class="col-md-3 valoraciones">
                     <h2>Valoraciones</h2>
-                    <p>18 valoraciones</p>
+                    <p>{{ todas ? todas['todas'] : 0 }} valoraciones</p>
+
+                    <div class="puntane-barra">
+                        <div class="puntaje">
+                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                        </div>
+                      <div class="barra">
+                        <div class="box-porcentaje">
+                          <div [style]="'width:'+tamanio5+'%'" class="porcentaje-color-82"></div>
+                        </div>
+                      </div>
+
+                      <!--<small>{{ cinco ? cinco['cinco'] : 0 }} valoraciones</small>-->
+                      <strong class="porcentaje">{{  (tamanio5?tamanio5: 0) | number : '1.1-2' }} %</strong>
+                    </div>
 
                     <div class="puntane-barra">
                         <div class="puntaje">
@@ -240,30 +306,19 @@
                             <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
                             <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
                             <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                        </div>
-                        <div class="barra">
-                            <div class="box-porcentaje">
-                                <div class="porcentaje-color-82"></div>
-                            </div>
-                        </div>
-                        <small>2 valoraciones</small>
-                    </div>
-
-                    <div class="puntane-barra">
-                        <div class="puntaje">
-                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
                             <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
                         </div>
+
+                      <div>
                         <div class="barra">
-                            <div class="box-porcentaje">
-                                <div class="porcentaje-color porcentaje-color-90"></div>
-                            </div>
+                          <div class="box-porcentaje">
+                            <div [style]="'width:'+tamanio4+'%'" class="porcentaje-color porcentaje-color-90"></div>
+                          </div>
                         </div>
-                        <small>2 valoraciones</small>
+                      </div>
+
+                     <!-- <small>{{ cuatro ? cuatro['cuatro'] : 0 }} valoraciones</small>-->
+                      <strong class="porcentaje">{{ (tamanio4?tamanio4: 0 ) | number : '1.1-2' }} %</strong>
                     </div>
 
                     <div class="puntane-barra">
@@ -274,12 +329,15 @@
                             <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
                             <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
                         </div>
-                        <div class="barra">
-                            <div class="box-porcentaje">
-                                <div class="porcentaje-color porcentaje-color-30"></div>
-                            </div>
-                        </div>
-                        <small>2 valoraciones</small>
+                       <div>
+                         <div class="barra">
+                           <div class="box-porcentaje">
+                             <div [style]="'width:'+tamanio3+'%'" class="porcentaje-color porcentaje-color-30"></div>
+                           </div>
+                         </div>
+                       </div>
+                      <!--<small>{{ tres ? tres['tres'] : 0 }} valoraciones</small>-->
+                      <strong class="porcentaje">{{ (tamanio3?tamanio3: 0 ) | number : '1.1-2' }} %</strong>
                     </div>
 
                     <div class="puntane-barra">
@@ -290,12 +348,15 @@
                             <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
                             <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
                         </div>
+                      <div>
                         <div class="barra">
-                            <div class="box-porcentaje">
-                                <div class="porcentaje-color porcentaje-color-10"></div>
-                            </div>
+                          <div class="box-porcentaje">
+                            <div [style]="'width:'+tamanio2+'%'" class="porcentaje-color porcentaje-color-10"></div>
+                          </div>
                         </div>
-                        <small>0 valoraciones</small>
+                      </div>
+                    <!--  <small>{{ dos ? dos['dos'] : 0 }} valoraciones</small>-->
+                      <strong class="porcentaje">{{ (tamanio2?tamanio2: 0) | number : '1.1-2' }} %</strong>
                     </div>
 
                     <div class="puntane-barra">
@@ -306,56 +367,73 @@
                             <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
                             <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
                         </div>
-                        <div class="barra">
+                        <div>
+                          <div class="barra">
                             <div class="box-porcentaje">
-                                <div class="porcentaje-color porcentaje-color-2"></div>
+                              <div [style]="'width:'+tamanio1+'%'" class="porcentaje-color porcentaje-color-2"></div>
                             </div>
+                          </div>
                         </div>
-                        <small>1 valoraciones</small>
+                     <!-- <small>{{ uno ? uno['uno'] : 0 }} valoraciones</small>-->
+                      <strong class="porcentaje">{{ (tamanio1?tamanio1: 0 ) | number : '1.1-2' }} %</strong>
                     </div>
 
-                    <div class="valorar-escribir">
-                        <p>Valorar y escribir un comentario</p>
-                    </div>
+                  <div class="valorar-escribir" (click)="usuario?openDialog():autenticarse()">
+                    <p>Valorar y escribir un comentario</p>
+                  </div>
 
                 </div>
-                <div class="col-md-8 comentarios">
-                    <h2>Comentarios</h2>
-                    <p class="small-comment">12 comentarios</p>
+              <div class="col-md-8 comentarios">
+                <h2>Comentarios</h2>
+                <p class="small-comment">{{cantidadComentario ? cantidadComentario[0]['cantidad'] : 0}} comentarios</p>
 
-                    <div class="box-comment">
-                        <h3>Excelentes zapatillas</h3>
-                        <div class="estrellas-comentarios">
-                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                            <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                        </div>
-                        <p class="resena">Las sillas son bastante lindas y el paquete cuenta con las herramientas
-                            necesarias para armarlas. El único detalle que no es completamente favorable es el acabado
-                            de las bases de madera, no cuenta con un barniz por lo que la madera se ensucia fácilmente.
-                        </p>
-                        <p class="persons">Primera prueba</p>
-                    </div>
+                <div class="box-comment" *ngFor="let data of totalComentario?totalComentario:0">
+                  <h3>{{data['comentario_titulo']}}</h3>
 
-                    <div class="box-comment">
-                        <h3>Entrega sin demora</h3>
-                        <div class="estrellas-comentarios">
-                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                            <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                        </div>
-                        <p class="resena">Las sillas son bastante lindas y el paquete cuenta con las herramientas
-                            necesarias para armarlas. El único detalle que no es completamente favorable es el acabado
-                            de las bases de madera, no cuenta con un barniz por lo que la madera se ensucia fácilmente.
-                        </p>
-                        <p class="persons">Primera prueba</p>
-                    </div>
+                  <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 1">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                  </div>
 
-                    <a class="ver-mas-comentarios" href="">Ver más</a>
+                  <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 2">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                  </div>
+
+                  <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 3">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                  </div>
+
+                  <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 4">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                  </div>
+
+                  <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 5">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                  </div>
+                  <p class="resena">
+                    {{data['comentario_descripcion']}}
+                  </p>
+                </div>
+
                 </div>
             </div>
         </section>

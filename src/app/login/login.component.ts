@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { SendHttpData } from '../tools/SendHttpData';
-import * as bcrypt from 'bcryptjs';
+//import * as bcrypt from 'bcryptjs';
 import { GlobalVarService } from '../common/global-var.service';
 import { Router } from '@angular/router';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -75,15 +75,15 @@ export class LoginComponent implements OnInit {
 
 
     if (this.myForm.errors == null) {
-      var salt = bcrypt.genSaltSync(10);
-      var passwd = bcrypt.hashSync(this.myForm.value.password, salt);
+      //var salt = bcrypt.genSaltSync(10);
+     // var passwd = bcrypt.hashSync(this.myForm.value.password, salt);
       var fecha_nacimiento = this.myForm.value.fecha_nacimiento.toISOString().slice(0, 10);
 
       const data = {
           estado: 1,
           deleted: 0,
           id_tienda: 1,
-          password: passwd,
+          password: this.myForm.value.password,
           apellidos: this.myForm.value.last_name,
           nombres: this.myForm.value.first_name,
           email: this.myForm.value.email_new,

@@ -4,12 +4,12 @@
   border-radius: 9px;
   box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
   flex-wrap: wrap;
-  margin: 0em 0em !important;
+  margin: 0.1em 0.1em !important;
 }
 
 .item-detail .nombre-producto {
   color: #353435;
-  font-family: SourceSansPro;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
   letter-spacing: 0.03px;
   line-height: 20px;
@@ -18,7 +18,7 @@
 
 .item-detail .marca-producto {
   color: #969696;
-  font-family: SourceSansPro;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
   letter-spacing: 0.03px;
   line-height: 20px;
@@ -26,7 +26,7 @@
 }
 .item-detail .referencia-producto {
   color: #969696;
-  font-family: SourceSansPro;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 11px;
   letter-spacing: 0.02px;
   line-height: 13.83px;
@@ -34,7 +34,7 @@
 }
 .valor-nuevo-producto {
   color: #FF596A;
-  font-family: SourceSansPro;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 20px;
   letter-spacing: 0.04px;
   line-height: 25px;
@@ -43,7 +43,7 @@
 
 .valor-anterior-producto {
   color: #969696;
-  font-family: SourceSansPro;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 15px;
   letter-spacing: 0.03px;
   line-height: 18.85px;
@@ -165,7 +165,6 @@
   border-radius: 25px;
   width: 100%;
   height: 51px;
-  color: #FFFFFF;
   color: #FFFFFF;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
@@ -434,14 +433,6 @@ input[type="number"]::-webkit-inner-spin-button {
   line-height: 20px;
 }
 
-.precio-acciones input {
-
-}
-
-.contenedor-campos-finales {
-
-}
-
 .alignear-trash {
   text-align: center;
 }
@@ -468,8 +459,8 @@ span {
 .fila-boton-3 {
   margin-top: 10px;
 }
-.fila-boton-3
-.detalle{
+
+.fila-boton-3 .detalle{
   border-radius: 5px;
   color: var(--active-link);
   padding: 1px 3px;
@@ -490,8 +481,7 @@ span {
   cursor: pointer;
 }
 
-.fila-boton-3
-.detalle:hover{
+.fila-boton-3 .detalle:hover{
   border-radius: 5px;
   color: var(--active-link);
   border: 1px solid var(--active-link);
@@ -512,8 +502,7 @@ span {
 }
 
 .items-productos-bolsa {
-  padding: 0em 0em;
-  padding-bottom: 0em !important;
+  padding: 0.1em 0.1em;
 }
 
 .titulo-tarjeta-contactenos-columna {

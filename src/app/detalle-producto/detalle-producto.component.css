@@ -29,7 +29,6 @@
     letter-spacing: 0.03px;
     line-height: 20px;
     text-align: left;
-    font-weight: 500;
     margin: 0;
     font-weight: 900;
 }
@@ -113,7 +112,7 @@
     background: none;
     -webkit-appearance: none;
   }
-  
+
   .cantidad{
     width: 100%;
     border-radius: 25px;
@@ -125,7 +124,7 @@
     font-weight: 800;
     padding-left: 3px;
   }
-  
+
   .input-cant::-webkit-inner-spin-button,
   .input-cant::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -137,7 +136,7 @@
     top: 10px;
     width: 27px;
     height: 20px;
-    padding: 0px;
+    padding: 0;
     font-size: 12px;
     border: solid 0.5px #ccc;
     border-radius: 5px;
@@ -149,21 +148,21 @@
   }
   .spinner-button {
     position: absolute;
-    margin: 0px;
+    margin: 0;
     transform: scale(0.3);
     font-size: 50px;
   }
-  
+
   #inc-button {
     right: 0;
     top: -8px;
   }
-  
+
   #dec-button {
     left: 95px;
     top: -8px;
   }
-  
+
   .lbl-cant{
     position: absolute;
     left: 10px;
@@ -171,14 +170,14 @@
     font-size: 12px;
     font-weight: 700;
   }
-  
+
   .btn-full-view{
     width: 100%;
     height: 45px;
     border-radius: 25px;
     border: 1px solid #ff596a;
   }
-  
+
   .dbl-fila-filter .col-md-6:nth-child(even){
     padding-left: 5px !important;
   }
@@ -186,7 +185,7 @@
   .icon-small{
     transform: scale(0.7);
   }
-  
+
   .content-images{
     background: #ffffff;
     margin-top: 10px;
@@ -205,10 +204,6 @@
     padding-bottom: 15px;
   }
 
-  /* .divider{
-    border-bottom: 1px solid #353435;
-  } */
-
   .title p{
     color: #353435;
     font-size: 24px;
@@ -219,9 +214,8 @@
   }
 
 /* Relacionados */
-  
+
 .content-img{
-  /* height: 250px; */
   margin: 5px;
   position: relative;
   cursor: pointer;
@@ -233,8 +227,8 @@
 }
 
 .img-nuevo{
-  width: auto !important;   
-  height: auto !important;   
+  width: auto !important;
+  height: auto !important;
   position: absolute;
   top: 0;
   left: -12px;
@@ -270,7 +264,7 @@
   background: white;
   border-radius: 13px;
   padding: 1em;
-  margin: 1.5em 0em;
+  margin: 1.5em 0;
 }
 
 .valoraciones{
@@ -310,7 +304,7 @@
 }
 
 .box-comment{
-  margin: 1em 0em;
+  margin: 1em 0;
 }
 
 .puntane-barra{
@@ -338,7 +332,7 @@
   top: 0;
   bottom: 0;
 }
-
+/*
 .porcentaje-color-82{
   width: 82%;
 }
@@ -358,13 +352,13 @@
 .porcentaje-color-2{
   width: 2%;
 }
-
+*/
 .estrellas-comentarios{
   margin-bottom: .6em;
 }
 
 .resena{
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .persons{
@@ -379,7 +373,7 @@
   border: 1px solid #FF596A;
   color: #FF596A;
   text-align: center;
-  padding: 1px 0px;
+  padding: 1px 0;
   margin-top: 4em;
   transition: all .6s ease;
 }
@@ -424,7 +418,7 @@
 }
 
 .destacados-row1 .owl-stage-outer{
-  padding: 1em 0em;
+  padding: 1em 0;
 }
 
 .producto-relacionados-detalle .content-img{
@@ -440,7 +434,7 @@
 }
 
 .producto-relacionados-detalle .owl-stage-outer{
-  padding: 1em 0em;
+  padding: 1em 0;
 }
 
 .producto-relacionados-detalle .subtitle-prod{
@@ -470,7 +464,7 @@
   color: #ff596a;
   margin-left: 10px;
   font-weight: 700;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .grid-cuadros,
@@ -480,7 +474,7 @@
 }
 
 .detalles-producto-box .detalle-info{
-  margin-bottom: 0px !important;
+  margin-bottom: 0 !important;
 }
 
 .detalle-puntaje-valoracion{
@@ -508,7 +502,7 @@
   width: 208px;
   height: 50px;
   margin-bottom: 10px;
-  padding: 0em 1em;
+  padding: 0 1em;
   -moz-appearance: none;
 	-webkit-appearance: none;
   appearance: none;
@@ -518,14 +512,13 @@
 ul.mas-detalle{
   display: flex;
   margin-top: 3em;
-  padding-left: 0px;
+  padding-left: 0;
   list-style: none;
-  padding-left: 0px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 ul.mas-detalle li {
-  margin: 0em 1em;
+  margin: 0 1em;
 }
 
 ul.mas-detalle li::before{
@@ -555,21 +548,13 @@ ul.mas-detalle a.active-mas::after{
   background: #969696;
   height: 1px;
   width: 100%;
-  margin: 0px !important;
+  margin: 0 !important;
 }
 
 .ngx-gallery-100{
   height: 100% !important;
 }
 
-/* 
-.my-own-form-control::before{
-  content: '.';
-  display: block;
-  position: absolute;
-  background: #FF596A;
-  height: 8px;
-  width: 8px;
-  right: 5px;
-  top: 5px;
-} */
+.porcentaje {
+  width: 50px;
+}

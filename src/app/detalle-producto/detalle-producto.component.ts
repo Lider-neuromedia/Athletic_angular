@@ -6,6 +6,8 @@ import * as $ from 'jquery';
 import {AlertasService} from "../servicio/alertas/alertas.service";
 import {VariablesService} from "../servicio/variable-global/variables.service";
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
+import {MatDialog} from '@angular/material/dialog';
+import {ComentarioProductoComponent} from "../comentario-producto/comentario-producto.component";
 
 @Component({
   selector: 'app-detalle-producto',
@@ -30,19 +32,47 @@ export class DetalleProductoComponent implements OnInit {
   addProductoCarrito = [];
   usuario: any;
   condicionBotonFavorito: any;
+  cantidadComentario: any;
+  totalComentario: any;
+  uno: number;
+  dos: number;
+  tres: number;
+  cuatro: number;
+  cinco: number;
+  todas: number;
+
+  tamanio1: number;
+  tamanio2: number;
+  tamanio3: number;
+  tamanio4: number;
+  tamanio5: number;
+
+
+  color1: any;
+  color2: any;
+  color3: any;
+  color4: any;
+  color5: any;
+
+  texto: any;
+  colorTexto: any;
+  unicaValoracion: any;
 
 
   constructor(
+    public dialog: MatDialog,
     private route_params: ActivatedRoute,
     public router: Router,
     private http: SendHttpData,
     private alertaS: AlertasService,
+    private activatedRoute: ActivatedRoute,
     private ruta: Router,
     private loginGlobal: LoginGlobalService,
     private variablesGl: VariablesService) {
 
     this.llamarDatoLocalesUsuario();
   }
+
 
   goDescripcion(){
     $('html, body').animate({
@@ -95,8 +125,17 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe(value => {
+     console.log(value);
+      this.getProducts(value.id);
+      this.calculoProductoResenia(value.id);
+      this.cargarLosComentarios(value.id);
+    });
+
     this.getProducts(this.route_params.snapshot.params.id);
-    this.validarFavoritos(this.route_params.snapshot.params.id)
+    this.validarFavoritos(this.route_params.snapshot.params.id);
+    this.cargarLosComentarios(this.route_params.snapshot.params.id);
+    this.calculoProductoResenia(this.route_params.snapshot.params.id);
     this.galleryImages = [
       {
         small: "/N-1008/assets/img/productos/producto-interna.png",
@@ -143,7 +182,11 @@ export class DetalleProductoComponent implements OnInit {
       }
     ];
 
-
+    this.color1 = '#b3aeae';
+    this.color2 = '#b3aeae';
+    this.color3 = '#b3aeae';
+    this.color4 = '#b3aeae';
+    this.color5 = '#b3aeae';
   }
 
   async getDataProdRelac(id){
@@ -325,5 +368,78 @@ export class DetalleProductoComponent implements OnInit {
     this.ruta.navigate(['login']);
   }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(ComentarioProductoComponent, {
+      width: '700px',
+      data: {datos: this.producto}
+    });
+
+    dialogRef.afterClosed().subscribe(art => {
+      if (art != undefined)
+        console.log(art);
+    });
+
+  }
+
+
+  cargarLosComentarios(producto) {
+
+      const data = {
+        producto: producto
+      };
+      this.http.httpPost('pintar-comentarios-por-productos', data).toPromise().then(respuesta => {
+       this.cantidadComentario = respuesta['cantidad'];
+        this.totalComentario  = respuesta['comentarios'];
+      }).catch(error =>{
+
+      })
+  }
+
+  calculoProductoResenia(producto) {
+
+    const data = {
+      producto: producto
+    };
+    this.http.httpPost('pintar-calculo-por-productos', data).toPromise().then(respuesta => {
+      console.log(respuesta);
+      this.uno    = respuesta['uno'];
+      this.dos    = respuesta['dos'];
+      this.tres   = respuesta['tres'];
+      this.cuatro = respuesta['cuatro'];
+      this.cinco  = respuesta['cinco'];
+      this.todas  = respuesta['todas'];
+
+
+      this.tamanio1 = respuesta['todas']['todas']?respuesta['uno']['uno'] / respuesta['todas']['todas'] * 100 : 0;
+      this.tamanio2 = respuesta['todas']['todas']?respuesta['dos']['dos'] / respuesta['todas']['todas'] * 100 : 0 ;
+      this.tamanio3 = respuesta['todas']['todas']?respuesta['tres']['tres'] / respuesta['todas']['todas'] * 100 : 0;
+      this.tamanio4 = respuesta['todas']['todas']?respuesta['cuatro']['cuatro'] / respuesta['todas']['todas'] * 100 : 0;
+      this.tamanio5 = respuesta['todas']['todas']?respuesta['cinco']['cinco'] / respuesta['todas']['todas'] * 100 : 0 ;
+
+      console.log(this.tamanio1, this.tamanio2, this.tamanio3, this.tamanio4, this.tamanio5)
+
+      if (this.tamanio1 > 99 ) {
+        this.tamanio1 = 100;
+      }
+      if (this.tamanio2 > 99 ) {
+        this.tamanio2 = 100;
+      }
+      if (this.tamanio3 > 99 ) {
+        this.tamanio3 = 100;
+      }
+      if (this.tamanio4 > 99 ) {
+        this.tamanio4 = 100;
+      }
+      if (this.tamanio5 > 99 ) {
+        this.tamanio5 = 100;
+      }
+    }).catch(error =>{
+
+    })
+  }
+
+  autenticarse() {
+    this.ruta.navigate(['login']);
+  }
 
 }

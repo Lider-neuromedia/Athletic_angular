@@ -1,27 +1,111 @@
-<div class="content-account">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-3">
-				<app-aside-account></app-aside-account>
-			</div>
-			<div class="col-md-9">
-				<h2 class="account-title">Mis reseñas <a class="escribir-resena" [routerLink]="['/resena-detalle']">Escribir reseña</a></h2>
-				<div class="row row-resena">
-					<div class="col-md-12">
-						<a [routerLink]="['/resena-detalle']"><img src="assets/img/icons/lapiz.svg" alt=""></a>
-						<h2 class="title-resena">No has realizado una reseña</h2>
-						<p>Cuando hagas una reseña podrás verla aquí, valorar productos y editar reseñas.</p>
-					</div>
-				</div>
-				<div class="box-button-shop">
-					<a href="">
-						<span class="circle-img-shop">
-							<img src="assets/img/icons/inactive.png" alt="">
-						</span>
-						Ir a la tienda
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="content-account resena-detalle">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <app-aside-account></app-aside-account>
+      </div>
+      <div class="col-md-9">
+        <h2 class="account-title">Mis reseñas</h2>
+        <div *ngFor="let data of productoResenia">
+          <div class="row box-detalle-resena">
+            <div class="col-md-10 info-valoracion">
+              <p class="fecha">Fecha de reseña: 19/04/2020</p>
+              <div class="separador"></div>
+              <p class="valoracion">Valoración</p>
+
+              <div class="content-start" *ngIf="data['comentario_calificacion'] === 1">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+              </div>
+              <div class="content-start" *ngIf="data['comentario_calificacion'] === 2">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+              </div>
+              <div class="content-start" *ngIf="data['comentario_calificacion'] === 3">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+              </div>
+              <div class="content-start" *ngIf="data['comentario_calificacion'] === 4">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+              </div>
+              <div class="content-start" *ngIf="data['comentario_calificacion'] === 5">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+              </div>
+
+             <!-- <div class="content-start">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+              </div>-->
+
+            </div>
+
+            <div class="col-md-2 info-valoracion">
+              <div class="alignear-estado ">
+                <span *ngIf="data['comentario_estado'] === 0">Inactivo</span>
+                <span *ngIf="data['comentario_estado'] === 1">Activo</span>
+              </div>
+            </div>
+            <div class="contenedor-info">
+              <div class="row align-contenedor-info">
+                <div class="col-md-5">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <img [src]="url+'/'+data['img']" alt="">
+                    </div>
+                    <div class="col-md-8">
+                      <h3 class="title-nombre">{{data['name_prod']}}</h3>
+                      <h4 class="marca">{{data['name_marca']}}</h4>
+                      <p class="ref">Ref: {{data['referencia']}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-7">
+                  <p class="titulo-resena">Título de la reseña</p>
+                  <p class="text-down-resena">{{data['comentario_titulo']}}</p>
+                  <p class="mensaje">Mensaje</p>
+                  <p class="text-resena">
+                    {{data['comentario_descripcion']}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row ir-producto" (click)="verProducto(data['id_producto'])">
+            <a class="btn-ir-producto">Ir a producto</a>
+          </div>
+        </div>
+
+       <!-- <div *ngIf="productoResenia" class="paginador">
+          <div *ngIf="pagina > 1" class="pagination__prev"><a (click)="anterior()">Anterior</a></div>
+
+            <div class="pginationn-next">
+              <p>Página {{pagina }} de {{ totalPaginas.length}}</p>
+              <p>{{productoResenia.length}} Resultados</p>
+            </div>
+          <div *ngIf="pagina < totalPaginas.length" class="pagination__next"><a (click)="siguiente()">Siguiente</a></div>
+        </div>-->
+      </div>
+    </div>
+  </div>
 </div>

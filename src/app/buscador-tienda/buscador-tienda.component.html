@@ -1,0 +1,83 @@
+
+  <div class="contenedor-buscador-informacion">
+
+    <input class="buscador"
+           (focusin)="mostrarBuscador = true"
+           type="text"
+           [(ngModel)]="dataBuscador"
+           autocomplete="false"
+           autocomplete="off"
+           autocomplete="disabled"
+           (keyup)="showSearchResults($event)"
+           (change)="buscadorProductos($event)"
+           placeholder="Busca por producto, marca o categoría">
+    <div class="lupa"  (click)="showSearchResults($event)">
+      <img src="assets/img/blanco.svg" alt="">
+    </div>
+
+
+    <div class="pintar-informacion " id="pintar-informacion" *ngIf="recorerBusqueda && mostrarBuscador && recorerBusqueda.length > 0">
+      <div class="row items-productos-bolsas" *ngFor="let data of recorerBusqueda; let indices = index " (click)="listadoProductoTotal(data['id_producto'], data['name_cat'], data['id_categoria'])">
+        <div class="imagen-producto col-md-4">
+          <img [src]="url+'/'+data['img']">
+          <img src="assets/img/productos/si.png" alt="" class="descuento-producto">
+        </div>
+
+        <div class="detalle-producto col-md-4">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row content-product">
+                <div class="col-md-12">
+                  <p class="marca-pro">{{data['name_marca']}}</p>
+                </div>
+                <div class="col-md-12">
+                  <p class="nombre-pro">{{data['name_prod']}}</p>
+                </div>
+                <div class="col-md-12">
+                  <p class="categoria-pro">{{data['name_cat']}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="precio-acciones col-md-4">
+          <p class="precio-descuento">{{data['precio_general'] | currency}}</p>
+          <p class="precio-normal">{{data['precio_impuesto'] | currency}}</p>
+        </div>
+
+        <hr class="hr-separador-productos">
+      </div>
+
+    </div>
+
+    <div class="pintar-informacion" id="pintar-informacion2" *ngIf="mostrarBusquedaVacias">
+      <div class="row items-productos-bolsas2">
+        <div class="imagen-producto col-md-2">
+
+
+        </div>
+
+        <div class="detalle-producto col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <img src="assets/img/buscador/1.jpg" alt="" class="">
+            </div>
+            <div class="col-md-12">
+              <p class="busqueda-vacia">no hay productos con los datos ingresados</p>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="precio-acciones col-md-4">
+
+        </div>
+
+        <hr class="hr-separador-productos">
+      </div>
+
+    </div>
+
+  </div>

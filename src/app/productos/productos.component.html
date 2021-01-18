@@ -47,7 +47,10 @@
                     <p class="title-filter">Marca</p>
                     <div class="row dbl-fila-filter">
                         <div class="col-md-6" *ngFor="let marca of marcas;" style="padding-right: 3px;">
-                            <mat-checkbox (change)="changeMarca($event, marca.id_marca)" class="check-filter">{{marca.name_marca}}</mat-checkbox>
+
+                            <mat-checkbox
+                              (change)="changeMarca($event, marca.id_marca?marca.id_marca:checkMarcas)"
+                                          class="check-filter">{{marca.name_marca}}</mat-checkbox>
                         </div>
                         <!-- <div class="col-md-6 d-block p-0">
                             <mat-checkbox class="check-filter">New Balance</mat-checkbox>
@@ -183,7 +186,7 @@
                             <app-item-producto [id]="item.id_producto" [nuevo]="item.nuevo" [image]="item.imagen_portada.img" [subtitle]="item.name_marca"
                             [title]="item.name_prod" [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto" [showButtons]="true" [price_ant]="item.precio_general" [descuento]="item.valor_descuento">
                             </app-item-producto>
-                        </div>                          
+                        </div>
                     </ng-container>
                     <ng-container *ngIf="view_active == 3">
                         <div class="col-md-12 mrg-botn-20 grid-fila" *ngFor="let item of productos | paginate:page_size:page_number">

@@ -1,0 +1,58 @@
+button{
+  border-radius: 8px;
+  display: block;
+  cursor: pointer;
+  border: 1px solid #FF596A;
+  color: #FF596A;
+  text-align: center;
+  padding: 1px 0;
+  margin-top: 2em;
+  transition: all .6s ease;
+  background: #FFFFFF;
+}
+
+button:hover {
+  background: #FF596A;
+  color: white;
+}
+
+mat-icon {
+  font-size: 33px;
+  margin-right: 11px;
+  cursor: pointer;
+}
+span {
+  cursor: pointer;
+}
+
+.boton-salir {
+  width: 26px;
+  margin-top: 0em !important;
+}
+
+.ver-producto-resenia {
+  align-items: center;
+}
+
+
+.nombre-pro{
+  color: #353435;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.marca-pro{
+  color: #969696;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 700;
+}
+
+.nombre-categoria{
+  color: #969696;
+  font-size: 16px;
+  line-height: 16px;
+font-weight: 700;
+}

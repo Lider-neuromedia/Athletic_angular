@@ -39,6 +39,8 @@ import { DetalleCompraComponent } from './detalle-compra/detalle-compra.componen
 import {MatTreeModule} from '@angular/material/tree';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.component';
+import { BuscadorTiendaComponent } from './buscador-tienda/buscador-tienda.component';
+import { ComentarioProductoComponent } from './comentario-producto/comentario-producto.component';
 
 
 @NgModule({
@@ -64,7 +66,9 @@ import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.componen
     ResenaDetalleComponent,
     GuardarDireccionesComponent,
     DetalleCompraComponent,
-    DetallePedidoComponent
+    DetallePedidoComponent,
+    BuscadorTiendaComponent,
+    ComentarioProductoComponent
   ],
   imports: [
     BrowserModule,

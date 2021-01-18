@@ -3,6 +3,7 @@ import { Options } from 'ng5-slider';
 import { SendHttpData } from '../tools/SendHttpData';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {VistaPreviaComponent} from '../vista-previa/vista-previa.component';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-productos',
@@ -31,12 +32,19 @@ export class ProductosComponent implements OnInit {
   filtros_check = [];
   view_active = 2;
   cantidad = 1;
-  
   id_prd_vstaprev : any = 21;
+  checkMarcas: any;
 
-  constructor(private http: SendHttpData, public dialog: MatDialog) {}
+  constructor(private http: SendHttpData, public dialog: MatDialog,  private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
+
+    this.activatedRoute.params.subscribe(value => {
+      this.checkMarcas = value.marca;
+     console.log(value , this.checkMarcas );
+      this.getProducts();
+    });
+
     this.getProducts();
     this.getCategories();
     this.getMarcas();
@@ -56,15 +64,16 @@ export class ProductosComponent implements OnInit {
   }
 
   // Obtener tarjetas de filtros -> Ejemplo: talla, color, etc...
-  getFiltersValue() { 
+  getFiltersValue() {
     // inactivo por el momento.
    }
 
-  // Productos  
+  // Productos
   getProducts(filter = null) {
     this.http.httpGet('productos').subscribe(
       response => {
         this.productos = response;
+        console.log(this.productos );
         this.calcularPaginas();
       },
       error => { console.error("error." + error); }
@@ -83,6 +92,8 @@ export class ProductosComponent implements OnInit {
   }
 
   changeMarca($event, id) {
+
+    console.log($event, id);
     if ($event.checked) {
       if (this.filter_marcas == null) {
         this.filter_marcas = [id];
@@ -166,14 +177,14 @@ export class ProductosComponent implements OnInit {
       response => {
         this.productos = response;
         this.calcularPaginas();
-      }, 
+      },
       error => {
 
       }
     );
   }
 
-  //Cantidad vista previa 
+  //Cantidad vista previa
   changeCantidad(sum){
     if (sum) {
       this.cantidad = this.cantidad + 1;
@@ -184,7 +195,7 @@ export class ProductosComponent implements OnInit {
     }
   }
 
-  /* 
+  /*
     PAGINACION
   */
   // Cambia la cantidad de productos a mostrar.
@@ -206,7 +217,7 @@ export class ProductosComponent implements OnInit {
     // this.pages = cant_pages;
   }
 
-  // Cambia de pagina. 
+  // Cambia de pagina.
   changePage(page, left = null, right = null) {
     if (page != null) {
       this.page_number = page;

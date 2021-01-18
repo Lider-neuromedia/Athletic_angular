@@ -205,7 +205,7 @@
   color: #ff596a;
   display: none;
   position: absolute;
-  top: 2;
+  top: 0;
   right: 0;
 }
 
@@ -276,3 +276,6 @@
   color: #FFFFFF;
   font-weight: 700;
 }
+
+/*Buscador*/
+

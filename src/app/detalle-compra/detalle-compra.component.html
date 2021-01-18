@@ -18,12 +18,10 @@
                     <div class="row-box-pedidos" *ngIf="carritoAnterior">
 
                       <div class="row items-productos-bolsa" *ngFor="let data of carritoAnterior; let indices = index ">
-
                         <div class="imagen-producto col-md-3">
                           <img [src]="data['imagen_destacada']">
                           <img src="assets/img/productos/si.png" alt="" class="descuento-producto">
                         </div>
-
                         <div class="detalle-producto col-md-3">
                           <div class="row">
                             <div class="col-md-12">
@@ -643,3 +641,4 @@
     </div>
   </div>
 </div>
+

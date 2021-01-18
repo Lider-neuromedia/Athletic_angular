@@ -69,6 +69,10 @@ const routes : Routes = [
     path: 'detalle-pedido/:id', component: DetallePedidoComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'productos/:marca/:nombre/:categoria',
+    component: ProductosComponent
+  },
 ];
 
 @NgModule({
