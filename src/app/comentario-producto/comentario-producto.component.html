@@ -1,22 +1,21 @@
 <div class="modal-body">
 
   <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-12">
       <span>
         Cuéntanos, ¿te gusto el producto?
       </span>
 
-    </div>
-    <div class="col-md-3">
       <button class="boton-salir" (click)="onNoClick()">
-         X
+        X
       </button>
     </div>
+
   </div>
   <div class="form-group">
     <div class="row ver-producto-resenia">
       <div class="col-md-4">
-         <img [src]="infor['datos']['imagen_destacada']">
+         <img [src]="infor && infor['datos']['imagen_destacada']? infor['datos']['imagen_destacada'] :''">
       </div>
       <div class="col-md-8">
         <div class="row">

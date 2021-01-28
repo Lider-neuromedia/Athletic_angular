@@ -1,572 +1,672 @@
-<div class="content-account">
-  <div class="container">
+<div class="color-gray" xmlns="">
+  <div class="container detalles-producto-box">
 
-    <div class="row titulo-mineatura">
-      <p class="account-title">Bolsa de compra</p>
+    <div class="row">
+      <nav aria-label="breadcrumb" class="mrg-left-30">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+          <li class="breadcrumb-item"><a routerLink="/productos">Producto</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Detalle de la compra</li>
+        </ol>
+      </nav>
     </div>
+
     <div class="row">
 
       <div class="col-md-8 content-detail">
+        <div class="row-box-pedidos row-box-pedidos-superior" *ngIf="!usuario">
+          <div class="items items-disenio">
+            <div class="progress">
+              <div class="" role="progressbar" [style]="'width: 20%; background-color:'+barra1" aria-valuenow="20"
+                   aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="" role="progressbar" [style]="'width: 20%; background-color:'+barra2" aria-valuenow="20"
+                   aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="" role="progressbar" [style]="'width: 20%; background-color:'+barra3" aria-valuenow="20"
+                   aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="" role="progressbar" [style]="'width: 20%; background-color:'+barra4" aria-valuenow="20"
+                   aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="" role="progressbar" [style]="'width: 20%; background-color:'+barra5" aria-valuenow="20"
+                   aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+            <div class="numero-1" [style]="'background-color:'+circulo1 " (click)="pasarSguiente(1)"></div>
+            <div class="numero-2" [style]="'background-color:'+circulo2 " (click)="pasarSguiente(2)"></div>
+            <div class="numero-3" [style]="'background-color:'+circulo3 " (click)="pasarSguiente(3)"></div>
+            <div class="numero-4" [style]="'background-color:'+circulo4 " (click)="pasarSguiente(4)"></div>
+
+            <div class="titulo-numero-1">
+              <span [style]="'color:'+texto1" (click)="pasarSguiente(1)">1 Resumen</span>
+            </div>
+            <div class="titulo-numero-2">
+              <span [style]="'color:'+texto2" (click)="pasarSguiente(2)">2 Registro</span>
+            </div>
+            <div class="titulo-numero-3" (click)="pasarSguiente(3)">
+              <span [style]="'color:'+texto4">3 Dirección de entrega</span>
+            </div>
+            <div class="titulo-numero-4">
+              <span [style]="'color:'+texto4" (click)="pasarSguiente(4)">4 Pago</span>
+            </div>
+
+          </div>
+        </div>
+        <div class="row-box-pedidos row-box-pedidos-superior" *ngIf="usuario">
+          <div class="items items-disenio">
+            <div class="progress">
+              <div class="" role="progressbar" [style]="'width: 25%; background-color:'+barra11" aria-valuenow="20"
+                   aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="" role="progressbar" [style]="'width: 25%; background-color:'+barra33" aria-valuenow="20"
+                   aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="" role="progressbar" [style]="'width: 25%; background-color:'+barra44" aria-valuenow="20"
+                   aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="" role="progressbar" [style]="'width: 25%; background-color:'+barra55" aria-valuenow="20"
+                   aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+            <div class="numero-11" [style]="'background-color:'+circulo11 " (click)="pasarSguiente2(1)"></div>
+            <div class="numero-33" [style]="'background-color:'+circulo33 " (click)="pasarSguiente2(3)"></div>
+            <div class="numero-44" [style]="'background-color:'+circulo44 " (click)="pasarSguiente2(4)"></div>
+
+            <div class="titulo-numero-11">
+              <span [style]="'color:'+texto1" (click)="pasarSguiente2(1)">1 Resumen</span>
+            </div>
+            <div class="titulo-numero-33" (click)="pasarSguiente2(3)">
+              <span [style]="'color:'+texto3">2 Dirección de entrega</span>
+            </div>
+            <div class="titulo-numero-44">
+              <span [style]="'color:'+texto4" (click)="pasarSguiente2(4)">3 Pago</span>
+            </div>
+
+          </div>
+        </div>
+
         <div class="row-box-pedidos row-box-pedidos-superior ">
           <div class="items">
             <div class="flex-items-prod">
-              <mat-horizontal-stepper (click)="pasarSiguienteItems($event)">
 
-                <mat-step>
-                  <ng-template matStepLabel>Resumen</ng-template>
-                  <div class="contenedor-registro-local">
-                    <div class="row-box-pedidos" *ngIf="carritoAnterior">
+              <div class="contenedor-registro-local" *ngIf="habilita1">
+                <div class="row-box-pedidos" *ngIf="carritoAnterior">
 
-                      <div class="row items-productos-bolsa" *ngFor="let data of carritoAnterior; let indices = index ">
-                        <div class="imagen-producto col-md-3">
-                          <img [src]="data['imagen_destacada']">
-                          <img src="assets/img/productos/si.png" alt="" class="descuento-producto">
+                  <div class="row items-productos-bolsa" *ngFor="let data of carritoAnterior; let indices = index ">
+                    <div class="imagen-producto col-md-3">
+                      <img
+                        [src]="data['imagen_destacada'] ? data['imagen_destacada'] : data['imagen_portada']['img']">
+                    </div>
+                    <div class="detalle-producto col-md-3">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p class="nombre-pro">{{data['name_prod']}}</p>
+                          <p class="marca-pro">{{data['name_marca']}}</p>
+                          <p class="referencia-pro">{{data['referencia']}}</p>
                         </div>
-                        <div class="detalle-producto col-md-3">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <p class="nombre-pro">{{data['name_prod']}}</p>
-                              <p class="marca-pro">{{data['name_marca']}}</p>
-                              <p class="referencia-pro">{{data['referencia']}}</p>
-                            </div>
-                            <div class="col-md-12">
-                              <div class="row separador-separanes ">
-                                <div class="col-md-6">
-                                  <div class="row fila-boton-3">
-                                    <a class="detalle-eliminar" (click)=" quitarItemCarrito(data, indices)">Eliminar</a>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="row fila-boton-3">
-                                    <a class="detalle">Editar</a>
-                                  </div>
-                                </div>
+                        <div class="col-md-12">
+                          <div class="row separador-separanes ">
+                            <div class="col-md-6">
+                              <div class="row fila-boton-3">
+                                <a class="detalle-eliminar" (click)=" quitarItemCarrito(data, indices)">Eliminar</a>
                               </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="precio-acciones col-md-3">
-                          <p class="precio-descuento">{{data['precio'] * data['cantidad'] | currency}}</p>
-                          <p class="precio-normal">{{data['precio_general'] * data['cantidad'] | currency}}</p>
-                        </div>
-
-                        <div class="precio-acciones col-md-3 contenedor-campos-finales">
-                          <div class="row">
-
-                            <div class="col-md-12 alignear-cantidad">
-                              <span>Cantidad</span>
-                            </div>
-
-                            <div class="col-md-3">
-                              <span class="material-icons"
-                                    (click)="aumentarDisminuir(data, indices, 0)">remove_circle</span>
                             </div>
                             <div class="col-md-6">
-                              <input class="form-control cantidad" type="number" [value]="data['cantidad']" name="">
-                            </div>
-                            <div class="col-md-3">
-                              <span class="material-icons"
-                                    (click)="aumentarDisminuir(data, indices, 1)">add_circle</span>
-                              <!--<div class="row">
-                                <div class="col-md-6">
-                                  <span class="material-icons" (click)="aumentarDisminuir(data, indices, 1)">add_circle</span>
-                                </div>
-                                <div class="col-md-6 alignear-trash">
-                                  <span class="trash material-icons" (click)=" quitarItemCarrito(data, indices)">delete_forever</span>
-                                </div>
-                              </div>-->
-                            </div>
-                          </div>
-                        </div>
-
-                        <hr class="hr-separador-productos">
-                      </div>
-                    </div>
-                  </div>
-                  <button id="formulario-1" style="display: none" mat-button matStepperNext>Next</button>
-                </mat-step>
-
-                <mat-step>
-                  <ng-template matStepLabel>Registro</ng-template>
-                  <div class="row titulo-secciones">
-                    <div class="col-md-8">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <span class="span-tuitulo">Registro</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6">
-                      <p>
-                        <mat-form-field appearance="outline">
-                          <mat-label>Nombre completo</mat-label>
-                          <input matInput placeholder="Nombre completo">
-                        </mat-form-field>
-                      </p>
-                    </div>
-                    <div class="col-6">
-                      <p>
-                        <mat-form-field appearance="outline">
-                          <mat-label>Correo electrónico</mat-label>
-                          <input matInput placeholder="Correo electrónico">
-                        </mat-form-field>
-                      </p>
-                    </div>
-                  </div>
-
-
-                  <div class="row">
-                    <div class="col-6">
-                      <p>
-                        <mat-form-field appearance="outline">
-                          <mat-label>Contraseña</mat-label>
-                          <input matInput placeholder="Contraseña" [type]="hide ? 'password' : 'text'">
-                          <button style="color: #666;" mat-icon-button matSuffix (click)="hide = !hide"
-                                  [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                          </button>
-                        </mat-form-field>
-                      </p>
-                    </div>
-                    <div class="col-6">
-                      <p>
-                        <mat-form-field appearance="outline">
-                          <mat-label>Confirmación de contraseña</mat-label>
-                          <input matInput placeholder="Confirmación de contraseña" [type]="hide ? 'password' : 'text'">
-                          <button style="color: #666;" mat-icon-button matSuffix (click)="hide = !hide"
-                                  [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                          </button>
-                        </mat-form-field>
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-6">
-                      <mat-label class="campo-formulario">Fecha de nacimiento</mat-label>
-                      <div class="row">
-                        <div class="col-4">
-                          <mat-form-field appearance="fill">
-                            <mat-label>Año</mat-label>
-                            <mat-select>
-                              <mat-option *ngFor="let ani of anio" [value]="ani">{{ani}}</mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-4">
-                          <mat-form-field appearance="fill">
-                            <mat-label>Mes</mat-label>
-                            <mat-select>
-                              <mat-option *ngFor="let me of mes" [value]="me['id']">{{me['prefijo']}}</mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-4">
-                          <mat-form-field appearance="fill">
-                            <mat-label>Dia</mat-label>
-                            <mat-select>
-                              <mat-option *ngFor="let dia of dias" [value]="dia">{{dia}}</mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <mat-radio-group aria-label="Select an option">
-                        <mat-label class="campo-formulario">Genero</mat-label>
-                        <div class="row">
-                          <div class="col-6">
-                            <mat-radio-button value="1">Masculino</mat-radio-button>
-                          </div>
-                          <div class="col-6">
-                            <mat-radio-button value="2">Femenino</mat-radio-button>
-                          </div>
-                        </div>
-                      </mat-radio-group>
-                    </div>
-                  </div>
-                  <div class="row clase-row-formulario">
-                    <div class="col-12">
-
-                      <mat-checkbox color="primary">
-                        Me gustaría recibir comunicaciones promocionales (Recibirás un e-mail de confirmación)
-                      </mat-checkbox>
-
-                    </div>
-                    <div class="col-12">
-
-                      <mat-checkbox color="primary">
-                        Declaro que he leído y acepto la nueva
-                        <span>Política de Privacidad y los Términos y Condiciones </span> de Linio.
-                      </mat-checkbox>
-
-                    </div>
-                  </div>
-
-                  <div class="row clase-boto-seleccionar">
-                    <div class="col-md-12">
-                      <div class="justify-content-center align-items-center">
-                        <button mat-raised-button color="primary" class="agregar-direccion-boton">Registrarme</button>
-                      </div>
-                    </div>
-                  </div>
-                  <button id="formulario-2" style="display: none" mat-button matStepperNext>Next</button>
-                </mat-step>
-
-                <mat-step>
-                  <ng-template matStepLabel>Dirección de entrega</ng-template>
-
-                  <div class="row titulo-secciones">
-                    <div class="col-md-8">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <span class="span-tuitulo">Mis direcciones</span>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="justify-content-center align-items-center">
-                            <button mat-raised-button color="primary" routerLink="/direcciones" class="agregar-direccion-boton">Agregar más
-                              direcciones
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-
-                    <div class="col-4 clas-contenedor-direccion"
-                         *ngFor="let data of cargarDirecciones ; let indices = index">
-                      <div class="campo-direcciones">
-                        <p class="nombre-direccion">{{data['direccion_nombre']}}</p>
-                        <p class="direccion">{{data['departamento']}}</p>
-                        <p class="direccion">{{data['ciudad']}}</p>
-                        <p class="direccion">{{data['direccion_ubicacion']}}</p>
-                        <p class="barrio-direccion">{{data['direccion_barrio']}}</p>
-                        <p class="telefono-direccion">{{data['direccion_celular']}}</p>
-                        <p class="predeterminada-direccion">
-
-                          <mat-radio-group aria-label="Select an option" (change)="direccionChequeada(data['direccion_codigo'])" [(ngModel)]="campoRadio">
-                            <div class="row">
-                              <div class="col-12">
-                                <mat-radio-button  [value]="indices">Dirección predeterminada</mat-radio-button>
+                              <div class="row fila-boton-3">
+                                <a class="detalle" routerLink="/detalle-producto/{{data['id_producto'] }}"
+                                   target="_blank">Editar</a>
                               </div>
                             </div>
-                          </mat-radio-group>
-                        </p>
-
-                        <div class="row fila-boton-2">
-                          <div class="col-md-5"><a class="detalle" (click)="editarDireccion(data['direccion_codigo'])" >Editar</a></div>
-                          <div class="col-md-5"><a class="detalle" (click)="removerDirecciones(data['direccion_codigo'])">Eliminar</a></div>
+                          </div>
                         </div>
-
                       </div>
                     </div>
-                  </div>
-                  <button id="formulario-3" style="display: none" mat-button matStepperNext>Next</button>
-                </mat-step>
+                    <div class="precio-acciones col-md-3">
+                      <span class="precio-descuento">{{data['precio'] * data['cantidad'] | currency}}</span>
+                      <p><span class="precio-normal">{{data['precio_general'] * data['cantidad'] | currency}}</span>
+                        <span class="porcentaje-descuento" *ngIf="data['valor_descuento']">
+                         {{ " - " + data['valor_descuento'] + "%" }} </span>
+                      </p>
+                      <div class="talla">
+                        Tall : {{data['talla']}}
+                      </div>
+                    </div>
 
-                <mat-step>
-                  <ng-template matStepLabel>Pago</ng-template>
-
-                  <div class="row titulo-secciones">
-                    <div class="col-md-8">
+                    <div class="precio-acciones col-md-3 contenedor-campos-finales">
                       <div class="row">
+
+                        <div class="col-md-12 alignear-cantidad">
+                          <span>Cantidad</span>
+                        </div>
+
+                        <div class="col-md-3 col-md-3-iconos">
+                              <span class="material-icons"
+                                    (click)="aumentarDisminuir(data, indices, 0)">remove_circle</span>
+                        </div>
                         <div class="col-md-6">
-                          <span class="span-tuitulo">Realizar pago</span>
+                          <input class="form-control cantidad" type="number" [value]="data['cantidad']" name="">
+                        </div>
+                        <div class="col-md-3 col-md-3-iconos">
+                              <span class="material-icons"
+                                    (click)="aumentarDisminuir(data, indices, 1)">add_circle</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr class="hr-separador-productos">
+                  </div>
+                </div>
+              </div>
+
+              <div class="contenedor-registro" *ngIf="habilita2">
+
+                <div class="row titulo-secciones">
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <span class="span-tuitulo">Registro</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>Nombre completo</mat-label>
+                      <input matInput placeholder="Nombre completo" type="text" [(ngModel)]="datosRegistro.nombres">
+                    </mat-form-field>
+
+                  </div>
+                  <div class="col-6">
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>Correo electrónico</mat-label>
+                      <input matInput placeholder="Correo electrónico" type="email" [(ngModel)]="datosRegistro.correo">
+                    </mat-form-field>
+
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-6">
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>Contraseña</mat-label>
+                      <input matInput placeholder="Contraseña" [type]="hide ? 'password' : 'text'"
+                             [(ngModel)]="datosRegistro.clave">
+                      <button style="color: #666;" mat-icon-button matSuffix (click)="hide = !hide"
+                              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+
+                  </div>
+                  <div class="col-6">
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>Confirmación de contraseña</mat-label>
+                      <input matInput placeholder="Confirmación de contraseña" [type]="hide ? 'password' : 'text'"
+                             [(ngModel)]="datosRegistro.confirmarClave">
+                      <button style="color: #666;" mat-icon-button matSuffix (click)="hide = !hide"
+                              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <mat-label class="campo-formulario">Fecha de nacimiento</mat-label>
+                    <div class="row">
+                      <div class="col-4">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Año</mat-label>
+                          <mat-select [(ngModel)]="datosRegistro.myAnio">
+                            <mat-option *ngFor="let ani of anio" [value]="ani">{{ani}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-4">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Mes</mat-label>
+                          <mat-select [(ngModel)]="datosRegistro.myMes">
+                            <mat-option *ngFor="let me of mes" [value]="me['prefijo']">{{me['prefijo']}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-4">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Dia</mat-label>
+                          <mat-select [(ngModel)]="datosRegistro.myDia">
+                            <mat-option *ngFor="let dia of dias" [value]="dia">{{dia}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <mat-radio-group aria-label="Select an option" [(ngModel)]="datosRegistro.genero">
+                      <mat-label class="campo-formulario">Genero</mat-label>
+                      <div class="row">
+                        <div class="col-6">
+                          <mat-radio-button value="1">Masculino</mat-radio-button>
+                        </div>
+                        <div class="col-6">
+                          <mat-radio-button value="2">Femenino</mat-radio-button>
+                        </div>
+                      </div>
+                    </mat-radio-group>
+                  </div>
+                </div>
+                <div class="row clase-row-formulario">
+                  <div class="col-12">
+
+                    <mat-checkbox color="primary" [(ngModel)]="datosRegistro.gustaria">
+                      Me gustaría recibir comunicaciones promocionales (Recibirás un e-mail de confirmación)
+                    </mat-checkbox>
+
+                  </div>
+                  <div class="col-12">
+
+                    <mat-checkbox color="primary" [(ngModel)]="datosRegistro.declaro">
+                      Declaro que he leído y acepto la nueva
+                      <span>Política de Privacidad y los Términos y Condiciones </span> de Linio.
+                    </mat-checkbox>
+
+                  </div>
+                </div>
+
+                <div class="row clase-boto-seleccionar">
+                  <div class="col-md-12">
+                    <div class="justify-content-center align-items-center">
+                      <button (click)="sendRegister()" mat-raised-button color="primary"
+                              class="agregar-direccion-boton">Registrarme
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="contenedor-registro-direcciones" *ngIf="habilita3">
+                <div class="row titulo-secciones">
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <span class="span-tuitulo">Mis direcciones</span>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="justify-content-center align-items-center">
+                          <button mat-raised-button color="primary" routerLink="/direcciones"
+                                  class="agregar-direccion-boton">Agregar más
+                            direcciones
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
+                <!--<div class="row ">
 
-                  <div class="row otros-pagos">
-                    <div class="col-md-12">
-                      <mat-nav-list class="opciones-menu-lateral">
+                  <div class="col-md-4 mb-20 tarjetas" *ngFor="let data of cargarDirecciones">
+                    <div class="direccion-box">
+                      <p class="nombre-direccion">{{data['direccion_nombre']}}</p>
+                      <p class="direccion">{{data['departamento']}}</p>
+                      <p class="direccion">{{data['ciudad']}}</p>
+                      <p class="direccion">{{data['direccion_ubicacion']}}</p>
+                      <p class="barrio-direccion">{{data['direccion_barrio']}}</p>
+                      <p class="telefono-direccion">{{data['direccion_celular']}}</p>
+                      <div class="botones">
+                        <a class="editar" (click)="editarDireccion(data['direccion_codigo'])">Editar</a>
+                        <a class="eliminar" (click)="removerDirecciones(data['direccion_codigo'])">Eliminar</a>
+                      </div>
+                    </div>
+                  </div>
 
-                        <a>
-                          <ul class="nav flex-column flex-nowrap overflow-hidden">
-                            <li class="nav-item clase-titulo-menu">
 
-                              <a class="nav-link collapsed text-truncate link-rutas" href="#submenu3"
-                                 data-toggle="collapse" data-target="#submenu3">
-                                <img src="./assets/img/home/pagos_electronicos.png" class="pago-electronico">
-                                <span class="d-sm-inline color-titulo-menu"> Tarjeta de crédito</span>
-                              </a>
+                </div>-->
+                <div class="row">
+                  <div class="col-md-4 mb-20 tarjetas ng-star-inserted  clas-contenedor-direccion"
+                       *ngFor="let data of cargarDirecciones ; let indices = index">
+                    <div class="campo-direcciones direccion-box">
+                      <p class="nombre-direccion">{{data['direccion_nombre']}}</p>
+                      <p class="direccion">{{data['departamento']}}</p>
+                      <p class="direccion">{{data['ciudad']}}</p>
+                      <p class="direccion">{{data['direccion_ubicacion']}}</p>
+                      <p class="barrio-direccion">{{data['direccion_barrio']}}</p>
+                      <p class="telefono-direccion">{{data['direccion_celular']}}</p>
+                      <p class="predeterminada-direccion">
 
-                              <div class="collapse" id="submenu3" aria-expanded="false">
-                                <ul class="flex-column pl-2 nav  otro-colo">
+                        <mat-radio-group aria-label="Select an option"
+                                         (change)="direccionChequeada(data['direccion_codigo'], data)"
+                                         (click)="direccionChequeada(data['direccion_codigo'], data)">
+                          <div class="row">
+                            <div class="col-12">
+                              <mat-radio-button
+                                [value]="
+                                data['direccion_estado'] === 1?
+                                true :
+                                false"
+                                [checked]="campoRadio?
+                                campoRadio:
+                                data['direccion_estado'] === 1?
+                                true :
+                                false"
+                              >Dirección predeterminada
+                              </mat-radio-button>
+                            </div>
+                          </div>
+                        </mat-radio-group>
+                      </p>
 
-                                  <li class="nav-item">
-                                    <a>
-                                      <div class="row">
-                                        <hr class="separador">
-                                        <div class="col-md-12 titulo-tarjeta-contactenos-columna">
+                      <div class="row fila-boton-2">
+                        <div class="col-md-5"><a class="detalle" (click)="editarDireccion(data['direccion_codigo'])">Editar</a>
+                        </div>
+                        <div class="col-md-5"><a class="detalle" (click)="removerDirecciones(data['direccion_codigo'])">Eliminar</a>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="contenedor-registro-direcciones" style="height: 60vh" *ngIf="habilita4">
+                <div class="row titulo-secciones">
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <span class="span-tuitulo">Realizar pago</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row otros-pagos">
+                  <div class="col-md-12">
+                    <mat-nav-list class="opciones-menu-lateral">
+
+                      <a>
+                        <ul class="nav flex-column flex-nowrap overflow-hidden">
+                          <li class="nav-item clase-titulo-menu">
+
+                            <a class="nav-link collapsed text-truncate link-rutas" href="#submenu3"
+                               data-toggle="collapse" data-target="#submenu3">
+                              <img src="./assets/img/iconos/titulos/credito-copyPNG.png" class="pago-electronico">
+                              <span class="d-sm-inline color-titulo-menu"> Tarjeta de crédito</span>
+                            </a>
+
+                            <div class="collapse" id="submenu3" aria-expanded="false">
+                              <ul class="flex-column pl-2 nav  otro-colo">
+
+                                <li class="nav-item">
+                                  <a>
+                                    <div class="row">
+                                      <hr class="separador">
+                                      <div class="col-md-12 titulo-tarjeta-contactenos-columna">
                                          <span class="titulo-tarjeta-contactenos">
                                          Contamos con muchas opciones de pago.
                                         </span>
-                                        </div>
-                                        <div class="col-md-12">
-                                           <!-- Imagenes -->
-                                        </div>
                                       </div>
-                                      <div class="row">
-                                        <div class="col-6">
-                                          <p>
-                                            <mat-form-field appearance="outline">
-                                              <mat-label>Nombre del titular</mat-label>
-                                              <input matInput placeholder="Nombre del titular">
-                                            </mat-form-field>
-                                          </p>
-                                        </div>
-                                        <div class="col-6">
-                                          <p>
-                                            <mat-form-field appearance="outline">
-                                              <mat-label>Número de la tarjeta</mat-label>
-                                              <input matInput placeholder="Número de la tarjeta">
-                                            </mat-form-field>
-                                          </p>
-                                        </div>
+                                      <div class="row metos-pagos metos-pagos-tarjeta">
+                                        <img src="assets/img/iconos/credito/mastercardPNG.png">
+                                        <img src="assets/img/iconos/credito/visaPNG.png">
+                                        <img src="assets/img/iconos/credito/americanPNG.png">
+                                        <img src="assets/img/iconos/credito/dinersPNG.png">
+                                        <img src="assets/img/iconos/credito/fallabellaPNG.png">
+                                        <img src="assets/img/iconos/credito/linioPNG.png">
                                       </div>
-                                      <div class="row">
-                                        <div class="col-md-3">
-                                          <mat-form-field appearance="fill">
-                                            <mat-label>Mes de expiración</mat-label>
-                                            <mat-select>
-                                              <mat-option *ngFor="let me of mes"
-                                                          [value]="me['id']">{{me['prefijo']}}</mat-option>
-                                            </mat-select>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-6">
+                                        <p>
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Nombre del titular</mat-label>
+                                            <input matInput placeholder="Nombre del titular">
                                           </mat-form-field>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                          <mat-form-field appearance="fill">
-                                            <mat-label>Año de expiración</mat-label>
-                                            <mat-select>
-                                              <mat-option *ngFor="let ani of aniotarjeta"
-                                                          [value]="ani">{{ani}}</mat-option>
-                                            </mat-select>
+                                        </p>
+                                      </div>
+                                      <div class="col-6">
+                                        <p>
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Número de la tarjeta</mat-label>
+                                            <input matInput placeholder="Número de la tarjeta">
                                           </mat-form-field>
-                                        </div>
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-3">
+                                        <mat-form-field appearance="fill">
+                                          <mat-label>Mes de expiración</mat-label>
+                                          <mat-select>
+                                            <mat-option *ngFor="let me of mes"
+                                                        [value]="me['id']">{{me['prefijo']}}</mat-option>
+                                          </mat-select>
+                                        </mat-form-field>
+                                      </div>
 
-                                        <div class="col-6">
-                                          <p>
-                                            <mat-form-field appearance="outline">
-                                              <mat-label>CVV</mat-label>
-                                              <input matInput placeholder="CVV">
-                                            </mat-form-field>
-                                          </p>
+                                      <div class="col-md-3">
+                                        <mat-form-field appearance="fill">
+                                          <mat-label>Año de expiración</mat-label>
+                                          <mat-select>
+                                            <mat-option *ngFor="let ani of aniotarjeta"
+                                                        [value]="ani">{{ani}}</mat-option>
+                                          </mat-select>
+                                        </mat-form-field>
+                                      </div>
+
+                                      <div class="col-6">
+                                        <p>
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>CVV</mat-label>
+                                            <input matInput placeholder="CVV">
+                                          </mat-form-field>
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-6">
+                                        <p>
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Nombre del titular</mat-label>
+                                            <input matInput placeholder="Nombre del titular">
+                                          </mat-form-field>
+                                        </p>
+                                      </div>
+                                      <div class="col-6">
+                                        <p>
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Nombre del titular</mat-label>
+                                            <input matInput placeholder="Nombre del titular">
+                                          </mat-form-field>
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <div class="row clase-boto-seleccionar">
+                                      <div class="col-md-12">
+                                        <div class="justify-content-center align-items-center">
+                                          <button mat-raised-button color="primary" class="agregar-direccion-boton">
+                                            Seleccionar
+                                          </button>
                                         </div>
                                       </div>
-                                      <div class="row">
-                                        <div class="col-6">
-                                          <p>
-                                            <mat-form-field appearance="outline">
-                                              <mat-label>Nombre del titular</mat-label>
-                                              <input matInput placeholder="Nombre del titular">
-                                            </mat-form-field>
-                                          </p>
-                                        </div>
-                                        <div class="col-6">
-                                          <p>
-                                            <mat-form-field appearance="outline">
-                                              <mat-label>Nombre del titular</mat-label>
-                                              <input matInput placeholder="Nombre del titular">
-                                            </mat-form-field>
-                                          </p>
-                                        </div>
-                                      </div>
-                                      <div class="row clase-boto-seleccionar">
-                                        <div class="col-md-12">
-                                          <div class="justify-content-center align-items-center">
-                                            <button mat-raised-button color="primary" class="agregar-direccion-boton">
-                                              Seleccionar
-                                            </button>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </li>
+                                    </div>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </li>
 
-                          </ul>
-                        </a>
-                      </mat-nav-list>
+                        </ul>
+                      </a>
+                    </mat-nav-list>
 
-                    </div>
                   </div>
+                </div>
 
-                  <div class="row otros-pagos">
-                    <div class="col-md-12">
-                      <mat-nav-list class="opciones-menu-lateral">
+                <div class="row otros-pagos">
+                  <div class="col-md-12">
+                    <mat-nav-list class="opciones-menu-lateral">
 
-                        <a>
-                          <ul class="nav flex-column flex-nowrap overflow-hidden">
+                      <a>
+                        <ul class="nav flex-column flex-nowrap overflow-hidden">
+                          <hr class="hr-separador-productos">
+                          <li class="nav-item clase-titulo-menu">
+                            <a class="nav-link collapsed text-truncate link-rutas" href="#submenu1"
+                               data-toggle="collapse" data-target="#submenu1">
+                              <img src="./assets/img/iconos/titulos/efectivo-copyPNG.png" class="pago-electronico">
+                              <span class="d-sm-inline color-titulo-menu">Pago con efectivo a contra entrega</span></a>
+                            <div class="collapse" id="submenu1" aria-expanded="false">
+                              <ul class="flex-column pl-2 nav  otro-colo">
+                                <li class="nav-item">
+                                  <a>
+
+                                    <div class="row">
+                                      <div class="col-md-3"></div>
+                                      <div class="col-md-6 div-pago-en-efectivo">
+                                        <p class="pago-en-efectivo">
+                                          Paga con efectivo
+                                        </p>
+                                      </div>
+                                      <div class="col-md-3"></div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-3"></div>
+                                      <div class="col-md-6 div-contre-entrega">
+                                        <p class="contre-entrega">
+                                          Puedes pagar tu pedido a contraentrega en la dirección de entrega elegida
+                                        </p>
+                                      </div>
+                                      <div class="col-md-3"></div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-3"></div>
+                                      <div class="col-md-6">
+                                        <div class="justify-content-center align-items-center centrar-boton">
+                                          <button mat-raised-button color="primary" class="agregar-direccion-boton">
+                                            Seleccionar
+                                          </button>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3"></div>
+                                    </div>
+
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </li>
+                        </ul>
+                      </a>
+                    </mat-nav-list>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-nav-list class="opciones-menu-lateral">
+
+                      <a>
+                        <ul class="nav flex-column flex-nowrap overflow-hidden">
+                          <li class="nav-item clase-titulo-menu">
                             <hr class="hr-separador-productos">
-                            <li class="nav-item clase-titulo-menu">
-                              <a class="nav-link collapsed text-truncate link-rutas" href="#submenu1"
-                                 data-toggle="collapse" data-target="#submenu1">
-                                <span class="d-sm-inline color-titulo-menu">Pago con efectivo a contra entrega</span></a>
-                              <div class="collapse" id="submenu1" aria-expanded="false">
-                                <ul class="flex-column pl-2 nav  otro-colo">
-                                  <li class="nav-item">
-                                    <a>
+                            <a class="nav-link collapsed text-truncate link-rutas" href="#submenu2"
+                               data-toggle="collapse" data-target="#submenu2">
+                              <img src="./assets/img/iconos/titulos/debito-copyPNG.png" class="pago-electronico">
+                              <span class="d-sm-inline color-titulo-menu">Pago con débito</span></a>
+                            <div class="collapse" id="submenu2" aria-expanded="false">
+                              <ul class="flex-column pl-2 nav  otro-colo">
+                                <li class="nav-item">
+                                  <ul class="flex-column pl-2 nav  otro-colo">
+                                    <li class="nav-item">
+                                      <a>
+                                        <div class="row">
 
-                                      <div class="row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-6 div-pago-en-efectivo">
-                                          <p class="pago-en-efectivo">
-                                            Paga con efectivo
-                                          </p>
-                                        </div>
-                                        <div class="col-md-3"></div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-6 div-contre-entrega">
-                                          <p class="contre-entrega">
-                                            Puedes pagar tu pedido a contraentrega en la dirección de entrega elegida
-                                          </p>
-                                        </div>
-                                        <div class="col-md-3"></div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-6">
-                                          <div class="justify-content-center align-items-center centrar-boton">
-                                            <button mat-raised-button color="primary" class="agregar-direccion-boton">
-                                              Seleccionar
-                                            </button>
-                                          </div>
-                                        </div>
-                                        <div class="col-md-3"></div>
-                                      </div>
-
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </li>
-                          </ul>
-                        </a>
-                      </mat-nav-list>
-                    </div>
-                    <div class="col-md-12">
-                      <mat-nav-list class="opciones-menu-lateral">
-
-                        <a>
-                          <ul class="nav flex-column flex-nowrap overflow-hidden">
-                            <li class="nav-item clase-titulo-menu">
-                              <hr class="hr-separador-productos">
-                              <a class="nav-link collapsed text-truncate link-rutas" href="#submenu2"
-                                 data-toggle="collapse" data-target="#submenu2">
-                                <span class="d-sm-inline color-titulo-menu">Pago con débito</span></a>
-                              <div class="collapse" id="submenu2" aria-expanded="false">
-                                <ul class="flex-column pl-2 nav  otro-colo">
-                                  <li class="nav-item">
-                                    <ul class="flex-column pl-2 nav  otro-colo">
-                                      <li class="nav-item">
-                                        <a>
-                                          <div class="row">
-
-                                            <div class="col-md-12  titulo-tarjeta-contactenos-columna">
+                                          <div class="col-md-12  titulo-tarjeta-contactenos-columna">
                                             <span class="titulo-tarjeta-contactenos">
                                          Contamos con muchas opciones de pago.
                                         </span>
-                                            </div>
-
-                                            <div class="col-6">
-                                              <p>
-                                                <mat-form-field appearance="fill">
-                                                  <mat-label>Banco</mat-label>
-                                                  <mat-select>
-                                                    <mat-option *ngFor="let ban of bancos"
-                                                                [value]="ban['id']">{{ban['name']}}</mat-option>
-                                                  </mat-select>
-                                                </mat-form-field>
-                                              </p>
-                                            </div>
-                                            <div class="col-6">
-                                              <p>
-                                                <mat-form-field appearance="outline">
-                                                  <mat-label>Nombre del titular</mat-label>
-                                                  <input matInput placeholder="Nombre del titular">
-                                                </mat-form-field>
-                                              </p>
-                                            </div>
                                           </div>
-                                          <div class="row">
-                                            <div class="col-md-6">
+
+                                          <div class="col-6">
+                                            <p>
                                               <mat-form-field appearance="fill">
-                                                <mat-label>Tipo de persona</mat-label>
+                                                <mat-label>Banco</mat-label>
                                                 <mat-select>
-                                                  <mat-option value="1">Natural</mat-option>
-                                                  <mat-option value="2">Juridica</mat-option>
-                                                  <mat-option value="3">Otra</mat-option>
+                                                  <mat-option *ngFor="let ban of bancos"
+                                                              [value]="ban['id']">{{ban['name']}}</mat-option>
                                                 </mat-select>
                                               </mat-form-field>
-                                            </div>
-
-                                            <div class="col-6">
-
-                                              <mat-form-field appearance="fill">
-                                                <mat-label>Tipo de documento</mat-label>
-                                                <mat-select>
-                                                  <mat-option *ngFor="let tper of tipoDocumento"
-                                                              [value]="tper['id']">{{tper['tipo']}}</mat-option>
-                                                </mat-select>
+                                            </p>
+                                          </div>
+                                          <div class="col-6">
+                                            <p>
+                                              <mat-form-field appearance="outline">
+                                                <mat-label>Nombre del titular</mat-label>
+                                                <input matInput placeholder="Nombre del titular">
                                               </mat-form-field>
+                                            </p>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                            <mat-form-field appearance="fill">
+                                              <mat-label>Tipo de persona</mat-label>
+                                              <mat-select>
+                                                <mat-option value="1">Natural</mat-option>
+                                                <mat-option value="2">Juridica</mat-option>
+                                                <mat-option value="3">Otra</mat-option>
+                                              </mat-select>
+                                            </mat-form-field>
+                                          </div>
+
+                                          <div class="col-6">
+
+                                            <mat-form-field appearance="fill">
+                                              <mat-label>Tipo de documento</mat-label>
+                                              <mat-select>
+                                                <mat-option *ngFor="let tper of tipoDocumento"
+                                                            [value]="tper['id']">{{tper['tipo']}}</mat-option>
+                                              </mat-select>
+                                            </mat-form-field>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-6">
+                                            <p>
+                                              <mat-form-field appearance="outline">
+                                                <mat-label>Documento de identificación</mat-label>
+                                                <input matInput placeholder="Documento de identificación">
+                                              </mat-form-field>
+                                            </p>
+                                          </div>
+                                          <div class="col-6">
+                                            <p>
+                                              <mat-form-field appearance="outline">
+                                                <mat-label>Teléfono</mat-label>
+                                                <input matInput placeholder="Teléfono">
+                                              </mat-form-field>
+                                            </p>
+                                          </div>
+                                        </div>
+                                        <div class="row clase-boto-seleccionar">
+                                          <div class="col-md-12">
+                                            <div class="justify-content-center align-items-center">
+                                              <button mat-raised-button color="primary"
+                                                      class="agregar-direccion-boton">Seleccionar
+                                              </button>
                                             </div>
                                           </div>
-                                          <div class="row">
-                                            <div class="col-6">
-                                              <p>
-                                                <mat-form-field appearance="outline">
-                                                  <mat-label>Documento de identificación</mat-label>
-                                                  <input matInput placeholder="Documento de identificación">
-                                                </mat-form-field>
-                                              </p>
-                                            </div>
-                                            <div class="col-6">
-                                              <p>
-                                                <mat-form-field appearance="outline">
-                                                  <mat-label>Teléfono</mat-label>
-                                                  <input matInput placeholder="Teléfono">
-                                                </mat-form-field>
-                                              </p>
-                                            </div>
-                                          </div>
-                                          <div class="row clase-boto-seleccionar">
-                                            <div class="col-md-12">
-                                              <div class="justify-content-center align-items-center">
-                                                <button mat-raised-button color="primary"
-                                                        class="agregar-direccion-boton">Seleccionar
-                                                </button>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </a>
-                                      </li>
-                                    </ul>
-                                  </li>
-                                </ul>
-                              </div>
-                            </li>
-                          </ul>
-                        </a>
-                      </mat-nav-list>
-                    </div>
+                                        </div>
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                          </li>
+                        </ul>
+                      </a>
+                    </mat-nav-list>
                   </div>
-
-                  <button id="formulario-4" style="display: none" mat-button matStepperPrevious>Back</button>
-                </mat-step>
-
-              </mat-horizontal-stepper>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -574,8 +674,6 @@
 
       </div>
       <div class="col-md-4 aside-account-column">
-
-
         <ul class="aside-account">
 
           <h3 class="resumen-del-pedido">Resumen del pedido</h3>
@@ -608,17 +706,72 @@
           <hr>
           <div class="row">
             <div class="col-md-7 valor-total ">Valor total</div>
-            <div class="col-md-5 precio-valor-total" *ngIf="carritoAnterior">{{(valorTotal + gastosEnvio) | currency}}</div>
+            <div class="col-md-5 precio-valor-total"
+                 *ngIf="carritoAnterior">{{(valorTotal + gastosEnvio) | currency}}</div>
             <div class="col-md-5 precio-valor-total" *ngIf="!carritoAnterior">{{ 0 | currency}}</div>
+          </div>
+          <hr>
+
+          <div class="row" *ngIf="valorConcupon">
+            <div class="col-md-7 gastos-envio  ">Descuento</div>
+            <div class="col-md-5 valor-gastos-envio">{{ dataInfoCupones['cupon_porcentaje'] }} %</div>
+          </div>
+          <hr *ngIf="valorConcupon">
+          <div class="row" *ngIf="valorConcupon">
+            <div class="col-md-7 valor-total ">Valor a cancelar</div>
+            <div class="col-md-5 precio-valor-total"
+                 *ngIf="carritoAnterior ">{{((valorTotal + gastosEnvio) - (valorConcupon)) | currency}}</div>
+            <div class="col-md-5 precio-valor-total" *ngIf="!carritoAnterior">{{ 0 | currency}}</div>
+          </div>
+
+        </ul>
+
+        <ul class="aside-account aside-account-text">
+          <p>Métodos de pago</p>
+          <div class="row metos-pagos">
+            <img src="assets/img/iconos/metodos/metodo1.png">
+            <img src="assets/img/iconos/metodos/metodo2.png">
+            <img src="assets/img/iconos/metodos/metodo3.png">
+            <img src="assets/img/iconos/metodos/metodo4.png">
+            <img src="assets/img/iconos/metodos/metodo5.png">
+            <img src="assets/img/iconos/metodos/metodo6.png">
           </div>
         </ul>
 
-        <ul class="aside-account">
-          <p>Metodos de pago</p>
+
+        <ul class="cupones-descuento ">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <span class="material-icons">loyalty</span><h4> Tengo un cupón de descuento</h4>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+
+              <div *ngIf="usuario">
+                <p for="validationTooltipUsername">Cupón</p>
+                <div class="input-group">
+                  <input type="text" class="form-control" [(ngModel)]="codigoCupon"
+                         id="validationTooltipUsername"
+                         placeholder="Escribe o pega el código"
+                         aria-describedby="validationTooltipUsernamePrepend"
+                         required>
+                  <button class="boton-buscar" (click)="buscarCuponDisponibles()">
+                    <span class=" material-icons">search</span>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="!usuario">
+                <p for="validationTooltipUsername">Para usar un cupón, primero debes iniciar sesión</p>
+                <button class="pay-now-iniciar" routerLink="/login">
+                  Iniciar sesión
+                </button>
+              </div>
+            </ng-template>
+          </mat-expansion-panel>
+
         </ul>
 
         <div class="call-to-action-bolsa">
-          <button class="pay-now" (click)="siguienteFormulario()" *ngIf="habilitarBotonPago <= 3">
+          <button class="pay-now" *ngIf="habilitarBotonPago <= 3">
                   <span class="circle-go-shop">
                     <span class="material-icons">
                     done
@@ -627,8 +780,8 @@
             Continuar
           </button>
 
-          <button class="pay-now" *ngIf="habilitarBotonPago > 3" (click)="realizarPedidos()">
-                  <span class="circle-go-shop" >
+          <button class="pay-now" *ngIf="habilitarBotonPago == 4" (click)="realizarPedidos()">
+                  <span class="circle-go-shop">
                     <span class="material-icons">
                     done
                     </span>
@@ -642,3 +795,4 @@
   </div>
 </div>
 
+<app-flecha-arriba></app-flecha-arriba>

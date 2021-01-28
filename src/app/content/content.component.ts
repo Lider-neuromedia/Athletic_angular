@@ -18,14 +18,14 @@ export class ContentComponent implements OnInit {
   destacados = [];
   mediaSub: Subscription;
   deviceXs: boolean;
-  SlideOptions = { items: 6, dots: true, nav: true };  
-  SlideOptionsXs = { items: 3, dots: true, nav: true };  
+  SlideOptions = { items: 6, dots: true, nav: true };
+  SlideOptionsXs = { items: 3, dots: true, nav: true };
   descuento = null;
   valor_ant = null;
   precio_desc = null;
   descuentos =  {
-    descuento: null, 
-    valor_ant : null, 
+    descuento: null,
+    valor_ant : null,
     precio_des : null
   }
   btn_active = 1;
@@ -47,7 +47,7 @@ export class ContentComponent implements OnInit {
     sesion_14 : [],
     sesion_15 : [],
   };
-  
+
 
   /*
    * Carrusel productos primeros productos destacados 4 columnas
@@ -110,6 +110,9 @@ export class ContentComponent implements OnInit {
     this.getDisenoHome();
     // Obtener productos destacados
     this.getProductsDest();
+
+
+
   }
 
   size(){
@@ -126,14 +129,14 @@ export class ContentComponent implements OnInit {
           this.valor_ant = parseInt(price),
           this.precio_desc = this.valor_ant - (this.valor_ant * this.descuento);
           this.descuentos = {
-            descuento: this.descuento, 
-            valor_ant : this.valor_ant, 
+            descuento: this.descuento,
+            valor_ant : this.valor_ant,
             precio_des : this.precio_desc
           };
         }else{
           this.descuentos =  {
-            descuento: null, 
-            valor_ant : null, 
+            descuento: null,
+            valor_ant : null,
             precio_des : null
           }
         }
@@ -152,13 +155,13 @@ export class ContentComponent implements OnInit {
           data.forEach((element, index) => {
             var img = this.http.getImageProduct(element.id, element.id_default_image);
             var product = {
-              id :element.id, 
+              id :element.id,
               name: element.name[0]['value'],
               marca: element.manufacturer_name,
               image: img,
               price: null,
               new : (element.condition == "new") ? true : false,
-              descuento : null, 
+              descuento : null,
               price_ant : null
             };
             if (index < 4) {
@@ -171,7 +174,7 @@ export class ContentComponent implements OnInit {
               product.price_ant = this.descuentos.valor_ant;
             });
             this.destacados.push(product);
-          
+
           });
         },
         error => { console.log("error." + error); }
@@ -186,7 +189,7 @@ export class ContentComponent implements OnInit {
     this.http.httpGet('disenoHome').subscribe(
       response => {
         this.disenoHome = response;
-      }, 
+      },
       error => {
         console.error("Error en el diseño.");
       }
@@ -197,7 +200,7 @@ export class ContentComponent implements OnInit {
     this.http.httpGet('productosDestacados').subscribe(
       response => {
         this.carouselDescatadosUno = response;
-      }, 
+      },
       error => {
         console.error("Error consumiento productos destacados.");
       }

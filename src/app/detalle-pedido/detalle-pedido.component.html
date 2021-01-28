@@ -5,274 +5,69 @@
         <app-aside-account></app-aside-account>
       </div>
       <div class="col-md-9 content-detail">
-        <h2 class="account-title">Mis pedidos</h2>
+        <h2 class="account-title">Detalle del pedido</h2>
 
         <div class="montar-pedido">
           <div class="row-box-pedidos">
             <div class="info-estado">
               <div class="pedido-info">
-                <p>Pedido No. </p>
-                <p>Fecha de compra: </p>
-                <p>Total: </p>
+                <p>Pedido No. {{encabezado['pedido_referencia']}}</p>
+                <p>Fecha de compra: {{encabezado['created_at']}}</p>
+                <p>Total: {{encabezado['pedido_valor'] | currency}}</p>
               </div>
               <div class="pedido-estado cerrado">Estado: <span>asdad</span></div>
             </div>
             <div class="items">
 
-              <div class="flex-items-prod">
 
-                <div class="item col-md-4">
-                  <div class="item-two-col">
-                    <div class="col-6 item-photo">
-                      fff
-                    </div>
-                    <div class="col-6 item-detail">
-                      <h3>f</h3>
-                      <h4>s</h4>
-                      <p>Ref: </p>
-                      <a href="">Reseña</a>
+                <div class="row centrar-informcion"*ngFor="let item of detalle">
+                  <div class="col-md-2">
+                    <img [src]="url+'/'+item['img']" alt="">
+                  </div>
+                  <div class="col-md-4">
+                    <div class="row">
+                      <div class="col-md-12 name" >{{item['producto_nombre']}}</div>
+                      <div class="col-md-12 marca">{{item['marca']}}</div>
+                      <div class="col-md-12 referencia" >{{item['referencia']}} </div>
                     </div>
                   </div>
-                </div>
-
-                <div class="item col-md-4">
-                  <div class="item-two-col">
-                    <div class="col-6 item-photo">
-                    </div>
-                    <div class="col-6 item-detail">
-                      <h3>f</h3>
-                      <h4>s</h4>
-                      <p>Ref: </p>
-                      <a href="">Reseña</a>
+                  <div class="col-md-3">
+                    <div class="row">
+                      <div class="col-md-12 valor-inicial">
+                        {{item['itempedido_valorunitario'] |currency}} /Unitario
+                      </div>
+                      <div class="col-md-12 cantidad">
+                        {{item['itempedido_cantidad']}} / Cantidad
+                      </div>
+                      <div class="col-md-12 valor-total">
+                        {{item['itempedido_valorunitario'] * item['itempedido_cantidad'] |currency}}
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                <div class="item col-md-4">
-                  <div class="item-two-col">
-                    <div class="col-6 item-photo">
-
-                    </div>
-                    <div class="col-6 item-detail">
-                      <h3>f</h3>
-                      <h4>s</h4>
-                      <p>Ref: </p>
-                      <a href="">Reseña</a>
+                  <div class="col-md-3">
+                    <div class="row">
+                      <div class="col-md-12 name">
+                        {{item['ciudad']+'/'+item['departamento']}}
+                      </div>
+                      <div class="col-md-12 cantidad">
+                        {{item['direccion_barrio']}}
+                      </div>
+                      <div class="col-md-12 cantidad">
+                        {{item['direccion_ubicacion'] }}
+                      </div>
                     </div>
                   </div>
                 </div>
 
-              </div>
 
             </div>
           </div>
 
-          <div class="row fila-boton">
-            <div class="col-md-12">
-              <a class="detalle" >Ver detalles</a>
-            </div>
-          </div>
         </div>
 
-        <!--<div class="row-box-pedidos">
-          <div class="info-estado">
-            <div class="pedido-info">
-              <p>Pedido No. 123456</p>
-              <p>Fecha de compra 19/04/2020</p>
-              <p>Total: $380.000</p>
-            </div>
-            <div class="pedido-estado cerrado">Estado: <span>Cerrado</span></div>
-          </div>
-          <div class="items">
-
-            <div class="flex-items-prod">
-
-              <div class="item col-md-4">
-                <div class="item-two-col">
-                  <div class="col-6 item-photo">
-                    <img src="assets/img/zapatillas/z-01.png" alt="">
-                  </div>
-                  <div class="col-6 item-detail">
-                    <h3>Fresh Foam Arishi</h3>
-                    <h4>New Balance</h4>
-                    <p>Ref: atk: 1030492390f</p>
-                    <a href="">Reseña</a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="item col-md-4">
-                <div class="item-two-col">
-                  <div class="col-6 item-photo">
-                    <img src="assets/img/zapatillas/z-01.png" alt="">
-                  </div>
-                  <div class="col-6 item-detail">
-                    <h3>Fresh Foam Arishi</h3>
-                    <h4>New Balance</h4>
-                    <p>Ref: atk: 1030492390f</p>
-                    <a href="">Reseña</a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="item col-md-4">
-                <div class="item-two-col">
-                  <div class="col-6 item-photo">
-                    <img src="assets/img/zapatillas/z-01.png" alt="">
-                  </div>
-                  <div class="col-6 item-detail">
-                    <h3>Fresh Foam Arishi</h3>
-                    <h4>New Balance</h4>
-                    <p>Ref: atk: 1030492390f</p>
-                    <a href="">Reseña</a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-
-        <div class="row fila-boton">
-          <div class="col-md-12">
-            <a class="detalle" href="">Ver detalles</a>
-          </div>
-        </div>
-
-        <div class="row-box-pedidos">
-          <div class="info-estado">
-            <div class="pedido-info">
-              <p>Pedido No. 123456</p>
-              <p>Fecha de compra 19/04/2020</p>
-              <p>Total: $380.000</p>
-            </div>
-            <div class="pedido-estado cerrado">Estado: <span>Cerrado</span></div>
-          </div>
-          <div class="items">
-
-            <div class="flex-items-prod">
-
-              <div class="item col-md-4">
-                <div class="item-two-col">
-                  <div class="col-6 item-photo">
-                    <img src="assets/img/zapatillas/z-01.png" alt="">
-                  </div>
-                  <div class="col-6 item-detail">
-                    <h3>Fresh Foam Arishi</h3>
-                    <h4>New Balance</h4>
-                    <p>Ref: atk: 1030492390f</p>
-                    <a href="">Reseña</a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="item col-md-4">
-                <div class="item-two-col">
-                  <div class="col-6 item-photo">
-                    <img src="assets/img/zapatillas/z-01.png" alt="">
-                  </div>
-                  <div class="col-6 item-detail">
-                    <h3>Fresh Foam Arishi</h3>
-                    <h4>New Balance</h4>
-                    <p>Ref: atk: 1030492390f</p>
-                    <a href="">Reseña</a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="item col-md-4">
-                <div class="item-two-col">
-                  <div class="col-6 item-photo">
-                    <img src="assets/img/zapatillas/z-01.png" alt="">
-                  </div>
-                  <div class="col-6 item-detail">
-                    <h3>Fresh Foam Arishi</h3>
-                    <h4>New Balance</h4>
-                    <p>Ref: atk: 1030492390f</p>
-                    <a href="">Reseña</a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-
-        <div class="row fila-boton">
-          <div class="col-md-12">
-            <a class="detalle" href="">Ver detalles</a>
-          </div>
-        </div>
-
-        <div class="row-box-pedidos">
-          <div class="info-estado">
-            <div class="pedido-info">
-              <p>Pedido No. 123456</p>
-              <p>Fecha de compra 19/04/2020</p>
-              <p>Total: $380.000</p>
-            </div>
-            <div class="pedido-estado abierto">Estado: <span>Abierto</span></div>
-          </div>
-          <div class="items">
-
-            <div class="flex-items-prod">
-
-              <div class="item col-md-4">
-                <div class="item-two-col">
-                  <div class="col-6 item-photo">
-                    <img src="assets/img/zapatillas/z-01.png" alt="">
-                  </div>
-                  <div class="col-6 item-detail">
-                    <h3>Fresh Foam Arishi</h3>
-                    <h4>New Balance</h4>
-                    <p>Ref: atk: 1030492390f</p>
-                    <a href="">Reseña</a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="item col-md-4">
-                <div class="item-two-col">
-                  <div class="col-6 item-photo">
-                    <img src="assets/img/zapatillas/z-01.png" alt="">
-                  </div>
-                  <div class="col-6 item-detail">
-                    <h3>Fresh Foam Arishi</h3>
-                    <h4>New Balance</h4>
-                    <p>Ref: atk: 1030492390f</p>
-                    <a href="">Reseña</a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="item col-md-4">
-                <div class="item-two-col">
-                  <div class="col-6 item-photo">
-                    <img src="assets/img/zapatillas/z-01.png" alt="">
-                  </div>
-                  <div class="col-6 item-detail">
-                    <h3>Fresh Foam Arishi</h3>
-                    <h4>New Balance</h4>
-                    <p>Ref: atk: 1030492390f</p>
-                    <a href="">Reseña</a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-
-        <div class="row fila-boton">
-          <div class="col-md-12">
-            <a class="detalle" href="">Ver detalles</a>
-          </div>
-        </div>-->
 
       </div>
     </div>
   </div>
 </div>
+<app-flecha-arriba></app-flecha-arriba>

@@ -11,60 +11,60 @@
         </div>
 
         <div class="row">
-            <div class="col-md-9 content-images h-xs-300px detalle-slider">
-                <ngx-gallery class="w-100 ngx-gallery-100" [options]="galleryOptions" [images]="galleryImages">
-                </ngx-gallery>
+            <div class="col-md-8 content-images h-xs-300px detalle-slider">
+              <ngx-gallery class="w-100 ngx-gallery-100" [options]="galleryOptions" [images]="galleryImages">
+              </ngx-gallery>
             </div>
-            <div class="col-md-3 mrg-top-10 detalle-info">
-                <div class="detalle-puntaje-valoracion">
-                    <div class="puntaje">
+          <div class="col-md-4 mrg-top-10 detalle-info">
+            <div class="detalle-puntaje-valoracion">
+              <div class="puntaje">
 
-                     <!-- <div class="box-comment" *ngFor="let data of totalComentario?totalComentario:0">
-                        <h3>{{data['comentario_titulo']}}</h3>
+                <!-- <div class="box-comment" *ngFor="let data of totalComentario?totalComentario:0">
+                   <h3>{{data['comentario_titulo']}}</h3>
 
-                        <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 1">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                        </div>
+                   <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 1">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                   </div>
 
-                        <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 2">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                        </div>
+                   <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 2">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                   </div>
 
-                        <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 3">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                        </div>
+                   <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 3">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                   </div>
 
-                        <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 4">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                          <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                        </div>
+                   <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 4">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                   </div>
 
-                        <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 5">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                          <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                        </div>
-                        <p class="resena">
-                          {{data['comentario_descripcion']}}
-                        </p>
-                      </div>-->
+                   <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 5">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   </div>
+                   <p class="resena">
+                     {{data['comentario_descripcion']}}
+                   </p>
+                 </div>-->
 
                         <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
                         <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
@@ -84,46 +84,87 @@
                     <p class="title-ref" *ngIf="producto">{{producto.last_categoria}}</p>
                     <p class="ref">Ref: {{producto?producto.referencia : ''}}</p>
                 </div>
-                <div class="content-strech mrg-botn-15">
-                    <p class="price">{{producto?(producto.precio |currency:'COP':'symbol-narrow' :'1.0-0'): 0 }}</p>
-                    <p class="price-des" *ngIf="producto && producto.valor_descuento != null">
-                        {{producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
-                </div>
+            <div class="content-strech mrg-botn-15">
+              <p class="price">{{producto ? (producto.precio |currency:'COP':'symbol-narrow' :'1.0-0') : 0 }}</p>
+              <p>
+                     <span class="price-des" *ngIf="producto && producto.valor_descuento != null">
+                        {{producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0'}}
+                     </span>
+                <span class="porcentaje-descuento" *ngIf="producto.valor_descuento">
+                         {{ " - " + producto.valor_descuento + "%" }}
+                       </span>
+              </p>
+            </div>
                 <div class="content-strech content-cuotas">
-                    <p class="cuotas">Hasta 12 cuotas de <span class="txt-dark-bold">$13.345</span></p>
+                  <p class="cuotas">Hasta 12 cuotas de <span *ngIf="producto"
+                                                             class="txt-dark-bold">{{producto.precio / 12 | number : '1.1-2'}}</span><span
+                    *ngIf="!producto" class="txt-dark-bold">{{0 | number : '1.1-2'}}</span></p>
                 </div>
                 <div class="content-strech mrg-botn-15" *ngIf="producto && producto.valor_descuento != null">
-                    <p class="txt-descuento">Aplica descuento de {{producto?producto.valor_descuento: 0}}%</p>
+                  <!-- <p class="txt-descuento">Aplica descuento de {{producto?producto.valor_descuento: 0}}%</p>-->
                     <a href="#" class="link-terminos">Ver términos y condiciones</a>
                 </div>
                 <div class="w-80">
-                    <!-- <select class="form-control bold mrg-botn-10 btn-select" placeholder="Elige tu talla" id="talla"> -->
                     <div class="box-select-talla">
                         <i class="flecha-select">▼</i>
-                        <select class="my-own-form-control" placeholder="Elige tu talla" id="talla">
-                            <option selected value="">Elige tu talla</option>
-                            <option *ngFor="let item of producto?producto.combinaciones: producto;" value="{{item.id_combinacion}}">
-                                {{item.valor}}</option>
-                        </select>
+                      <select class="my-own-form-control" placeholder="Elige tu talla" id="talla"
+                              (change)="checkearTalla($event.target.value)">
+                        <option selected value="">Elige tu talla</option>
+                        <option *ngFor="let item of producto?producto.combinaciones: producto;" value="{{item.valor}}">
+                          {{item.valor}}</option>
+                      </select>
                     </div>
                     <div class="cantidad mrg-botn-10 btn-select">
                         <label for="input-cant" class="lbl-cant">Cantidad</label>
                         <input id="input-cant" class="mrg-botn-10 input-cant" [ngModel]="cantidad" type="number">
                         <button id="inc-button" (click)="changeCantidad(true)" mat-fab color="primary"
                             class="spinner-button">
-                            +
+                          +
                         </button>
-                        <button id="dec-button" (click)="changeCantidad(false)" mat-fab color="primary"
-                            class="spinner-button">
-                            -
-                        </button>
+                      <button id="dec-button" (click)="changeCantidad(false)" mat-fab color="primary"
+                              class="spinner-button">
+                        -
+                      </button>
                     </div>
-                    <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary" (click)="agregarProductosAlCarrito()">
+                  <!--  <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary" (click)="agregarProductosAlCarrito()">
                         <mat-icon class="icon-small">work</mat-icon>Añadir pedido
                     </button>
-                  <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary" (click)="usuario?agregarProductoFavorito(): ingresar()" *ngIf="!condicionBotonFavorito">
-                    <mat-icon aria-hidden="false" aria-label="Icon">favorite_outline</mat-icon>Añadir favoritos
+
+                  <button (click)="usuario?agregarProductoFavorito() : ingresar()" class="btn-full-view btn-corazon-favoritos"
+                          color="primary"
+                          mat-stroked-button>
+                    <div class="favoritos-productos">
+                      <div class="img-corazon">
+                        <mat-icon class="icon-small">favorite_border</mat-icon>
+                      </div>
+                      <p>Añadir a mis favoritos</p>
+                    </div>
+                  </button>-->
+                  <button (click)="agregarProductosAlCarrito() "
+                          class="btn-full-view mrg-botn-10 btn-bolsa-favoritos" color="primary"
+                          mat-raised-button>
+                    <div class="favoritos-bolsa">
+                      <div class="img-bolsa">
+                        <img alt="" src="assets/img/icons/inactive.png">
+                      </div>
+                      <p>Añadir a la bolsa</p>
+                    </div>
                   </button>
+                  <button (click)="usuario ? agregarProductoFavorito() : ingresar()"
+                          class="btn-full-view btn-corazon-favoritos"
+                          color="primary"
+                          mat-stroked-button>
+                    <div class="favoritos-productos">
+                      <div class="img-corazon">
+                        <mat-icon class="icon-small">favorite_border</mat-icon>
+                      </div>
+                      <p>Añadir a mis favoritos</p>
+                    </div>
+                  </button>
+
+                  <!-- <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary" (click)="usuario?agregarProductoFavorito(): ingresar()" *ngIf="!condicionBotonFavorito">
+                     <mat-icon aria-hidden="false" aria-label="Icon">favorite_outline</mat-icon>Añadir favoritos
+                   </button>-->
                 </div>
             </div>
         </div>
@@ -264,7 +305,7 @@
                 </div>
                 <div class="col-md-5">
                     <!-- <img src="assets/img/home/zap-9.png" alt=""> -->
-                    <img src="{{producto?producto.imagen_destacada:''}}" alt="">
+                  <img class="imagen-godescripcion" src="{{producto?producto.imagen_destacada:''}}" alt="">
                 </div>
             </div>
         </div>
@@ -446,32 +487,32 @@
                     <h2 class="text-center">Productos Relacionados</h2>
                 </div>
 
-                <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno"
-                    [carouselClasses]="['owl-carousel', 'owl-theme']">
-                    <div class="content-item-product" *ngFor="let img of carouselDescatadosUno">
-                        <div class="item-product">
-                            <div class="content-img">
-                                <img src="{{img.img}}" alt="">
-                                <img *ngIf="img.descuento" src="assets/img/home/descuento.png" class="img-descuento"
-                                    alt="">
-                                <div></div>
-                            </div>
-                            <div class="content-product">
-                                <p class="subtitle-prod">Adidas</p>
-                                <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
-                                <div>
-                                    <p class="price-prod">$300,000</p>
-                                    <p class="price-prod-desc"></p>
-                                </div>
-                            </div>
-                        </div>
+              <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno"
+                            [carouselClasses]="['owl-carousel', 'owl-theme']" style="height: 310px;">
+                <div class="content-item-product" *ngFor="let img of carouselDescatadosUno">
+                  <div class="item-product">
+                    <div class="content-img">
+                      <img src="{{url + '/' + img['img']}}" alt="">
+                      <img *ngIf="img.descuento" src="assets/img/home/descuento.png" class="img-descuento"
+                           alt="">
+                      <div></div>
                     </div>
-                </owl-carousel>
+                    <div class="content-product">
+                      <p class="subtitle-prod">{{img['name_cat']}}</p>
+                      <p class="title-prod">{{img['name_prod']}}</p>
+                      <div>
+                        <p class="price-prod">{{img['precio_general'] |currency}}</p>
+                        <p class="price-prod-desc"></p>
+                      </div>
+                    </div>
+                        </div>
+                </div>
+              </owl-carousel>
 
             </div>
         </section>
 
 
-
     </div>
 </div>
+<app-flecha-arriba></app-flecha-arriba>

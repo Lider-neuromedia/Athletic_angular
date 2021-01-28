@@ -6,7 +6,8 @@ import {LoginGlobalService} from "../servicio/login-global/login-global.service"
 import {Pedidos} from "../interfaz/pedidos";
 import {SendHttpData} from "../tools/SendHttpData";
 import {Router} from "@angular/router";
-
+import Swal from "sweetalert2";
+import {GlobalVarService} from "../common/global-var.service";
 
 
 @Component({
@@ -26,7 +27,7 @@ export class DetalleCompraComponent implements OnInit {
   cantidadCarrito = 0;
   valorTotal: number;
   valorTotalAnterior: number;
-  gastosEnvio: number = 1;
+  gastosEnvio: number = 0;
   habilitarBotonPago = 1;
   mes: any;
   anio = [];
@@ -46,12 +47,69 @@ export class DetalleCompraComponent implements OnInit {
   cargarDirecciones: any;
   direccionEstado: any;
 
+
+  circulo11: string;
+  barra11: string;
+  texto11: string;
+  habilita11: boolean;
+
+  circulo22: string;
+  barra22: string;
+  texto22: string;
+  habilita22: boolean;
+
+  circulo33: string;
+  barra33: string;
+  texto33: string;
+  habilita33: boolean;
+
+  circulo44: string;
+  barra44: string;
+  texto44: string;
+  habilita44: boolean;
+  barra55: string;
+
+  circulo1: string;
+  barra1: string;
+  texto1: string;
+  habilita1: boolean;
+
+  circulo2: string;
+  barra2: string;
+  texto2: string;
+  habilita2: boolean;
+  circulo3: string;
+  barra3: string;
+  texto3: string;
+  habilita3: boolean;
+  circulo4: string;
+  barra4: string;
+  texto4: string;
+  habilita4: boolean;
+  barra5: string;
+
+  datosRegistro: any;
+  codigoCupon: any;
+
+  dataInfoCupones: any;
+  dataInfoCodigo: any;
+  dataInfoMensaje: any;
+  dataInfoEstado: any;
+  valorConcupon: number = 0;
+  respuestaCupon: object;
+  productosConDescuentos: any;
+  porcentajeTipoDescuento: any;
+  //cupones, Datas, mensaje, estado
+  panelOpenState = false;
+  valorACancelar: number;
+
   constructor(
     private variablesGl: VariablesService,
     private alertaS: AlertasService,
     private _formBuilder: FormBuilder,
     private setHtpp: SendHttpData,
     private ruta: Router,
+    public globalVar: GlobalVarService,
     private loginGlobal: LoginGlobalService) {
 
     this.llamarDatoLocalesUsuario();
@@ -60,6 +118,44 @@ export class DetalleCompraComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.habilita1 = true;
+    this.circulo1 = '#FF596A';
+    this.barra1 = '#FF596A';
+    this.texto1 = '#FF596A';
+
+    this.circulo2 = '#969696';
+    this.barra2 = '#969696';
+    this.texto2 = '#969696';
+
+    this.circulo3 = '#969696';
+    this.barra3 = '#969696';
+    this.texto3 = '#969696';
+
+    this.circulo4 = '#969696';
+    this.barra4 = '#969696';
+    this.texto4 = '#969696';
+
+    this.barra5 = '#969696';
+
+    this.habilita11 = true;
+    this.circulo11 = '#FF596A';
+    this.barra11 = '#FF596A';
+    this.texto11 = '#FF596A';
+
+    this.circulo22 = '#969696';
+    this.barra22 = '#969696';
+    this.texto22 = '#969696';
+
+    this.circulo33 = '#969696';
+    this.barra33 = '#969696';
+    this.texto33 = '#969696';
+
+    this.circulo44 = '#969696';
+    this.barra44 = '#969696';
+    this.texto44 = '#969696';
+
+    this.barra55 = '#969696';
+
     this.llamarDatoLocales();
     this.miCarritoCompraContador();
     this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
@@ -78,9 +174,11 @@ export class DetalleCompraComponent implements OnInit {
       pedido_valor: null,
       pedido_estado: 'APROBADO',
       cliente_codigo: null,
+      direccion_codigo: null,
 
     }
 
+    this.setUsuario();
 
     this.bancos = [
       {
@@ -127,6 +225,8 @@ export class DetalleCompraComponent implements OnInit {
       this.valorTotalPedido();
       this.valorTotalAnteriorPedido();
       this.miCarritoCompraContador();
+      this.obtenerProductoTotalCategoria();
+      this.obtenerDescuentosProductos();
     });
   }
 
@@ -140,7 +240,6 @@ export class DetalleCompraComponent implements OnInit {
 
   }
 
-
   valorTotalPedido() {
 
     const valorTotalLista = JSON.parse(localStorage.getItem('athletic'));
@@ -150,7 +249,6 @@ export class DetalleCompraComponent implements OnInit {
       }, 0);
     }
     return this.valorTotal;
-
   }
 
   valorTotalAnteriorPedido() {
@@ -165,7 +263,6 @@ export class DetalleCompraComponent implements OnInit {
 
   }
 
-
   aumentarDisminuir(data, indice, proceso) {
 
     this.carritoNuevo = JSON.parse(localStorage.getItem('athletic'));
@@ -179,60 +276,44 @@ export class DetalleCompraComponent implements OnInit {
         let datos = 'Articulo agregado a la canasta no puede ser menor a 1 unidad';
         this.alertaS.showToasterWarning(datos);
       }
-
     }
 
     localStorage.setItem('athletic', JSON.stringify(this.carritoNuevo));
     this.variablesGl.changeMessage();
-  //  console.log(this.carritoNuevo);
-
   }
 
   quitarItemCarrito(data, co) {
 
-    this.carrito = localStorage.getItem('athletic');
-    let dataCarrito = JSON.parse(this.carrito);
-    let i = dataCarrito.indexOf(data);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.carrito = localStorage.getItem('athletic');
+        let dataCarrito = JSON.parse(this.carrito);
+        let i = dataCarrito.indexOf(data);
 
-    dataCarrito.splice(co, 1);
+        dataCarrito.splice(co, 1);
 
+        localStorage.setItem('athletic', JSON.stringify(dataCarrito));
+        this.llamarDatoLocales();
+        let datos = 'Articulo removido del Carrito de Compras ';
+        this.alertaS.showToasterWarning(datos);
 
-    localStorage.setItem('athletic', JSON.stringify(dataCarrito));
-    this.llamarDatoLocales();
-    let datos = 'Articulo removido del Carrito de Compras ';
-    this.alertaS.showToasterWarning(datos);
-
-    this.variablesGl.changeMessage();
+        this.variablesGl.changeMessage();
+      }
+    });
   }
 
   vaciarBolsa() {
     localStorage.removeItem('athletic');
     this.variablesGl.changeMessage();
-  }
-
-
-  siguienteFormulario() {
-
-
-    if (this.habilitarBotonPago === 1) {
-      document.getElementById('formulario-1').click();
-    }
-
-    if (this.habilitarBotonPago === 2) {
-      document.getElementById('formulario-2').click();
-    }
-
-    if (this.habilitarBotonPago === 3) {
-      document.getElementById('formulario-3').click();
-    }
-
-    if (this.habilitarBotonPago === 4) {
-      document.getElementById('formulario-4').click();
-    }
-
-    console.log(this.habilitarBotonPago);
-    //this.habilitarBotonPago += 1;
-    this.habilitarBotonPago++;
   }
 
   retornarMes() {
@@ -300,12 +381,10 @@ export class DetalleCompraComponent implements OnInit {
     ];
   }
 
-
   retornarAnio() {
 
     const max = new Date().getFullYear();
     const min = max - 100;
-
 
     for (let i = max; i >= min; i--) {
       this.anio.push(i)
@@ -336,20 +415,17 @@ export class DetalleCompraComponent implements OnInit {
     }
   }
 
-  pasarSiguienteItems(evento) {
-    //console.log(evento, this.formGroupName);
-  }
 
   realizarPedidos() {
 
-
+    console.log(this.direccionEstado);
     if (!this.direccionEstado) {
       this.alertaS.showToasterError('Marcar la dirección de envio del pedido');
-          return;
+      return;
     }
 
-    this.referencia = new Date().getFullYear() + '' + new Date().getMonth() + '' + new Date().getDate() + '' + new  Date().getHours() + '' + new Date().getMinutes() + '' + new Date().getSeconds();
-    this.valorPedido =  this.valorTotal;
+    this.referencia = new Date().getFullYear() + '' + new Date().getMonth() + '' + new Date().getDate() + '' + new Date().getHours() + '' + new Date().getMinutes() + '' + new Date().getSeconds();
+    this.valorPedido = this.valorTotal;
 
     console.log(
       this.valorPedido,
@@ -358,28 +434,28 @@ export class DetalleCompraComponent implements OnInit {
       this.usuario.id_tienda,
       this.usuario);
 
+    this.dataPedidos.cliente_codigo = this.usuario.id_cliente;
+    this.dataPedidos.usuario_codigo = this.usuario.id_tienda;
+    this.dataPedidos.pedido_referencia = this.referencia;
+    this.dataPedidos.pedido_valor = this.valorConcupon ? this.valorPedido + this.gastosEnvio - this.valorConcupon : this.valorPedido + this.gastosEnvio;
+    this.dataPedidos.direccion_codigo = this.direccionEstado;
 
-    this.dataPedidos.cliente_codigo =  this.usuario.id_cliente;
-    this.dataPedidos.usuario_codigo =  this.usuario.id_tienda;
-    this.dataPedidos.pedido_referencia =  this.referencia;
-    this.dataPedidos.pedido_valor =  this.valorPedido;
-
-
-
-    const  data = {
+    const data = {
       pedido: this.dataPedidos,
       detalle: this.carritoAnterior,
-      direccion: this.direccionEstado
+      direccion: this.direccionEstado,
+      porcentaje: this.dataInfoCupones ? this.dataInfoCupones : 0,
+      productos: this.productosConDescuentos ? this.productosConDescuentos : 0
     }
 
-
+    this.barra5 = '#FF596A';
+    this.barra55 = '#FF596A';
     this.setHtpp.httpPost('crear-pedido', data).toPromise().then(respuesta => {
       console.log(respuesta);
+      this.alertaS.showToasterFull('Pedido realizado exitosamente');
     }).catch(error => {
       console.log(error);
     });
-
-
   }
 
   llamarDatoLocalesUsuario() {
@@ -387,46 +463,536 @@ export class DetalleCompraComponent implements OnInit {
     this.loginGlobal.currentMessage.subscribe(response => {
       this.usuario = response;
     });
-
   }
 
   cargarTodasLasDirecciones() {
-    const data = {
-      cliente:  this.usuario.id_cliente
+    if (this.usuario) {
+      const data = {
+        cliente: this.usuario.id_cliente
+      }
+      this.setHtpp.httpPost('listar-direcciones-pedido', data).toPromise().then(respuesta => {
+        console.log(respuesta);
+        this.cargarDirecciones = respuesta[`data`];
+      }).catch(error => {
+        console.log(error);
+      })
     }
-
-    this.setHtpp.httpPost('listar-direcciones-pedido', data).toPromise().then(respuesta => {
-      console.log(respuesta);
-      this.cargarDirecciones = respuesta[`data`];
-    }).catch(error => {
-      console.log(error);
-    })
   }
-  direccionChequeada(value) {
+
+  direccionChequeada(value, datito) {
     console.log(value);
     this.direccionEstado = value;
-  }
+    const data = {
+      direccion: value,
+      cliente: this.usuario.id_cliente,
+      datos: datito
+    }
 
-  removerDirecciones(direccion) {
-    const  data = {
-      direccion: direccion
-    };
-    this.setHtpp.httpPost('eliminar-direcciones', data).toPromise().then(respuesta => {
-      console.log(respuesta[`data`]);
-      this.alertaS.showToasterFull(respuesta[`data`]);
+    this.setHtpp.httpPost('actualizar-nueva-direccion', data).toPromise().then(respuesta => {
+      console.log(respuesta);
+      this.gastosEnvio = respuesta['data']['transporte_valorenvio'];
+      this.alertaS.showToasterFull(respuesta['mensaje']);
+
       this.cargarTodasLasDirecciones();
     }).catch(error => {
 
     });
   }
 
+  removerDirecciones(direccion) {
+    const data = {
+      direccion: direccion
+    };
+
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.setHtpp.httpPost('eliminar-direcciones', data).toPromise().then(respuesta => {
+          console.log(respuesta[`data`]);
+          this.alertaS.showToasterFull(respuesta[`data`]);
+          this.cargarTodasLasDirecciones();
+        }).catch(error => {
+
+        });
+      }
+    })
+  }
+
   editarDireccion(codigo) {
-      console.log(codigo);
+    console.log(codigo);
     this.ruta.navigate(['modificar-direcciones/', codigo])
 
   }
 
+  pasarSguiente(value) {
 
+    if (value === 1) {
+      this.circulo1 = '#FF596A';
+      this.barra1 = '#FF596A';
+      this.texto1 = '#FF596A';
+      this.circulo2 = '#969696';
+
+      this.barra2 = '#969696';
+      this.texto2 = '#969696';
+      this.circulo3 = '#969696';
+      this.barra3 = '#969696';
+      this.texto3 = '#969696';
+      this.circulo4 = '#969696';
+      this.barra4 = '#969696';
+      this.texto4 = '#969696';
+      this.barra5 = '#969696';
+      this.habilita1 = true;
+      this.habilita2 = false;
+      this.habilita3 = false;
+      this.habilita4 = false;
+      this.habilitarBotonPago = 1;
+    }
+    if (value === 2) {
+      this.circulo1 = '#FF596A';
+      this.barra1 = '#FF596A';
+      this.texto1 = '#FF596A';
+
+      this.circulo2 = '#FF596A';
+      this.barra2 = '#FF596A';
+      this.texto2 = '#FF596A';
+
+      this.circulo3 = '#969696';
+      this.barra3 = '#969696';
+      this.texto3 = '#969696';
+      this.circulo4 = '#969696';
+      this.barra4 = '#969696';
+      this.texto4 = '#969696';
+      this.barra5 = '#969696';
+      this.habilita1 = false;
+      this.habilita2 = true;
+      this.habilita3 = false;
+      this.habilita4 = false;
+      this.habilitarBotonPago = 2;
+    }
+    if (value === 3) {
+
+      this.circulo1 = '#FF596A';
+      this.barra1 = '#FF596A';
+      this.texto1 = '#FF596A';
+      this.circulo2 = '#FF596A';
+      this.barra2 = '#FF596A';
+      this.texto2 = '#FF596A';
+
+      this.circulo3 = '#FF596A';
+      this.barra3 = '#FF596A';
+      this.texto3 = '#FF596A';
+
+      this.circulo4 = '#969696';
+      this.barra4 = '#969696';
+      this.texto4 = '#969696';
+      this.barra5 = '#969696';
+      this.habilita1 = false;
+      this.habilita2 = false;
+      this.habilita3 = true;
+      this.habilita4 = false;
+      this.habilitarBotonPago = 3;
+    }
+    if (value === 4) {
+
+      this.circulo1 = '#FF596A';
+      this.barra1 = '#FF596A';
+      this.texto1 = '#FF596A';
+
+      this.circulo2 = '#FF596A';
+      this.barra2 = '#FF596A';
+      this.texto2 = '#FF596A';
+
+      this.circulo3 = '#FF596A';
+      this.barra3 = '#FF596A';
+      this.texto3 = '#FF596A';
+
+      this.circulo4 = '#FF596A';
+      this.barra4 = '#FF596A';
+      this.texto4 = '#FF596A';
+
+      this.barra5 = '#969696'
+      this.habilita1 = false;
+      this.habilita2 = false;
+      this.habilita3 = false;
+      this.habilita4 = true;
+      this.habilitarBotonPago = 4;
+    }
+    console.log(value);
+
+
+  }
+
+
+  pasarSguiente2(value) {
+
+    if (value === 1) {
+      this.circulo11 = '#FF596A';
+      this.barra11 = '#FF596A';
+      this.texto11 = '#FF596A';
+      this.circulo22 = '#969696';
+
+      this.barra22 = '#969696';
+      this.texto22 = '#969696';
+      this.circulo33 = '#969696';
+      this.barra33 = '#969696';
+      this.texto33 = '#969696';
+      this.circulo44 = '#969696';
+      this.barra44 = '#969696';
+      this.texto44 = '#969696';
+      this.barra55 = '#969696';
+      this.habilita1 = true;
+      this.habilita2 = false;
+      this.habilita3 = false;
+      this.habilita4 = false;
+      this.habilitarBotonPago = 1;
+    }
+    if (value === 2) {
+      this.circulo11 = '#FF596A';
+      this.barra11 = '#FF596A';
+      this.texto11 = '#FF596A';
+
+      this.circulo22 = '#FF596A';
+      this.barra22 = '#FF596A';
+      this.circulo22 = '#FF596A';
+
+      this.circulo33 = '#969696';
+      this.barra33 = '#969696';
+      this.texto33 = '#969696';
+      this.circulo44 = '#969696';
+      this.barra44 = '#969696';
+      this.texto44 = '#969696';
+      this.barra55 = '#969696';
+      this.habilita1 = false;
+      this.habilita2 = true;
+      this.habilita3 = false;
+      this.habilita4 = false;
+      this.habilitarBotonPago = 2;
+    }
+    if (value === 3) {
+
+      this.circulo11 = '#FF596A';
+      this.barra11 = '#FF596A';
+      this.texto11 = '#FF596A';
+      this.circulo22 = '#FF596A';
+      this.barra22 = '#FF596A';
+      this.texto22 = '#FF596A';
+
+      this.circulo33 = '#FF596A';
+      this.barra33 = '#FF596A';
+      this.texto33 = '#FF596A';
+
+      this.circulo44 = '#969696';
+      this.barra44 = '#969696';
+      this.texto44 = '#969696';
+      this.barra55 = '#969696';
+      this.habilita1 = false;
+      this.habilita2 = false;
+      this.habilita3 = true;
+      this.habilita4 = false;
+      this.habilitarBotonPago = 3;
+    }
+    if (value === 4) {
+
+      this.circulo11 = '#FF596A';
+      this.barra11 = '#FF596A';
+      this.texto11 = '#FF596A';
+
+      this.circulo22 = '#FF596A';
+      this.barra22 = '#FF596A';
+      this.texto22 = '#FF596A';
+
+      this.circulo33 = '#FF596A';
+      this.barra33 = '#FF596A';
+      this.texto33 = '#FF596A';
+
+      this.circulo44 = '#FF596A';
+      this.barra44 = '#FF596A';
+      this.texto44 = '#FF596A';
+
+      this.barra55 = '#969696'
+      this.habilita1 = false;
+      this.habilita2 = false;
+      this.habilita3 = false;
+      this.habilita4 = true;
+      this.habilitarBotonPago = 4;
+    }
+    console.log(value);
+
+  }
+
+
+  sendRegister() {
+    console.log(this.datosRegistro);
+    const data = {
+      estado: 1,
+      deleted: 0,
+      id_tienda: 1,
+      password: this.datosRegistro.clave,
+      apellidos: this.datosRegistro.nombres,
+      nombres: this.datosRegistro.nombres,
+      email: this.datosRegistro.correo,
+      fecha_nacimiento: this.datosRegistro.myAnio + '-' + this.datosRegistro.myMes + '-' + this.datosRegistro.myDia,
+      genero: this.datosRegistro.genero
+    }
+
+    this.setHtpp.httpPost('clientes-register', data).toPromise().then(response => {
+      console.log(response[`user`]);
+      if (response[`user`]) {
+        console.log(response[`user`]);
+        localStorage.setItem('userAthletic', JSON.stringify(response[`user`]));
+        this.loginGlobal.changeMessage();
+        this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
+        this.alertaS.showToasterFull('Registro guardado exitosmente');
+        this.habilita2 = false;
+        this.habilita3 = true;
+        this.circulo33 = '#FF596A';
+        this.barra33 = '#FF596A';
+        this.texto33 = '#FF596A';
+        this.setUsuario();
+
+      }
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+
+  setUsuario() {
+    this.datosRegistro = {
+      nombres: null,
+      apellidos: null,
+      correo: null,
+      clave: null,
+      confirmarClave: null,
+      myAnio: null,
+      myMes: null,
+      myDia: null,
+      genero: null,
+      declaro: null,
+      gustaria: null,
+    }
+  }
+
+  buscarCuponDisponibles() {
+    this.valorConcupon = null;
+    this.dataInfoCupones = null;
+    this.dataInfoCodigo = null;
+    this.dataInfoMensaje = null;
+    this.dataInfoEstado = null;
+    console.log('dssssssssssss');
+/*
+    if (this.codigoCupon.length > 0) {
+      this.alertaS.showToasterError('Ingrese un codigo valido en esta casilla');
+      return;
+    }*/
+
+    let data = {
+      cupon: this.codigoCupon,
+      usuario: this.usuario.id_cliente
+    }
+    this.setHtpp.httpPost('consultar-cupones-en-pedidos', data).toPromise().then(respuesta => {
+      this.respuestaCupon = respuesta;
+
+      if (respuesta['estado'] === 1) {
+        this.alertaConfirmacion(respuesta['mensaje'], respuesta['cupon']);
+      }
+      if (respuesta['estado'] === 2) {
+        this.alertaConfirmacion(respuesta['mensaje'], respuesta['cupon']);
+      }
+      if (respuesta['estado'] === 3) {
+        this.alertaConfirmacion(respuesta['mensaje'], respuesta['cupon']);
+      }
+      if (respuesta['estado'] === 4) {
+        this.alertaConfirmacion(respuesta['mensaje'], respuesta['cupon']);
+      }
+
+      if (respuesta['estado'] === 5) {
+        console.log(respuesta);
+        //cupones, Datas, mensaje, estado
+        this.dataInfoCupones = respuesta['cupon']; //informacion d ela tabla cupon
+        this.dataInfoCodigo = respuesta['data']; // a que le aplicara
+        this.dataInfoMensaje = respuesta['mesnaje'];//mensaje alerta
+        this.dataInfoEstado = respuesta['estado']; //estado
+
+        let data = {
+          cupon: this.dataInfoCupones,
+          data: this.dataInfoCodigo,
+          mesnaje: this.dataInfoCodigo,
+          estado: this.dataInfoCodigo,
+        }
+        this.alertaAplicarDescuentos(data);
+        console.log(this.dataInfoCupones, this.dataInfoCodigo, this.dataInfoMensaje, this.dataInfoEstado);
+      }
+      if (respuesta['estado'] === 6) {
+        this.dataInfoCupones = respuesta['cupon']; //informacion d ela tabla cupon
+        this.dataInfoCodigo = respuesta['data']; // a que le aplicara
+        this.dataInfoMensaje = respuesta['mesnaje'];//mensaje alerta
+        this.dataInfoEstado = respuesta['estado']; //estado
+
+        this.obtenerProductoTotalCategoria();
+        console.log(respuesta);
+      }
+      if (respuesta['estado'] === 7) {
+        this.dataInfoCupones = respuesta['cupon']; //informacion d ela tabla cupon
+        this.dataInfoCodigo = respuesta['data']; // a que le aplicara
+        this.dataInfoMensaje = respuesta['mesnaje'];//mensaje alerta
+        this.dataInfoEstado = respuesta['estado']; //estado
+        this.alertaCategoriaProdustos(respuesta['estado']);
+      }
+    });
+  }
+
+  alertaConfirmacion(mensaje, cupon) {
+    Swal.fire({
+      //question,warning,info,error
+      icon: 'warning',
+      title: `${cupon}`,
+      text: `${mensaje}`,
+      footer: '<a href></a>'
+    });
+  }
+
+  alertaAplicarDescuentos(informacion) {
+    this.valorConcupon = null;
+    console.log(informacion['cupon']['cupon_porcentaje']);
+    let porcentaje = informacion['cupon']['cupon_porcentaje'];
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: 'Estas seguro ?',
+      text: "¡No podrás revertir esto!",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Aplicar!',
+      cancelButtonText: 'No Aplicar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.valorConcupon = this.valorTotal * porcentaje / 100;
+
+        swalWithBootstrapButtons.fire(
+          'Aplicar!',
+          'Se aplico el cupon a tu compra de forma corecta.',
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      }
+    });
+  }
+
+  obtenerProductoTotalCategoria() {
+    console.log('obtenerProductoTotalCategoria');
+    let data = Object.assign({}, this.respuestaCupon);
+    let cupon = data['cupon'];
+    console.log(data, this.respuestaCupon);
+    if (data['estado'] === 6) {
+      let productosFiltrados = this.carritoAnterior.filter(producto => {
+        return producto['categorias'].filter(producto_categoria => {
+          return data['data'].filter(cupo_categoria => {
+            return cupo_categoria['categoria_codigo'] === producto_categoria['id_categoria'];
+          }).length > 0;
+        }).length > 0;
+      });
+
+      //let productosFiltradosIds = productosFiltrados.map(productoFiltrado => productoFiltrado['id_producto']);
+      this.productosConDescuentos = productosFiltrados.map(productoFiltrado => productoFiltrado['id_producto']);
+
+      let subTotalConDescuento = productosFiltrados.reduce((item1, item2) => {
+        let subTotal = (item2.cantidad * item2.precio);
+        let descuento = subTotal * Number(cupon['cupon_porcentaje']) / 100;
+        return item1 + (descuento);
+      }, 0);
+      this.valorConcupon = subTotalConDescuento;
+      console.log(this.productosConDescuentos);
+      console.log(productosFiltrados);
+    }
+  }
+
+  obtenerDescuentosProductos() {
+
+    let data = Object.assign({}, this.respuestaCupon);
+    let cupon = data['cupon'];
+    let cuponPreguntas = data['data'];
+    if (data['estado'] === 7) {
+      //   let idProductoCupon = cuponPreguntas.map(productosFiltrados => productosFiltrados['producto_codigo']);
+      this.productosConDescuentos = cuponPreguntas.map(productosFiltrados => productosFiltrados['producto_codigo']);
+      let productosConDescuentos = this.carritoAnterior.filter(producto => this.productosConDescuentos.includes(producto['id_producto']));
+      console.log(productosConDescuentos);
+      let subTotalConDescuento = productosConDescuentos.reduce((acumulador, producto) => {
+        let subTotal = (producto.cantidad * producto.precio);
+        let descuento = subTotal * Number(cupon['cupon_porcentaje']) / 100;
+        return acumulador + (descuento);
+      }, 0);
+      this.valorConcupon = subTotalConDescuento;
+      console.log(this.productosConDescuentos);
+    }
+  }
+
+  alertaCategoriaProdustos(data) {
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: 'Estas seguro ?',
+      text: "¡No podrás revertir esto!",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Aplicar!',
+      cancelButtonText: 'No Aplicar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        if (data == 6) {
+          this.obtenerProductoTotalCategoria();
+        }
+
+        if (data == 7) {
+          this.obtenerDescuentosProductos();
+        }
+
+        swalWithBootstrapButtons.fire(
+          'Aplicar!',
+          'Se aplico el cupon de descuento a tu compra de forma corecta.',
+          'success'
+        )
+
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      }
+    });
+
+  }
 
 }
 

@@ -2,7 +2,24 @@
     width: 800px !important;
 } */
 
+mat-dialog-content {
 
+  display: block;
+  margin: 0 -24px;
+  padding: 0 24px;
+  max-height: 65vh;
+  overflow: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  display: revert !important;
+}
+
+
+.d-flex {
+  padding-bottom: 0.2em !important;
+}
+.content-images {
+  height: 327px !important;
+}
 /* Anular estilos material para que funcione galeria de imagenes */
 .mat-sidenav-container, .mat-sidenav-content, .mat-tab-body-content {
     transform: none !important;
@@ -20,7 +37,7 @@
 
 .prod-title{
     color: #353435;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 0.05px;
     text-align: left;
     line-height: 25.14px;
@@ -49,7 +66,7 @@
 
 .price{
     color: #FF596A;
-    font-size: 28px;
+    font-size: 23px;
     letter-spacing: 0.06px;
     line-height: 37.71px;
     text-align: left;
@@ -67,6 +84,9 @@
     font-weight: 700;
 }
 
+.mrg-botn-15 {
+  margin-bottom: 5px;
+}
 .content-strech{
     line-height: initial;
 }
@@ -86,7 +106,7 @@
     line-height: 12.57px;
     text-align: left;
 }
-  
+
   /* Botones */
 .btn-select{
     border-radius: 25px;
@@ -138,7 +158,7 @@
 }
 
 #dec-button {
-    left: 62px;
+    left: 141px;
     top: -8px;
 }
 
@@ -183,7 +203,7 @@
   }
 
 /* Relacionados */
-  
+
 .content-img{
   /* height: 250px; */
   margin: 5px;
@@ -197,8 +217,8 @@
 }
 
 .img-nuevo{
-  width: auto !important;   
-  height: auto !important;   
+  width: auto !important;
+  height: auto !important;
   position: absolute;
   top: 0;
   left: -12px;
@@ -226,7 +246,7 @@
     margin-bottom: 5px;
     font-weight: 700;
   }
-  
+
   .vista-previa .title-prod{
     font-size: 10px;
     color: #353435;
@@ -239,18 +259,19 @@
   .vista-previa .item-product{
       padding: .5em .8em;
   }
-  
+
   .vista-previa .cont-price-prod{
     height: 45px;
     line-height: initial;
   }
-  
+
   .vista-previa .price-prod{
     font-size: 14px;
     color: #ff596a;
     margin-left: 10px;
     font-weight: 700;
     margin-bottom: 0px;
+    margin-top: 20px;
   }
 
   .vista-previa .img-descuento{
@@ -293,4 +314,28 @@
 
 .dialog-lg.vista-previa .col-md-9{
     box-shadow: none;
+}
+
+.mrg-botn-30 {
+   margin-bottom: 7px !important;
+ }
+
+
+.boton-salir{
+  position: absolute;
+  top: 15px;
+  right: -3px;
+  width: 39px;
+  height: 32px;
+  margin-top: -50px !important;
+  border-radius: 8px;
+  display: block;
+  cursor: pointer;
+  border: 1px solid #FF596A;
+  color: #FF596A;
+  text-align: center;
+  padding: 1px 0;
+  transition: all .6s ease;
+  background: #FFFFFF;
+  font-weight: 900;
 }

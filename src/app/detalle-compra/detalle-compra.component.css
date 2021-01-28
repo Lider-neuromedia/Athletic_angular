@@ -237,7 +237,6 @@ mat-checkbox span {
 .campo-direcciones {
   background-color: #FFFFFF;
   border-radius: 6px;
-  box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.30);
   height: 295px;
   cursor: pointer;
   width: 218px;
@@ -246,11 +245,26 @@ mat-checkbox span {
 .campo-direcciones:hover {
   background-color: #FFFFFF;
   border-radius: 6px;
-  box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.80);
+  /*box-shadow: inset 0 0 5px grey;*/
+  box-shadow: 2px 4px 6px 0 rgb(0 0 0 / 15%);
   height: 295px;
   cursor: pointer;
   width: 218px;
   padding: 1.5em .6em;
+}
+
+
+.direccion-box{
+  background: white;
+  border-radius: 6px;
+  padding: 1.5em .6em;
+  transition: all .4s ease;
+}
+.direccion-box:hover{
+  box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
+}
+.flex-items-prod {
+  background-color: #f7f7f7;
 }
 
 .fila-boton .detalle {
@@ -331,6 +345,7 @@ mat-checkbox span {
   letter-spacing: 0.05px;
   line-height: 30.17px;
   text-align: left;
+  font-weight: bold;
 }
 
 .agregar-direccion-boton {
@@ -392,7 +407,6 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .agregar-direccion-boton {
   width: 218px;
-  margin-top: 13px;
 
 }
 
@@ -535,4 +549,365 @@ span {
 
 .circle-go-shop span {
   color: #6DD400  !important;
+}
+
+.numero-1 {
+  position: absolute;
+  left: 158px;
+  width: 18px;
+  cursor: pointer;
+  color: black;
+  height: 13px;
+  width: 13px;
+  background-color: red;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: -9px 0px 0px 0px;
+  border-radius: 10px;
+}
+
+.numero-2 {
+  position: absolute;
+  left: 296px;
+  width: 18px;
+  cursor: pointer;
+  color: black;
+  height: 13px;
+  width: 13px;
+  background-color: red;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: -9px 0px 0px 0px;
+  border-radius: 10px;
+}
+
+.numero-3 {
+  position: absolute;
+  right: 296px;
+  width: 18px;
+  cursor: pointer;
+  color: black;
+  height: 13px;
+  width: 13px;
+  background-color: red;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: -9px 0px 0px 0px;
+  border-radius: 10px;
+}
+
+.numero-4 {
+  position: absolute;
+  right: 158px;
+  width: 18px;
+  cursor: pointer;
+  color: black;
+  height: 13px;
+  width: 13px;
+  background-color: red;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: -9px 0px 0px 0px;
+  border-radius: 10px;
+}
+
+
+.titulo-numero-1 {
+  position: absolute;
+  left: 131px;
+  cursor: pointer;
+  color: black;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 11px 0px 0px 0px;
+  border-radius: 10px;
+
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+
+  text-align: left;
+}
+
+.titulo-numero-2 {
+  position: absolute;
+  left: 276px;
+  cursor: pointer;
+  color: black;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 11px 0px 0px 0px;
+  border-radius: 10px;
+
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+
+  text-align: left;
+}
+
+.titulo-numero-3 {
+  position: absolute;
+  right: 228px;
+  cursor: pointer;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  margin: 11px 0px 0px 0px;
+  border-radius: 10px;
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+.titulo-numero-4 {
+  position: absolute;
+  right: 147px;
+  cursor: pointer;
+  color: black;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 11px 0px 0px 0px;
+  border-radius: 10px;
+
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+
+  text-align: left;
+}
+
+.progress {
+  height: 4px !important;
+  background-color: #969696;
+}
+
+.items-disenio {
+  height: 73px;
+}
+
+.contenedor-registro {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.contenedor-registro-direcciones {
+
+  width: 100%;
+  height: 100vh;
+  margin-right: 10px;
+  margin-left: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+}
+
+.imagen-producto, .detalle-producto, .precio-acciones, .precio-acciones, .col-md-3-iconos {
+  margin-bottom: 3px !important;
+}
+
+.numero-11 {
+  position: absolute;
+  left: 185px;
+  cursor: pointer;
+  color: black;
+  height: 13px;
+  width: 13px;
+  background-color: red;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: -9px 0px 0px 0px;
+  border-radius: 10px;
+}
+
+.numero-22 {
+  position: absolute;
+  left: 370px;
+  cursor: pointer;
+  color: black;
+  height: 13px;
+  width: 13px;
+  background-color: red;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: -9px 0px 0px 0px;
+  border-radius: 10px;
+}
+
+.numero-33 {
+  position: absolute;
+  left: 370px;
+  cursor: pointer;
+  color: black;
+  height: 13px;
+  width: 13px;
+  background-color: red;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: -9px 0px 0px 0px;
+  border-radius: 10px;
+}
+
+.numero-44 {
+  position: absolute;
+  right: 191px;
+  cursor: pointer;
+  color: black;
+  height: 13px;
+  width: 13px;
+  background-color: red;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: -9px 0px 0px 0px;
+  border-radius: 10px;
+}
+
+
+.titulo-numero-11 {
+  position: absolute;
+  left: 157px;
+  cursor: pointer;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  margin: 11px 0px 0px 0px;
+  border-radius: 10px;
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+.titulo-numero-22 {
+  position: absolute;
+  left: 276px;
+  cursor: pointer;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  margin: 11px 0px 0px 0px;
+  border-radius: 10px;
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+.titulo-numero-33 {
+  position: absolute;
+  right: 317px;
+  cursor: pointer;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  margin: 11px 0px 0px 0px;
+  border-radius: 10px;
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+
+  text-align: left;
+}
+
+.titulo-numero-44 {
+  position: absolute;
+  right: 180px;
+  cursor: pointer;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  margin: 11px 0px 0px 0px;
+  border-radius: 10px;
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 17.6px;
+  text-align: left;
+}
+
+.cupones-descuento {
+  padding: 1em 0.1em !important;
+}
+.boton-buscar {
+  border-radius: 0px 10px 10px 0px;
+  border: solid 1px;
+  color: var(--active-link);
+  border: 1px solid var(--active-link);
+  display: inline-block;
+  font-weight: 700;
+  font-size: 10px;
+  cursor: pointer;
+  background-color: #FFFFFF;
+}
+
+.pay-now-iniciar {
+  background-color: #FF596A;
+  border-radius: 25px;
+  width: 100%;
+  height: 51px;
+  color: #FFFFFF;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.7px;
+  line-height: 20px;
+  text-align: center;
+  border: none !important;
+}
+
+.pay-now-iniciar:hover {
+  background-color: #FF596A;
+  border-radius: 25px;
+  width: 100%;
+  height: 51px;
+  color: #FFFFFF !important;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.7px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.metos-pagos img {
+  margin: 10px;
+}
+
+.aside-account-text {
+  text-align: center;
+}
+
+.tengo-cupon {
+  height: 29px;
+  margin-bottom: 15px;
+}
+.metos-pagos-tarjeta img {
+  margin: 3px;
+}
+.metos-pagos-tarjeta {
+  margin-left: 5px;
+  margin-bottom: 12px;
+}
+
+.talla {
+  color: #969696;
+  font-size: 16px;
+  line-height: 20px;
 }

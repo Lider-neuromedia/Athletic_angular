@@ -50,6 +50,8 @@ export class HeaderComponent {
   }
 
   ngOnInit(): void {
+
+
     this.llamarDatoLocales();
 
     this.getCategories();
@@ -63,6 +65,7 @@ export class HeaderComponent {
       response => {
         var data = response.categorias;
         this.categorias_prin = data.hijos;
+        console.log( this.categorias_prin);
         this.categorias = data.hijos;
         var cat_inicial = this.categorias_prin[0];
         this.changeSubCategoria(cat_inicial.id_categoria, cat_inicial.hijos);
@@ -143,6 +146,30 @@ export class HeaderComponent {
       this.usuario = response;
     });
 
+  }
+
+  activarMenu2() {
+
+    console.log('abrir menu2');
+    document.getElementById('estado2').click();
+
+  }
+
+
+  activarMenu() {
+      // @ts-ignore
+    //document.getElementsByClassName('menu-categories')[0].style.display = 'display:block;';
+   // document.getElementById('activar-menu-principal').style.display = 'block';
+    document.getElementById('estado').click();
+    console.log('abrir menu');
+
+  }
+
+  cerrarModalMenu() {
+    console.log('salir del menu');
+   // document.getElementById('logo-tienda').click();
+  //  document.getElementsByName('body')[0].click();
+    this.activarMenu2();
   }
 
 

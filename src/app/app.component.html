@@ -13,21 +13,21 @@
           <div class="content-bolsa">
 
             <div class="ing5-header-bolsa">
-              <div class="titulo-boton">
-                <div class="boton">
-                  <span class="material-icons close-bolsa">highlight_off</span>
+              <div class="titulo-boton" >
+                <div class="boton" (click)="openBolsa(false)">
+                  <span class="material-icons close-bolsa"  >highlight_off</span>
                 </div>
                 <div class="titulo">
                   <h3 class="titulo-bolsa">Bolsa de compras</h3>
-                  <small class="hello-user">¡Hola Neuromedia!</small>
+                  <small class="hello-user" *ngIf="usuario">¡Hola {{usuario.nombres}}!</small>
                 </div>
               </div>
-              <div class="label-select">
+              <!--<div class="label-select">
                 <div class="label-order">Ordenar según:</div>
                 <select name="" class="select-order">
                   <option value="">Orden en que se agregó</option>
                 </select>
-              </div>
+              </div>-->
             </div>
 
             <div class="content-productos" *ngIf="carritoAnterior">
@@ -35,8 +35,8 @@
               <div class="items-productos-bolsa" *ngFor="let data of carritoAnterior; let indices = index ">
                 <div class="imagen-producto">
                 <!--  <img src="assets/img/zapatillas/z-01.png" alt="" class="foto-producto">-->
-                  <img [src]="data['imagen_destacada']">
-                  <img src="assets/img/productos/si.png" alt="" class="descuento-producto">
+                  <img [src]="data['imagen_destacada'] ? data['imagen_destacada'] : data['imagen_portada']['img']">
+                 <!-- <img src="assets/img/productos/si.png" alt="" class="descuento-producto">-->
 
                 </div>
                 <div class="detalle-producto">
@@ -44,16 +44,20 @@
                   <h3>{{data['name_marca']}}</h3>
                   <p>{{data['referencia']}}</p>
                 </div>
-                <div class="precio-acciones">
-                  <p class="precio-descuento">{{data['precio'] * data['cantidad'] | currency}}</p>
-                  <p class="precio-normal">{{data['precio_general'] * data['cantidad'] | currency}}</p>
-                  <div class="acciones-cantidad">
-                    <span class="material-icons trash"  (click)="aumentarDisminuir(data, indices, 0)">remove_circle</span>
-                    <!--<img class="trash" src="assets/img/icons/trash.svg" alt="" (click)="quitarItemCarrito(data, indices)">-->
-                    <input class="form-control cantidad" type="number" [value]="data['cantidad']"  name="" >
-                    <span class="material-icons plus"  (click)="aumentarDisminuir(data, indices, 1)">control_point</span>
-                    <img class="trash-2" src="assets/img/icons/trash.svg" alt="" (click)="quitarItemCarrito(data, indices)">
-                   <!-- <img class="trash" src="assets/img/icons/trash.svg" alt="" (click)="quitarItemCarrito(data, indices)">-->
+                <div class="precio-acciones" style="margin-bottom: 10px">
+
+                    <div class="valores">
+                      <p class="precio-descuento">{{data['precio'] * data['cantidad'] | currency}}</p>
+                      <p class="precio-normal">{{data['precio_general'] * data['cantidad'] | currency}}
+                      <span class="porcentaje-descuento" *ngIf="data['valor_descuento']">
+                         {{ " - " + data['valor_descuento'] + "%" }} </span></p>
+                    </div>
+
+                  <div class="acciones-cantidad" >
+                    <img class="material-icons trash-2 numero-imagen"  src="assets/img/icons/trash.svg" alt="" (click)="quitarItemCarrito(data, indices)">
+                    <span class="material-icons trash  restar numero-menos" (click)="aumentarDisminuir(data, indices, 0)">remove_circle</span>
+                    <input class="form-control cantidad numero-campo" type="number" [value]="data['cantidad']"  name="" >
+                    <span class="material-icons plus-2 numero-sumar"  (click)="aumentarDisminuir(data, indices, 1)">add_circle</span>
                   </div>
 
                 </div>
@@ -64,19 +68,20 @@
 
             <div class="footer-bolsa" *ngIf="carritoAnterior">
               <div class="total">
-                <p class="aproximado">Total aproximado</p>
+                <p class="aproximado">TOTAL</p>
                 <p class="valor" *ngIf="!valorTotal">{{  0 | currency}}</p>
                 <p class="valor" *ngIf="valorTotal">{{ valorTotal | currency}}</p>
               </div>
+              <hr>
               <div class="call-to-action-bolsa">
 
-                <a routerLink="/detalle-de-la-compra" class="pay-now">
+                <a routerLink="/detalle-de-la-compra" (click)="openBolsa(false)" class="pay-now">
                   <span class="circle-go-shop">
                     <span class="material-icons">
                     done
                     </span>
                   </span>
-                  Ir a la tienda
+                 Pagar ahora
                 </a>
 
                 <a  class="clear-now" (click)="vaciarBolsa()">
@@ -90,177 +95,6 @@
             </div>
 
           </div>
-
-
-
-          <!-- <div class="bolsa-general">
-          <div class="header-bolsa">
-            <a href=""><span class="material-icons close-bolsa">highlight_off</span></a>
-            <div class="header-bolsa-title-box">
-              <h2 style="padding: 20px 0px 0px 15px; line-height: 16px;">Bolsa de compras</h2>
-              <p style="padding: 2px 0px 10px 15px;">¡Hola Neuromedia!</p>
-            </div>
-            <div class="filtro-bolsa">
-              <p class="ordenar">ORDENAR SEGÚN:</p>
-              <select class="form-control filter-order" name="" id="">
-                <option value="">Ordenar por</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="items-productos-bolsa">
-            <div class="imagen-producto">
-              <img src="assets/img/zapatillas/z-01.png" alt="" class="foto-producto">
-              <img src="assets/img/productos/si.png" alt="" class="descuento-producto">
-            </div>
-            <div class="detalle-producto">
-              <h2>Fresh Foam Arishi</h2>
-              <h3>New Balance</h3>
-              <p>Ref: atk: 1030492390f</p>
-            </div>
-            <div class="precio-acciones">
-              <p class="precio-descuento">$230.000</p>
-              <p class="precio-normal">$280.000</p>
-              <div class="acciones-cantidad">
-                <img class="trash" src="assets/img/icons/trash.svg" alt="">
-                <input class="form-control cantidad" type="number" name="" id="">
-                <span class="material-icons plus">control_point</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="items-productos-bolsa">
-            <div class="imagen-producto">
-              <img src="assets/img/zapatillas/z-01.png" alt="" class="foto-producto">
-              <img src="assets/img/productos/si.png" alt="" class="descuento-producto">
-            </div>
-            <div class="detalle-producto">
-              <h2>Fresh Foam Arishi</h2>
-              <h3>New Balance</h3>
-              <p>Ref: atk: 1030492390f</p>
-            </div>
-            <div class="precio-acciones">
-              <p class="precio-descuento">$230.000</p>
-              <p class="precio-normal">$280.000</p>
-              <div class="acciones-cantidad">
-                <span class="material-icons less">remove_circle_outline</span>
-                <input class="form-control cantidad" type="number" name="" id="">
-                <span class="material-icons plus">control_point</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="items-productos-bolsa">
-            <div class="imagen-producto">
-              <img src="assets/img/zapatillas/z-01.png" alt="" class="foto-producto">
-              <img src="assets/img/productos/si.png" alt="" class="descuento-producto">
-            </div>
-            <div class="detalle-producto">
-              <h2>Fresh Foam Arishi</h2>
-              <h3>New Balance</h3>
-              <p>Ref: atk: 1030492390f</p>
-            </div>
-            <div class="precio-acciones">
-              <p class="precio-descuento">$230.000</p>
-              <p class="precio-normal">$280.000</p>
-              <div class="acciones-cantidad">
-                <span class="material-icons less">remove_circle_outline</span>
-                <input class="form-control cantidad" type="number" name="" id="">
-                <span class="material-icons plus">control_point</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="items-productos-bolsa">
-            <div class="imagen-producto">
-              <img src="assets/img/zapatillas/z-01.png" alt="" class="foto-producto">
-              <img src="assets/img/productos/si.png" alt="" class="descuento-producto">
-            </div>
-            <div class="detalle-producto">
-              <h2>Fresh Foam Arishi</h2>
-              <h3>New Balance</h3>
-              <p>Ref: atk: 1030492390f</p>
-            </div>
-            <div class="precio-acciones">
-              <p class="precio-descuento">$230.000</p>
-              <p class="precio-normal">$280.000</p>
-              <div class="acciones-cantidad">
-                <span class="material-icons less">remove_circle_outline</span>
-                <input class="form-control cantidad" type="number" name="" id="">
-                <span class="material-icons plus">control_point</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="items-productos-bolsa">
-            <div class="imagen-producto">
-              <img src="assets/img/zapatillas/z-01.png" alt="" class="foto-producto">
-              <img src="assets/img/productos/si.png" alt="" class="descuento-producto">
-            </div>
-            <div class="detalle-producto">
-              <h2>Fresh Foam Arishi</h2>
-              <h3>New Balance</h3>
-              <p>Ref: atk: 1030492390f</p>
-            </div>
-            <div class="precio-acciones">
-              <p class="precio-descuento">$230.000</p>
-              <p class="precio-normal">$280.000</p>
-              <div class="acciones-cantidad">
-                <span class="material-icons less">remove_circle_outline</span>
-                <input class="form-control cantidad" type="number" name="" id="">
-                <span class="material-icons plus">control_point</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="items-productos-bolsa">
-            <div class="imagen-producto">
-              <img src="assets/img/zapatillas/z-01.png" alt="" class="foto-producto">
-              <img src="assets/img/productos/si.png" alt="" class="descuento-producto">
-            </div>
-            <div class="detalle-producto">
-              <h2>Fresh Foam Arishi</h2>
-              <h3>New Balance</h3>
-              <p>Ref: atk: 1030492390f</p>
-            </div>
-            <div class="precio-acciones">
-              <p class="precio-descuento">$230.000</p>
-              <p class="precio-normal">$280.000</p>
-              <div class="acciones-cantidad">
-                <span class="material-icons less">remove_circle_outline</span>
-                <input class="form-control cantidad" type="number" name="" id="">
-                <span class="material-icons plus">control_point</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="footer-bolsa">
-            <div class="total">
-              <p class="aproximado">Total aproximado</p>
-              <p class="valor">$380.000</p>
-            </div>
-            <div class="call-to-action-bolsa">
-
-              <a href="" class="pay-now">
-                <span class="circle-go-shop">
-                  <span class="material-icons">
-                  done
-                  </span>
-                </span>
-                Ir a la tienda
-              </a>
-
-              <a href="" class="clear-now">
-                <span class="circle-clear-shop">
-                  <span class="material-icons">delete</span>
-                </span>
-                Vaciar bolsa
-              </a>
-
-            </div>
-          </div>
-          </div> -->
-
 
         </mat-sidenav>
 

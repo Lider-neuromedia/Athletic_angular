@@ -10,39 +10,39 @@
             <p [class]="(small) ? 'title-prod-small' : 'title-prod'">{{title}}</p>
             <div [class]="(small) ? 'cont-price-prod-small' : 'cont-price-prod'">
                 <p class="price-prod">{{price |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
-                <p class="price-prod-desc" *ngIf="descuento != null">{{price_ant |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+            <p><span class="price-prod-desc" *ngIf="descuento != null">{{price_ant |currency:'COP':'symbol-narrow' :'1.0-0'}} </span><span class="porcentaje-descuento" *ngIf="descuento">{{ " - " + descuento+"%"}}</span></p>
             </div>
         </div>
     </div>
 
     <div class="cont-btn-prod  w-100 justify-content-between mrg-top-10" *ngIf="small">
-        <div class="">
+       <!-- <div class="">
             <button (click)="agregarABolsa()" mat-raised-button class="btn-bolsa-small" color="primary">
                 <img style="height: 14px; margin-right: 5px;" src="assets/img/icons/inactive.png">Añadir a la bolsa
             </button>
-        </div>
-        <div class="">
+        </div>-->
+
             <button (click)="openVistaPrevia()" mat-stroked-button class="btn-vista-small" color="primary" *ngIf="!favorites">
                 <mat-icon class="icon-small">visibility</mat-icon>Vista rápida
             </button>
             <button mat-stroked-button class="btn-vista-small" color="primary" *ngIf="favorites">
                 <mat-icon class="icon-small">delete</mat-icon>Eliminar
             </button>
-        </div>
-        
+
+
     </div>
 
     <div class="row cont-btn-prod" *ngIf="!small">
-        <div class="">
-            <button (click)="agregarABolsa()" mat-raised-button class="btn-bolsa" color="primary">
-                <img src="assets/img/icons/inactive.png">Añadir a la bolsa
+        <!--<div class="">
+            <button (click)="agregarProductosAlCarrito()" mat-raised-button class="btn-bolsa" color="primary">
+                <img src="assets/img/icons/inactive.png">Añadir a la bola
             </button>
-        </div>
-        <div class="">
+        </div>-->
+
             <button (click)="openVistaPrevia()" mat-stroked-button class="btn-vista" color="primary">
                 <mat-icon class="icon-small">visibility</mat-icon>Vista rápida
             </button>
-        </div>
+
     </div>
 
 

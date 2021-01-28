@@ -1,0 +1,139 @@
+
+.resena-detalle .box-detalle-resena{
+  background: white;
+  border-radius: 9px;
+  transition: all .5s ease;
+  margin-bottom: 20px;
+}
+
+.resena-detalle .box-detalle-resena:hover{
+  box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
+}
+
+.resena-detalle .info-valoracion{
+  background: #FFE6E9;
+  border-radius: 9px 9px 0 0;
+  display: flex;
+  padding: 7px 14px;
+  width: 100%;
+}
+
+.resena-detalle .info-valoracion p{
+  margin: 0;
+}
+
+.resena-detalle .separador{
+  background: #D8D8D8;
+  height: 15px;
+  margin: 0px 22px;
+  width: 1px;
+}
+
+.resena-detalle .content-start{
+  margin-left: 10px;
+}
+
+.resena-detalle .content-start img{
+  margin-top: -5px;
+}
+
+.resena-detalle .contenedor-info{
+  padding: 20px 15px;
+}
+
+.resena-detalle .align-contenedor-info{
+  align-items: center;
+}
+
+.resena-detalle .title-nombre{
+  color: #353435;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 800;
+  line-height: 16px;
+  margin: 0em;
+}
+
+.resena-detalle .marca{
+  color: #969696;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  margin: 0;
+}
+
+.resena-detalle .ref{
+  color: #969696;
+  font-size: 11px;
+}
+
+.resena-detalle .enlace-resena{
+  border: 1px solid #FF596A;
+  border-radius: 4px;
+  height: 16px;
+  padding: 0px 8px;
+}
+
+.resena-detalle .enlace-resena:hover{
+  text-decoration: none;
+}
+
+.resena-detalle .titulo-resena,
+.resena-detalle .mensaje{
+  color: #969696;
+  font-size: 12px;
+  margin: 0;
+}
+
+.resena-detalle .text-down-resena{
+  color: #353435;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.resena-detalle .ver-mas{
+  color: #FF596A;
+}
+
+.resena-detalle .ver-mas:hover{
+  text-decoration: none;
+}
+
+.resena-detalle .ir-producto{
+  justify-content: flex-end;
+}
+
+.resena-detalle .btn-ir-producto{
+  color: #FF5965;
+  border: 1px solid #FF596A;
+  border-radius: 25px;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+  padding: 8px 40px;
+  margin-bottom: 20px;
+}
+
+
+.resena-detalle .btn-ir-producto:hover{
+  text-decoration: none;
+}
+
+.valot-pedido {
+  color: #FF5965;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 16px;
+
+}
+
+.btn-ir-producto {
+  cursor: pointer;
+}
+
+
+.btn-ir-producto:hover {
+  cursor: pointer;
+  color: #FFFFFF;
+}
+

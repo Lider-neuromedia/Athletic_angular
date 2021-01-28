@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {VariablesService} from "./servicio/variable-global/variables.service";
 import {AlertasService} from "./servicio/alertas/alertas.service";
+import Swal from 'sweetalert2'
+import {LoginGlobalService} from "./servicio/login-global/login-global.service";
 
 @Component({
   selector: 'app-root',
@@ -16,11 +18,15 @@ export class AppComponent implements OnInit {
   cantidadCarrito = 0;
   valorTotal: number;
   carritoNuevo = [];
+  usuario: any;
 
-  constructor(private variablesGl: VariablesService, private alertaS: AlertasService) {}
+  constructor(private variablesGl: VariablesService, private alertaS: AlertasService,  private loginGlobal: LoginGlobalService,) {}
   ngOnInit() {
+    this.llamarDatoLocalesUsuario();
     this.llamarDatoLocales();
     this.miCarritoCompraContador();
+
+
 
   }
 
@@ -66,26 +72,66 @@ export class AppComponent implements OnInit {
 
   quitarItemCarrito(data, co) {
 
-    this.carrito = localStorage.getItem('athletic');
-    let dataCarrito = JSON.parse(this.carrito);
-    let i = dataCarrito.indexOf(data);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.carrito = localStorage.getItem('athletic');
+        let dataCarrito = JSON.parse(this.carrito);
+        let i = dataCarrito.indexOf(data);
 
-    dataCarrito.splice(co, 1);
+        dataCarrito.splice(co, 1);
 
 
-    localStorage.setItem('athletic', JSON.stringify(dataCarrito));
-    this.llamarDatoLocales();
-    let datos = 'Articulo removido del Carrito de Compras ';
-    this.alertaS.showToasterWarning(datos);
+        localStorage.setItem('athletic', JSON.stringify(dataCarrito));
+        this.llamarDatoLocales();
+        let datos = 'Articulo removido del Carrito de Compras ';
+        this.alertaS.showToasterWarning(datos);
 
-    this.variablesGl.changeMessage();
+        this.variablesGl.changeMessage();
+      }
+    })
+
+
   }
 
+
+
   vaciarBolsa() {
+
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Vaciar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('athletic');
+        this.variablesGl.changeMessage();
+        this.valorTotal = 0;
+      }
+    })
+
+
+  }
+
+
+ /* vaciarBolsa() {
     localStorage.removeItem('athletic');
     this.variablesGl.changeMessage();
     this.valorTotal = 0;
-  }
+  }*/
 
   aumentarDisminuir(data, indice, proceso) {
 
@@ -109,4 +155,22 @@ export class AppComponent implements OnInit {
 
   }
 
+  confirmacion() {
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Listo...',
+      text: 'sdfsbfdsbfdsbd',
+      footer: ''
+    });
+
+  }
+
+  llamarDatoLocalesUsuario() {
+
+    this.loginGlobal.currentMessage.subscribe(response => {
+      this.usuario = response;
+    });
+
+  }
 }

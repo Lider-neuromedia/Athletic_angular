@@ -5,6 +5,7 @@ import {FormBuilder} from "@angular/forms";
 import {SendHttpData} from "../tools/SendHttpData";
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 import {Router} from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-guardar-direcciones',
@@ -54,13 +55,30 @@ export class GuardarDireccionesComponent implements OnInit {
     const  data = {
       direccion: direccion
     };
-    this.setHtpp.httpPost('eliminar-direcciones', data).toPromise().then(respuesta => {
-      console.log(respuesta[`data`]);
-      this.alertaS.showToasterFull(respuesta[`data`]);
-      this.cargarTodasLasDirecciones();
-    }).catch(error => {
 
-    });
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.setHtpp.httpPost('eliminar-direcciones', data).toPromise().then(respuesta => {
+          console.log(respuesta[`data`]);
+          this.alertaS.showToasterFull(respuesta[`data`]);
+          this.cargarTodasLasDirecciones();
+        }).catch(error => {
+
+        });
+      }
+    })
+
+
   }
 
   editarDireccion(codigo) {

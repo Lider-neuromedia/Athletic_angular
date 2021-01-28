@@ -5,6 +5,7 @@ import {NgxGalleryImage, NgxGalleryOptions} from "ngx-gallery-9";
 import {SendHttpData} from "../tools/SendHttpData";
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 import {Router} from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-favoritos',
@@ -63,13 +64,29 @@ export class FavoritosComponent implements OnInit {
     const data = {
       codigo: favorito
     }
-    this.http.httpPost('eliminar-mis-favoritos', data).toPromise()
-      .then(respuesta => {
-        this.alertaS.showToasterWarning(respuesta[`data`]);
-        this.listarFavoritos();
-      }).catch(error => {
 
-    });
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.http.httpPost('eliminar-mis-favoritos', data).toPromise()
+          .then(respuesta => {
+            this.alertaS.showToasterWarning(respuesta[`data`]);
+            this.listarFavoritos();
+          }).catch(error => {
+
+        });
+      }
+    })
+
   }
 
 

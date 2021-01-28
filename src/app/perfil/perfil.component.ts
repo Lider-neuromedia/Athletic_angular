@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {SendHttpData} from "../tools/SendHttpData";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AlertasService} from "../servicio/alertas/alertas.service";
+import {Router} from "@angular/router";
+import {GlobalVarService} from "../common/global-var.service";
+import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 
 @Component({
   selector: 'app-perfil',
@@ -8,41 +12,107 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
-  myForm: FormGroup;
 	hide = true;
   usuario: Perfil;
-  constructor( private http: SendHttpData, private formBuilder: FormBuilder,) {
+  dataUser: any;
+  confirmarClave: string;
+  constructor( private http: SendHttpData, private formBuilder: FormBuilder,
+               private alertaS: AlertasService,
+               private setHtpp: SendHttpData,
+               private ruta: Router,
+               public globalVar: GlobalVarService,
+               private loginGlobal: LoginGlobalService) {
 
-
+    this.llamarDatoLocalesUsuario();
 
   }
 
   ngOnInit(): void {
-     this.usuario = JSON.parse(localStorage.getItem('userAthletic')).id_cliente;
-     if (this.usuario)
-    console.log(this.usuario);
-     this.listarPerfilUsuario(this.usuario);
+    this.usuario = {
+      password: null,
+      clave: null,
+      genero: null,
+      fecha_nacimiento: null,
+      email: null,
+      apellidos: null,
+      nombres: null,
+      estado: null,
+      telefono: null,
+      cliente: null,
+
+    }
+     this.listarPerfilUsuario();
   }
 
-    listarPerfilUsuario(codigo) {
-      this.http.httpGetParamt('clientes-visualizar', codigo).toPromise().then(respuesta => {
+    listarPerfilUsuario() {
+
+      console.log( this.dataUser);
+      this.http.httpGetParamt('clientes-visualizar', this.dataUser.id_cliente).toPromise().then(respuesta => {
         console.log(respuesta);
-        this.usuario = respuesta[`data`][0];
+        this.usuario.cliente = respuesta[`data`][0].id_cliente;
+        this.usuario.password = respuesta[`data`][0].clave;
+        this.usuario.email = respuesta[`data`][0].email;
+        this.usuario.genero = respuesta[`data`][0].genero;
+        this.usuario.nombres = respuesta[`data`][0].nombres;
+        this.usuario.apellidos = respuesta[`data`][0].apellidos;
+        this.usuario.fecha_nacimiento = respuesta[`data`][0].fecha_nacimiento;
+
+
+        console.log(this.usuario);
       }).catch(error => {
         console.log(error);
       });
     }
 
+  llamarDatoLocalesUsuario() {
+
+    this.loginGlobal.currentMessage.subscribe(response => {
+      this.dataUser = response;
+    });
+
+  }
+
+  actualizarPerfil() {
+
+    console.log(this.confirmarClave, this.usuario.password)
+
+    if ((this.confirmarClave && this.usuario.password) && (this.confirmarClave !== this.usuario.password)) {
+
+      this.alertaS.showToasterWarning('La información de los campos contraseñas debens er iguales');
+      return;
+    }
+
+    this.usuario.clave =  this.usuario.password;
+
+    this.setHtpp.httpPost('actualizar-cliente', this.usuario).toPromise().then(respuesta => {
+      console.log(respuesta)
+
+      if (respuesta['estado']) {
+        this.alertaS.showToasterFull(respuesta['mensaje'])
+      }else {
+        this.alertaS.showToasterWarning(respuesta['mensaje'])
+      }
+    }).catch(error => {
+
+    });
+
+  }
+
 }
+
+
+
 
 export interface Perfil {
 
-  apellidos: null,
-  email: null,
-  estado: null,
-  fecha_nacimiento: null,
-  genero: null,
-  nombres: null,
-  telefono: null,
-  password: null,
+  apellidos: string,
+  email: string,
+  estado: string,
+  fecha_nacimiento: string,
+  genero: string,
+  nombres: string,
+  telefono: string,
+  password: string,
+  clave: string,
+  cliente: number;
 }

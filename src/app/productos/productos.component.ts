@@ -3,7 +3,10 @@ import { Options } from 'ng5-slider';
 import { SendHttpData } from '../tools/SendHttpData';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {VistaPreviaComponent} from '../vista-previa/vista-previa.component';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AlertasService} from "../servicio/alertas/alertas.service";
+import {LoginGlobalService} from "../servicio/login-global/login-global.service";
+import {VariablesService} from "../servicio/variable-global/variables.service";
 
 @Component({
   selector: 'app-productos',
@@ -34,8 +37,24 @@ export class ProductosComponent implements OnInit {
   cantidad = 1;
   id_prd_vstaprev : any = 21;
   checkMarcas: any;
-
-  constructor(private http: SendHttpData, public dialog: MatDialog,  private activatedRoute: ActivatedRoute) {}
+  carritoAnterior = [];
+  addProductoCarrito = [];
+  usuario: any;
+  condicionBotonFavorito: any;
+  todas:  any;
+  talla: any;
+  opcionSeleccionado: any;
+  constructor(
+    private http: SendHttpData,
+    public dialog: MatDialog,
+    private activatedRoute: ActivatedRoute,
+    private alertaS: AlertasService,
+    private ruta: Router,
+    private loginGlobal: LoginGlobalService,
+    private variablesGl: VariablesService
+  ) {
+    this.llamarDatoLocalesUsuario();
+  }
 
   ngOnInit(): void {
 
@@ -75,6 +94,7 @@ export class ProductosComponent implements OnInit {
         this.productos = response;
         console.log(this.productos );
         this.calcularPaginas();
+        this.calculoProductoResenia(this.productos['id_producto']);
       },
       error => { console.error("error." + error); }
     );
@@ -281,6 +301,102 @@ export class ProductosComponent implements OnInit {
 
       }
     }
+  }
+
+
+  agregarProductosAlCarrito(producto) {
+
+    if (!this.opcionSeleccionado) {
+      this.alertaS.showToasterError('Debes seleccionar una talla');
+      return;
+    }
+
+    console.log(this.cantidad,  producto );
+
+    this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
+    console.log(this.carritoAnterior);
+
+    if (this.cantidad > 0) {
+
+      producto['cantidad'] = this.cantidad;
+      producto['talla'] = this.opcionSeleccionado;
+      producto['precio'] = producto['precio_descuento']?producto['precio_descuento'] : producto['precio_impuesto'];
+      this.addProductoCarrito.push(producto);
+      console.log(this.addProductoCarrito, producto);
+
+      if (this.addProductoCarrito) {
+        if (this.carritoAnterior) {
+        } else {
+          this.carritoAnterior = [];
+        }
+
+        this.carritoAnterior.push(producto);
+        localStorage.setItem('athletic', JSON.stringify(this.carritoAnterior));
+      }
+
+
+      this.addProductoCarrito = [];
+      this.cantidad = 1;
+
+      this.alertaS.showToasterFull(`Articulo Agregado Corectamente`);
+
+
+    } else {
+      this.alertaS.showToasterError(`Debes agregar Minimo un producto ,  ${this.cantidad}`);
+    }
+    this.variablesGl.changeMessage();
+  }
+
+
+  agregarProductoFavorito(producto) {
+    const data = {
+      usuario: this.usuario.id_cliente,
+      producto: producto.id_producto
+    };
+
+    this.http.httpPost('agregar-productos-favorito', data).toPromise().then(respuesta => {
+      if (respuesta[`estado`]) {
+        this.alertaS.showToasterFull(`Articulo agregado a favoritos`);
+      }
+    }).catch(error => {
+
+    })
+
+
+    console.log(producto, data);
+  }
+
+  ingresar() {
+    this.ruta.navigate(['login']);
+  }
+
+  llamarDatoLocalesUsuario() {
+
+    this.loginGlobal.currentMessage.subscribe(response => {
+      this.usuario = response;
+    });
+
+  }
+
+
+  calculoProductoResenia(producto) {
+
+    const data = {
+      producto: producto
+    };
+    this.http.httpPost('pintar-calculo-por-productos', data).toPromise().then(respuesta => {
+      console.log(respuesta);
+      this.todas  = respuesta['todas'];
+
+
+    }).catch(error =>{
+
+    })
+  }
+
+  checkearTalla(evento) {
+      console.log(evento);
+      this.opcionSeleccionado = evento;
   }
 
 }

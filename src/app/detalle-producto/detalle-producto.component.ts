@@ -57,7 +57,8 @@ export class DetalleProductoComponent implements OnInit {
   texto: any;
   colorTexto: any;
   unicaValoracion: any;
-
+  url: any;
+  opcionSeleccionado: any;
 
   constructor(
     public dialog: MatDialog,
@@ -130,6 +131,7 @@ export class DetalleProductoComponent implements OnInit {
       this.getProducts(value.id);
       this.calculoProductoResenia(value.id);
       this.cargarLosComentarios(value.id);
+      this.listarProductosRelacionados(value.id);
     });
 
     this.getProducts(this.route_params.snapshot.params.id);
@@ -254,6 +256,8 @@ export class DetalleProductoComponent implements OnInit {
     this.http.httpGet('productos/' + id, null, false).subscribe(
       response => {
         this.producto = response;
+        console.log(this.producto);
+        this.producto.precio = Math.round(this.producto.precio)
         $('#detalle').html(response.descripcion_prod);
         $('blockquote').addClass('col-md-4');
         var gallery = [];
@@ -284,13 +288,17 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   agregarProductosAlCarrito() {
-    console.log(this.cantidad,  this.producto );
+    console.log(this.cantidad, this.producto);
+    if (!this.opcionSeleccionado) {
+      this.alertaS.showToasterError('Debes seleccionar una talla');
+      return;
+    }
 
     this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
     console.log(this.carritoAnterior);
 
     if (this.cantidad > 0) {
-
+      this.producto['talla'] = this.opcionSeleccionado;
       this.producto['cantidad'] = this.cantidad;
       this.addProductoCarrito.push(this.producto);
       console.log(this.addProductoCarrito);
@@ -369,6 +377,7 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   openDialog() {
+
     const dialogRef = this.dialog.open(ComentarioProductoComponent, {
       width: '700px',
       data: {datos: this.producto}
@@ -433,13 +442,33 @@ export class DetalleProductoComponent implements OnInit {
       if (this.tamanio5 > 99 ) {
         this.tamanio5 = 100;
       }
-    }).catch(error =>{
+    }).catch(error => {
 
     })
   }
 
   autenticarse() {
     this.ruta.navigate(['login']);
+  }
+
+  listarProductosRelacionados(codigo) {
+    const data = {
+      producto: codigo
+    };
+
+    this.http.httpPost('listar-productos-relacionados', data).toPromise().then(respuesta => {
+      console.log(respuesta);
+
+      this.carouselDescatadosUno = respuesta[`data`];
+      this.url = respuesta[`ruta`];
+
+      console.log(this.carouselDescatadosUno, this.url)
+    });
+  }
+
+  checkearTalla(evento) {
+    console.log(evento);
+    this.opcionSeleccionado = evento;
   }
 
 }

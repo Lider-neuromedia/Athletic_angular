@@ -207,8 +207,17 @@
       </div>
       <div class="row mrg-top-20 productos-destacados-col-5">
         <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center"  *ngFor="let item of carouselDescatadosUno">
-          <app-item-producto [id]="item.id_producto" [nuevo]="item.nuevo" [image]="item.imagen_portada.img" [subtitle]="item.name_marca"
-            [title]="item.name_prod" [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto" [showButtons]="false" [price_ant]="item.precio_general" [descuento]="item.valor_descuento">
+          <app-item-producto
+            [id]="item.id_producto"
+            [nuevo]="item.nuevo"
+            [image]="item.imagen_portada.img"
+            [subtitle]="item.name_marca"
+            [title]="item.name_prod"
+            [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto"
+            [showButtons]="false"
+            [price_ant]="item.precio_general"
+            [descuento]="item.valor_descuento"
+          >
           </app-item-producto>
         </div>
       </div>
@@ -322,7 +331,7 @@
         </owl-carousel>
       </div>
 
-<!-- 
+<!--
       <div class="col-md-2 col-xs-12 d-block justify-content-center">
         <div class="content-img">
           <img src="assets/img/home/zap-1.png" class="border-rad-mild" alt="">
@@ -391,13 +400,13 @@
       <div class="row">
         <div *ngFor="let sesion of disenoHome.sesion_13; let i = index;"
           [ngClass]="{'col-md-9 promocion-11' : i == 0, 'col-md-3 hide-small' : i != 0}" class="col-xs-12 mrg-botn-10 scale-image">
-          
+
           <a href="{{sesion.link_to}}" *ngIf="sesion.link_to != null">
-            <img src="{{sesion.url_imagen}}" tyle="height: 250px;" 
+            <img src="{{sesion.url_imagen}}" tyle="height: 250px;"
           [ngClass]="{'d-none d-sm-flex' : i == 0, '' : i != 0}" class="w-100 border-rad-mild" alt="">
           </a>
 
-          <img src="{{sesion.url_imagen}}" tyle="height: 250px;" 
+          <img src="{{sesion.url_imagen}}" tyle="height: 250px;"
           [ngClass]="{'d-none d-sm-flex' : i == 0, '' : i != 0}" class="w-100 border-rad-mild" alt="">
         </div>
         <!-- <div class="col-md-3 col-xs-12 scale-image">
@@ -426,11 +435,15 @@
         <a href="{{sesion.link_to}}" *ngIf="sesion.link_to != null">
           <img src="{{sesion.url_imagen}}" style=" height: 340px;" class="w-100" alt="{{sesion.texto_alternativo}}">
         </a>
-        
+
         <img src="{{sesion.url_imagen}}" style=" height: 340px;" *ngIf="sesion.link_to == null"
         class="w-100" alt="{{sesion.texto_alternativo}}">
       </div>
     </div>
   </div>
 
+  <app-flecha-arriba></app-flecha-arriba>
+
 </mat-sidenav-content>
+
+

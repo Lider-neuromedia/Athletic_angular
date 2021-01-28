@@ -47,10 +47,12 @@
     text-align: center;
     padding: 10px 27px 9px;
     transition: all .5s ease;
+  cursor: pointer;
 }
 
 .cupon-validate:hover{
     text-decoration: none;
     background: #FF596A;
     color: white;
+  cursor: pointer;
 }

@@ -18,17 +18,94 @@
     </div>
   </mat-toolbar-row>
 
-  <mat-toolbar-row class="w-auto">
+  <mat-toolbar-row class="w-auto" id="informacion-del-menu">
     <div class="container">
       <div class="d-flex flex-md-row ing5-items-content-header">
-        <button class="line-height-ini" [matMenuTriggerFor]="menu" mat-button>
-          <img src="assets/img/icons/menu.png" class="mrg-top-5">
-          <p class="text-menu">Categorias</p>
-        </button>
+        <div class="">
+          <div class="dropdown">
+            <button (mouseover)="activarMenu()"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    class="line-height-ini" mat-button>
+              <img src="assets/img/icons/menu.png" class="mrg-top-5">
+              <p class="text-menu">Categorias</p>
+            </button>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                <div fxLayout="row" >
+                  <div fxLayout="column" class="mrg-top-10 cont-categ" fxLayoutAlign="left">
+                    <!-- Ciclo - Categorias -->
+                    <div *ngFor="let item of categorias_prin">
+                      <p [ngClass]=" item.id_categoria == categoria_select ? 'list-categ list-act' : 'list-categ'" >
+                        <a href="#" (mouseover)="changeSubCategoria(item.id_categoria, item.hijos)">{{item.name_cat}}</a>
+                        <mat-icon aria-hidden="false" class="icon-list-cat" aria-label="Icon">keyboard_arrow_right</mat-icon>
+                      </p>
+                    </div>
+
+                    <div>
+                      <p class="list-categ"> <a href="#">Marcas</a></p>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" class="content-categories-menu-header" style="width: 520px;" fxLayoutAlign="space-evenly left">
+                    <div *ngFor="let element of sub_categorias">
+                      <div class="content-sb-categ">
+                        <p class="title-categ">{{element.name_cat}}</p>
+                        <ul class="list-sb-categ">
+                          <li class="item-categ" *ngFor="let item of element.hijos">
+                            <a routerLink="/productos" routerLinkActive="active"> {{item.name_cat}} </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div>
+                        <ul class="list-sb-categ">
+                          <li class="item-categ-btn"> <a href=""> Ver todo</a></li>
+                          <li class="item-categ-btn"> <a href=""> Novedades</a></li>
+                          <li class="item-categ-btn"> <a href=""> Promociones</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- Marca. -->
+                    <div>
+                      <div class="content-sb-categ">
+                        <p class="title-categ">Marcas</p>
+                        <ul class="list-sb-categ">
+                          <li class="item-categ"> <a href=""> Offcorss</a></li>
+                          <li class="item-categ"> <a href=""> Los Gomosos</a></li>
+                          <li class="item-categ"> <a href=""> Bubble Gummers</a></li>
+                        </ul>
+                      </div>
+                      <div>
+                        <ul class="list-sb-categ">
+                          <li class="item-categ-btn"> <a href=""> Ver todo</a></li>
+                          <li class="item-categ-btn"> <a href=""> Novedades</a></li>
+                          <li class="item-categ-btn"> <a href=""> Promociones</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hide-image-mega-menu" fxLayout="row wrap">
+                    <div class="h-100 w-50">
+                      <a *ngFor="let sesion of disenoMenu.column_1" href="{{(sesion.link_to != null ? sesion.link_to : '#')}}">
+                        <img src="{{sesion.url_imagen}}" class="w-100" alt="">
+                      </a>
+                    </div>
+                    <div class="h-100 w-50" class="menu-column">
+                      <a *ngFor="let sesion of disenoMenu.column_2" href="{{(sesion.link_to != null ? sesion.link_to : '#')}}">
+                        <img src="{{sesion.url_imagen}}" class="w-90" alt="">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
         <button class="line-height-ini d-none d-sm-flex" (click)="router.navigate(['/']);" mat-button>
           <img src="assets/img/logo_fondo_negro.png">
         </button>
-        <button class="line-height-ini ml-md-auto d-flex d-sm-none" mat-button>
+        <button class="line-height-ini ml-md-auto d-flex d-sm-none" id="logo-tienda" mat-button>
           <img src="assets/img/logo_fondo_negro.png">
         </button>
 
@@ -49,7 +126,7 @@
           </button>
           <button class="line-height-ini" [matMenuTriggerFor]="belowMenu" mat-button fxLayoutAlign="end">
             <img class="header-cuenta" src="assets/img/header/user.svg">
-            <p class="text-menu">Mi cuenta</p>
+            <p class="text-menu">{{usuario?usuario['nombres']:'Mi cuenta'}}</p>
           </button>
           <button class="line-height-ini" (click)="toggleOpenBolsa()" mat-button fxLayoutAlign="end">
             <img class="bolsa" src="assets/img/header/bolsa.svg">
@@ -83,10 +160,10 @@
 </mat-toolbar>
 
 <!-- Menu -->
-<mat-menu class="menu-categories" #menu="matMenu" style="padding-top: 0px !important; padding-bottom: 0px !important;">
-  <div fxLayout="row"  (click)="$event.stopPropagation();">
+<!--<mat-menu class="menu-categories"  id="cerrar-modal-menu" #menu="matMenu" >
+  <div fxLayout="row"  (click)="$event.stopPropagation();" (mouseout)="cerrarModalMenu();">
     <div fxLayout="column" class="mrg-top-10 cont-categ" fxLayoutAlign="left">
-      <!-- Ciclo - Categorias -->
+
       <div *ngFor="let item of categorias_prin">
         <p [ngClass]=" item.id_categoria == categoria_select ? 'list-categ list-act' : 'list-categ'" >
           <a href="#" (mouseover)="changeSubCategoria(item.id_categoria, item.hijos)">{{item.name_cat}}</a>
@@ -116,7 +193,7 @@
           </ul>
         </div>
       </div>
-      <!-- Marca. -->
+
       <div>
         <div class="content-sb-categ">
           <p class="title-categ">Marcas</p>
@@ -148,7 +225,7 @@
       </div>
     </div>
   </div>
-</mat-menu>
+</mat-menu>-->
 <!-- Menu cuenta -->
 <mat-menu #belowMenu="matMenu">
   <div style="width: 150px;">
@@ -191,3 +268,9 @@
 <div style="margin-top: 96px;"></div>
 
 
+
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <a class="dropdown-item" href="#">Action</a>
+  <a class="dropdown-item" href="#">Another action</a>
+  <a class="dropdown-item" href="#">Something else here</a>
+</div>

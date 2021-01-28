@@ -168,34 +168,58 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row mrg-top-20 w-100" style="margin-left: 10px !important;">
                     <ng-container *ngIf="productos.length == 0">
                         <div class="not-product">
                             <p>Ningun producto disponible </p><mat-icon style="color: #ff596a;">sentiment_very_dissatisfied</mat-icon>
                         </div>
                     </ng-container>
+
                     <ng-container *ngIf="view_active == 1">
-                        <div class="col-md-3 mrg-botn-20 grid-cuadros" *ngFor="let item of productos | paginate:page_size:page_number">
-                            <app-item-producto [id]="item.id_producto" [nuevo]="item.nuevo" [image]="item.imagen_portada.img" [subtitle]="item.name_marca"
-                            [title]="item.name_prod" [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto" [small]="true" [showButtons]="true" [price_ant]="item.precio_general" [descuento]="item.valor_descuento">
-                            </app-item-producto>
-                        </div>
+                      <div *ngFor="let item of productos | paginate:page_size:page_number"
+                           class="col-md-3 mrg-botn-20 grid-cuadros">
+                        <app-item-producto
+                          [data]="productos"
+                          [descuento]="item.valor_descuento"
+                          [id]="item.id_producto"
+                          [image]="item.imagen_portada.img"
+                          [nuevo]="item.nuevo"
+                          [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto"
+                          [price_ant]="item.precio_general" [showButtons]="true"
+                          [small]="true"
+                          [subtitle]="item.name_marca"
+                          [title]="item.name_prod">
+                        </app-item-producto>
+                      </div>
                     </ng-container>
-                    <ng-container *ngIf="view_active == 2">
-                        <div class="col-md-4 mrg-botn-20 grid-cuadro" *ngFor="let item of productos | paginate:page_size:page_number">
-                            <app-item-producto [id]="item.id_producto" [nuevo]="item.nuevo" [image]="item.imagen_portada.img" [subtitle]="item.name_marca"
-                            [title]="item.name_prod" [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto" [showButtons]="true" [price_ant]="item.precio_general" [descuento]="item.valor_descuento">
-                            </app-item-producto>
-                        </div>
-                    </ng-container>
+
+                  <ng-container *ngIf="view_active == 2">
+                    <div *ngFor="let item of productos | paginate:page_size:page_number"
+                         class="col-md-4 mrg-botn-20 grid-cuadro">
+                      <app-item-producto
+                        [data]="productos"
+                        [descuento]="item.valor_descuento"
+                        [id]="item.id_producto"
+                        [image]="item.imagen_portada.img"
+                        [nuevo]="item.nuevo"
+                        [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto"
+                        [price_ant]="item.precio_general"
+                        [showButtons]="true"
+                        [subtitle]="item.name_marca"
+                        [title]="item.name_prod">
+                      </app-item-producto>
+                    </div>
+                  </ng-container>
+
                     <ng-container *ngIf="view_active == 3">
                         <div class="col-md-12 mrg-botn-20 grid-fila" *ngFor="let item of productos | paginate:page_size:page_number">
                             <div class="content-item-product">
                                 <div class="item-product d-flex">
                                     <div class="content-img col-md-4">
                                         <img [src]="item.imagen_portada.img" alt="">
-                                        <img src="assets/img/home/nuevo.png" *ngIf="item.nuevo" class="img-nuevo" alt="">
-                                        <div class="descuento" *ngIf="item.valor_descuento">{{"-"+item.valor_descuento+"%"}}</div>
+                                      <img *ngIf="item.nuevo" alt="" class="img-nuevo" src="assets/img/home/nuevo.png">
+                                        <!--<div class="descuento" *ngIf="item.valor_descuento">{{"-"+item.valor_descuento+"%"}}</div>-->
                                     </div>
                                     <div class="content-product col-md-4 mrg-top-10">
                                         <div class="puntaje-valoracion">
@@ -207,25 +231,24 @@
                                                 <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
                                             </div>
                                             <div class="valoracion">
-                                                <p>12 valoraciones</p>
+                                              <p>{{ todas ? todas['todas'] : 0 }} valoraciones</p>
                                             </div>
                                         </div>
                                         <p class="subtitle-prod-full">{{item.name_marca}}</p>
                                         <p class="title-prod-full">{{item.name_prod}}</p>
                                         <div class="cont-price-prod-full">
-                                            <p class="price-prod-full">{{item.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
-                                            <p class="price-prod-desc-full" *ngIf="item.precio_impuesto">{{item.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                                            <p class="price-prod-full" *ngIf="item && item.precio_descuento">{{item.precio_descuento  |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                                            <p class="price-prod-full" *ngIf="item && !item.precio_descuento">{{item.precio_impuesto  |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                                           <p> <span class="price-prod-desc-full" *ngIf="item.precio_descuento">{{item.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0'}} </span> <span class="porcentaje-descuento" *ngIf="item.valor_descuento">{{ " - " + item.valor_descuento+"%"}}</span></p>
                                             <a class="ver-detalle" href="#">Ver Detalles →</a>
                                         </div>
                                     </div>
                                     <div class="content-product col-md-3 mrg-top-10 remove-margin">
                                         <div>
-                                            <select class="form-control bold mrg-botn-10 btn-select" placeholder="Elige tu talla" id="talla">
-                                                <option selected value="">Elige tu talla</option>
-                                                <option value="1">39</option>
-                                                <option value="2">40</option>
-                                                <option value="3">41</option>
-                                            </select>
+                                          <select (change)="checkearTalla($event.target.value)" class="form-control bold mrg-botn-10 btn-select" id="talla" placeholder="Elige tu talla">
+                                            <option selected value="">Elige tu talla</option>
+                                            <option *ngFor="let atri of item.atributo" value="{{atri.valor}}"  >{{atri.valor}}</option>
+                                          </select>
                                             <div class="cantidad mrg-botn-10 btn-select">
                                                 <label for="input-cant" class="lbl-cant">Cantidad</label>
                                                 <input id="input-cant" class="mrg-botn-10 input-cant" [ngModel]="cantidad" type="number">
@@ -236,22 +259,26 @@
                                                     -
                                                 </button>
                                             </div>
-                                            <button mat-raised-button class="btn-full-view mrg-botn-10 btn-bolsa-favoritos" color="primary">
-                                                <div class="favoritos-bolsa">
-                                                    <div class="img-bolsa">
-                                                        <img src="assets/img/icons/inactive.png" alt="">
-                                                    </div>
-                                                    <p>Añadir a la bolsa</p>
-                                                </div>
-                                            </button>
-                                            <button mat-stroked-button class="btn-full-view btn-corazon-favoritos" color="primary">
-                                                <div class="favoritos-productos">
-                                                    <div class="img-corazon">
-                                                        <mat-icon class="icon-small">favorite_border</mat-icon>
-                                                    </div>
-                                                    <p>Añadir a mis favoritos</p>
-                                                </div>
-                                            </button>
+                                          <button (click)="agregarProductosAlCarrito(item)"
+                                                  class="btn-full-view mrg-botn-10 btn-bolsa-favoritos" color="primary"
+                                                  mat-raised-button>
+                                            <div class="favoritos-bolsa">
+                                              <div class="img-bolsa">
+                                                <img alt="" src="assets/img/icons/inactive.png">
+                                              </div>
+                                              <p>Añadir a la bolsa</p>
+                                            </div>
+                                          </button>
+                                          <button (click)="usuario?agregarProductoFavorito(item): ingresar()" class="btn-full-view btn-corazon-favoritos"
+                                                  color="primary"
+                                                  mat-stroked-button>
+                                            <div class="favoritos-productos">
+                                              <div class="img-corazon">
+                                                <mat-icon class="icon-small">favorite_border</mat-icon>
+                                              </div>
+                                              <p>Añadir a mis favoritos</p>
+                                            </div>
+                                          </button>
                                         </div>
                                     </div>
                                 </div>
@@ -287,7 +314,7 @@
         </div>
     </div>
 </div>
-
+<app-flecha-arriba></app-flecha-arriba>
 <!-- <div class="loader">
     <mat-spinner></mat-spinner>
 </div> -->

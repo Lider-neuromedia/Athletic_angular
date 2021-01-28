@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
 export class SendHttpData {
 
   //private baseUrl = 'http://pruebasneuro.co/N-1041/public/api/';
-  // private baseUrl = 'http://localhost:8000/api/';
+   private baseUrl = 'http://localhost:8000/api/';
 
-  private baseUrl = ' https://pruebasneuro.co/N-1059/api/public/api/';
+ // private baseUrl = ' https://pruebasneuro.co/N-1059/api/public/api/';
   // Key prestashop
   // private key = "JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
   // private full = "display=full";

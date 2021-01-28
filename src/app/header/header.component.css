@@ -230,6 +230,7 @@
   font-size: 11px;
   letter-spacing: 0.66px;
   line-height: 13.83px;
+  margin-bottom: 10px;
 }
 
 .btn-close-sesion:hover{
@@ -279,3 +280,20 @@
 
 /*Buscador*/
 
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+  pointer-events: none;
+}
+
+.dropdown-menu {
+  width: 1100px !important;
+}
+
+
+.dropdown {
+  height: 63px;
+}

@@ -25,10 +25,6 @@ span {
   cursor: pointer;
 }
 
-.boton-salir {
-  width: 26px;
-  margin-top: 0em !important;
-}
 
 .ver-producto-resenia {
   align-items: center;
@@ -55,4 +51,12 @@ span {
   font-size: 16px;
   line-height: 16px;
 font-weight: 700;
+}
+
+.boton-salir{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 26px;
+  margin-top: -25px !important;
 }

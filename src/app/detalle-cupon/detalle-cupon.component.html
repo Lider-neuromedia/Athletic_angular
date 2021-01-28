@@ -1,0 +1,110 @@
+<div class="content-account">
+  <p class="cerrar-modal">
+    <button class="boton-salir" (click)="onNoClick()">
+      X
+    </button>
+  </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 content-detail">
+        <h2 class="account-title">Detalle del cupón</h2>
+
+        <div class="montar-pedido">
+          <div class="row-box-pedidos">
+            <div class="info-estado">
+              <div class="pedido-info">
+
+                <p>Fecha caducidad: {{infor['datos']['cupon_fin_aplicacion']}}</p>
+                <p> {{infor['datos']['cupon_nombre']}}</p>
+              </div>
+              <div class="pedido-estado cerrado"
+                   *ngIf="infor['datos']['cupon_estado'] === 1 && !infor['datos']['usado']   ">Estado:
+                <span>Activo</span></div>
+              <div class="pedido-estado cerrado" *ngIf="infor['datos']['usado']">Estado: <span>Usado</span></div>
+              <div class="pedido-estado cerrado" *ngIf="infor['datos']['cupon_estado'] === 2 ">Estado:
+                <span>Expedido</span></div>
+              <div class="pedido-estado cerrado" *ngIf="infor['datos']['cupon_estado'] === 0">Estado:
+                <span>Activo</span></div>
+            </div>
+            <div class="items" style="cursor: pointer" >
+              <a class="text-center" routerLink="/" (click)="onNoClick()" target="_blank" *ngIf="infor['datos']['cupon_tipodescuento'] == 1">
+                {{textoInterfaz}}
+              </a>
+              <p class="text-center"  (click)="onNoClick()" target="_blank" *ngIf="infor['datos']['cupon_tipodescuento'] != 1">
+                {{textoInterfaz}}
+              </p>
+              <div  *ngIf="infor['datos']['cupon_tipodescuento'] == 1">
+                <!-- <div class="row">
+                  <div class="col-md-4 text-center">Categoria</div>
+                  <div class="col-md-4 text-center">Cupon de descuento</div>
+                  <div class="col-md-4 text-center">Porcentaje de descuento</div>
+                </div>
+               <div class="row centrar-informcion" *ngFor="let item of dataCupones" style="margin-bottom: 5px;">
+                  <div class="col-md-4">
+                    {{item['name_cat']}}
+                  </div>
+
+                  <div class="col-md-4 marca">
+                    {{item['cupo_codigo_descuento']}}
+                  </div>
+
+                  <div class="col-md-4 text-center">
+                    {{item['cupon_porcentaje']}} %
+                  </div>
+
+                </div>-->
+              </div>
+
+              <div  *ngIf="infor['datos']['cupon_tipodescuento'] == 2">
+                <div class="row">
+                  <div class="col-md-4 text-center">Categoria</div>
+                  <div class="col-md-4 text-center">Cupon de descuento</div>
+                  <div class="col-md-4 text-center">Porcentaje de descuento</div>
+                </div>
+                <div class="row centrar-informcion" *ngFor="let item of dataCupones" style="margin-bottom: 5px;" >
+                  <div class="col-md-4">
+                    {{item['name_cat']}}
+                  </div>
+
+                  <div class="col-md-4 marca">
+                     {{item['cupo_codigo_descuento']}}
+                  </div>
+
+                  <div class="col-md-4 text-center">
+                      {{item['cupon_porcentaje']}} %
+                  </div>
+
+                </div>
+              </div>
+              <div  *ngIf="infor['datos']['cupon_tipodescuento'] == 3" >
+                <div class="row">
+                  <div class="col-md-4 text-center">Producto</div>
+                  <div class="col-md-4 text-center">Cupon de descuento</div>
+                  <div class="col-md-4 text-center">Porcentaje de descuento</div>
+                </div>
+                <div class="row centrar-informcion" *ngFor="let item of dataCupones" style="margin-bottom: 5px;" routerLink="detalle-producto/{{item['producto_codigo']}}" (click)="onNoClick()" target="_blank">
+                  <div class="col-md-4">
+                    {{item['name_prod']}}
+                  </div>
+
+                  <div class="col-md-4 marca">
+                    {{item['cupo_codigo_descuento']}}
+                  </div>
+
+                  <div class="col-md-4 text-center">
+                    {{item['cupon_porcentaje']}} %
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<app-flecha-arriba></app-flecha-arriba>

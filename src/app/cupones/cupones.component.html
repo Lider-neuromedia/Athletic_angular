@@ -1,59 +1,102 @@
 <div class="content-account">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3">
-				<app-aside-account></app-aside-account>
-			</div>
-			<div class="col-md-9">
-				<h2 class="account-title">Mis cupones</h2>
+      <div class="col-md-3">
+        <app-aside-account></app-aside-account>
+      </div>
 
-				<div class="row row-cupones">
-					<div class="col-md-4">
-						<p class="valor-cupon">Valor del cupón: <span class="cupon-descuento">30%</span></p>
-						<p class="cupon-expirado">Cupón Expirado</p>
-					</div>
-					<div class="col-md-4">
-						<p>no acumulable</p>
-					</div>
-					<div class="col-md-4 box-codigo-cupon">
-						<p class="title-cupon">Código del cupón</p>
-						<p class="outline-codigo-cupon outline-expirado">xxxx-yyyy-zzzz-xxx</p>
-					</div>
-				</div>
+      <div class="col-md-9">
+        <h2 class="account-title">Mis cupones</h2>
+        <div *ngFor="let item of listaCupones">
+{{item['cliente_codigo'] +'----'+ usuario.id_cliente}}
+          <div *ngIf="item['cliente_codigo'] === usuario.id_cliente">
+            <div class="row row-cupones">
+              <div class="col-md-3">
+                <p class="valor-cupon">Valor del cupón: <span class="cupon-descuento">{{item['cupon_porcentaje']}}
+                  %</span></p>
+                <p class="cupon-expirado">Cupón Usado</p>
 
-				<div class="row row-cupones">
-					<div class="col-md-4">
-						<p class="valor-cupon">Valor del cupón: <span class="cupon-descuento">30%</span></p>
-						<p class="cupon-expirado">Cupón Usado</p>
-					</div>
-					<div class="col-md-4">
-						<p>no acumulable</p>
-					</div>
-					<div class="col-md-4 box-codigo-cupon">
-						<p class="title-cupon">Código del cupón</p>
-						<p class="outline-codigo-cupon outline-usado">xxxx-yyyy-zzzz-xxx</p>
-					</div>
-				</div>
+              </div>
 
-				<div class="row row-cupones">
-					<div class="col-md-4">
-						<p class="valor-cupon">Valor del cupón: <span class="cupon-descuento">30%</span></p>
-						<p class="cupon-disponible">Cupón Disponible</p>
-					</div>
-					<div class="col-md-4">
-						<p>no acumulable</p>
-					</div>
-					<div class="col-md-4 box-codigo-cupon">
-						<p class="title-cupon">Código del cupón</p>
-						<p class="outline-codigo-cupon outline-disponible">xxxx-yyyy-zzzz-xxx</p>
-					</div>
-				</div>
+              <div class="col-md-3">
+                <p>Aplica</p>
+                <p>{{item['aplicacion']}}</p>
+              </div>
 
-				<div class="row row-cupon-validate">
-					<a class="cupon-validate" href="#">Validar cupón</a>
-				</div>
+              <div class="col-md-3">
+                <p>no acumulable</p>
+              </div>
+              <div class="col-md-3 box-codigo-cupon">
+                <p class="title-cupon">Código del cupón</p>
+                <p class="outline-codigo-cupon outline-usado">{{item['cupo_codigo_descuento']}}</p>
+              </div>
+            </div>
 
-			</div>
-		</div>
+            <div class="row row-cupon-validate">
+              <a class="cupon-validate"  (click)="openDialog(item)">Validar cupón</a>
+            </div>
+
+
+          </div>
+          <div *ngIf="item['cliente_codigo'] !== usuario.id_cliente && item['cupon_estado'] === 1">
+            <div class="row row-cupones">
+              <div class="col-md-3">
+                <p class="valor-cupon">Valor del cupón: <span class="cupon-descuento">{{item['cupon_porcentaje']}}
+                  %</span></p>
+                <p class="cupon-disponible">Cupón Disponible</p>
+
+              </div>
+              <div class="col-md-3">
+                <p>Aplica</p>
+                <p>{{item['aplicacion']}}</p>
+              </div>
+
+              <div class="col-md-3">
+                <p>no acumulable</p>
+              </div>
+              <div class="col-md-3 box-codigo-cupon">
+                <p class="title-cupon">Código del cupón</p>
+                <p class="outline-codigo-cupon outline-disponible">{{item['cupo_codigo_descuento']}}</p>
+              </div>
+            </div>
+
+            <div class="row row-cupon-validate">
+              <a class="cupon-validate"  (click)="openDialog(item)">Validar cupón</a>
+            </div>
+
+
+          </div>
+          <div *ngIf="!item['usado'] && item['cupon_estado'] === 2">
+            <div class="row row-cupones">
+              <div class="col-md-3">
+                <p class="valor-cupon">Valor del cupón: <span class="cupon-descuento">{{item['cupon_porcentaje']}}
+                  %</span></p>
+                <p class="cupon-expirado">Cupón Expirado</p>
+
+              </div>
+              <div class="col-md-3">
+                <p>Aplica</p>
+                <p>{{item['aplicacion']}}</p>
+              </div>
+
+              <div class="col-md-3">
+                <p>no acumulable</p>
+              </div>
+              <div class="col-md-3 box-codigo-cupon">
+                <p class="title-cupon">Código del cupón</p>
+                <p class="outline-codigo-cupon outline-expirado">{{item['cupo_codigo_descuento']}}</p>
+              </div>
+            </div>
+
+            <div class="row row-cupon-validate">
+              <a class="cupon-validate" (click)="openDialog(item)" >Validar cupón</a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
 	</div>
 </div>

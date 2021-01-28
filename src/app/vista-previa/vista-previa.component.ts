@@ -1,9 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery-9';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import {ActivatedRoute, Router} from '@angular/router';
 import { SendHttpData } from '../tools/SendHttpData';
 import {AlertasService} from "../servicio/alertas/alertas.service";
+import {LoginGlobalService} from "../servicio/login-global/login-global.service";
+import {VariablesService} from "../servicio/variable-global/variables.service";
 
 export interface DialogData {
   id: any;
@@ -16,10 +18,19 @@ export interface DialogData {
 })
 
 export class VistaPreviaComponent implements OnInit {
-
+  opcionSeleccionado: any;
   constructor(public dialogRef: MatDialogRef<VistaPreviaComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: DialogData, public router : Router, private http: SendHttpData,
-              private  alertaS: AlertasService) { }
+  @Inject(MAT_DIALOG_DATA) public data: DialogData,
+              public router : Router,
+              private http: SendHttpData,
+              private  alertaS: AlertasService,
+              public dialog: MatDialog,
+              private route_params: ActivatedRoute,
+              private activatedRoute: ActivatedRoute,
+              private ruta: Router,
+              private loginGlobal: LoginGlobalService,
+              private variablesGl: VariablesService
+  ) { }
   producto : any;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
@@ -30,6 +41,13 @@ export class VistaPreviaComponent implements OnInit {
   prod = [];
   cantidad = 1;
   tallas = [];
+  carritoAnterior = [];
+  addProductoCarrito = [];
+  usuario: any;
+  condicionBotonFavorito: any;
+  cantidadComentario: any;
+  totalComentario: any;
+  url: any;
 
   carouselDescatadosUno:any = [];
   optionSlideDestacados:any = [];
@@ -123,6 +141,7 @@ export class VistaPreviaComponent implements OnInit {
       }
     ];
     this.getProducts(this.data.id);
+    this.listarProductosRelacionados(this.data.id)
   }
 
   async getDataProdRelac(id){
@@ -189,6 +208,7 @@ export class VistaPreviaComponent implements OnInit {
     this.http.httpGet('productos/' + id, null, false).subscribe(
       response => {
         this.producto = response;
+        console.log( this.producto );
         $('#detalle').html(response.descripcion_prod);
         $('blockquote').addClass('col-md-4');
         var gallery = [];
@@ -217,14 +237,78 @@ export class VistaPreviaComponent implements OnInit {
     }
   }
 
-  agregarProductosAlCarrito() {
+  /*agregarProductosAlCarrito() {
     this.alertaS.showToasterFull('Articulo Agregado Corectamente');
-    alert(",sdncnfsdkfdssdkfnklsdnfk");
+
     if (this.cantidad > 0) {
       this.alertaS.showToasterFull('Articulo Agregado Corectamente');
     } else {
       this.alertaS.showToasterError('Debes agregar Minimo un producto');
     }
+  }*/
+
+  agregarProductosAlCarrito() {
+
+    if (!this.opcionSeleccionado) {
+      this.alertaS.showToasterError('Debes seleccionar una talla');
+      return;
+    }
+
+    console.log(this.cantidad,  this.producto );
+
+    this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
+    console.log(this.carritoAnterior);
+
+    if (this.cantidad > 0) {
+
+      this.producto['cantidad'] = this.cantidad;
+      this.addProductoCarrito.push(this.producto);
+      console.log(this.addProductoCarrito);
+
+      if (this.addProductoCarrito) {
+        if (this.carritoAnterior) {
+        } else {
+          this.carritoAnterior = [];
+        }
+
+        this.carritoAnterior.push(this.producto);
+        localStorage.setItem('athletic', JSON.stringify(this.carritoAnterior));
+      }
+
+
+      this.addProductoCarrito = [];
+      this.cantidad = 1;
+
+      this.alertaS.showToasterFull(`Articulo Agregado Corectamente`);
+
+
+    } else {
+      this.alertaS.showToasterError(`Debes agregar Minimo un producto ,  ${this.cantidad}`);
+    }
+    this.variablesGl.changeMessage();
   }
 
+  listarProductosRelacionados(codigo) {
+    const  data = {
+      producto: codigo
+    };
+
+    this.http.httpPost('listar-productos-relacionados', data).toPromise().then(respuesta => {
+      console.log(respuesta);
+
+      this.carouselDescatadosUno = respuesta[`data`];
+      this.url = respuesta[`ruta`];
+
+      console.log( this.carouselDescatadosUno , this.url )
+    });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  checkearTalla(evento) {
+    console.log(evento);
+    this.opcionSeleccionado = evento;
+  }
 }

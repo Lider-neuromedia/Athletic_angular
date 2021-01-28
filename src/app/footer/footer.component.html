@@ -7,7 +7,7 @@
         <div class="col-md-5 mrg-top-10">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Correo electrónico</mat-label>
-            <input matInput placeholder="Correo electrónico">
+            <input matInput placeholder="Correo electrónico" [(ngModel)]="filtro.suscripcion_email">
           </mat-form-field>
           <mat-checkbox  color="primary">Declaro que he leído y acepto la nueva <span class="text-pink">Política de
               Privacidad y  <br> los Términos y Condiciones</span> de Linio.</mat-checkbox>
@@ -15,7 +15,7 @@
         <!-- <div class="padg-lat-10 mrg-top-20 mrg-botn-20 w-100-xs">
         </div> -->
         <div class="col-md-4 mrg-top-10 d-flex justify-content-center align-items-center">
-          <button mat-raised-button color="primary" class="mrg-right-5 ing5-btn-suscribete">Suscríbete</button>
+          <button mat-raised-button color="primary" class="mrg-right-5 ing5-btn-suscribete" (click)="crearSuscripcion()">Suscríbete</button>
           <button mat-raised-button color="primary" class="mrg-left-5 ing5-btn-promociones">Promociones</button>
         </div>
       </div>
@@ -25,7 +25,7 @@
 
       <div class="row mrg-top-20">
         <div class="col-md-8 col-xs-12 row mrg-top-20">
-          
+
           <div class="col-md-3 col-xs-12 txt-center-xs">
             <p class="title-footer">Información Legal</p>
             <ul class="list-footer">
@@ -56,7 +56,7 @@
               <li class="item-footer"><a href="#">Contacto</a></li>
               <li class="item-footer"><a href="www.sic.gov.co" class="text-pink">www.sic.gov.co</a></li>
             </ul>
-          </div> 
+          </div>
 
           <div class="col-md-3 col-xs-12 w-100-xs txt-center-xs">
             <p class="title-footer">MAS SOBRE NOSOTROS</p>
@@ -112,7 +112,7 @@
           <div class="col-md-6">
             <p class="txt-neuro txt-center-xs">DISEÑADO Y DESARROLLADO POR <span class="bold">NEUROMEDIA DIGITAL AGENCY</span>
           </div>
-        </div>          
+        </div>
       </div>
     </div>
   </footer>

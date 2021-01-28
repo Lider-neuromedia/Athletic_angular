@@ -1,28 +1,38 @@
 <mat-dialog-content class="dialog-lg vista-previa">
+  <div class="row">
+    <div class="col-md-12">
+    <button class="boton-salir" (click)="onNoClick()">
+        X
+      </button>
+    </div>
+
+  </div>
 
     <div class="d-flex" style="padding-bottom: 2em;">
-        <div class="col-md-9 content-images h-xs-300px">
+        <div class="col-md-8 content-images h-xs-300px">
             <ngx-gallery class="w-100" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
         </div>
-        <div class="col-md-3 mrg-top-10">
+        <div class="col-md-4 mrg-top-10">
             <div class="content-strech mrg-botn-30">
-                <p class="prod-subtitle">{{producto.name_marca}}</p>
-                <p class="prod-title">{{producto.name_prod}}</p>
+                <p class="prod-subtitle">{{producto ? producto.name_marca : '' }}</p>
+                <p class="prod-title">{{producto ? producto.name_prod : '' }}</p>
             </div>
             <div class="content-strech mrg-botn-15">
-                <p class="title-ref">{{producto.last_categoria}}</p>
-                <p class="ref">Ref: {{producto.referencia}}</p>
+                <p class="title-ref">{{producto ? producto.last_categoria : '' }}</p>
+                <p class="ref">Ref: {{producto ? producto.referencia : '' }}</p>
             </div>
             <div class="content-strech mrg-botn-15">
-                <p class="price">{{producto.precio |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
-                <p class="price-des" *ngIf="producto.valor_descuento != null">
-                    {{producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+                <p class="price">{{producto? (producto.precio |currency:'COP':'symbol-narrow' :'1.0-0'): ''}}</p>
+                <p class="price-des" *ngIf="producto && producto.valor_descuento != null">
+                    {{producto? (producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0') : ''}}</p>
             </div>
 
             <div class="">
-                <select class="form-control bold mrg-botn-10 btn-select" placeholder="Elige tu talla" id="talla">
+
+                <select class="form-control bold mrg-botn-10 btn-select" (change)="checkearTalla($event.target.value)"  placeholder="Elige tu talla" id="talla">
+
                     <option selected value="">Elige tu talla</option>
-                    <option *ngFor="let item of tallas;" value="{{item.id}}" >{{item.name}}</option>
+                    <option *ngFor="let item of  producto ?producto['combinaciones'] : 0;" value="{{item.valor}}" >{{item.valor}}</option>
                 </select>
                 <div class="cantidad mrg-botn-10 btn-select">
                     <label for="input-cant" class="lbl-cant">Cantidad</label>
@@ -30,12 +40,12 @@
                     <button id="inc-button" (click)="changeCantidad(true)" mat-fab color="primary" class="spinner-button">
                         +
                     </button>
-                    <button id="dec-button" (click)="changeCantidad(true)" mat-fab color="primary" class="spinner-button">
+                    <button id="dec-button" (click)="changeCantidad(false)" mat-fab color="primary" class="spinner-button">
                         -
                     </button>
                 </div>
                 <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary" (click)="agregarProductosAlCarrito()">
-                    <img class="bolsa-modal-producto" src="assets/img/icons/inactive.png" alt=""> Añadir a la bolsa****
+                    <img class="bolsa-modal-producto" src="assets/img/icons/inactive.png" alt=""> Añadir a la bolsa
                 </button>
             </div>
         </div>
@@ -44,7 +54,7 @@
     <!-- <div class="row" *ngIf="productos_relac.length > 0"> -->
     <div class="row vista-previa-relacionados">
         <div class="col-md-12">
-            <div class="title mrg-top-40 mrg-botn-40 w-100 txt-center">
+            <div class="title mrg-top-30 mrg-botn-40 w-100 txt-center">
                 <p>Productos relacionados</p>
             </div>
 
@@ -52,13 +62,15 @@
                 <div class="content-item-product" *ngFor="let img of carouselDescatadosUno">
                     <div class="item-product">
                         <div class="content-img">
-                            <img src="{{img.img}}" alt="">
+                          <img src="{{url + '/' + img['img']}}" alt="" routerLink="/detalle-producto/{{img['id_producto2']}}" (click)="onNoClick()">
                             <img *ngIf="img.descuento" src="assets/img/home/descuento.png" class="img-descuento" alt="">
                             <div></div>
                         </div>
                         <div class="content-product">
-                            <p class="subtitle-prod">Adidas</p>
-                            <p class="title-prod">TENIS ADIDAS HOMBRE MODA SUPERSTART</p>
+                            <p class="subtitle-prod">{{img['name_cat']}}</p>
+                          <p class="title-prod">{{img['name_prod']}}</p>
+                          <p class="price-prod">{{img['precio_general'] |currency}}</p>
+
                         </div>
                     </div>
                 </div>

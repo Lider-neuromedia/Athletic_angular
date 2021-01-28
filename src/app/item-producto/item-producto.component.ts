@@ -1,9 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as $ from 'jquery';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {VistaPreviaComponent} from '../vista-previa/vista-previa.component';
 import { AgregarCarritoComponent } from '../agregar-carrito/agregar-carrito.component';
+import {SendHttpData} from "../tools/SendHttpData";
+import {AlertasService} from "../servicio/alertas/alertas.service";
+import {LoginGlobalService} from "../servicio/login-global/login-global.service";
+import {VariablesService} from "../servicio/variable-global/variables.service";
 
 @Component({
   selector: 'app-item-producto',
@@ -11,8 +15,25 @@ import { AgregarCarritoComponent } from '../agregar-carrito/agregar-carrito.comp
   styleUrls: ['./item-producto.component.css']
 })
 export class ItemProductoComponent implements OnInit {
-
-  constructor(public router:Router, public dialog: MatDialog) { }
+  producto : any;
+  galleryImages: any;
+  tallas = [];
+  carritoAnterior = [];
+  addProductoCarrito = [];
+  cantidad =  1;
+  usuario: any;
+  condicionBotonFavorito: any;
+  cantidadComentario: any;
+  totalComentario: any;
+  constructor(public router:Router,
+              public dialog: MatDialog,
+              private route_params: ActivatedRoute,
+              private http: SendHttpData,
+              private alertaS: AlertasService,
+              private activatedRoute: ActivatedRoute,
+              private ruta: Router,
+              private loginGlobal: LoginGlobalService,
+              private variablesGl: VariablesService) { }
 
   @Input() id: boolean;
   @Input() subtitle: string;
@@ -26,13 +47,39 @@ export class ItemProductoComponent implements OnInit {
   @Input() showButtons: boolean;
   @Input() full_view: boolean;
   @Input() favorites: boolean;
+  @Input() data:[];
 
   ngOnInit(): void {
+    console.log(this.id)
+    this.getProducts(this.id);
     if (this.showButtons) {
       this.jQuery();
     }
+
+    this.galleryImages = [
+      {
+        small: "/N-1008/assets/img/productos/producto-interna.png",
+        medium: "/N-1008/assets/img/productos/producto-interna.png",
+        big: "/N-1008/assets/img/productos/producto-interna.png"
+      },
+      {
+        small: "/N-1008/assets/img/productos/producto-interna.png",
+        medium: "/N-1008//assets/img/productos/producto-interna.png",
+        big: "/N-1008//assets/img/productos/producto-interna.png"
+      },
+      {
+        small: "/N-1008/assets/img/productos/producto-interna.png",
+        medium: "/N-1008/assets/img/productos/producto-interna.png",
+        big: "/N-1008/assets/img/productos/producto-interna.png"
+      },
+      {
+        small: "/N-1008/assets/img/productos/producto-interna.png",
+        medium: "/N-1008/assets/img/productos/producto-interna.png",
+        big: "/N-1008/assets/img/productos/producto-interna.png"
+      }
+    ];
   }
-  
+
   openVistaPrevia() {
     const dialogRef = this.dialog.open(VistaPreviaComponent, {
       width: '900px',
@@ -56,6 +103,68 @@ export class ItemProductoComponent implements OnInit {
       $(this).children('.cont-btn-prod').css('display', 'none');
       $(this).children('.item-product').removeClass('item-shadow');
     });
+  }
+
+  getProducts(id) {
+    this.http.httpGet('productos/' + id, null, false).subscribe(
+      response => {
+        this.producto = response;
+        $('#detalle').html(response.descripcion_prod);
+        $('blockquote').addClass('col-md-4');
+        var gallery = [];
+        response.imagenes.forEach(element => {
+          var img = {
+            small: element.img,
+            medium: element.img,
+            big: element.img
+          }
+
+          gallery.push(img);
+        });
+        this.galleryImages = gallery;
+      },
+      error => { console.log("error." + error); }
+    );
+
+  }
+
+
+  agregarProductosAlCarrito() {
+    this.agregarABolsa();
+    this.cantidad = 1;
+    console.log(this.cantidad,  this.producto );
+
+    this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
+    console.log(this.carritoAnterior);
+
+    if (this.cantidad > 0) {
+
+      this.producto['cantidad'] = this.cantidad;
+      this.addProductoCarrito.push(this.producto);
+      console.log(this.addProductoCarrito);
+
+      if (this.addProductoCarrito) {
+        if (this.carritoAnterior) {
+        } else {
+          this.carritoAnterior = [];
+        }
+
+        this.carritoAnterior.push(this.producto);
+        localStorage.setItem('athletic', JSON.stringify(this.carritoAnterior));
+      }
+
+
+      this.addProductoCarrito = [];
+      this.cantidad = 1;
+
+      this.alertaS.showToasterFull(`Articulo Agregado Corectamente`);
+
+
+    } else {
+      this.alertaS.showToasterError(`Debes agregar Minimo un producto ,  ${this.cantidad}`);
+    }
+    this.variablesGl.changeMessage();
+
   }
 
 }

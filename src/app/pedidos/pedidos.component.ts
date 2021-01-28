@@ -16,7 +16,7 @@ export class PedidosComponent implements OnInit {
   usuario: any;
   pedidos: any;
   rutaPedido: any;
-
+  url: any;
   constructor(    private variablesGl: VariablesService,
                   private alertaS: AlertasService,
                   private _formBuilder: FormBuilder,

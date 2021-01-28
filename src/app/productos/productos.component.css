@@ -37,7 +37,7 @@ input[type=number]::-webkit-inner-spin-button {
 .pagination{
     margin: 0 !important;
     align-items: center;
-} 
+}
 
 .page-link {
     font-size: 9px !important;
@@ -99,7 +99,7 @@ a:hover{
 }
 
 .card-filter{
-    width: 200px; 
+    width: 200px;
     border-radius: 10px;
 }
 
@@ -122,8 +122,8 @@ a:hover{
 }
 
 .img-nuevo{
-  width: auto !important;   
-  height: auto !important;   
+  width: auto !important;
+  height: auto !important;
   position: absolute;
   top: 0;
   left: -12px;
@@ -137,7 +137,7 @@ a:hover{
     font-weight: 700;
     letter-spacing: 0.03px;
 }
-  
+
   .title-prod-full{
     font-size: 24px;
     color: #353435;
@@ -146,14 +146,14 @@ a:hover{
     margin-bottom: 5px;
     height: auto;
 }
-  
+
 .cont-price-prod-full{
   height: auto;
   line-height: initial;
   /* position: absolute;
   bottom: 20px; */
 }
-  
+
 .price-prod-full{
   font-size: 27px;
   color: #ff596a;
@@ -170,6 +170,7 @@ a:hover{
   font-weight: 700;
   margin-bottom: 5px;
   letter-spacing: 0.04px;
+  text-decoration: line-through;
 }
 
 .btn-select{
@@ -382,4 +383,10 @@ a:hover{
 
 .grid-fila  .remove-margin{
   margin: 0 !important;
+}
+
+.porcentaje-descuento {
+  margin-left: 7px;
+  font-weight: 800;
+  font-size: 16px;
 }

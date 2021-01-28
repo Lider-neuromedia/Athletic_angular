@@ -10,6 +10,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {Ng5SliderModule} from 'ng5-slider';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxGalleryModule} from 'ngx-gallery-9';
+
+
 // Components
 import {HeaderComponent} from './header/header.component';
 import {AppComponent} from './app.component';
@@ -36,11 +38,14 @@ import {ResenaDetalleComponent} from './resena-detalle/resena-detalle.component'
 import {GuardarDireccionesComponent} from './guardar-direcciones/guardar-direcciones.component';
 import {ToastrModule} from 'ngx-toastr';
 import { DetalleCompraComponent } from './detalle-compra/detalle-compra.component';
-import {MatTreeModule} from '@angular/material/tree';
-import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { MatTreeModule} from '@angular/material/tree';
+import { AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.component';
 import { BuscadorTiendaComponent } from './buscador-tienda/buscador-tienda.component';
 import { ComentarioProductoComponent } from './comentario-producto/comentario-producto.component';
+import { FlechaArribaComponent } from './flecha-arriba/flecha-arriba.component';
+import { MatAccordion, MatExpansionModule} from "@angular/material/expansion";
+import { DetalleCuponComponent } from './detalle-cupon/detalle-cupon.component';
 
 
 @NgModule({
@@ -68,7 +73,9 @@ import { ComentarioProductoComponent } from './comentario-producto/comentario-pr
     DetalleCompraComponent,
     DetallePedidoComponent,
     BuscadorTiendaComponent,
-    ComentarioProductoComponent
+    ComentarioProductoComponent,
+    FlechaArribaComponent,
+    DetalleCuponComponent
   ],
   imports: [
     BrowserModule,
@@ -85,12 +92,15 @@ import { ComentarioProductoComponent } from './comentario-producto/comentario-pr
     AutocompleteLibModule,
     NgbModule,
     MatTreeModule,
+    MatExpansionModule,
     ToastrModule.forRoot({
       timeOut: 10000,
       //positionClass: 'toast-bottom-right',
       positionClass: 'toast-bottom-left',
       preventDuplicates: true,
     }),
+    MatExpansionModule,
+    MatExpansionModule,
   ],
   providers: [SendHttpData, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

@@ -1,0 +1,87 @@
+.centrar-informcion {
+  text-align: justify;
+  align-items: center;
+  cursor: pointer;
+}
+
+.centrar-informcion:hover {
+  text-align: justify;
+  align-items: center;
+  cursor: pointer;
+  background-color: #ffe6e9;
+}
+
+.centrar-informcion {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -1px;
+  margin-left: -1px;
+}
+
+.name {
+  color: #353435;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.marca {
+  color: #969696;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 700;
+}
+
+.referencia {
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.valor-total {
+  color: #FF596A;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 16px;
+}
+
+.valor-inicial {
+  color: #969696;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.cantidad {
+  color: #969696;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.cerrar-modal {
+  position: absolute !important;
+  cursor: pointer !important;
+  width: 15px !important;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: -52px 0px 0px 0px;
+  right: 458px;
+}
+
+.boton-salir{
+  width: 26px;
+  border: 1px solid #FF596A;
+  color: #FF596A;
+}
+
+a {
+  text-decoration: none !important;
+  color: black;
+  text-align: center;
+}
+
+a:hover {
+  text-decoration: none !important;
+  color: #5D5C5D;
+  text-align: center;
+}

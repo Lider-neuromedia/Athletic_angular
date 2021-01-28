@@ -5,27 +5,27 @@
 }
 
 .prod-subtitle{
-    color: #969696;
-    font-size: 16px;
-    letter-spacing: 0.03px;
-    line-height: 20px;
-    text-align: left;
-    font-weight: 700;
-    margin: 0;
+  color: #969696;
+  font-size: 14px;
+  letter-spacing: 0.03px;
+  line-height: 11px;
+  text-align: left;
+  font-weight: 700;
+  margin: 0;
 }
 
 .prod-title{
-    color: #353435;
-    font-size: 24px;
-    letter-spacing: 0.05px;
-    text-align: left;
-    font-weight: 700;
-    margin: 0;
+  color: #353435;
+  font-size: 15px;
+  letter-spacing: 0.05px;
+  text-align: left;
+  font-weight: 700;
+  margin: 0;
 }
 
 .title-ref{
     color: #353435;
-    font-size: 16px;
+    font-size: 12px;
     letter-spacing: 0.03px;
     line-height: 20px;
     text-align: left;
@@ -35,21 +35,21 @@
 
 .ref{
     color: #969696;
-    font-size: 16px;
+    font-size: 13px;
     letter-spacing: 0.03px;
     line-height: 20px;
     text-align: left;
     margin: 0;
 }
 
-.price{
-    color: #FF596A;
-    font-size: 30px;
-    letter-spacing: 0.06px;
-    line-height: 37.71px;
-    text-align: left;
-    font-weight: 700;
-    margin: 0;
+.price {
+  color: #FF596A;
+  font-size: 26px;
+  letter-spacing: 0.06px;
+  line-height: 24.71px;
+  text-align: left;
+  font-weight: 700;
+  margin: 0;
 }
 
 .price-des{
@@ -59,6 +59,7 @@
     line-height: 22.63px;
     text-align: left;
     margin: 0;
+    text-decoration: line-through;
 }
 
 .content-strech{
@@ -113,10 +114,11 @@
     -webkit-appearance: none;
   }
 
-  .cantidad{
-    width: 100%;
+  .cantidad {
+    width: 208px;
     border-radius: 25px;
     border: 1px solid #D3D3D3;
+    height: 40px !important;
   }
 
   .cantidad label{
@@ -186,11 +188,12 @@
     transform: scale(0.7);
   }
 
-  .content-images{
+  .content-images {
     background: #ffffff;
     margin-top: 10px;
     box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.10000000149011612);
     border-radius: 4px;
+    width: 450px !important;
   }
 
   .content-tab{
@@ -465,6 +468,7 @@
   margin-left: 10px;
   font-weight: 700;
   margin-bottom: 0;
+  margin-top: 23px;
 }
 
 .grid-cuadros,
@@ -489,22 +493,22 @@
   position: relative;
 }
 
-.flecha-select{
+.flecha-select {
   position: absolute;
   top: 15px;
-  right: 15px;
+  right: 87px;
   color: #FF596A;
 }
 
-.my-own-form-control{
+.my-own-form-control {
   border: 1px solid #D3D3D3;
   border-radius: 25px;
   width: 208px;
-  height: 50px;
+  height: 40px;
   margin-bottom: 10px;
   padding: 0 1em;
   -moz-appearance: none;
-	-webkit-appearance: none;
+  -webkit-appearance: none;
   appearance: none;
   font-weight: 800;
 }
@@ -551,10 +555,86 @@ ul.mas-detalle a.active-mas::after{
   margin: 0 !important;
 }
 
-.ngx-gallery-100{
-  height: 100% !important;
+.ngx-gallery-100 {
+  /*height: 100% !important;*/
 }
 
 .porcentaje {
   width: 50px;
+}
+
+.imagen-godescripcion {
+  height: 200px;
+}
+
+.detalle-slider {
+  width: 450px !important;
+  height: 454px !important;
+}
+
+.detalle-slider[_ngcontent-hwv-c373] {
+  width: 450px !important;
+  height: 454px;
+}
+
+.content-strech {
+  margin-bottom: 5px !important;
+}
+
+.btn-bolsa-favoritos:hover{
+  background: #e44b5a;
+}
+
+.favoritos-bolsa,
+.favoritos-productos{
+  display: flex;
+  justify-content: center;
+}
+
+.favoritos-bolsa .img-bolsa{
+  background: #F94D5F;
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.favoritos-bolsa, .favoritos-productos p{
+  margin-left: 15px;
+  margin-bottom: 0px;
+  font-size: 12px;
+  font-weight: 800;
+}
+.favoritos-productos .img-corazon{
+  border: 1px solid #F94D5F;
+  height: 43px;
+  width: 43px;
+  border-radius: 50%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.btn-corazon-favoritos:hover{
+  background: #FF596A;
+  color: white;
+}
+
+.btn-corazon-favoritos:hover .img-corazon{
+  border: 1px solid white;
+}
+
+.img-corazon .icon-small{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.porcentaje-descuento {
+  margin-left: 7px;
+  font-weight: 400;
+  font-size: 16px;
 }

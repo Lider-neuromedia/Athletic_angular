@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import {DetalleCompraComponent} from "./detalle-compra/detalle-compra.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {DetallePedidoComponent} from "./detalle-pedido/detalle-pedido.component";
+import {DetalleCuponComponent} from "./detalle-cupon/detalle-cupon.component";
 
 const routes : Routes = [
   {
@@ -63,6 +64,10 @@ const routes : Routes = [
   },
   {
     path: 'modificar-direcciones/:id', component: DireccionesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'validar-cupon/:id', component: DetalleCuponComponent,
     canActivate: [AuthGuard]
   },
   {
