@@ -23,13 +23,13 @@
             </div>
             <div class="content-strech mrg-botn-15">
                 <p class="price">{{producto? (producto.precio |currency:'COP':'symbol-narrow' :'1.0-0'): ''}}</p>
-                <p class="price-des" *ngIf="producto && producto.valor_descuento != null">
-                    {{producto? (producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0') : ''}}</p>
+                <!--<p class="price-des" *ngIf="producto && producto.valor_descuento != null">{{producto? (producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0') : ''}}</p>-->
+              <p> <span class="price-prod-desc-full price-des"  *ngIf="producto && producto.valor_descuento != null">{{producto? (producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0') : ''}} </span> <span class="porcentaje-descuento" *ngIf="producto.valor_descuento">{{ " - " + producto.valor_descuento+"%"}}</span></p>
             </div>
 
-            <div class="">
-
-                <select class="form-control bold mrg-botn-10 btn-select" (change)="checkearTalla($event.target.value)"  placeholder="Elige tu talla" id="talla">
+            <div class="box-select-talla">
+              <i class="flecha-select">▼</i>
+                <select class="my-own-form-control bold mrg-botn-10 btn-select" (change)="checkearTalla($event.target.value)"  placeholder="Elige tu talla" id="talla">
 
                     <option selected value="">Elige tu talla</option>
                     <option *ngFor="let item of  producto ?producto['combinaciones'] : 0;" value="{{item.valor}}" >{{item.valor}}</option>
@@ -52,7 +52,7 @@
     </div>
 
     <!-- <div class="row" *ngIf="productos_relac.length > 0"> -->
-    <div class="row vista-previa-relacionados">
+    <div class="row vista-previa-relacionados" *ngIf="carouselDescatadosUno.length > 0">
         <div class="col-md-12">
             <div class="title mrg-top-30 mrg-botn-40 w-100 txt-center">
                 <p>Productos relacionados</p>

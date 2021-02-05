@@ -90,7 +90,7 @@
                      <span class="price-des" *ngIf="producto && producto.valor_descuento != null">
                         {{producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0'}}
                      </span>
-                <span class="porcentaje-descuento" *ngIf="producto.valor_descuento">
+                <span class="porcentaje-descuento" *ngIf="producto && producto.valor_descuento">
                          {{ " - " + producto.valor_descuento + "%" }}
                        </span>
               </p>
@@ -109,14 +109,14 @@
                         <i class="flecha-select">▼</i>
                       <select class="my-own-form-control" placeholder="Elige tu talla" id="talla"
                               (change)="checkearTalla($event.target.value)">
-                        <option selected value="">Elige tu talla</option>
-                        <option *ngFor="let item of producto?producto.combinaciones: producto;" value="{{item.valor}}">
+                        <option selected value="" class="color-talla">Elige tu talla</option>
+                        <option class="color-talla" *ngFor="let item of producto?producto.combinaciones: producto;" value="{{item.valor}}">
                           {{item.valor}}</option>
                       </select>
                     </div>
                     <div class="cantidad mrg-botn-10 btn-select">
                         <label for="input-cant" class="lbl-cant">Cantidad</label>
-                        <input id="input-cant" class="mrg-botn-10 input-cant" [ngModel]="cantidad" type="number">
+                        <input id="input-cant" class="mrg-botn-10 input-cant" [ngModel]="cantidadProductos" type="number">
                         <button id="inc-button" (click)="changeCantidad(true)" mat-fab color="primary"
                             class="spinner-button">
                           +
@@ -150,7 +150,7 @@
                       <p>Añadir a la bolsa</p>
                     </div>
                   </button>
-                  <button (click)="usuario ? agregarProductoFavorito() : ingresar()"
+                  <button (click)="usuario ? agregarProductoFavorito() : ingresar()"  *ngIf="!condicionBotonFavorito"
                           class="btn-full-view btn-corazon-favoritos"
                           color="primary"
                           mat-stroked-button>
@@ -161,6 +161,19 @@
                       <p>Añadir a mis favoritos</p>
                     </div>
                   </button>
+
+                  <button  (click)="eliminarFavvoritos()"  *ngIf="usuario && condicionBotonFavorito"
+                          class="btn-full-view btn-corazon-favoritos"
+                          color="primary"
+                          mat-stroked-button>
+                    <div class="favoritos-productos">
+                      <div class="img-corazon">
+                        <mat-icon class="icon-small">favorite_border</mat-icon>
+                      </div>
+                      <p>Quitar de mis favoritos</p>
+                    </div>
+                  </button>
+
 
                   <!-- <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary" (click)="usuario?agregarProductoFavorito(): ingresar()" *ngIf="!condicionBotonFavorito">
                      <mat-icon aria-hidden="false" aria-label="Icon">favorite_outline</mat-icon>Añadir favoritos
@@ -475,13 +488,70 @@
                   </p>
                 </div>
 
+                <div class="ps-pagination">
+                  <ul class="pagination">
+                    <li>
+                      <a class="text-pink" (click)="getPagination(prevPageUrl)">
+                        <mat-icon class="center-icon">chevron_left</mat-icon>
+                      </a>
+                        {{cantidadComentario[0]['cantidad']}}
+                      <li >
+                        <!-- <a  *ngFor="let item of cantidadComentario?cantidadComentario[0]['cantidad'] : 0; let i = index"class="text-pink" >{{item}}</a>-->
+                      </li>
+                     <!-- <button class="ui left labeled icon button" (click)="getPagination(prevPageUrl)"
+                     <         *ngIf="prevPageUrl != null">
+                        <div class="icon">
+                          <i class="chevron left icon"></i>
+                        </div>
+
+                        Atras
+                      </button>-->
+
+
+                    <li>
+
+                    <a class="text-pink" (click)="getPagination(nextPageUrl)">
+                      <mat-icon class="center-icon">chevron_right</mat-icon>
+                    </a>
+
+                     <!-- <button class="ui right labeled icon button m-0" (click)="getPagination(nextPageUrl)"
+                              *ngIf="nextPageUrl != null">
+                        <div class="icon">
+                          <i class="chevron right icon"></i>
+                        </div>
+
+                        Siguiente
+                      </button>-->
+                    </li>
+                  </ul>
                 </div>
+
+                <!--<ul class="pagination pagination-sm">
+                 <li class="page-item mrg-right-5">
+                   <a class="text-pink" (click)="getPagination(prevPageUrl)">
+                     <mat-icon class="center-icon">chevron_left</mat-icon>
+                   </a>
+                 </li>
+                 <li class="page-item active" aria-current="page">
+                     <span class="page-link">1<span class="sr-only">(current)</span></span>
+                 </li>
+                 <li *ngFor="let item of [].constructor(pages.max_pages); let i = index" [class]="(pages.first_page+i == page_number) ? 'page-item active' : 'page-item'">
+                   <a class="page-link text-gray" (click)="changePage(pages.first_page+i)">{{pages.first_page+i}}</a>
+                 </li>
+                 <li class="page-item">
+                   <a class="text-pink" (click)="getPagination(nextPageUrl)">
+                     <mat-icon class="center-icon">chevron_right</mat-icon>
+                   </a>
+                 </li>
+               </ul>-->
+
+               </div>
             </div>
         </section>
 
         <hr class="separador-detalle">
 
-        <section id="gosugerencias" class="producto-relacionados-detalle">
+        <section id="gosugerencias" class="producto-relacionados-detalle" *ngIf="carouselDescatadosUno && carouselDescatadosUno.length > 0">
             <div class="container">
                 <div class="col-md-12">
                     <h2 class="text-center">Productos Relacionados</h2>

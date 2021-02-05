@@ -16,6 +16,7 @@ import {DetalleCompraComponent} from "./detalle-compra/detalle-compra.component"
 import {AuthGuard} from "./guards/auth.guard";
 import {DetallePedidoComponent} from "./detalle-pedido/detalle-pedido.component";
 import {DetalleCuponComponent} from "./detalle-cupon/detalle-cupon.component";
+import {RecuperarClaveComponent} from "./recuperar-clave/recuperar-clave.component";
 
 const routes : Routes = [
   {
@@ -77,7 +78,10 @@ const routes : Routes = [
   {
     path: 'productos/:marca/:nombre/:categoria',
     component: ProductosComponent
-  },
+  },{
+    path: 'recuperar-clave',
+    component: RecuperarClaveComponent
+  }
 ];
 
 @NgModule({

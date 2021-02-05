@@ -43,7 +43,7 @@
                     </div>
                 </mat-card> -->
 
-                <mat-card class="col-md-12 mrg-top-20 card-filter">
+                <mat-card class="col-md-12 mrg-top-20 card-filter clase-marca">
                     <p class="title-filter">Marca</p>
                     <div class="row dbl-fila-filter">
                         <div class="col-md-6" *ngFor="let marca of marcas;" style="padding-right: 3px;">
@@ -64,6 +64,13 @@
                         <mat-checkbox (change)="changeCategorie($event, categoria.id_categoria)" class="check-filter">{{categoria.name_cat}}</mat-checkbox>
                     </div>
                 </mat-card>
+
+              <mat-card class="col-md-12 mrg-top-20 card-filter">
+                <p class="title-filter">Estado del producto</p>
+                <div *ngFor="let item of estadoProducto">
+                  <mat-checkbox (change)="productosNuevos($event, item.id)" class="check-filter">{{item.nombre}}</mat-checkbox>
+                </div>
+              </mat-card>
 
                 <mat-card class="col-md-12 mrg-top-20 mrg-botn-40 card-filter">
                     <p class="title-filter">Precio</p>
@@ -104,7 +111,7 @@
 
             <div class="d-block mrg-top-20">
                 <div class="d-none d-md-block row w-100" style="margin-left: 10px !important;">
-                    <div class="col-md-12">
+                    <div class="col-md-12 clase-banner">
                         <img src="assets/img/productos/baner_productos.png" class="w-100 border-rad-mild" alt=""
                             srcset="">
                     </div>
@@ -122,12 +129,11 @@
                             </div>
                             <div class="d-flex align-items-center">
                                 <label for="page" class="label-select w-auto">Productos por página</label>
-                                <select [ngModel]="5" (ngModelChange)="changePaginate($event)" class="form-control form-control-sm w-auto" id="page">
-                                    <option [value]="5">5</option>
+                                <select [ngModel]="10" (ngModelChange)="changePaginate($event)" class="form-control form-control-sm w-auto" id="page">
                                     <option [value]="10">10</option>
-                                    <option [value]="15">15</option>
-                                    <option [value]="20">20</option>
                                     <option [value]="25">25</option>
+                                    <option [value]="50">50</option>
+                                    <option [value]="100">100</option>
                                 </select>
                             </div>
                             <div class="d-flex ml-auto align-items-center">
@@ -240,12 +246,12 @@
                                             <p class="price-prod-full" *ngIf="item && item.precio_descuento">{{item.precio_descuento  |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
                                             <p class="price-prod-full" *ngIf="item && !item.precio_descuento">{{item.precio_impuesto  |currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
                                            <p> <span class="price-prod-desc-full" *ngIf="item.precio_descuento">{{item.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0'}} </span> <span class="porcentaje-descuento" *ngIf="item.valor_descuento">{{ " - " + item.valor_descuento+"%"}}</span></p>
-                                            <a class="ver-detalle" href="#">Ver Detalles →</a>
+                                            <a class="ver-detalle" routerLink="/detalle-producto/{{item.id_producto}}">Ver Detalles →</a>
                                         </div>
                                     </div>
                                     <div class="content-product col-md-3 mrg-top-10 remove-margin">
                                         <div>
-                                          <select (change)="checkearTalla($event.target.value)" class="form-control bold mrg-botn-10 btn-select" id="talla" placeholder="Elige tu talla">
+                                          <select (change)="checkearTalla($event.target.value)" class="my-own-form-control bold mrg-botn-10 btn-select" id="talla" placeholder="Elige tu talla">
                                             <option selected value="">Elige tu talla</option>
                                             <option *ngFor="let atri of item.atributo" value="{{atri.valor}}"  >{{atri.valor}}</option>
                                           </select>

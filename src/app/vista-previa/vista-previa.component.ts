@@ -6,6 +6,7 @@ import { SendHttpData } from '../tools/SendHttpData';
 import {AlertasService} from "../servicio/alertas/alertas.service";
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 import {VariablesService} from "../servicio/variable-global/variables.service";
+import {AgregarCarritoComponent} from "../agregar-carrito/agregar-carrito.component";
 
 export interface DialogData {
   id: any;
@@ -260,7 +261,7 @@ export class VistaPreviaComponent implements OnInit {
     console.log(this.carritoAnterior);
 
     if (this.cantidad > 0) {
-
+      this.producto['talla'] = this.opcionSeleccionado;
       this.producto['cantidad'] = this.cantidad;
       this.addProductoCarrito.push(this.producto);
       console.log(this.addProductoCarrito);
@@ -281,11 +282,12 @@ export class VistaPreviaComponent implements OnInit {
 
       this.alertaS.showToasterFull(`Articulo Agregado Corectamente`);
 
-
+    this.onNoClick();
     } else {
       this.alertaS.showToasterError(`Debes agregar Minimo un producto ,  ${this.cantidad}`);
     }
     this.variablesGl.changeMessage();
+    this.agregarABolsa(this.producto['id_producto']);
   }
 
   listarProductosRelacionados(codigo) {
@@ -310,5 +312,12 @@ export class VistaPreviaComponent implements OnInit {
   checkearTalla(evento) {
     console.log(evento);
     this.opcionSeleccionado = evento;
+  }
+
+  agregarABolsa(producto) {
+    const dialogRef = this.dialog.open(AgregarCarritoComponent, {
+      width: '900px',
+      data: {id: producto}
+    });
   }
 }

@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 mrg-top-40 mrg-botn-40">
+      <mat-card class="d-flex justify-content-center">
+        <mat-tab-group class="w-80" mat-align-tabs="center">
+          <mat-tab label="RECUPERAR CONTRASEÑA">
+            <form  novalidate>
+              <div class="d-flex mrg-top-20 mrg-botn-5">
+                <div class="col-md-12">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Correo electrónico</mat-label>
+                    <input name="email" [formControl]="email" [(ngModel)]="data.email" matInput placeholder="Correo electrónico">
+                    <mat-error *ngIf="email.invalid">{{getErrorMessageLogin()}}</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center mrg-top-20 mrg-botn-20">
+                <button mat-raised-button type="submit" color="primary" class="mrg-right-5 ingresar-login" (click)="recuperarClave()">Enviar</button>
+              </div>
+            </form>
+            <div class="d-flex justify-content-center border-btn mrg-top-20 mrg-botn-10">
+              <p class="txt-login">También puedes ingresar con</p>
+            </div>
+            <div class="d-flex justify-content-center mrg-top-20 mrg-botn-20">
+              <button mat-stroked-button color="secondary" class="mrg-right-30 login-facebook"> <img src="assets/img/icons/icon-facebook.svg" alt=""> Facebook</button>
+              <button mat-stroked-button color="secondary" class="mrg-right-30 login-google"> <img src="assets/img/icons/icon-google.svg" alt=""> Google</button>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card>
+    </div>
+  </div>
+</div>

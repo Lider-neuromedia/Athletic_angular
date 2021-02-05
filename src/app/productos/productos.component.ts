@@ -7,6 +7,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AlertasService} from "../servicio/alertas/alertas.service";
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 import {VariablesService} from "../servicio/variable-global/variables.service";
+import {FavoritosService} from "../servicio/favoritos/favoritos.service";
+import * as $ from "jquery";
+import {AgregarCarritoComponent} from "../agregar-carrito/agregar-carrito.component";
 
 @Component({
   selector: 'app-productos',
@@ -21,7 +24,8 @@ export class ProductosComponent implements OnInit {
     floor: 0,
     ceil: 500000
   };
-  page_size: number = 5;
+  estadoProducto: any;
+  page_size: number = 10;
   page_number: number = 1;
   pages: any;
   productos = [];
@@ -29,11 +33,12 @@ export class ProductosComponent implements OnInit {
   filter_marcas = [];
   filter_categorias = [];
   filter_precio = '[]';
+  filter_estadoPrducto = [];
   filter_order = null;
   categorias_prin = [];
   filtros = null;
   filtros_check = [];
-  view_active = 2;
+  view_active = 1;
   cantidad = 1;
   id_prd_vstaprev : any = 21;
   checkMarcas: any;
@@ -51,7 +56,8 @@ export class ProductosComponent implements OnInit {
     private alertaS: AlertasService,
     private ruta: Router,
     private loginGlobal: LoginGlobalService,
-    private variablesGl: VariablesService
+    private variablesGl: VariablesService,
+    private favorito: FavoritosService
   ) {
     this.llamarDatoLocalesUsuario();
   }
@@ -68,6 +74,17 @@ export class ProductosComponent implements OnInit {
     this.getCategories();
     this.getMarcas();
     // this.getFiltersValue();
+
+    this.estadoProducto = [
+      {
+        id: 1,
+        nombre: 'Nuevo'
+      },
+      {
+        id: 2,
+        nombre: 'Normal'
+      }
+    ];
   }
 
   openDialog() {
@@ -127,6 +144,7 @@ export class ProductosComponent implements OnInit {
         }
       }
     }
+    this.addPrice();
     this.setFilter();
   }
 
@@ -161,6 +179,7 @@ export class ProductosComponent implements OnInit {
         }
       }
     }
+    this.addPrice();
     this.setFilter();
   }
 
@@ -188,7 +207,9 @@ export class ProductosComponent implements OnInit {
 
   // Filtros
   setFilter(){
-    var params = "?marcas=["+ this.filter_marcas +"]&categorias=["+ this.filter_categorias+"]&precio="+this.filter_precio;
+    //var params = "?marcas=["+ this.filter_marcas +"]&categorias=["+ this.filter_categorias+"]&precio="+this.filter_precio;
+    var params = "?marcas=["+ this.filter_marcas +"]&categorias=["+ this.filter_categorias+ "]&estado=["+ this.filter_estadoPrducto + "]&precio="+this.filter_precio;
+
     if (this.filter_order != null) {
       params += "&orderProd=" + this.filter_order;
     }
@@ -301,6 +322,11 @@ export class ProductosComponent implements OnInit {
 
       }
     }
+
+    $('body, html').animate({
+      scrollTop: '0px'
+    }, 300);
+
   }
 
 
@@ -345,6 +371,7 @@ export class ProductosComponent implements OnInit {
       this.alertaS.showToasterError(`Debes agregar Minimo un producto ,  ${this.cantidad}`);
     }
     this.variablesGl.changeMessage();
+    this.agregarABolsa(producto['id_producto']);
   }
 
 
@@ -356,6 +383,7 @@ export class ProductosComponent implements OnInit {
 
     this.http.httpPost('agregar-productos-favorito', data).toPromise().then(respuesta => {
       if (respuesta[`estado`]) {
+        this.favorito.changeMessage();
         this.alertaS.showToasterFull(`Articulo agregado a favoritos`);
       }
     }).catch(error => {
@@ -398,5 +426,30 @@ export class ProductosComponent implements OnInit {
       console.log(evento);
       this.opcionSeleccionado = evento;
   }
+  agregarABolsa(producto) {
+    const dialogRef = this.dialog.open(AgregarCarritoComponent, {
+      width: '900px',
+      data: {id: producto}
+    });
+  }
 
+  productosNuevos($event, estado) {
+
+
+    if ($event.checked) {
+      if (this.filter_estadoPrducto == null) {
+        this.filter_estadoPrducto = [estado];
+      } else {
+        this.filter_estadoPrducto.push(estado);
+      }
+    } else {
+      for (let i = 0; i < this.filter_estadoPrducto.length; i++) {
+        if (this.filter_estadoPrducto[i] == estado) {
+          this.filter_estadoPrducto.splice(i, 1);
+        }
+      }
+    }
+    this.addPrice();
+    this.setFilter();
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SendHttpData} from "../tools/SendHttpData";
 import {AlertasService} from "../servicio/alertas/alertas.service";
+import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 
 @Component({
   selector: 'app-footer',
@@ -9,7 +10,12 @@ import {AlertasService} from "../servicio/alertas/alertas.service";
 })
 export class FooterComponent implements OnInit {
     filtro: any;
-  constructor(private http: SendHttpData, private  alerta: AlertasService) { }
+  usuario = null;
+  constructor(
+    private http: SendHttpData,
+    private  alerta: AlertasService,
+    private loginGlobal: LoginGlobalService,
+    ) { }
 
   ngOnInit(): void {
 
@@ -17,6 +23,7 @@ export class FooterComponent implements OnInit {
       suscripcion_email: null,
       suscripcion_enviado: 0,
     }
+    this.llamarDatoLocalesUsuario();
   }
 
 
@@ -36,6 +43,15 @@ export class FooterComponent implements OnInit {
     }).catch(error => {
       console.log(error);
     })
+
+  }
+
+  llamarDatoLocalesUsuario() {
+
+    this.loginGlobal.currentMessage.subscribe(response => {
+      this.usuario = response;
+      //this.contadorFavoritos();
+    });
 
   }
 }

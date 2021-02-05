@@ -8,7 +8,6 @@
       <div class="col-md-9">
         <h2 class="account-title">Mis cupones</h2>
         <div *ngFor="let item of listaCupones">
-{{item['cliente_codigo'] +'----'+ usuario.id_cliente}}
           <div *ngIf="item['cliente_codigo'] === usuario.id_cliente">
             <div class="row row-cupones">
               <div class="col-md-3">

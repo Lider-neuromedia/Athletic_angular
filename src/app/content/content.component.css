@@ -471,3 +471,11 @@
 .border-rad-mild {
   height: 259px;
 }
+
+#padin-imagenes-texto {
+  padding: 21px;
+}
+
+#dropdownMenuButton {
+  height: 63px;
+}

@@ -383,7 +383,7 @@
 }
 
 .content-bolsa .ing5-header-bolsa{
-    border-bottom: 1px solid #D8D8D8;
+   /*border-bottom: 1px solid #D8D8D8;*/
     padding: 1em;
     position: fixed;
     width: 100%;
@@ -499,6 +499,7 @@ element.style {
 .imagen-producto, .detalle-producto, .precio-acciones {
    padding: 0em !important;
   width: 33.3%;
+
 }
 
 .detalle-producto {
@@ -562,4 +563,75 @@ element.style {
 .hello-user {
   font-size: 18px;
   font-weight: 600;
+}
+.porcentaje-descuento {
+  margin-left: 7px;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.separador-boton {
+  margin-top: 0px !important;
+}
+
+.aproximado, .valor{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 4px;
+  margin: 8px 8px 0 9px;
+}
+
+.acciones-cantidad {
+  margin-bottom: 10px;
+  margin-top: -13px;
+}
+.aproximado {
+  margin: 6px 10px 0 7px;
+}
+
+.imagen-producto {
+  height: 100px;
+  text-align: center;
+}
+
+
+.imagen-producto img {
+    height: 100px;
+    text-align: center;
+}
+
+.campos-pruebas {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.campo-cantidad {
+  width: 100% !important;
+  height: 29px !important;
+  text-align: center;
+}
+
+.campos-pruebas span {
+  cursor: pointer;
+  color: #FF596A;
+}
+
+.imagen-eliminar {
+  width: 43px;
+  height: 29px;
+  margin: -6px 0px 0px 0px;
+  cursor: pointer;
+}
+
+.content-productos-2 {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-productos-2 span {
+  color: #FF596A;
 }

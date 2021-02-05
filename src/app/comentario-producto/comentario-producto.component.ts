@@ -2,6 +2,7 @@ import { Component, OnInit, Inject  } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {SendHttpData} from "../tools/SendHttpData";
 import {AlertasService} from "../servicio/alertas/alertas.service";
+import {FavoritosService} from "../servicio/favoritos/favoritos.service";
 @Component({
   selector: 'app-comentario-producto',
   templateUrl: './comentario-producto.component.html',
@@ -23,6 +24,7 @@ export class ComentarioProductoComponent implements OnInit {
   constructor(
     private setHtpp: SendHttpData,
     private alertaS: AlertasService,
+    private favoritoSe: FavoritosService,
     public dialogRef: MatDialogRef<ComentarioProductoComponent>,
     @Inject(MAT_DIALOG_DATA) public infor: any
   ) {
@@ -115,6 +117,8 @@ export class ComentarioProductoComponent implements OnInit {
     console.log(this.almacenarDatos);
     this.setHtpp.httpPost('crear-comentarios', this.almacenarDatos).toPromise().then(respuesta => {
       this.alertaS.showToasterFull(respuesta['mensaje']);
+      this.favoritoSe.changeMessage();
+      this.onNoClick();
     }).catch(error => {
       console.log( error);
     })

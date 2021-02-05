@@ -12,6 +12,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxGalleryModule} from 'ngx-gallery-9';
 
 
+
+
 // Components
 import {HeaderComponent} from './header/header.component';
 import {AppComponent} from './app.component';
@@ -46,7 +48,16 @@ import { ComentarioProductoComponent } from './comentario-producto/comentario-pr
 import { FlechaArribaComponent } from './flecha-arriba/flecha-arriba.component';
 import { MatAccordion, MatExpansionModule} from "@angular/material/expansion";
 import { DetalleCuponComponent } from './detalle-cupon/detalle-cupon.component';
-
+import {MAT_DATE_LOCALE} from "@angular/material/core";
+import { RecuperarClaveComponent } from './recuperar-clave/recuperar-clave.component';
+import { RegistroFormComponent } from './registro-form/registro-form.component';
+import { ModalDireccionesComponent } from './modal-direcciones/modal-direcciones.component';
+import { LoginSocialComponent } from './login-social/login-social.component';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from 'angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -75,7 +86,11 @@ import { DetalleCuponComponent } from './detalle-cupon/detalle-cupon.component';
     BuscadorTiendaComponent,
     ComentarioProductoComponent,
     FlechaArribaComponent,
-    DetalleCuponComponent
+    DetalleCuponComponent,
+    RecuperarClaveComponent,
+    RegistroFormComponent,
+    ModalDireccionesComponent,
+    LoginSocialComponent
   ],
   imports: [
     BrowserModule,
@@ -99,10 +114,33 @@ import { DetalleCuponComponent } from './detalle-cupon/detalle-cupon.component';
       positionClass: 'toast-bottom-left',
       preventDuplicates: true,
     }),
-    MatExpansionModule,
-    MatExpansionModule,
+    SocialLoginModule,
   ],
-  providers: [SendHttpData, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider('1084128390461-oljoka407us8td8prjjvtnn6vh2rb2im.apps.googleusercontent.com' )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('459730468737450')
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    },
+    SendHttpData,
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+  ],
+
+  exports: [
+    LoginComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

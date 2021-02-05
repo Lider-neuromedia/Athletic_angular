@@ -27,3 +27,7 @@
 .save-adrres {
   cursor: pointer;
 }
+
+mat-radio-button{
+  padding: 10px;
+}

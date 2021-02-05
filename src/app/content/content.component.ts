@@ -28,6 +28,7 @@ export class ContentComponent implements OnInit {
     valor_ant : null,
     precio_des : null
   }
+  disenioSesion18: any;
   btn_active = 1;
   //Objeto que almacenara todos los elementos del home que vienen del backend.
   disenoHome = {
@@ -46,6 +47,9 @@ export class ContentComponent implements OnInit {
     sesion_13 : [],
     sesion_14 : [],
     sesion_15 : [],
+    sesion_16 : [],
+    sesion_17 : [],
+    sesion_18 : [],
   };
 
 
@@ -53,6 +57,7 @@ export class ContentComponent implements OnInit {
    * Carrusel productos primeros productos destacados 4 columnas
    */
   carouselDescatadosUno = [];
+  carouselDescatadosUno8 = [];
 
   optionSlideDestacados = {
     items: 4,
@@ -110,6 +115,7 @@ export class ContentComponent implements OnInit {
     this.getDisenoHome();
     // Obtener productos destacados
     this.getProductsDest();
+    this.getProductsDestContenido8();
 
 
 
@@ -183,12 +189,16 @@ export class ContentComponent implements OnInit {
 
   btnCatActive(val){
     this.btn_active = val;
+
+    this.getProductsDestContenido8();
   }
 
   getDisenoHome(){
     this.http.httpGet('disenoHome').subscribe(
       response => {
         this.disenoHome = response;
+        this.disenioSesion18 = response['sesion_18'];
+        console.error(this.disenioSesion18);
       },
       error => {
         console.error("Error en el diseño.");
@@ -200,6 +210,18 @@ export class ContentComponent implements OnInit {
     this.http.httpGet('productosDestacados').subscribe(
       response => {
         this.carouselDescatadosUno = response;
+      },
+      error => {
+        console.error("Error consumiento productos destacados.");
+      }
+    );
+  }
+
+  getProductsDestContenido8(){
+    this.http.httpGetParamt('productosDestacadosPromociones',this.btn_active ).subscribe(
+      response => {
+        this.carouselDescatadosUno8 = response;
+        console.log(this.carouselDescatadosUno8);
       },
       error => {
         console.error("Error consumiento productos destacados.");

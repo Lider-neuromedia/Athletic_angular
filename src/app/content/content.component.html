@@ -249,13 +249,14 @@
     <div class="container">
       <div class="row d-flex justify-content-center">
         <div class="content-btn-cate w-100-xs  mrg-top-40 mrg-botn-20">
-          <div (click)="btnCatActive(1)" [class]="(btn_active == 1) ? 'btn-home-cate-act' : 'btn-home-cate'">
-            <mat-icon svgIcon="woman" class="mrg-top-15-prc icon-inactive">woman</mat-icon>
-            <mat-icon svgIcon="woman_act" class="mrg-top-15-prc icon-active">woman_act</mat-icon>
-            <p>Femenino</p>
+          <div id="padin-imagenes-texto" (click)="btnCatActive(item['sub_titulo'])" [class]="(item['sub_titulo'] == btn_active) ? 'btn-home-cate-act' : 'btn-home-cate'" *ngFor="let item of disenioSesion18">
+            <img class="icon-info" [src]="item['url_imagen']">
+           <!-- <mat-icon svgIcon="woman" class="mrg-top-15-prc icon-inactive">woman</mat-icon>
+            <mat-icon svgIcon="woman_act" class="mrg-top-15-prc icon-active">woman_act</mat-icon>-->
+            <p>{{item['titulo']}}</p>
           </div>
 
-          <div (click)="btnCatActive(2)" [class]="(btn_active == 2) ? 'btn-home-cate-act' : 'btn-home-cate'">
+          <!--<div (click)="btnCatActive(2)" [class]="(btn_active == 2) ? 'btn-home-cate-act' : 'btn-home-cate'">
             <mat-icon svgIcon="people" class="mrg-top-15-prc icon-inactive">people</mat-icon>
             <mat-icon svgIcon="people_act" class="mrg-top-15-prc icon-active">people_act</mat-icon>
             <p>Masculino</p>
@@ -271,7 +272,7 @@
             <mat-icon svgIcon="coupon" class="mrg-top-15-prc icon-inactive">coupon</mat-icon>
             <mat-icon svgIcon="coupon_act" class="mrg-top-15-prc icon-active">coupon_act</mat-icon>
             <p>Promociones</p>
-          </div>
+          </div>-->
         </div>
       </div>
 
@@ -282,9 +283,17 @@
               descuento="30" price_ant="$280.000"
               </app-item-producto>
             </div> -->
-            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center"  *ngFor="let item of carouselDescatadosUno">
-              <app-item-producto [id]="item.id_producto" [nuevo]="item.nuevo" [image]="item.imagen_portada.img" [subtitle]="item.name_marca"
-                [title]="item.name_prod" [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto" [showButtons]="false" [price_ant]="item.precio_general" [descuento]="item.valor_descuento">
+            <div class="col-md-2 col-sm-6 col-xs-12 mrg-botn-20 d-flex justify-content-center"  *ngFor="let item of carouselDescatadosUno8">
+              <app-item-producto
+                [id]="item.id_producto"
+                [nuevo]="item.nuevo"
+                [image]="item.imagen_portada.img"
+                [subtitle]="item.name_marca"
+                [title]="item.name_prod"
+                [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto"
+                [showButtons]="false"
+                [price_ant]="item.precio_general"
+                [descuento]="item.valor_descuento">
               </app-item-producto>
             </div>
       </div>
@@ -292,7 +301,7 @@
   </div>
 
   <!-- Contenido 9 -->
-  <div class="container mrg-top-40 mrg-botn-40">
+  <!--<div class="container mrg-top-40 mrg-botn-40">
     <div class="row">
       <div class="col-md-12 col-xs-12">
         <div style="width: 100%; background: #353435; position: relative;" *ngFor="let sesion of disenoHome.sesion_11">
@@ -305,7 +314,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
 
   <!-- Contenido 10 -->
   <div class="container color-gray p-5 border-rad-mild mrg-botn-40 mrg-top-40 box-populares">
@@ -420,16 +429,10 @@
   <div class="container mrg-top-40 mrg-botn-20 fechas-before-footer">
     <div class="row">
       <div class="col-md-4 col-xs-12">
-        <div *ngFor="let sesion of disenoHome.sesion_14; let i = index" [ngClass]="{'mrg-top-20 mrg-botn-20' : i== 1}" class="mes-home" style="background-color: #4800a1;">
-          <p>{{sesion.titulo}}</p>
+        <div *ngFor="let sesion of disenoHome.sesion_14; let i = index" [ngClass]="{'mrg-top-20 mrg-botn-20' : i== 1}"class="mes-home" style="background-color: #4800a1;">
+          <!--<p>{{sesion.titulo}}</p>-->
+          <p><img [src]="sesion.url_imagen" alt=""></p>
         </div>
-        <!-- <div class="mes-home mrg-top-20 mrg-botn-20" style="background-color: #002f6d;">
-          <p>JULIO 2020</p>
-        </div>
-        <div class="mes-home" style="background-color: #ad00d6;">
-          <p>TEMPORADA</p>
-        </div>
-         -->
       </div>
       <div class="col-md-8 col-xs-12 mrg-top-20-xs scale-image" *ngFor="let sesion of disenoHome.sesion_15">
         <a href="{{sesion.link_to}}" *ngIf="sesion.link_to != null">

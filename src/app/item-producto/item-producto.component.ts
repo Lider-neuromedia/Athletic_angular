@@ -40,7 +40,7 @@ export class ItemProductoComponent implements OnInit {
   @Input() image: string;
   @Input() title: string;
   @Input() price: string;
-  @Input() nuevo: boolean;
+  @Input() nuevo: number;
   @Input() descuento: any;
   @Input() price_ant: string;
   @Input() small: boolean;

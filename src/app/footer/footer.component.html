@@ -4,7 +4,7 @@
         <div class="col-md-3 mrg-top-10 d-flex justify-content-center align-items-center">
           <p class="text-pink mrg-0 font-sz-20 bold" style="  letter-spacing: 0.72px;">SUSCRÍBETE A NUESTRO NEWSLETTER</p>
         </div>
-        <div class="col-md-5 mrg-top-10">
+        <div class="col-md-6 mrg-top-10">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Correo electrónico</mat-label>
             <input matInput placeholder="Correo electrónico" [(ngModel)]="filtro.suscripcion_email">
@@ -14,9 +14,9 @@
         </div>
         <!-- <div class="padg-lat-10 mrg-top-20 mrg-botn-20 w-100-xs">
         </div> -->
-        <div class="col-md-4 mrg-top-10 d-flex justify-content-center align-items-center">
-          <button mat-raised-button color="primary" class="mrg-right-5 ing5-btn-suscribete" (click)="crearSuscripcion()">Suscríbete</button>
-          <button mat-raised-button color="primary" class="mrg-left-5 ing5-btn-promociones">Promociones</button>
+        <div class="col-md-3 mrg-top-10 d-flex justify-content-center align-items-center">
+          <button mat-raised-button color="primary" class="mrg-right-3 ing5-btn-suscribete" (click)="crearSuscripcion()">Suscríbete</button>
+          <!--<button mat-raised-button color="primary" class="mrg-left-5 ing5-btn-promociones">Promociones</button>-->
         </div>
       </div>
 
@@ -26,55 +26,49 @@
       <div class="row mrg-top-20">
         <div class="col-md-8 col-xs-12 row mrg-top-20">
 
-          <div class="col-md-3 col-xs-12 txt-center-xs">
+          <div class="col-md-4 col-xs-12 txt-center-xs">
             <p class="title-footer">Información Legal</p>
             <ul class="list-footer">
-              <li class="item-footer"><a href="#">Legales del día</a></li>
               <li class="item-footer"><a href="#">Términos y condiciones</a></li>
-              <li class="item-footer"><a href="#">Términos de Martketplace</a></li>
               <li class="item-footer"><a href="#">Políticas de privacidad</a></li>
               <li class="item-footer"><a href="#">Políticas de información</a></li>
               <li class="item-footer"><a href="#">Notificaciones judiciales</a></li>
-              <li class="item-footer"><a href="#">Política de venta de productos internacionales</a></li>
-              <li class="item-footer"><a href="#">Derechos de retracto</a></li>
               <li class="item-footer"><a href="#">Política de tratamiento de datos personales</a></li>
             </ul>
           </div>
 
-          <div class="col-md-3 col-xs-12 w-100-xs txt-center-xs">
+          <div class="col-md-4 col-xs-12 w-100-xs txt-center-xs">
             <p class="title-footer">SERVICIO AL CLIENTE</p>
             <ul class="list-footer">
               <li class="item-footer"><a href="#">Preguntas Frecuentes</a></li>
-              <li class="item-footer"><a href="#">Aplicar mi garantía</a></li>
-              <li class="item-footer"><a href="#">Haz tu primera compra</a></li>
-              <li class="item-footer"><a href="#">Nuestras Tiendas</a></li>
               <li class="item-footer"><a href="#">Medios de pago</a></li>
               <li class="item-footer"><a href="#">Métodos de entrega</a></li>
-              <li class="item-footer"><a href="#">Nuestros productos</a></li>
-              <li class="item-footer"><a href="#">Sugerencias y Reclamos</a></li>
-              <li class="item-footer"><a href="#">Comunicaciones</a></li>
-              <li class="item-footer"><a href="#">Contacto</a></li>
+              <li class="item-footer"><a href="#">Contacto y sugerencia</a></li>
               <li class="item-footer"><a href="www.sic.gov.co" class="text-pink">www.sic.gov.co</a></li>
+
+
             </ul>
           </div>
 
-          <div class="col-md-3 col-xs-12 w-100-xs txt-center-xs">
+          <div class="col-md-4 col-xs-12 w-100-xs txt-center-xs">
             <p class="title-footer">MAS SOBRE NOSOTROS</p>
             <ul class="list-footer">
               <li class="item-footer"><a href="#">¿Quiénes Somos?</a></li>
-              <li class="item-footer"><a href="#">Mi Cuenta</a></li>
-              <li class="item-footer"><a href="#">Trabaje con nosotros</a></li>
+              <li class="item-footer"><a [routerLink]="usuario?'/perfil':'/login'">Mi Cuenta</a></li>
+              <li class="item-footer"><a href="#">Protección de Propiedad Intelectual</a></li>
+
+             <!-- <li class="item-footer"><a href="#">Trabaje con nosotros</a></li>
               <li class="item-footer"><a href="#">Responsabilidad Social</a></li>
               <li class="item-footer"><a href="#">Proveedores</a></li>
               <li class="item-footer"><a href="#">Directorio</a></li>
               <li class="item-footer"><a href="#">Programas de Lealtad (puntos)</a></li>
               <li class="item-footer"><a href="#">Vuélvete un Afiliado</a></li>
-              <li class="item-footer"><a href="#">Canal de Integridad</a></li>
-              <li class="item-footer"><a href="#">Protección de Propiedad Intelectual</a></li>
+              <li class="item-footer"><a href="#">Canal de Integridad</a></li>-->
+
             </ul>
           </div>
 
-          <div class="col-md-3 col-xs-12  w-100-xs txt-center-xs brd-right">
+         <!-- <div class="col-md-3 col-xs-12  w-100-xs txt-center-xs brd-right">
             <p class="title-footer">SERVICIOS</p>
             <ul class="list-footer">
               <li class="item-footer"><a href="#">Ventas Corporativas</a></li>
@@ -83,7 +77,7 @@
               <li class="item-footer"><a href="#">Vende en (pagianweb.com)</a></li>
               <li class="item-footer"><a href="#">Compra y recoge</a></li>
             </ul>
-          </div>
+          </div>-->
         </div>
 
         <div class="col-md-4 col-xs-12 d-flex mrg-top-20">

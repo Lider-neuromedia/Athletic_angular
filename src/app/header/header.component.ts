@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {AlertasService} from "../servicio/alertas/alertas.service";
 import {VariablesService} from "../servicio/variable-global/variables.service";
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
+import {FavoritosService} from "../servicio/favoritos/favoritos.service";
 
 @Component({
   selector: 'app-header',
@@ -26,6 +27,7 @@ export class HeaderComponent {
   carrito: any;
   carritoAnterior: any;
   cantidadCarrito: number = 0;
+  favoritosCantidad: number;
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll($event) {
@@ -36,6 +38,25 @@ export class HeaderComponent {
       this.scrolled = 1;
     }
   }
+  disenoHome = {
+    sesion_1 : [],
+    sesion_2 : [],
+    sesion_3 : [],
+    sesion_4 : [],
+    sesion_5 : [],
+    sesion_6 : [],
+    sesion_7 : [],
+    sesion_8 : [],
+    sesion_9 : [],
+    sesion_10 : [],
+    sesion_11 : [],
+    sesion_12 : [],
+    sesion_13 : [],
+    sesion_14 : [],
+    sesion_15 : [],
+    sesion_16 : [],
+    sesion_17 : [],
+  };
 
   constructor(
     public router: Router,
@@ -43,7 +64,8 @@ export class HeaderComponent {
     private render: Renderer2,
     private alertaS: AlertasService,
     private loginGlobal: LoginGlobalService,
-    private variablesGl: VariablesService) {
+    private variablesGl: VariablesService,
+    private favoritoSe: FavoritosService) {
    // this.usuario = JSON.parse(localStorage.getItem('user'));
     //console.log(this.usuario);
     this.llamarDatoLocalesUsuario();
@@ -53,10 +75,12 @@ export class HeaderComponent {
 
 
     this.llamarDatoLocales();
+    this.llamarDatosFavoritos();
 
     this.getCategories();
     this.getImagenesMenu();
     this.llamarDatoLocalesUsuario();
+    this.getDisenoHome();
 
   }
 
@@ -123,6 +147,7 @@ export class HeaderComponent {
     this.http.httpGet('disenoOneSesion/16').subscribe(
       response => {
         this.disenoMenu = response;
+        console.log( this.disenoMenu);
       },
       error => {
         console.error("Error en el diseño.");
@@ -144,35 +169,54 @@ export class HeaderComponent {
 
     this.loginGlobal.currentMessage.subscribe(response => {
       this.usuario = response;
+      //this.contadorFavoritos();
     });
 
   }
 
-  activarMenu2() {
+  /*contadorFavoritos() {
+      let data = {
+      cliente:  this.usuario.id_cliente
+      }
+    this.http.httpPost('contar-numeros-favorito', data).toPromise()
+      .then(respuesta => {
+      console.log(respuesta);
+      this.favoritosCantidad = respuesta[`data`][0]['cantidad'];
+        console.log(this.favoritosCantidad);
+    }).catch(error => {
+      console.log(error);
+    });
+  }*/
 
-    console.log('abrir menu2');
-    document.getElementById('estado2').click();
-
+  llamarDatosFavoritos() {
+    if (this.usuario) {
+    this.favoritoSe.currentMessage.subscribe(response => {
+      let data = {
+        cliente: this.usuario.id_cliente
+      }
+      this.http.httpPost('contar-numeros-favorito', data).toPromise()
+        .then(respuesta => {
+          console.log(respuesta);
+          this.favoritosCantidad = respuesta[`data`][0]['cantidad'];
+          console.log(this.favoritosCantidad);
+        }).catch(error => {
+        console.log(error);
+      });
+    });
+  }
   }
 
 
-  activarMenu() {
-      // @ts-ignore
-    //document.getElementsByClassName('menu-categories')[0].style.display = 'display:block;';
-   // document.getElementById('activar-menu-principal').style.display = 'block';
-    document.getElementById('estado').click();
-    console.log('abrir menu');
-
+  getDisenoHome(){
+    this.http.httpGet('disenoHome').subscribe(
+      response => {
+        this.disenoHome = response['sesion_17'];
+        console.log(this.disenoHome);
+      },
+      error => {
+        console.error("Error en el diseño.");
+      }
+    );
   }
-
-  cerrarModalMenu() {
-    console.log('salir del menu');
-   // document.getElementById('logo-tienda').click();
-  //  document.getElementsByName('body')[0].click();
-    this.activarMenu2();
-  }
-
-
-
 }
 

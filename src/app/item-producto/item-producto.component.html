@@ -2,8 +2,8 @@
     <div (click)="router.navigate(['/detalle-producto/' + id]);" [class]="(small) ? 'item-product item-small' : 'item-product'">
         <div [class]="(small) ? 'content-img cont-small' : 'content-img'">
             <img [src]="image" alt="">
-            <img src="assets/img/home/nuevo.png" *ngIf="nuevo" class="img-nuevo" alt="">
-            <div [class]="(small) ? 'descuento-small' : 'descuento'" *ngIf="descuento">{{"-"+descuento+"%"}}</div>
+            <img src="assets/img/home/nuevo.png" *ngIf="nuevo === 1" class="img-nuevo" alt="">
+           <!-- <div [class]="(small) ? 'descuento-small' : 'descuento'" *ngIf="descuento">{{"-"+descuento+"%"}}</div>-->
         </div>
         <div class="content-product">
             <p [class]="(small) ? 'subtitle-prod-small' : 'subtitle-prod'">{{subtitle}}</p>

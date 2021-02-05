@@ -4,17 +4,22 @@
     <div class="container ing5-flex-end" fxLayoutAlign="space-evenly center">
       <!-- <span class="spacer"></span> -->
       <!-- <mat-icon class="icon-small text-gray" aria-hidden="false">local_phone</mat-icon> -->
-      <img class="icon-info" src="assets/img/header/call.svg">
-      <span class="text-gray">3154559876/3154559876</span>
+    <div *ngFor="let item of disenoHome ? disenoHome : 0">
+      <img class="icon-info" [src]="item['url_imagen']">
+      <span class="text-gray">{{item['sub_titulo']}}</span>
       <span class="separator"></span>
-      <img class="icon-info" src="assets/img/header/envios.svg">
+    </div>
+
+    <!--  <img class="icon-info" src="assets/img/header/envios.svg">
       <span class="text-gray">Envíos a todo el país</span>
       <span class="separator"></span>
+
       <img class="icon-info" src="assets/img/header/devoluciones.svg">
       <span class="text-gray">Política de devoluciones</span>
       <span class="separator"></span>
+
       <img class="icon-info" src="assets/img/header/help.svg">
-      <span class="text-gray">¿Necesita ayuda?</span>
+      <span class="text-gray">¿Necesita ayuda?</span>-->
     </div>
   </mat-toolbar-row>
 
@@ -23,7 +28,7 @@
       <div class="d-flex flex-md-row ing5-items-content-header">
         <div class="">
           <div class="dropdown">
-            <button (mouseover)="activarMenu()"
+            <button
                     id="dropdownMenuButton"
                     data-toggle="dropdown"
                     aria-haspopup="true"
@@ -38,21 +43,21 @@
                 <div fxLayout="row" >
                   <div fxLayout="column" class="mrg-top-10 cont-categ" fxLayoutAlign="left">
                     <!-- Ciclo - Categorias -->
-                    <div *ngFor="let item of categorias_prin">
+                    <div *ngFor="let item of categorias_prin" class="cambiar-color">
                       <p [ngClass]=" item.id_categoria == categoria_select ? 'list-categ list-act' : 'list-categ'" >
                         <a href="#" (mouseover)="changeSubCategoria(item.id_categoria, item.hijos)">{{item.name_cat}}</a>
                         <mat-icon aria-hidden="false" class="icon-list-cat" aria-label="Icon">keyboard_arrow_right</mat-icon>
                       </p>
                     </div>
 
-                    <div>
-                      <p class="list-categ"> <a href="#">Marcas</a></p>
+                    <div class="cambiar-color">
+                      <p class="list-categ"> <a routerLink="/productos">Marcas</a></p>
                     </div>
                   </div>
                   <div fxLayout="row wrap" class="content-categories-menu-header" style="width: 520px;" fxLayoutAlign="space-evenly left">
                     <div *ngFor="let element of sub_categorias">
                       <div class="content-sb-categ">
-                        <p class="title-categ">{{element.name_cat}}</p>
+                        <p class="title-categ"  routerLink="/productos" >{{element.name_cat}}</p>
                         <ul class="list-sb-categ">
                           <li class="item-categ" *ngFor="let item of element.hijos">
                             <a routerLink="/productos" routerLinkActive="active"> {{item.name_cat}} </a>
@@ -87,16 +92,16 @@
                     </div>
                   </div>
                   <div class="hide-image-mega-menu" fxLayout="row wrap">
-                    <div class="h-100 w-50">
-                      <a *ngFor="let sesion of disenoMenu.column_1" href="{{(sesion.link_to != null ? sesion.link_to : '#')}}">
-                        <img src="{{sesion.url_imagen}}" class="w-100" alt="">
+                    <div class="h-100 w-50" *ngFor="let sesion of disenoMenu">
+                      <a  href="{{(sesion['link_to'] != null ? sesion['link_to'] : '#')}}">
+                        <img src="{{sesion['url_imagen']}}" class="w-100" alt="" style="margin: -4px">
                       </a>
                     </div>
-                    <div class="h-100 w-50" class="menu-column">
+                    <!--<div class="h-100 w-50" class="menu-column">
                       <a *ngFor="let sesion of disenoMenu.column_2" href="{{(sesion.link_to != null ? sesion.link_to : '#')}}">
                         <img src="{{sesion.url_imagen}}" class="w-90" alt="">
                       </a>
-                    </div>
+                    </div>-->
                   </div>
                 </div>
             </div>
@@ -118,10 +123,11 @@
           <button [routerLink]="usuario?'/pedidos':'/login'" class="line-height-ini" mat-button fxLayoutAlign="end">
             <!-- <img src="assets/img/icons/load-carriage.png" class="mrg-top-5"> -->
             <img class="header-pedidos" src="assets/img/header/pedidos.svg">
-            <p class="text-menu">Pedidoss</p>
+            <p class="text-menu">Pedidos</p>
           </button>
           <button [routerLink]="usuario?'/favoritos':'/login'"   class="line-height-ini" mat-button fxLayoutAlign="end">
             <img class="header-favoritos" src="assets/img/header/favoritos.svg">
+            <span class="cantidad-favoritos">{{favoritosCantidad? favoritosCantidad: 0}}</span>
             <p class="text-menu">Mis favoritos</p>
           </button>
           <button class="line-height-ini" [matMenuTriggerFor]="belowMenu" mat-button fxLayoutAlign="end">

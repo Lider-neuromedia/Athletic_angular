@@ -9,7 +9,7 @@
         <div *ngFor="let data of productoResenia">
           <div class="row box-detalle-resena">
             <div class="col-md-10 info-valoracion">
-              <p class="fecha">Fecha de reseña: 19/04/2020</p>
+              <p class="fecha">Fecha de reseña: {{data['created_at']}}</p>
               <div class="separador"></div>
               <p class="valoracion">Valoración</p>
 

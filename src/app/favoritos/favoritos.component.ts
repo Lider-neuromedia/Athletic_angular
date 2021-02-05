@@ -6,6 +6,7 @@ import {SendHttpData} from "../tools/SendHttpData";
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 import {Router} from "@angular/router";
 import Swal from "sweetalert2";
+import {FavoritosService} from "../servicio/favoritos/favoritos.service";
 
 @Component({
   selector: 'app-favoritos',
@@ -29,7 +30,8 @@ export class FavoritosComponent implements OnInit {
                private http: SendHttpData,
                private ruta: Router,
                private loginGlobal: LoginGlobalService,
-               private variablesGl: VariablesService) {
+               private variablesGl: VariablesService,
+               private favoritoSe: FavoritosService) {
     this.llamarDatoLocalesUsuario();
   }
 
@@ -79,7 +81,9 @@ export class FavoritosComponent implements OnInit {
 
         this.http.httpPost('eliminar-mis-favoritos', data).toPromise()
           .then(respuesta => {
+
             this.alertaS.showToasterWarning(respuesta[`data`]);
+            this.favoritoSe.changeMessage();
             this.listarFavoritos();
           }).catch(error => {
 

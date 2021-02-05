@@ -1,0 +1,62 @@
+.recibir-info .mat-checkbox-label{
+  color: #353435 !important;
+}
+
+.row-save-adress{
+  justify-content: center;
+  margin-top: 2em;
+}
+
+.row-save-adress .save-adrres{
+  background: #FF596A;
+  color: white;
+  border-radius: 25px;
+  width: 133px;
+  padding: 10px 0px;
+  text-align: center;
+}
+
+.row-save-adress .save-adrres:hover{
+  text-decoration: none;
+}
+
+.ng-autocomplete {
+width: 100% !important;
+}
+
+.save-adrres {
+  cursor: pointer;
+}
+
+mat-radio-button{
+  padding: 10px;
+}
+.boton-salir{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 29px;
+  margin-top: -25px !important;
+  border-radius: 8px;
+  display: block;
+  cursor: pointer;
+  border: 1px solid #FF596A;
+  color: #FF596A;
+  text-align: center;
+  padding: 1px 0;
+  transition: all .6s ease;
+  background: #FFFFFF;
+}
+
+button[_ngcontent-jts-c373] {
+  border-radius: 8px;
+  display: block;
+  cursor: pointer;
+  border: 1px solid #FF596A;
+  color: #FF596A;
+  text-align: center;
+  padding: 1px 0;
+  margin-top: 2em;
+  transition: all .6s ease;
+  background: #FFFFFF;
+}

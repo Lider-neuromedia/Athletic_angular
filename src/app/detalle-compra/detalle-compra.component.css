@@ -264,7 +264,7 @@ mat-checkbox span {
   box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.15);
 }
 .flex-items-prod {
-  background-color: #f7f7f7;
+  justify-content: center;
 }
 
 .fila-boton .detalle {
@@ -714,6 +714,7 @@ span {
 
 }
 
+
 .imagen-producto, .detalle-producto, .precio-acciones, .precio-acciones, .col-md-3-iconos {
   margin-bottom: 3px !important;
 }
@@ -886,8 +887,13 @@ span {
   text-align: center;
 }
 
+.metos-pagos {
+  text-align: center;
+  justify-content: center;
+}
 .metos-pagos img {
   margin: 10px;
+  height: 100%;
 }
 
 .aside-account-text {
@@ -910,4 +916,95 @@ span {
   color: #969696;
   font-size: 16px;
   line-height: 20px;
+}
+.metos-pagos[_ngcontent-dsq-c58] img[_ngcontent-dsq-c58] {
+  margin: 10px;
+  width: 55px;
+}
+
+.cupones-descuento h4 {
+  margin: 0 0 1px !important;
+}
+
+.manejo-iconos {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+
+.manejo-iconos {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.manejo-iconos {
+  width: 100% !important;
+  height: 29px !important;
+}
+
+.manejo-iconos span {
+  cursor: pointer;
+  color: #FF596A;
+}
+
+.imagen-eliminar {
+  width: 43px;
+  height: 29px;
+  margin: -6px 0px 0px 0px;
+  cursor: pointer;
+}
+.campo-cantidad {
+  width: 100% !important;
+  height: 29px !important;
+  text-align: center;
+}
+
+.alinear-cantidad {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.centrar-titulo-botones {
+  display: flex;
+  text-align: center;
+  /* justify-content: center; */
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 22px 0px 8px 0px;
+}
+
+.centrar-titulo-botones .span-tuitulo {
+  padding: 5px;
+}
+
+.centrar-titulo-botones .agregar-direccion-boton {
+  height: 38px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+}
+.contenedor-title {
+  padding-right: 24px;
+}
+
+
+
+.contenedor-registro-direcciones {
+  background-color: #F7F7F7;
+}
+
+.contenedor-registro-pagos {
+  width: 100%;
+  height: 100vh;
+  margin-right: 10px;
+  margin-left: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }

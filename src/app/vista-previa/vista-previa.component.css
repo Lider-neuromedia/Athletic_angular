@@ -339,3 +339,45 @@ mat-dialog-content {
   background: #FFFFFF;
   font-weight: 900;
 }
+.price-des {
+  font-size: 17px;
+  color: #979797;
+  margin-left: 10px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  text-decoration: line-through;
+}
+
+
+.form-control:focus {
+  color: #495057;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  outline: 0;
+
+}
+
+.my-own-form-control {
+
+  border: 1px solid #D3D3D3;
+  border-radius: 25px;
+  width: 251px;
+  height: 40px;
+  margin-bottom: 10px;
+  padding: 0 1em;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  font-weight: 800;
+}
+.porcentaje-descuento {
+  margin-left: 7px;
+  font-weight: 400;
+  font-size: 16px;
+}
+.flecha-select {
+  position: absolute;
+  top: 180px;
+  right: 33px;
+  color: #FF596A;
+}

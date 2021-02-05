@@ -53,7 +53,11 @@ export class DireccionesComponent implements OnInit {
         direccion_ubicacion: null,
         direccion_estado: 0,
         direccion_nombre: null,
-        direccion_visible: 1
+        direccion_visible: 1,
+        usuario_nombre: null,
+        usuario_apellido: null,
+        direccion_lugar: null,
+        usuario_recibir_informacion: null,
       }
       this.codigo = this.route_params.snapshot.params.id
       if(this.codigo) {
@@ -154,6 +158,12 @@ export class DireccionesComponent implements OnInit {
       this.direcciones.direccion_barrio = respuesta['data'][0]['direccion_barrio'];
       this.direcciones.direccion_ubicacion = respuesta['data'][0]['direccion_ubicacion'];
       this.direcciones.ciudad_codigo = respuesta['data'][0]['ciudad_codigo'];
+
+      this.direcciones.usuario_nombre = respuesta['data'][0]['usuario_nombre'];
+      this.direcciones.usuario_apellido = respuesta['data'][0]['usuario_apellido'];
+      this.direcciones.direccion_lugar = respuesta['data'][0]['direccion_lugar'];
+      this.direcciones.usuario_recibir_informacion = respuesta['data'][0]['usuario_recibir_informacion'];
+      this.direcciones.direccion_estado = respuesta['data'][0]['direccion_estado'];
       this.codigoDepartamento = respuesta['data'][0]['departamento'];
       this.codigoCiudad = respuesta['data'][0]['ciudad'];
       console.log(this.direcciones);

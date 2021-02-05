@@ -112,6 +112,11 @@
     border-radius: 25px;
     margin-top: 15px;
     margin-bottom: 5px;
+    cursor: pointer;
+    height: 42px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
 }
 
 .agregar-carrito-content .continuar-compra:hover{
@@ -126,6 +131,11 @@
     text-align: center;
     color: white;
     border-radius: 25px;
+    cursor: pointer;
+    height: 42px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
 }
 
 .agregar-carrito-content .ir-a-bolsa:hover{

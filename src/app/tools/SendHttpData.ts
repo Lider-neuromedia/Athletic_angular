@@ -8,7 +8,7 @@ export class SendHttpData {
   //private baseUrl = 'http://pruebasneuro.co/N-1041/public/api/';
    private baseUrl = 'http://localhost:8000/api/';
 
- // private baseUrl = ' https://pruebasneuro.co/N-1059/api/public/api/';
+  //private baseUrl = ' https://pruebasneuro.co/N-1059/api/public/api/';
   // Key prestashop
   // private key = "JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
   // private full = "display=full";
@@ -54,5 +54,11 @@ export class SendHttpData {
     return "http://pruebasneuro.co/N-1007/api/images/products/" + id_prod + "/" + id_image +"?ws_key=JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
    // return "http://localhost:8000/api/images/products/" + id_prod + "/" + id_image +"?ws_key=JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
   }
+
+  httpGetPaginar(route:string, filter:string = null, full=true):Observable<any>{
+    var url = route;
+    return this._http.get(url);
+  }
+
 
 }

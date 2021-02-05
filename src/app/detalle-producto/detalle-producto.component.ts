@@ -8,6 +8,8 @@ import {VariablesService} from "../servicio/variable-global/variables.service";
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 import {MatDialog} from '@angular/material/dialog';
 import {ComentarioProductoComponent} from "../comentario-producto/comentario-producto.component";
+import {FavoritosService} from "../servicio/favoritos/favoritos.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-detalle-producto',
@@ -26,6 +28,7 @@ export class DetalleProductoComponent implements OnInit {
   productos_relac = [];
   prod = [];
   cantidad = 1;
+  cantidadProductos: number = 1;
   tallas = [];
   precio;
   carritoAnterior = [];
@@ -59,6 +62,17 @@ export class DetalleProductoComponent implements OnInit {
   unicaValoracion: any;
   url: any;
   opcionSeleccionado: any;
+  carouselDescatadosUno: any;
+
+  currentPage: any;
+  firstPageUrl: any;
+  lastPage: any;
+  lastPageUrl: any;
+  nextPageUrl: any;
+  prevPageUrl: any;
+  to: any;
+  total: number = 1;
+  cantidadPagina: number = 1;
 
   constructor(
     public dialog: MatDialog,
@@ -68,8 +82,10 @@ export class DetalleProductoComponent implements OnInit {
     private alertaS: AlertasService,
     private activatedRoute: ActivatedRoute,
     private ruta: Router,
+    private favoritoSe: FavoritosService,
     private loginGlobal: LoginGlobalService,
-    private variablesGl: VariablesService) {
+    private variablesGl: VariablesService,
+    private favorito: FavoritosService) {
 
     this.llamarDatoLocalesUsuario();
   }
@@ -102,7 +118,7 @@ export class DetalleProductoComponent implements OnInit {
   /*
    * Carrusel productos primeros productos destacados 4 columnas
    */
-  carouselDescatadosUno = [
+  /*carouselDescatadosUno = [
     {"img": 'assets/img/zapatillas/uno.jpg',"descuento":false},
     {"img": 'assets/img/zapatillas/dos.jpg',"descuento":false},
     {"img": 'assets/img/zapatillas/tres.jpg',"descuento":true},
@@ -111,7 +127,7 @@ export class DetalleProductoComponent implements OnInit {
     {"img": 'assets/img/zapatillas/dos.jpg',"descuento":false},
     {"img": 'assets/img/zapatillas/tres.jpg',"descuento":false},
     {"img": 'assets/img/zapatillas/cuatro.jpg',"descuento":true}
-  ];
+  ];*/
 
   optionSlideDestacados = {
     items: 5,
@@ -126,6 +142,11 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    $('body, html').animate({
+      scrollTop: '0px'
+    }, 300);
+
     this.activatedRoute.params.subscribe(value => {
      console.log(value);
       this.getProducts(value.id);
@@ -279,16 +300,16 @@ export class DetalleProductoComponent implements OnInit {
 
   changeCantidad(sum){
     if (sum) {
-      this.cantidad = this.cantidad + 1;
+      this.cantidadProductos = this.cantidadProductos + 1;
     }else{
-      if (this.cantidad > 1) {
-        this.cantidad = this.cantidad - 1;
+      if (this.cantidadProductos > 1) {
+        this.cantidadProductos = this.cantidadProductos - 1;
       }
     }
   }
 
   agregarProductosAlCarrito() {
-    console.log(this.cantidad, this.producto);
+    console.log(this.cantidadProductos, this.producto);
     if (!this.opcionSeleccionado) {
       this.alertaS.showToasterError('Debes seleccionar una talla');
       return;
@@ -297,9 +318,9 @@ export class DetalleProductoComponent implements OnInit {
     this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
     console.log(this.carritoAnterior);
 
-    if (this.cantidad > 0) {
+    if (this.cantidadProductos > 0) {
       this.producto['talla'] = this.opcionSeleccionado;
-      this.producto['cantidad'] = this.cantidad;
+      this.producto['cantidad'] = this.cantidadProductos;
       this.addProductoCarrito.push(this.producto);
       console.log(this.addProductoCarrito);
 
@@ -315,16 +336,17 @@ export class DetalleProductoComponent implements OnInit {
 
 
       this.addProductoCarrito = [];
-      this.cantidad = 1;
+      this.cantidadProductos = 1;
 
       this.alertaS.showToasterFull(`Articulo Agregado Corectamente`);
 
 
     } else {
-      this.alertaS.showToasterError(`Debes agregar Minimo un producto ,  ${this.cantidad}`);
+      this.alertaS.showToasterError(`Debes agregar Minimo un producto ,  ${this.cantidadProductos}`);
     }
     this.variablesGl.changeMessage();
   }
+
 
 
   agregarProductoFavorito() {
@@ -335,7 +357,9 @@ export class DetalleProductoComponent implements OnInit {
 
     this.http.httpPost('agregar-productos-favorito', data).toPromise().then(respuesta => {
       if (respuesta[`estado`]) {
+        this.favorito.changeMessage();
         this.alertaS.showToasterFull(`Articulo agregado a favoritos`);
+        this.validarFavoritos(this.producto.id_producto);
       }
     }).catch(error => {
 
@@ -392,16 +416,37 @@ export class DetalleProductoComponent implements OnInit {
 
 
   cargarLosComentarios(producto) {
+    if (this.usuario) {
 
-      const data = {
-        producto: producto
-      };
-      this.http.httpPost('pintar-comentarios-por-productos', data).toPromise().then(respuesta => {
-       this.cantidadComentario = respuesta['cantidad'];
-        this.totalComentario  = respuesta['comentarios'];
-      }).catch(error =>{
+      this.favoritoSe.currentMessage.subscribe(response => {
+        this.http.httpGetParamt('pintar-comentarios-por-productos', producto).toPromise().then(respuesta => {
+          this.cantidadComentario = respuesta['cantidad'];
+          this.totalComentario = respuesta['comentarios']['data'];
 
-      })
+          this.currentPage = respuesta[`comentarios`][`current_page`];
+          this.firstPageUrl = respuesta[`comentarios`][`first_page_url`];
+          this.lastPage = respuesta[`comentarios`][`last_page`];
+          this.lastPageUrl = respuesta[`comentarios`][`last_page_url`];
+          this.nextPageUrl = respuesta[`comentarios`][`next_page_url`];
+          this.prevPageUrl = respuesta[`comentarios`][`prev_page_url`];
+          this.to = respuesta[`comentarios`][`to`];
+          this.total = respuesta[`comentarios`][`total`];
+          this.cantidad = respuesta[`comentarios`][0];
+          console.log(this.total, this.cantidad, this.totalComentario, this.to)
+          let contado = 0;
+          for (let i = 1; i <= this.cantidadComentario[0]['cantidad']; i++) {
+            contado++;
+            console.log(i);
+          }
+          console.log(contado);
+          console.log(this.cantidadComentario[0]['cantidad']);
+          console.log(this.totalComentario);
+          console.log(this.cantidadComentario.length);
+        }).catch(error => {
+
+        });
+      });
+    }
   }
 
   calculoProductoResenia(producto) {
@@ -409,42 +454,47 @@ export class DetalleProductoComponent implements OnInit {
     const data = {
       producto: producto
     };
-    this.http.httpPost('pintar-calculo-por-productos', data).toPromise().then(respuesta => {
-      console.log(respuesta);
-      this.uno    = respuesta['uno'];
-      this.dos    = respuesta['dos'];
-      this.tres   = respuesta['tres'];
-      this.cuatro = respuesta['cuatro'];
-      this.cinco  = respuesta['cinco'];
-      this.todas  = respuesta['todas'];
 
 
-      this.tamanio1 = respuesta['todas']['todas']?respuesta['uno']['uno'] / respuesta['todas']['todas'] * 100 : 0;
-      this.tamanio2 = respuesta['todas']['todas']?respuesta['dos']['dos'] / respuesta['todas']['todas'] * 100 : 0 ;
-      this.tamanio3 = respuesta['todas']['todas']?respuesta['tres']['tres'] / respuesta['todas']['todas'] * 100 : 0;
-      this.tamanio4 = respuesta['todas']['todas']?respuesta['cuatro']['cuatro'] / respuesta['todas']['todas'] * 100 : 0;
-      this.tamanio5 = respuesta['todas']['todas']?respuesta['cinco']['cinco'] / respuesta['todas']['todas'] * 100 : 0 ;
 
-      console.log(this.tamanio1, this.tamanio2, this.tamanio3, this.tamanio4, this.tamanio5)
+      this.favoritoSe.currentMessage.subscribe(response => {
+        this.http.httpPost('pintar-calculo-por-productos', data).toPromise().then(respuesta => {
+          console.log(respuesta);
+          this.uno = respuesta['uno'];
+          this.dos = respuesta['dos'];
+          this.tres = respuesta['tres'];
+          this.cuatro = respuesta['cuatro'];
+          this.cinco = respuesta['cinco'];
+          this.todas = respuesta['todas'];
 
-      if (this.tamanio1 > 99 ) {
-        this.tamanio1 = 100;
-      }
-      if (this.tamanio2 > 99 ) {
-        this.tamanio2 = 100;
-      }
-      if (this.tamanio3 > 99 ) {
-        this.tamanio3 = 100;
-      }
-      if (this.tamanio4 > 99 ) {
-        this.tamanio4 = 100;
-      }
-      if (this.tamanio5 > 99 ) {
-        this.tamanio5 = 100;
-      }
-    }).catch(error => {
 
-    })
+          this.tamanio1 = respuesta['todas']['todas'] ? respuesta['uno']['uno'] / respuesta['todas']['todas'] * 100 : 0;
+          this.tamanio2 = respuesta['todas']['todas'] ? respuesta['dos']['dos'] / respuesta['todas']['todas'] * 100 : 0;
+          this.tamanio3 = respuesta['todas']['todas'] ? respuesta['tres']['tres'] / respuesta['todas']['todas'] * 100 : 0;
+          this.tamanio4 = respuesta['todas']['todas'] ? respuesta['cuatro']['cuatro'] / respuesta['todas']['todas'] * 100 : 0;
+          this.tamanio5 = respuesta['todas']['todas'] ? respuesta['cinco']['cinco'] / respuesta['todas']['todas'] * 100 : 0;
+
+          console.log(this.tamanio1, this.tamanio2, this.tamanio3, this.tamanio4, this.tamanio5)
+
+          if (this.tamanio1 > 99) {
+            this.tamanio1 = 100;
+          }
+          if (this.tamanio2 > 99) {
+            this.tamanio2 = 100;
+          }
+          if (this.tamanio3 > 99) {
+            this.tamanio3 = 100;
+          }
+          if (this.tamanio4 > 99) {
+            this.tamanio4 = 100;
+          }
+          if (this.tamanio5 > 99) {
+            this.tamanio5 = 100;
+          }
+        }).catch(error => {
+
+        });
+      });
   }
 
   autenticarse() {
@@ -469,6 +519,60 @@ export class DetalleProductoComponent implements OnInit {
   checkearTalla(evento) {
     console.log(evento);
     this.opcionSeleccionado = evento;
+  }
+
+  getPagination(url: string): void{
+    console.log(url);
+    this.http.httpGetPaginar(url).toPromise().then(response => {
+      console.log(response);
+      if (response[`comentarios`]){
+        this.totalComentario  = response[`comentarios`][`data`];
+        this.currentPage  = response[`comentarios`][`current_page`];
+        this.firstPageUrl = response[`comentarios`][`first_page_url`];
+        this.lastPage = response[`comentarios`][`last_page`];
+        this.lastPageUrl = response[`comentarios`][`last_page_url`];
+        this.nextPageUrl = response[`comentarios`][`next_page_url`];
+        this.prevPageUrl = response[`comentarios`][`prev_page_url`];
+        this.to = response[`comentarios`][`to`];
+        this.total = response[`comentarios`][`total`];
+        this.cantidad = response[`comentarios`][0];
+        console.log( this.total, this.cantidad, this.totalComentario,  this.to )
+      }
+
+    });
+  }
+
+  eliminarFavvoritos() {
+
+    const data = {
+      usuario: this.usuario.id_cliente,
+      producto: this.producto.id_producto
+    }
+    console.log(data);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.http.httpPost('eliminar-mis-favoritos-detalle-producto', data).toPromise()
+          .then(respuesta => {
+
+            this.alertaS.showToasterWarning(respuesta[`data`]);
+            this.favoritoSe.changeMessage();
+            this.validarFavoritos(this.producto.id_producto);
+          }).catch(error => {
+
+        });
+      }
+    })
+
   }
 
 }

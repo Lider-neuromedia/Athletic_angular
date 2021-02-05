@@ -1,13 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {VariablesService} from "../servicio/variable-global/variables.service";
 import {AlertasService} from "../servicio/alertas/alertas.service";
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 import {Pedidos} from "../interfaz/pedidos";
 import {SendHttpData} from "../tools/SendHttpData";
 import {Router} from "@angular/router";
 import Swal from "sweetalert2";
 import {GlobalVarService} from "../common/global-var.service";
+import {MyErrorStateMatcher} from "../login/login.component";
+import {ComentarioProductoComponent} from "../comentario-producto/comentario-producto.component";
+import {MatDialog} from "@angular/material/dialog";
+import {ModalDireccionesComponent} from "../modal-direcciones/modal-direcciones.component";
+import {FavoritosService} from "../servicio/favoritos/favoritos.service";
 
 
 @Component({
@@ -20,6 +25,13 @@ export class DetalleCompraComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
+
+  email = new FormControl('', [Validators.required, Validators.email]);
+  password = new FormControl('', [Validators.required]);
+
+  // Register
+  myForm: FormGroup;
+  matcher = new MyErrorStateMatcher();
 
 
   carrito: any;
@@ -102,6 +114,7 @@ export class DetalleCompraComponent implements OnInit {
   //cupones, Datas, mensaje, estado
   panelOpenState = false;
   valorACancelar: number;
+  cantidadProductoReales: any;
 
   constructor(
     private variablesGl: VariablesService,
@@ -109,7 +122,9 @@ export class DetalleCompraComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private setHtpp: SendHttpData,
     private ruta: Router,
+    public dialog: MatDialog,
     public globalVar: GlobalVarService,
+    private favoritoSe: FavoritosService,
     private loginGlobal: LoginGlobalService) {
 
     this.llamarDatoLocalesUsuario();
@@ -227,6 +242,7 @@ export class DetalleCompraComponent implements OnInit {
       this.miCarritoCompraContador();
       this.obtenerProductoTotalCategoria();
       this.obtenerDescuentosProductos();
+      this.cantidadProductoRealesPedido();
     });
   }
 
@@ -239,6 +255,20 @@ export class DetalleCompraComponent implements OnInit {
     }
 
   }
+
+
+  cantidadProductoRealesPedido() {
+
+    const valorTotalLista = JSON.parse(localStorage.getItem('athletic'));
+    if (valorTotalLista) {
+      this.cantidadProductoReales = valorTotalLista.reduce((item1, item2) => {
+        return item1 + item2.cantidad;
+      }, 0);
+    }
+    console.log(this.cantidadProductoReales);
+    return this.cantidadProductoReales;
+  }
+
 
   valorTotalPedido() {
 
@@ -462,20 +492,25 @@ export class DetalleCompraComponent implements OnInit {
 
     this.loginGlobal.currentMessage.subscribe(response => {
       this.usuario = response;
+
+
     });
   }
 
   cargarTodasLasDirecciones() {
     if (this.usuario) {
-      const data = {
-        cliente: this.usuario.id_cliente
-      }
-      this.setHtpp.httpPost('listar-direcciones-pedido', data).toPromise().then(respuesta => {
-        console.log(respuesta);
-        this.cargarDirecciones = respuesta[`data`];
-      }).catch(error => {
-        console.log(error);
-      })
+
+        this.favoritoSe.currentMessage.subscribe(response => {
+          const data = {
+            cliente: this.usuario.id_cliente
+          }
+          this.setHtpp.httpPost('listar-direcciones-pedido', data).toPromise().then(respuesta => {
+            console.log(respuesta);
+            this.cargarDirecciones = respuesta[`data`];
+          }).catch(error => {
+            console.log(error);
+          })
+        });
     }
   }
 
@@ -491,6 +526,7 @@ export class DetalleCompraComponent implements OnInit {
     this.setHtpp.httpPost('actualizar-nueva-direccion', data).toPromise().then(respuesta => {
       console.log(respuesta);
       this.gastosEnvio = respuesta['data']['transporte_valorenvio'];
+      this.gastosEnvio = this.gastosEnvio * this.cantidadProductoReales;
       this.alertaS.showToasterFull(respuesta['mensaje']);
 
       this.cargarTodasLasDirecciones();
@@ -528,7 +564,8 @@ export class DetalleCompraComponent implements OnInit {
 
   editarDireccion(codigo) {
     console.log(codigo);
-    this.ruta.navigate(['modificar-direcciones/', codigo])
+    //this.ruta.navigate(['modificar-direcciones/', codigo])
+    this.openDialog();
 
   }
 
@@ -990,6 +1027,124 @@ export class DetalleCompraComponent implements OnInit {
           'error'
         )
       }
+    });
+
+  }
+  sendLogin() {
+    if (this.email.errors == null && this.password.errors == null) {
+      var data = { email: this.email.value, password: this.password.value };
+      this.setHtpp.httpPost('clientes-login', data).subscribe(
+        response => {
+          if (response.response == 'error') {
+            this.alertaS.showToasterError('credenciales invalidas');
+          } else {
+            localStorage.setItem('userAthletic', JSON.stringify(response.user));
+            localStorage.setItem('token', JSON.stringify(response.token));
+            this.loginGlobal.changeMessage();
+            this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
+            this.ruta.navigate(['/perfil']);
+          }
+        },
+        error => {
+          console.error("error en la peticion.");
+        }
+      );
+    }
+  }
+
+  // Falta Validar Registro.
+ /* sendRegister() {
+
+    console.log(this.myForm);
+
+
+    if (this.myForm.errors == null) {
+      //var salt = bcrypt.genSaltSync(10);
+      // var passwd = bcrypt.hashSync(this.myForm.value.password, salt);
+      var fecha_nacimiento = this.myForm.value.fecha_nacimiento.toISOString().slice(0, 10);
+
+      const data = {
+        estado: 1,
+        deleted: 0,
+        id_tienda: 1,
+        password: this.myForm.value.password,
+        apellidos: this.myForm.value.last_name,
+        nombres: this.myForm.value.first_name,
+        email: this.myForm.value.email_new,
+        fecha_nacimiento: fecha_nacimiento,
+        genero: this.myForm.value.genero
+      }
+
+      this.http.httpPost('clientes-register', data).toPromise().then(response => {
+        console.log(response[`user`]);
+
+        if (response && response['estado'] == true) {
+          this.alertaS.showToasterWarning(response['mensaje']);
+          return;
+        }
+
+        if (response[`user`]) {
+          console.log(response[`user`]);
+          localStorage.setItem('userAthletic', JSON.stringify(response[`user`]));
+          this.loginGlobal.changeMessage();
+          this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
+          this.ruta.navigate(['/perfil']);
+        }
+      }).catch( error => {
+        console.log(error);
+      })
+    }
+  }*/
+
+  getErrorMessageLogin() {
+    if (this.email.hasError('required')) {
+      return 'El campo es requerido.';
+    }
+    if (this.email.hasError('email')) {
+      return 'Debe ser en formato email';
+    }
+    if (this.password.hasError('password')) {
+      return 'Debe ser en formato email';
+    }
+  }
+
+
+  checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+    let pass = group.controls.password.value;
+    let confirmPass = group.controls.confirmPassword.value;
+    let controls = group.controls;
+    if (controls.first_name.errors != null || controls.last_name.errors != null || controls.email_new.errors != null) {
+      return { error: true };
+    } else if (pass != confirmPass) {
+      return { notSame: true };
+    } else {
+      return null;
+    }
+
+  }
+
+
+  validarCampos() {
+    if (this.myForm.value.confirmPassword === '' || this.myForm.value.confirmPassword === null ||
+      this.myForm.value.password === '' || this.myForm.value.password === null ||
+      this.myForm.value.first_name === '' || this.myForm.value.first_name === null ||
+      this.myForm.value.last_name === '' || this.myForm.value.last_name === null ||
+      this.myForm.value.email_new === '' || this.myForm.value.email_new === null ||
+      this.myForm.value.fecha_nacimiento === '' || this.myForm.value.fecha_nacimiento === null ||
+      this.myForm.value.genero === '' || this.myForm.value.genero === null
+    ) {
+      return  true;
+    } else {
+      return false;
+    }
+  }
+
+
+  openDialog() {
+
+    const dialogRef = this.dialog.open(ModalDireccionesComponent, {
+      width: '700px',
+      data: {datos:  this.usuario?this.usuario.id_cliente:0}
     });
 
   }

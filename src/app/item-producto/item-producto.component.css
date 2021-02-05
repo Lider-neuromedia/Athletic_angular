@@ -83,6 +83,7 @@
 
 .item-small{
   width: 210px !important;
+  height: 327px;
 }
 
 .cont-small{
@@ -183,9 +184,12 @@
   margin-top: -5px;
 }
 
+.content-item-product {
+  height: 100% !important;
+}
 
 .porcentaje-descuento {
   margin-left: 7px;
-  font-weight: 800;
+  font-weight: 400;
   font-size: 16px;
 }

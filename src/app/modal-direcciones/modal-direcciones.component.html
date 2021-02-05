@@ -1,0 +1,141 @@
+<div class="content-account">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <button class="boton-salir" (click)="onNoClick()">
+          X
+        </button>
+      </div>
+
+      <div class="col-md-12">
+        <h2 class="account-title">Mis direcciones</h2>
+        <div class="form-direcciones" action="">
+          <div class="row row-direcciones">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label >Departamento</label>
+                <div class="ng-autocomplete">
+                  <ng-autocomplete
+                    [data]="departamentos"
+                    [searchKeyword]="keywordDepartamento"
+                    [(ngModel)]="codigoDepartamento"
+                    (selected)='selectEventDepartamento($event)'
+                    (inputChanged)='onChangeSearchDepartamento($event)'
+                    (inputFocused)='onFocusedDepartamento($event)'
+                    [itemTemplate]="itemTemplate"
+                    [notFoundTemplate]="notFoundTemplate">
+                  </ng-autocomplete>
+
+                  <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.nombre"></a>
+                  </ng-template>
+
+                  <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label >Ciudad</label>
+                <div class="ng-autocomplete">
+                  <ng-autocomplete
+                    [data]="ciudades"
+                    [searchKeyword]="keywordCiudad"
+                    [(ngModel)]="codigoCiudad"
+                    (selected)='selectEventCiudad($event)'
+                    (inputChanged)='onChangeSearchCiudad($event)'
+                    (inputFocused)='onFocusedCiudad($event)'
+                    [itemTemplate]="itemTemplate1"
+                    [notFoundTemplate]="notFoundTemplate1">
+                  </ng-autocomplete>
+
+                  <ng-template #itemTemplate1 let-item>
+                    <a [innerHTML]="item.nombre"></a>
+                  </ng-template>
+
+                  <ng-template #notFoundTemplate1 let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label >Barrio</label>
+                <input type="tel" [(ngModel)]="direcciones.direccion_barrio" class="form-control">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label >Direccion</label>
+                <input type="text"  [(ngModel)]="direcciones.direccion_ubicacion" class="form-control" >
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label >Nombre</label>
+                <input type="text"  [(ngModel)]="direcciones.usuario_nombre" class="form-control">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label >Apellido</label>
+                <input type="text" class="form-control"  [(ngModel)]="direcciones.usuario_apellido" >
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label >Telefono de contacto </label>
+                <input type="number" class="form-control"  [(ngModel)]="direcciones.direccion_celular" >
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label >Datos adicionales</label>
+                <input type="text"  [(ngModel)]="direcciones.direccion_nombre" class="form-control" >
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+
+                <mat-radio-group aria-label="Select an option" [(ngModel)]="direcciones.direccion_lugar">
+                  <mat-radio-button value="1">Trabajo</mat-radio-button>
+                  <mat-radio-button value="2">Residencia</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+
+
+
+            <div class="col-md-12">
+              <mat-checkbox [(ngModel)]="direcciones.usuario_recibir_informacion" class="recibir-info">Quiero recibir información sobre promociones y anuncios por <strong>whatsapp</strong></mat-checkbox>
+            </div>
+
+            <div class="col-md-12">
+              <mat-checkbox  [(ngModel)]="direcciones.direccion_estado" class="direccion-predeterminada">Definir como dirección predeterminada</mat-checkbox>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row row-save-adress" >
+          <a class="save-adrres" (click)="crearDirecciones()" *ngIf="!codigo">Guardar dirección</a>
+          <a class="save-adrres" (click)=" actualizarDirecciones()" *ngIf="codigo">Actualizar dirección</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

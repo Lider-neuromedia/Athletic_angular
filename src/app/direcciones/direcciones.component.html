@@ -11,7 +11,7 @@
 
             <div class="col-md-6">
 							<div class="form-group">
-                <label for="">Departamento</label>
+                <label >Departamento</label>
                 <div class="ng-autocomplete">
                   <ng-autocomplete
                     [data]="departamentos"
@@ -37,7 +37,7 @@
 
 						<div class="col-md-6">
 							<div class="form-group">
-                <label for="">Ciudad</label>
+                <label >Ciudad</label>
                 <div class="ng-autocomplete">
                   <ng-autocomplete
                     [data]="ciudades"
@@ -62,46 +62,64 @@
             </div>
             <div class="col-md-6">
 							<div class="form-group">
-								<label for="">Barrio</label>
-								<input type="tel" [(ngModel)]="direcciones.direccion_barrio" class="form-control" id="">
+								<label >Barrio</label>
+								<input type="tel" [(ngModel)]="direcciones.direccion_barrio" class="form-control">
 							</div>
 						</div>
 
             <div class="col-md-6">
               <div class="form-group">
-                <label for="">Direccion</label>
-                <input type="text"  [(ngModel)]="direcciones.direccion_ubicacion" class="form-control" id="">
+                <label >Dirección</label>
+                <input type="text"  [(ngModel)]="direcciones.direccion_ubicacion" class="form-control" >
               </div>
             </div>
 
-
-						<div class="col-md-12">
-							<mat-checkbox class="recibir-info">Quiero recibir información sobre promociones y anuncios por <strong>whatsapp</strong></mat-checkbox>
-						</div>
-
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="">Telefono</label>
-								<input type="text"  [(ngModel)]="direcciones.direccion_telefono" class="form-control" id="">
+								<label >Nombre</label>
+								<input type="text"  [(ngModel)]="direcciones.usuario_nombre" class="form-control">
 							</div>
             </div>
 
             <div class="col-md-6">
 							<div class="form-group">
-								<label for="">Celular</label>
-								<input type="text" class="form-control"  [(ngModel)]="direcciones.direccion_celular" id="">
+								<label >Apellido</label>
+								<input type="text" class="form-control"  [(ngModel)]="direcciones.usuario_apellido" >
 							</div>
 						</div>
 
+            <div class="col-md-6">
+              <div class="form-group">
+                <label >Teléfono de contacto </label>
+                <input type="number" class="form-control"  [(ngModel)]="direcciones.direccion_celular" >
+              </div>
+            </div>
+
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="">Nombre direccion</label>
-								<input type="text"  [(ngModel)]="direcciones.direccion_nombre" class="form-control" id="">
+								<label >Datos adicionales</label>
+								<input type="text"  [(ngModel)]="direcciones.direccion_nombre" class="form-control" >
 							</div>
             </div>
 
+            <div class="col-md-6">
+              <div class="form-group">
+
+                <mat-radio-group aria-label="Select an option" [(ngModel)]="direcciones.direccion_lugar">
+                  <mat-radio-button value="1">Trabajo</mat-radio-button>
+                  <mat-radio-button value="2">Residencia</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+
+
+
+            <div class="col-md-12">
+              <mat-checkbox [(ngModel)]="direcciones.usuario_recibir_informacion" class="recibir-info">Quiero recibir información sobre promociones y anuncios por <strong>whatsapp</strong></mat-checkbox>
+            </div>
+
 						<div class="col-md-12">
-							<mat-checkbox class="direccion-predeterminada">Definir como dirección predeterminada</mat-checkbox>
+							<mat-checkbox  [(ngModel)]="direcciones.direccion_estado" class="direccion-predeterminada">Definir como dirección predeterminada</mat-checkbox>
 						</div>
 
 					</div>

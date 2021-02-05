@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('token', JSON.stringify(response.token));
             this.loginGlobal.changeMessage();
             this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
-            this.router.navigate(['/']);
+            this.router.navigate(['/perfil']);
           }
         },
           error => {
@@ -93,12 +93,18 @@ export class LoginComponent implements OnInit {
 
       this.http.httpPost('clientes-register', data).toPromise().then(response => {
         console.log(response[`user`]);
+
+        if (response && response['estado'] == true) {
+          this.alertaS.showToasterWarning(response['mensaje']);
+          return;
+        }
+
         if (response[`user`]) {
           console.log(response[`user`]);
           localStorage.setItem('userAthletic', JSON.stringify(response[`user`]));
           this.loginGlobal.changeMessage();
           this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
-          this.router.navigate(['/']);
+          this.router.navigate(['/perfil']);
         }
         }).catch( error => {
           console.log(error);

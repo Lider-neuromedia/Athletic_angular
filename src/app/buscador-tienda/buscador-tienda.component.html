@@ -20,7 +20,7 @@
       <div class="row items-productos-bolsas" *ngFor="let data of recorerBusqueda; let indices = index " (click)="listadoProductoTotal(data['id_producto'], data['name_cat'], data['id_categoria'])">
         <div class="imagen-producto col-md-4">
           <img [src]="url+'/'+data['img']">
-          <img src="assets/img/productos/si.png" alt="" class="descuento-producto">
+          <!--<img src="assets/img/productos/si.png" alt="" class="descuento-producto">-->
         </div>
 
         <div class="detalle-producto col-md-4">

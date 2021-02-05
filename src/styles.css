@@ -318,8 +318,9 @@ button.owl-prev:focus {
 }
 /* Slider */
 .ng5-slider .ng5-slider-pointer {
-    width: 27px !important;
-    height: 27px !important;
+    width: 20px !important;
+    height: 20px !important;
+    top: -9px !important;
     background-color: #ffffff !important;
     box-shadow: 1px 3px 14px 0px rgba(165, 165, 165, 0.75) !important;
     border: 1px solid #f7f7f7 !important;
@@ -934,7 +935,7 @@ Aside menu account page
     border-top: 1px solid #bababa;
     display: flex;
     justify-content: space-between;
-    padding: 0.2em;
+
 }
 
 .aproximado{
@@ -952,7 +953,7 @@ Aside menu account page
 .call-to-action-bolsa{
     display: flex;
     justify-content: space-around;
-    padding-bottom: 3em;
+    padding-bottom: 0.5em;
 }
 
 .pay-now{

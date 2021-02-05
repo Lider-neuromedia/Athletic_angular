@@ -22,22 +22,23 @@
                   <small class="hello-user" *ngIf="usuario">¡Hola {{usuario.nombres}}!</small>
                 </div>
               </div>
-              <!--<div class="label-select">
-                <div class="label-order">Ordenar según:</div>
-                <select name="" class="select-order">
-                  <option value="">Orden en que se agregó</option>
-                </select>
-              </div>-->
+            </div>
+
+            <div class="content-productos content-productos-2" *ngIf="!carritoAnterior">
+
+              <div class="icono-triste">
+                    <span class="material-icons">
+                    sentiment_very_dissatisfied
+                    </span>
+                <p>No tienes producto agregado en la bolsa</p>
+              </div>
             </div>
 
             <div class="content-productos" *ngIf="carritoAnterior">
 
               <div class="items-productos-bolsa" *ngFor="let data of carritoAnterior; let indices = index ">
                 <div class="imagen-producto">
-                <!--  <img src="assets/img/zapatillas/z-01.png" alt="" class="foto-producto">-->
                   <img [src]="data['imagen_destacada'] ? data['imagen_destacada'] : data['imagen_portada']['img']">
-                 <!-- <img src="assets/img/productos/si.png" alt="" class="descuento-producto">-->
-
                 </div>
                 <div class="detalle-producto">
                   <h2>{{data['name_prod']}}</h2>
@@ -48,17 +49,23 @@
 
                     <div class="valores">
                       <p class="precio-descuento">{{data['precio'] * data['cantidad'] | currency}}</p>
-                      <p class="precio-normal">{{data['precio_general'] * data['cantidad'] | currency}}
-                      <span class="porcentaje-descuento" *ngIf="data['valor_descuento']">
-                         {{ " - " + data['valor_descuento'] + "%" }} </span></p>
+                    <p *ngIf="data['precio_general'] !== data['precio']"><span class="precio-normal">{{data['precio_general'] * data['cantidad'] | currency}}</span>
+                      <span class="porcentaje-descuento" *ngIf="data['valor_descuento']">{{ " - " + data['valor_descuento'] + "%" }} </span>
+                    </p>
                     </div>
 
-                  <div class="acciones-cantidad" >
+                  <div class="campos-pruebas">
+                       <div><img class="material-icons  imagen-eliminar"  src="assets/img/icons/trash.svg" alt="" (click)="quitarItemCarrito(data, indices)"></div>
+                        <div><span class="material-icons " (click)="aumentarDisminuir(data, indices, 0)">remove_circle</span></div>
+                        <div><input class="form-control campo-cantidad " disabled type="number" [value]="data['cantidad']"  name="" ></div>
+                        <div><span class="material-icons "  (click)="aumentarDisminuir(data, indices, 1)">add_circle</span></div>
+                  </div>
+                  <!--<div class="acciones-cantidad" >
                     <img class="material-icons trash-2 numero-imagen"  src="assets/img/icons/trash.svg" alt="" (click)="quitarItemCarrito(data, indices)">
                     <span class="material-icons trash  restar numero-menos" (click)="aumentarDisminuir(data, indices, 0)">remove_circle</span>
                     <input class="form-control cantidad numero-campo" type="number" [value]="data['cantidad']"  name="" >
                     <span class="material-icons plus-2 numero-sumar"  (click)="aumentarDisminuir(data, indices, 1)">add_circle</span>
-                  </div>
+                  </div>-->
 
                 </div>
 
@@ -68,11 +75,11 @@
 
             <div class="footer-bolsa" *ngIf="carritoAnterior">
               <div class="total">
-                <p class="aproximado">TOTAL</p>
-                <p class="valor" *ngIf="!valorTotal">{{  0 | currency}}</p>
-                <p class="valor" *ngIf="valorTotal">{{ valorTotal | currency}}</p>
+                <span class="aproximado">TOTAL</span>
+                <span class="valor" *ngIf="!valorTotal">{{  0 | currency}}</span>
+                <span class="valor" *ngIf="valorTotal">{{ valorTotal | currency}}</span>
               </div>
-              <hr>
+              <hr class="separador-boton">
               <div class="call-to-action-bolsa">
 
                 <a routerLink="/detalle-de-la-compra" (click)="openBolsa(false)" class="pay-now">
