@@ -15,6 +15,8 @@
               <ngx-gallery class="w-100 ngx-gallery-100" [options]="galleryOptions" [images]="galleryImages">
               </ngx-gallery>
             </div>
+
+
           <div class="col-md-4 mrg-top-10 detalle-info">
             <div class="detalle-puntaje-valoracion">
               <div class="puntaje">
@@ -440,64 +442,77 @@
               <div class="col-md-8 comentarios">
                 <h2>Comentarios</h2>
                 <p class="small-comment">{{cantidadComentario ? cantidadComentario[0]['cantidad'] : 0}} comentarios</p>
+                <div class="content-productos content-productos-2" *ngIf="totalComentario.length < 1">
 
-                <div class="box-comment" *ngFor="let data of totalComentario?totalComentario:0">
-                  <h3>{{data['comentario_titulo']}}</h3>
-
-                  <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 1">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                  <div class="icono-triste">
+                    <span class="material-icons">
+                    sentiment_very_dissatisfied
+                    </span>
+                    <p>No hay comentarios asociados a este productos</p>
                   </div>
-
-                  <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 2">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                  </div>
-
-                  <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 3">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                  </div>
-
-                  <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 4">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                    <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                  </div>
-
-                  <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 5">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                    <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                  </div>
-                  <p class="resena">
-                    {{data['comentario_descripcion']}}
-                  </p>
                 </div>
+
+                <div  *ngIf="cantidadComentario.length > 0">
+
+                  <div class="box-comment" *ngFor="let data of totalComentario?totalComentario:0">
+                    <h3>{{data['comentario_titulo']}}</h3>
+
+                    <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 1">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                      <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                      <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                      <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                      <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                    </div>
+
+                    <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 2">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                      <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                      <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                      <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                    </div>
+
+                    <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 3">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                      <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                      <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                    </div>
+
+                    <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 4">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                      <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                    </div>
+
+                    <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 5">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                      <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                    </div>
+                    <p class="resena">
+                      {{data['comentario_descripcion']}}
+                    </p>
+                  </div>
+                </div>
+
 
                 <div class="ps-pagination">
                   <ul class="pagination">
-                    <li>
+                    <li class="margin-leftt" *ngIf="prevPageUrl">
                       <a class="text-pink" (click)="getPagination(prevPageUrl)">
                         <mat-icon class="center-icon">chevron_left</mat-icon>
                       </a>
-                        {{cantidadComentario[0]['cantidad']}}
-                      <li >
-                        <!-- <a  *ngFor="let item of cantidadComentario?cantidadComentario[0]['cantidad'] : 0; let i = index"class="text-pink" >{{item}}</a>-->
-                      </li>
+
+                     <!-- <li *ngFor="let tem  of totalComentario;let i = index">
+                    <p >{{i+1}}</p>
+                        </li>-->
                      <!-- <button class="ui left labeled icon button" (click)="getPagination(prevPageUrl)"
                      <         *ngIf="prevPageUrl != null">
                         <div class="icon">
@@ -508,7 +523,8 @@
                       </button>-->
 
 
-                    <li>
+
+                    <li *ngIf="nextPageUrl">
 
                     <a class="text-pink" (click)="getPagination(nextPageUrl)">
                       <mat-icon class="center-icon">chevron_right</mat-icon>

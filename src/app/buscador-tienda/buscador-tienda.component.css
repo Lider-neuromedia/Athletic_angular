@@ -140,3 +140,28 @@ span .botton-buscar {
 
 
 }
+.imagen-producto {
+  height: 125px;
+  text-align: center;
+}
+
+.imagen-producto  img{
+  height: 100%;
+
+}
+
+.items-productos-bolsas {
+  height: 91px;
+}
+
+.icono-triste {
+
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.content-productos-2 span {
+  color: #FF596A;
+  font-size: 250px;
+  opacity: 0.3;
+}

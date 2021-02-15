@@ -651,3 +651,24 @@ ul.mas-detalle a.active-mas::after{
 .color-talla:hover {
   background: #FF596A;
 }
+
+.center-icon {
+  font-size: 40px;
+}
+
+.margin-leftt {
+  margin-right: 32px;
+}
+
+.icono-triste {
+
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-productos-2 span {
+  color: #FF596A;
+  font-size: 250px;
+  opacity: 0.3;
+}

@@ -14,6 +14,8 @@ import {FavoritosService} from "../servicio/favoritos/favoritos.service";
 export class HeaderComponent {
 
   @Output() openBolsa = new EventEmitter<boolean>();
+  dataProductos: any;
+  nameProducto: any;
   categorias = [];
   categorias_prin = [];
   sub_categorias = null;
@@ -62,6 +64,7 @@ export class HeaderComponent {
     public router: Router,
     private http: SendHttpData,
     private render: Renderer2,
+    private ruta: Router,
     private alertaS: AlertasService,
     private loginGlobal: LoginGlobalService,
     private variablesGl: VariablesService,
@@ -217,6 +220,18 @@ export class HeaderComponent {
         console.error("Error en el diseño.");
       }
     );
+  }
+
+  productosHome(producto, codigo) {
+
+
+    this.nameProducto = producto.replace(/ /gi, '-');
+    this.nameProducto =  this.nameProducto.toLowerCase();
+
+    this.nameProducto = this.nameProducto.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+    this.ruta.navigate(['/productos/'+ codigo + '/' + this.nameProducto])
+    console.log(this.nameProducto)
+
   }
 }
 

@@ -120,3 +120,15 @@
 .tarjetas {
   cursor: pointer;
 }
+.content-productos-2 span {
+  color: #FF596A;
+  font-size: 250px;
+  opacity: 0.3;
+}
+
+.icono-triste {
+
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}

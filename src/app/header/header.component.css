@@ -357,3 +357,11 @@
 .item-categ{
   color: #353435;
 }
+
+.item-categ a {
+  cursor: pointer;
+}
+
+.cambiar-color a {
+  cursor: pointer;
+}

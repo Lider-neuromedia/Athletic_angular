@@ -6,7 +6,21 @@
 			</div>
 			<div class="col-md-9">
 				<h2 class="account-title">Mis direcciones <a class="agregar-mas-direcciones" [routerLink]="['/direcciones']">Agregar más direcciones</a></h2>
-				<div class="row ">
+
+
+
+        <div class="content-productos content-productos-2" *ngIf="cargarDirecciones.length < 1">
+
+          <div class="icono-triste">
+                    <span class="material-icons">
+                    sentiment_very_dissatisfied
+                    </span>
+            <p>No has agregado tus direcciones </p>
+          </div>
+        </div>
+
+
+        <div class="row ">
 
                     <div class="col-md-4 mb-20 tarjetas" *ngFor="let data of cargarDirecciones">
                       <div class="direccion-box">

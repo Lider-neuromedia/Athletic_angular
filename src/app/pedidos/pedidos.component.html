@@ -8,15 +8,29 @@
       </div>
       <div class="col-md-9">
         <h2 class="account-title">Mis pedidos</h2>
+
+        <div class="content-productos content-productos-2" *ngIf="pedidos.length < 1">
+
+          <div class="icono-triste">
+                    <span class="material-icons">
+                    sentiment_very_dissatisfied
+                    </span>
+            <p>No tienes pedidos realizados</p>
+          </div>
+        </div>
+
         <div *ngFor="let data of pedidos">
           <div class="row box-detalle-resena">
 
 
             <div class="info-estado">
               <div class="pedido-info">
-                <p>Pedido No. {{ data['codigo']}}</p>
-                <p>Fecha de compra: {{ data['created_at']}}</p>
-                <p>Total: {{ data['pedido_valor'] | currency}}</p>
+                <div class="row longitud-info">
+                  <div class="col-md-4"><p>Pedido No. {{ data['pedido_referencia']}}</p></div>
+                  <div class="col-md-3"> <p>Fecha: {{ data['created_at']}}</p></div>
+                  <div class="col-md-5"><p>Tipo de pago: {{ data['pedido_mediopago']}}</p></div>
+                </div>
+
               </div>
               <div class="pedido-estado cerrado">Estado: <span>{{data['pedido_estado']}}</span></div>
             </div>

@@ -77,25 +77,26 @@
   height: 100px;
   padding-left: 20px;
   padding-right: 20px;
-  background: #ff596a;
+  /*background: #ff596a;*/
   position: relative;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 5px;
   display: inline-block;
   text-align: center;
-  color: #ffff;
+  color: #ff596a;
   letter-spacing: 0.72px;
   line-height: initial;
   font-size: 20px;
   font-weight: 400;
+  border: solid 1px #ff596a;
 }
 
 .btn-home-cate-act:before {
   content: "";
   position: absolute;
   right: 42%;
-  top: 100px;
+  top: 99px;
   width: 0;
   height: 0;
   border-left: 15px solid transparent;
@@ -129,8 +130,11 @@
 }
 
 .btn-home-cate:hover{
-  background: #ff596a;
-  color: #ffffff;
+ /* background: #ff596a;*/
+  color: #ff596a;
+  border: solid 1px #ff596a;
+  color: #ff596a;
+ /* margin-right: 1px;*/
 }
 
 .btn-home-cate:hover .icon-inactive{
@@ -474,6 +478,7 @@
 
 #padin-imagenes-texto {
   padding: 21px;
+
 }
 
 #dropdownMenuButton {

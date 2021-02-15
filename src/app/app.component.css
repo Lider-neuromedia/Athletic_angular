@@ -634,4 +634,15 @@ element.style {
 
 .content-productos-2 span {
   color: #FF596A;
+  font-size: 250px;
+  opacity: 0.3;
+}
+
+.icono-triste {
+  margin-top: 20vh;
+}
+
+.detalle-producto h2{
+  justify-items: center;
+  text-align: inherit;
 }

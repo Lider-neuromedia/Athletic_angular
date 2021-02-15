@@ -335,8 +335,8 @@ mat-checkbox span {
 }
 
 .titulo-secciones {
-  margin-top: 30px;
-  margin-bottom: 36px;
+  /*margin-top: 30px;
+  margin-bottom: 36px;*/
 }
 .span-tuitulo {
   color: #353435;
@@ -383,8 +383,9 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .pago-electronico {
-  width: 30px;
+  width: 20px;
   padding: 1px;
+  margin-right: 5px;
 }
 
 .separador {
@@ -975,8 +976,8 @@ span {
   text-align: center;
   /* justify-content: center; */
   align-items: center;
-  margin-bottom: 12px;
-  padding: 22px 0px 8px 0px;
+  margin-bottom: 1px;
+  padding: 2px 0px 8px 0px;
 }
 
 .centrar-titulo-botones .span-tuitulo {
@@ -997,7 +998,7 @@ span {
 
 
 .contenedor-registro-direcciones {
-  background-color: #F7F7F7;
+
 }
 
 .contenedor-registro-pagos {
@@ -1007,4 +1008,31 @@ span {
   margin-left: 10px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+.content-productos-2 span {
+  color: #FF596A;
+  font-size: 250px;
+  opacity: 0.3;
+}
+
+.icono-triste {
+
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.pago-contraentregas {
+  margin-left: 18px;
+}
+
+.pago-contraentregas span {
+  color: black;
+}
+.contra-entrega-opcion {
+  margin-top: 20px;
+}
+
+.predeterminada-direccion {
+  font-size: 15px !important;
 }

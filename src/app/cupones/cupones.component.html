@@ -7,6 +7,20 @@
 
       <div class="col-md-9">
         <h2 class="account-title">Mis cupones</h2>
+
+
+
+        <div class="content-productos content-productos-2" *ngIf="listaCupones.length < 1">
+
+          <div class="icono-triste">
+                    <span class="material-icons">
+                    sentiment_very_dissatisfied
+                    </span>
+            <p>No hay cupon de descento</p>
+          </div>
+        </div>
+
+
         <div *ngFor="let item of listaCupones">
           <div *ngIf="item['cliente_codigo'] === usuario.id_cliente">
             <div class="row row-cupones">

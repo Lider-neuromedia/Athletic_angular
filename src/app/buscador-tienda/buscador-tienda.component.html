@@ -18,12 +18,12 @@
 
     <div class="pintar-informacion " id="pintar-informacion" *ngIf="recorerBusqueda && mostrarBuscador && recorerBusqueda.length > 0">
       <div class="row items-productos-bolsas" *ngFor="let data of recorerBusqueda; let indices = index " (click)="listadoProductoTotal(data['id_producto'], data['name_cat'], data['id_categoria'])">
-        <div class="imagen-producto col-md-4">
+        <div class="imagen-producto col-md-3">
           <img [src]="url+'/'+data['img']">
           <!--<img src="assets/img/productos/si.png" alt="" class="descuento-producto">-->
         </div>
 
-        <div class="detalle-producto col-md-4">
+        <div class="detalle-producto col-md-5">
           <div class="row">
             <div class="col-md-12">
               <div class="row content-product">
@@ -60,12 +60,23 @@
 
         <div class="detalle-producto col-md-8">
           <div class="row">
-            <div class="col-md-12">
+
+            <div class="content-productos content-productos-2" >
+
+              <div class="icono-triste">
+                    <span class="material-icons">
+                    sentiment_very_dissatisfied
+                    </span>
+                <p class="busqueda-vacia">No hay productos con los datos ingresados</p>
+              </div>
+            </div>
+
+          <!--  <div class="col-md-12">
               <img src="assets/img/buscador/1.jpg" alt="" class="">
             </div>
             <div class="col-md-12">
               <p class="busqueda-vacia">no hay productos con los datos ingresados</p>
-            </div>
+            </div>-->
           </div>
 
 

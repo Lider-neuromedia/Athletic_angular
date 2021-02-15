@@ -90,7 +90,7 @@ import {
     RecuperarClaveComponent,
     RegistroFormComponent,
     ModalDireccionesComponent,
-    LoginSocialComponent
+    LoginSocialComponent,
   ],
   imports: [
     BrowserModule,

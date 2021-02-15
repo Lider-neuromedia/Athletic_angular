@@ -76,7 +76,7 @@ const routes : Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'productos/:marca/:nombre/:categoria',
+    path: 'productos/:id/:nombre',
     component: ProductosComponent
   },{
     path: 'recuperar-clave',

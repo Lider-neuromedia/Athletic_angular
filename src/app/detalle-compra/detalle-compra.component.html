@@ -84,15 +84,16 @@
             <div class="flex-items-prod">
 
               <div class="contenedor-registro-local" *ngIf="habilita1">
-                <div class="" *ngIf="!carritoAnterior">
+                <div class="content-productos content-productos-2" *ngIf="!carritoAnterior.length">
 
                   <div class="icono-triste">
                     <span class="material-icons">
                     sentiment_very_dissatisfied
                     </span>
-                    <p>No tienes producto agregado en el carrito</p>
+                    <p>No tienes pedidos realizados</p>
                   </div>
                 </div>
+
                 <div class="" *ngIf="carritoAnterior">
 
                   <div class="row items-productos-bolsa" *ngFor="let data of carritoAnterior; let indices = index ">
@@ -356,7 +357,7 @@
                       <p class="direccion">{{data['direccion_ubicacion']}}</p>
                       <p class="barrio-direccion">{{data['direccion_barrio']}}</p>
                       <p class="telefono-direccion">{{data['direccion_celular']}}</p>
-                      <p class="predeterminada-direccion">
+                      <div class="predeterminada-direccion">
 
                         <mat-radio-group aria-label="Select an option"
                                          (change)="direccionChequeada(data['direccion_codigo'], data)"
@@ -378,7 +379,7 @@
                             </div>
                           </div>
                         </mat-radio-group>
-                      </p>
+                      </div>
 
                       <div class="row fila-boton-2">
                         <div class="col-md-5"><a class="detalle" (click)="editarDireccion(data['direccion_codigo'])">Editar</a>
@@ -405,7 +406,7 @@
 
                 <div class="row otros-pagos">
                   <div class="col-md-12">
-                    <mat-nav-list class="opciones-menu-lateral">
+                    <mat-nav-list class="opciones-menu-lateral"  (click)="validarTipoPago(1)">
 
                       <a>
                         <ul class="nav flex-column flex-nowrap overflow-hidden">
@@ -527,63 +528,9 @@
                 </div>
 
                 <div class="row otros-pagos">
+
                   <div class="col-md-12">
-                    <mat-nav-list class="opciones-menu-lateral">
-
-                      <a>
-                        <ul class="nav flex-column flex-nowrap overflow-hidden">
-                          <hr class="hr-separador-productos">
-                          <li class="nav-item clase-titulo-menu">
-                            <a class="nav-link collapsed text-truncate link-rutas" href="#submenu1"
-                               data-toggle="collapse" data-target="#submenu1">
-                              <img src="./assets/img/iconos/titulos/efectivo-copyPNG.png" class="pago-electronico">
-                              <span class="d-sm-inline color-titulo-menu">Pago con efectivo a contra entrega</span></a>
-                            <div class="collapse" id="submenu1" aria-expanded="false">
-                              <ul class="flex-column pl-2 nav  otro-colo">
-                                <li class="nav-item">
-                                  <a>
-
-                                    <div class="row">
-                                      <div class="col-md-3"></div>
-                                      <div class="col-md-6 div-pago-en-efectivo">
-                                        <p class="pago-en-efectivo">
-                                          Paga con efectivo
-                                        </p>
-                                      </div>
-                                      <div class="col-md-3"></div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-md-3"></div>
-                                      <div class="col-md-6 div-contre-entrega">
-                                        <p class="contre-entrega">
-                                          Puedes pagar tu pedido a contraentrega en la dirección de entrega elegida
-                                        </p>
-                                      </div>
-                                      <div class="col-md-3"></div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-md-3"></div>
-                                      <div class="col-md-6">
-                                        <div class="justify-content-center align-items-center centrar-boton">
-                                          <button mat-raised-button color="primary" class="agregar-direccion-boton">
-                                            Seleccionar
-                                          </button>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-3"></div>
-                                    </div>
-
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                          </li>
-                        </ul>
-                      </a>
-                    </mat-nav-list>
-                  </div>
-                  <div class="col-md-12">
-                    <mat-nav-list class="opciones-menu-lateral">
+                    <mat-nav-list class="opciones-menu-lateral"  (click)="validarTipoPago(2)">
 
                       <a>
                         <ul class="nav flex-column flex-nowrap overflow-hidden">
@@ -686,6 +633,73 @@
                           </li>
                         </ul>
                       </a>
+                    </mat-nav-list>
+                  </div>
+
+                  <div class="col-md-12">
+
+
+                   <mat-nav-list class="opciones-menu-lateral contra-entrega-opcion">
+                     <mat-checkbox
+                       class="pago-contraentregas"
+                       (click)="validarTipoPago(3, $event)"
+                       [(ngModel)]="marcarContraentrega"
+                       color="primary">
+                      <span class="">
+                        Pago con efectivo a contra entrega
+                      </span>
+                     </mat-checkbox>
+
+                     <!--  <a>
+                        <ul class="nav flex-column flex-nowrap overflow-hidden">
+                          <hr class="hr-separador-productos">
+                          <li class="nav-item clase-titulo-menu">
+                            <a class="nav-link collapsed text-truncate link-rutas" href="#submenu1"
+                               data-toggle="collapse" data-target="#submenu1">
+                              <img src="./assets/img/iconos/titulos/efectivo-copyPNG.png" class="pago-electronico">
+                              <span class="d-sm-inline color-titulo-menu">Pago con efectivo a contra entrega</span></a>
+                            <div class="collapse" id="submenu1" aria-expanded="false">
+                              <ul class="flex-column pl-2 nav  otro-colo">
+                                <li class="nav-item">
+                                  <a>
+
+                                    <div class="row">
+                                      <div class="col-md-3"></div>
+                                      <div class="col-md-6 div-pago-en-efectivo">
+                                        <p class="pago-en-efectivo">
+                                          Paga con efectivo
+                                        </p>
+                                      </div>
+                                      <div class="col-md-3"></div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-3"></div>
+                                      <div class="col-md-6 div-contre-entrega">
+                                        <p class="contre-entrega">
+                                          Puedes pagar tu pedido a contraentrega en la dirección de entrega elegida
+                                        </p>
+                                      </div>
+                                      <div class="col-md-3"></div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-3"></div>
+                                      <div class="col-md-6">
+                                        <div class="justify-content-center align-items-center centrar-boton">
+                                          <button mat-raised-button color="primary" class="agregar-direccion-boton">
+                                            Seleccionar
+                                          </button>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3"></div>
+                                    </div>
+
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </li>
+                        </ul>
+                      </a>-->
                     </mat-nav-list>
                   </div>
                 </div>

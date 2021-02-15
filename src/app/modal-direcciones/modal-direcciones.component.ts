@@ -45,7 +45,11 @@ export class ModalDireccionesComponent implements OnInit {
     public dialogRef: MatDialogRef<ModalDireccionesComponent>,
     @Inject(MAT_DIALOG_DATA) public infor: any) {
     this.llamarDatoLocalesUsuario();
-    console.log(this.infor);
+    console.log(this.infor.direccion);
+
+    if (this.infor.direccion) {
+      this.editarDirecciones(this.infor.direccion);
+    }
   }
 
   ngOnInit(): void {
@@ -188,6 +192,7 @@ export class ModalDireccionesComponent implements OnInit {
     this.setHtpp.httpPost('actualizar-direcciones', this.direcciones).toPromise().then(respuesta => {
       if (respuesta[`estado`]) {
         this.alertaService.showToasterFull(respuesta[`data`]);
+        this.onNoClick();
       } else {
         this.alertaService.showToasterError(respuesta[`data`]);
       }

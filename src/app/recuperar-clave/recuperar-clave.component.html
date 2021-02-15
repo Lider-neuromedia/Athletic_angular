@@ -1,7 +1,17 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8 mrg-top-40 mrg-botn-40">
+
+      <div class="d-flex  mrg-top-20 mrg-botn-20">
+        <button mat-raised-button type="submit" color="primary" routerLink="/login" class="mrg-right-5 ingresar-login" >
+        <span class="material-icons">
+        arrow_back
+        </span>  Volver
+        </button>
+      </div>
+
       <mat-card class="d-flex justify-content-center">
+
         <mat-tab-group class="w-80" mat-align-tabs="center">
           <mat-tab label="RECUPERAR CONTRASEÑA">
             <form  novalidate>
@@ -15,7 +25,7 @@
                 </div>
               </div>
               <div class="d-flex justify-content-center mrg-top-20 mrg-botn-20">
-                <button mat-raised-button type="submit" color="primary" class="mrg-right-5 ingresar-login" (click)="recuperarClave()">Enviar</button>
+                <button mat-raised-button type="submit" color="primary" class="mrg-right-5 ingresar-login" (click)="recuperarClave()">Cambiar contraseña</button>
               </div>
             </form>
             <div class="d-flex justify-content-center border-btn mrg-top-20 mrg-botn-10">

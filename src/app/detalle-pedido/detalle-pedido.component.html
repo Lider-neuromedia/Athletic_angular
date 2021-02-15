@@ -11,11 +11,19 @@
           <div class="row-box-pedidos">
             <div class="info-estado">
               <div class="pedido-info">
-                <p>Pedido No. {{encabezado['pedido_referencia']}}</p>
-                <p>Fecha de compra: {{encabezado['created_at']}}</p>
-                <p>Total: {{encabezado['pedido_valor'] | currency}}</p>
+                <div class="row row-pedido-info ">
+                  <div class="col-md-3">
+                    <p>Origen. {{ encabezado['origen']}}</p>
+                  </div>
+                  <div class="col-md-3">
+                    <p>Destino. {{ encabezado['destino']}}</p>
+                  </div>
+                  <div class="col-md-6">
+                    <p *ngIf="encabezado && encabezado['transportadora_tiempoestimado']">estimado de entrega. de {{ encabezado['transportadora_tiempoestimado']}}</p>
+                  </div>
+                </div>
               </div>
-              <div class="pedido-estado cerrado">Estado: <span>asdad</span></div>
+              <div class="pedido-estado cerrado">Estado: <span>{{encabezado['pedido_estado']}}</span></div>
             </div>
             <div class="items">
 

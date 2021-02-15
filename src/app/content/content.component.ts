@@ -53,6 +53,9 @@ export class ContentComponent implements OnInit {
   };
 
 
+  deshabilitarCarga: boolean;
+
+
   /*
    * Carrusel productos primeros productos destacados 4 columnas
    */
@@ -108,6 +111,7 @@ export class ContentComponent implements OnInit {
   }
 
   ngOnInit() {
+    //this.deshabilitarCarga = true;
     // this.getProducts();
     this.size();
 
@@ -185,6 +189,8 @@ export class ContentComponent implements OnInit {
         },
         error => { console.log("error." + error); }
       );
+
+
   }
 
   btnCatActive(val){
@@ -215,6 +221,7 @@ export class ContentComponent implements OnInit {
         console.error("Error consumiento productos destacados.");
       }
     );
+   // this.deshabilitarCarga = false;
   }
 
   getProductsDestContenido8(){

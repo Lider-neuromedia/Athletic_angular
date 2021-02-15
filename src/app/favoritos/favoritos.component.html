@@ -6,6 +6,16 @@
 			</div>
 			<div class="col-md-9">
 				<h2 class="account-title">Favoritos</h2>
+
+        <div class="content-productos content-productos-2" *ngIf="misFavoritos.length < 1">
+
+          <div class="icono-triste">
+                    <span class="material-icons">
+                    sentiment_very_dissatisfied
+                    </span>
+            <p>No tienes Productos agregados en tus favoritos</p>
+          </div>
+        </div>
 				<div class="row favorites-account">
 
 					<!-- <div class="col-md-3 mrg-botn-20 favorites-account" *ngFor="let i of [].constructor(8)">
@@ -13,6 +23,8 @@
 						[title]="'New Balance'" [price]="320000" [favorites]="true" [small]="true" [showButtons]="true">
 						</app-item-producto>
 					</div> -->
+
+
 
 					<div class="col-md-3 content-item-products" *ngFor="let data of misFavoritos">
 						<div class="item-product">

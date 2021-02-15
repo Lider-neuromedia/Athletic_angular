@@ -106,7 +106,6 @@
 }
 
 .resena-detalle .btn-ir-producto{
-  color: #FF596A;
   border: 1px solid #FF596A;
   border-radius: 25px;
   font-size: 11px;
@@ -119,4 +118,41 @@
 
 .resena-detalle .btn-ir-producto:hover{
   text-decoration: none;
+}
+
+.content-productos-2 span {
+  color: #FF596A;
+  font-size: 250px;
+  opacity: 0.3;
+}
+
+.icono-triste {
+
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.row-cupon-validate{
+  justify-content: flex-end;
+}
+
+
+.cupon-validate{
+  border: 1px solid #FF596A;
+  border-radius: 25px;
+  font-weight: 700;
+  color: #FF596A;
+  display: inline-block;
+  text-align: center;
+  padding: 10px 27px 9px;
+  transition: all .5s ease;
+  cursor: pointer;
+}
+
+.cupon-validate:hover{
+  text-decoration: none;
+  background: #FF596A;
+  color: white;
+  cursor: pointer;
 }

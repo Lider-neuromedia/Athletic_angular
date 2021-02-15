@@ -105,7 +105,7 @@ export class RegistroFormComponent implements OnInit {
           localStorage.setItem('userAthletic', JSON.stringify(response[`user`]));
           this.loginGlobal.changeMessage();
           this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
-          this.router.navigate(['/perfil']);
+          this.router.navigate(['/detalle-de-la-compra']);
         }
       }).catch( error => {
         console.log(error);

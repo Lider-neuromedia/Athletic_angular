@@ -20,7 +20,11 @@ export class AppComponent implements OnInit {
   carritoNuevo = [];
   usuario: any;
 
-  constructor(private variablesGl: VariablesService, private alertaS: AlertasService,  private loginGlobal: LoginGlobalService,) {}
+  constructor(
+    private variablesGl: VariablesService,
+    private alertaS: AlertasService,
+    private loginGlobal: LoginGlobalService,
+    ) {}
   ngOnInit() {
     this.llamarDatoLocalesUsuario();
     this.llamarDatoLocales();

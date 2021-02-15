@@ -6,6 +6,16 @@
       </div>
       <div class="col-md-9">
         <h2 class="account-title">Mis reseñas</h2>
+        <div class="content-productos content-productos-2" *ngIf="productoResenia.length < 1">
+
+          <div class="icono-triste">
+                    <span class="material-icons">
+                    sentiment_very_dissatisfied
+                    </span>
+            <p>No has realizado comentarios en los productos</p>
+          </div>
+        </div>
+
         <div *ngFor="let data of productoResenia">
           <div class="row box-detalle-resena">
             <div class="col-md-10 info-valoracion">
@@ -91,8 +101,8 @@
             </div>
           </div>
 
-          <div class="row ir-producto" (click)="verProducto(data['id_producto'])">
-            <a class="btn-ir-producto">Ir a producto</a>
+          <div class="row ir-producto row-cupon-validate" (click)="verProducto(data['id_producto'])">
+            <a class="btn-ir-producto cupon-validate">Ir a producto</a>
           </div>
         </div>
 

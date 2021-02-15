@@ -34,6 +34,7 @@ export class ProductosComponent implements OnInit {
   filter_categorias = [];
   filter_precio = '[]';
   filter_estadoPrducto = [];
+  filter_dscuentoPrducto = [];
   filter_order = null;
   categorias_prin = [];
   filtros = null;
@@ -49,6 +50,9 @@ export class ProductosComponent implements OnInit {
   todas:  any;
   talla: any;
   opcionSeleccionado: any;
+  infoExtraer: any;
+  descuentosProductos: any;
+  codigoFiltro: any;
   constructor(
     private http: SendHttpData,
     public dialog: MatDialog,
@@ -65,14 +69,54 @@ export class ProductosComponent implements OnInit {
   ngOnInit(): void {
 
     this.activatedRoute.params.subscribe(value => {
+
+      console.log(value.id);
+      this.codigoFiltro = value.id;
+
+      if (value.id) {
+
+        this.http.httpGetParamt('categorias-productos', value.id).toPromise().then(respuesta => {
+          console.log(respuesta);
+          this.infoExtraer = respuesta[`data`]['codigo_cat'];
+          this.infoExtraer = this.infoExtraer.substring(0, 3);
+
+          if (this.infoExtraer == 'H01') {
+            this.changeCategorie(true, 2);
+            this.filter_estadoPrducto = null;
+            // this.filter_categorias = [2];
+          }else if (this.infoExtraer == 'M02') {
+            this.changeCategorie(true, 11);
+            this.filter_estadoPrducto = null;
+            // this.filter_categorias = [11];
+          }else if (this.infoExtraer == 'K03') {
+            this.changeCategorie(true, 19);
+            // this.filter_categorias = [19];
+            this.filter_estadoPrducto = null;
+          }
+          console.log(this.infoExtraer, this.filter_categorias);
+        }).catch(error => {
+          console.log(error);
+        })
+      }
       this.checkMarcas = value.marca;
-     console.log(value , this.checkMarcas );
+      console.log(value, this.checkMarcas);
       this.getProducts();
     });
 
-    this.getProducts();
+    if (!this.codigoFiltro) {
+      this.getProducts();
+    }
+
+
     this.getCategories();
     this.getMarcas();
+
+    if (this.codigoFiltro == '05') {
+      console.log(this.codigoFiltro);
+        this.filter_estadoPrducto = [1]
+       // this.productosNuevos(true, 1);
+        this.setFilter();
+    }
     // this.getFiltersValue();
 
     this.estadoProducto = [
@@ -83,6 +127,16 @@ export class ProductosComponent implements OnInit {
       {
         id: 2,
         nombre: 'Normal'
+      },
+    ];
+
+    this.descuentosProductos = [
+      {
+        id: 1,
+        nombre: 'Si'
+      }, {
+        id: 2,
+        nombre: 'No'
       }
     ];
   }
@@ -191,8 +245,10 @@ export class ProductosComponent implements OnInit {
   }
 
   clearPrice(){
+    this.minValue = 0;
+    this.maxValue = 300000;
     this.filter_precio = "[]";
-    this.setFilter();
+    this.getProducts();
   }
 
   // Ordenar precios de mayor a menor o viceversa.
@@ -206,15 +262,45 @@ export class ProductosComponent implements OnInit {
   }
 
   // Filtros
-  setFilter(){
+  setFilter(){ // cambiar filtros
+    let filtro: any;
+    let data: any;
+
+    if (this.filter_order != null) {
+      // params += "&orderProd=" + this.filter_order;
+      data = {
+        marcas: this.filter_marcas,
+        categorias: this.filter_categorias,
+        estado: this.filter_estadoPrducto,
+        precio: this.filter_precio,
+        orderProd: this.filter_order,
+        descuento: this.filter_dscuentoPrducto,
+        combinaciones: null,
+      }
+    } else {
+      data = {
+        marcas: this.filter_marcas,
+        categorias: this.filter_categorias,
+        estado: this.filter_estadoPrducto,
+        precio: this.filter_precio,
+        orderProd: '',
+        descuento: this.filter_dscuentoPrducto,
+        combinaciones: null,
+      }
+    }
+
     //var params = "?marcas=["+ this.filter_marcas +"]&categorias=["+ this.filter_categorias+"]&precio="+this.filter_precio;
-    var params = "?marcas=["+ this.filter_marcas +"]&categorias=["+ this.filter_categorias+ "]&estado=["+ this.filter_estadoPrducto + "]&precio="+this.filter_precio;
+   /*var params = "?marcas=["+
+      this.filter_marcas +"]&categorias=["+
+      this.filter_categorias+ "]&estado=["+
+      this.filter_estadoPrducto
+      + "]&precio="+this.filter_precio;
 
     if (this.filter_order != null) {
       params += "&orderProd=" + this.filter_order;
-    }
+    }*/
 
-    this.http.httpGet('filters' + params).subscribe(
+    this.http.httpPost('filters' , data).subscribe(
       response => {
         this.productos = response;
         this.calcularPaginas();
@@ -446,6 +532,26 @@ export class ProductosComponent implements OnInit {
       for (let i = 0; i < this.filter_estadoPrducto.length; i++) {
         if (this.filter_estadoPrducto[i] == estado) {
           this.filter_estadoPrducto.splice(i, 1);
+        }
+      }
+    }
+    this.addPrice();
+    this.setFilter();
+  }
+
+  productosDescuentos($event, estado) {
+
+
+    if ($event.checked) {
+      if (this.filter_dscuentoPrducto == null) {
+        this.filter_dscuentoPrducto = [estado];
+      } else {
+        this.filter_dscuentoPrducto.push(estado);
+      }
+    } else {
+      for (let i = 0; i < this.filter_dscuentoPrducto.length; i++) {
+        if (this.filter_dscuentoPrducto[i] == estado) {
+          this.filter_dscuentoPrducto.splice(i, 1);
         }
       }
     }

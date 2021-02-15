@@ -5,12 +5,13 @@
           <p class="text-pink mrg-0 font-sz-20 bold" style="  letter-spacing: 0.72px;">SUSCRÍBETE A NUESTRO NEWSLETTER</p>
         </div>
         <div class="col-md-6 mrg-top-10">
-          <mat-form-field class="w-100" appearance="outline">
+          <mat-form-field class="w-100" appearance="outline" type="email" name="email">
             <mat-label>Correo electrónico</mat-label>
-            <input matInput placeholder="Correo electrónico" [(ngModel)]="filtro.suscripcion_email">
+            <input matInput placeholder="Correo electrónico"  [(ngModel)]="filtro.suscripcion_email"  type="email" name="email" required>
           </mat-form-field>
-          <mat-checkbox  color="primary">Declaro que he leído y acepto la nueva <span class="text-pink">Política de
-              Privacidad y  <br> los Términos y Condiciones</span> de Linio.</mat-checkbox>
+          <!--<input type="email" class="form-control" [(ngModel)]="filtro.suscripcion_email">-->
+          <mat-checkbox [(ngModel)]="filtro.terminos_condiciones" color="primary">Declaro que he leído y acepto la nueva <span class="text-pink">Política de
+              Privacidad y  <br> los Términos y Condiciones</span> de Athletic Air.</mat-checkbox>
         </div>
         <!-- <div class="padg-lat-10 mrg-top-20 mrg-botn-20 w-100-xs">
         </div> -->

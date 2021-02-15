@@ -88,7 +88,9 @@ export class LoginComponent implements OnInit {
           nombres: this.myForm.value.first_name,
           email: this.myForm.value.email_new,
           fecha_nacimiento: fecha_nacimiento,
-          genero: this.myForm.value.genero
+          genero: this.myForm.value.genero,
+          tipo_registro: 1,
+          clave: this.myForm.value.password,
       }
 
       this.http.httpPost('clientes-register', data).toPromise().then(response => {
@@ -104,7 +106,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userAthletic', JSON.stringify(response[`user`]));
           this.loginGlobal.changeMessage();
           this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
-          this.router.navigate(['/perfil']);
+          this.router.navigate(['/']);
         }
         }).catch( error => {
           console.log(error);

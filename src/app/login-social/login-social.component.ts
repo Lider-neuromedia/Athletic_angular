@@ -81,7 +81,7 @@ export class LoginSocialComponent implements OnInit {
         email: respuesta[`email`],
         fecha_nacimiento: '',
         genero: 1,
-        tipo_registro: 2,
+        tipo_registro: 3,
         clave: respuesta[`email`]
       };
       console.log(data);
@@ -99,7 +99,7 @@ export class LoginSocialComponent implements OnInit {
           localStorage.setItem('userAthletic', JSON.stringify(response[`user`]));
           this.loginGlobal.changeMessage();
           this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
-          this.router.navigate(['/perfil']);
+          this.router.navigate(['/detalle-de-la-compra']);
         }
       }).catch( error => {
         console.log(error);

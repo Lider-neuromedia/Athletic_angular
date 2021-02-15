@@ -58,7 +58,7 @@ export class DetalleCompraComponent implements OnInit {
   dataPedidos: Pedidos
   cargarDirecciones: any;
   direccionEstado: any;
-
+  codigoEdicionDireccion: number;
 
   circulo11: string;
   barra11: string;
@@ -115,6 +115,7 @@ export class DetalleCompraComponent implements OnInit {
   panelOpenState = false;
   valorACancelar: number;
   cantidadProductoReales: any;
+  marcarContraentrega: boolean;
 
   constructor(
     private variablesGl: VariablesService,
@@ -174,12 +175,13 @@ export class DetalleCompraComponent implements OnInit {
     this.llamarDatoLocales();
     this.miCarritoCompraContador();
     this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
-    //console.log(this.carritoAnterior);
+
     this.retornarAnio();
     this.retornarMes();
     this.retornarDias();
     this.retornarAnioTarjeta();
     this.cargarTodasLasDirecciones();
+    this.obtenervalorEnvioDefecto();
 
     this.dataPedidos = {
       usuario_codigo: null,
@@ -190,6 +192,7 @@ export class DetalleCompraComponent implements OnInit {
       pedido_estado: 'APROBADO',
       cliente_codigo: null,
       direccion_codigo: null,
+      pedido_mediopago: null
 
     }
 
@@ -448,7 +451,6 @@ export class DetalleCompraComponent implements OnInit {
 
   realizarPedidos() {
 
-    console.log(this.direccionEstado);
     if (!this.direccionEstado) {
       this.alertaS.showToasterError('Marcar la dirección de envio del pedido');
       return;
@@ -456,13 +458,6 @@ export class DetalleCompraComponent implements OnInit {
 
     this.referencia = new Date().getFullYear() + '' + new Date().getMonth() + '' + new Date().getDate() + '' + new Date().getHours() + '' + new Date().getMinutes() + '' + new Date().getSeconds();
     this.valorPedido = this.valorTotal;
-
-    console.log(
-      this.valorPedido,
-      this.referencia,
-      this.usuario.id_cliente,
-      this.usuario.id_tienda,
-      this.usuario);
 
     this.dataPedidos.cliente_codigo = this.usuario.id_cliente;
     this.dataPedidos.usuario_codigo = this.usuario.id_tienda;
@@ -481,7 +476,6 @@ export class DetalleCompraComponent implements OnInit {
     this.barra5 = '#FF596A';
     this.barra55 = '#FF596A';
     this.setHtpp.httpPost('crear-pedido', data).toPromise().then(respuesta => {
-      console.log(respuesta);
       this.alertaS.showToasterFull('Pedido realizado exitosamente');
     }).catch(error => {
       console.log(error);
@@ -501,11 +495,11 @@ export class DetalleCompraComponent implements OnInit {
     if (this.usuario) {
 
         this.favoritoSe.currentMessage.subscribe(response => {
+          this.obtenervalorEnvioDefecto();
           const data = {
             cliente: this.usuario.id_cliente
           }
           this.setHtpp.httpPost('listar-direcciones-pedido', data).toPromise().then(respuesta => {
-            console.log(respuesta);
             this.cargarDirecciones = respuesta[`data`];
           }).catch(error => {
             console.log(error);
@@ -515,7 +509,7 @@ export class DetalleCompraComponent implements OnInit {
   }
 
   direccionChequeada(value, datito) {
-    console.log(value);
+
     this.direccionEstado = value;
     const data = {
       direccion: value,
@@ -524,7 +518,6 @@ export class DetalleCompraComponent implements OnInit {
     }
 
     this.setHtpp.httpPost('actualizar-nueva-direccion', data).toPromise().then(respuesta => {
-      console.log(respuesta);
       this.gastosEnvio = respuesta['data']['transporte_valorenvio'];
       this.gastosEnvio = this.gastosEnvio * this.cantidadProductoReales;
       this.alertaS.showToasterFull(respuesta['mensaje']);
@@ -552,7 +545,6 @@ export class DetalleCompraComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.setHtpp.httpPost('eliminar-direcciones', data).toPromise().then(respuesta => {
-          console.log(respuesta[`data`]);
           this.alertaS.showToasterFull(respuesta[`data`]);
           this.cargarTodasLasDirecciones();
         }).catch(error => {
@@ -563,7 +555,7 @@ export class DetalleCompraComponent implements OnInit {
   }
 
   editarDireccion(codigo) {
-    console.log(codigo);
+    this.codigoEdicionDireccion = codigo;
     //this.ruta.navigate(['modificar-direcciones/', codigo])
     this.openDialog();
 
@@ -662,7 +654,6 @@ export class DetalleCompraComponent implements OnInit {
       this.habilita4 = true;
       this.habilitarBotonPago = 4;
     }
-    console.log(value);
 
 
   }
@@ -761,13 +752,11 @@ export class DetalleCompraComponent implements OnInit {
       this.habilita4 = true;
       this.habilitarBotonPago = 4;
     }
-    console.log(value);
 
   }
 
 
   sendRegister() {
-    console.log(this.datosRegistro);
     const data = {
       estado: 1,
       deleted: 0,
@@ -781,9 +770,7 @@ export class DetalleCompraComponent implements OnInit {
     }
 
     this.setHtpp.httpPost('clientes-register', data).toPromise().then(response => {
-      console.log(response[`user`]);
       if (response[`user`]) {
-        console.log(response[`user`]);
         localStorage.setItem('userAthletic', JSON.stringify(response[`user`]));
         this.loginGlobal.changeMessage();
         this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
@@ -823,7 +810,6 @@ export class DetalleCompraComponent implements OnInit {
     this.dataInfoCodigo = null;
     this.dataInfoMensaje = null;
     this.dataInfoEstado = null;
-    console.log('dssssssssssss');
 /*
     if (this.codigoCupon.length > 0) {
       this.alertaS.showToasterError('Ingrese un codigo valido en esta casilla');
@@ -851,7 +837,6 @@ export class DetalleCompraComponent implements OnInit {
       }
 
       if (respuesta['estado'] === 5) {
-        console.log(respuesta);
         //cupones, Datas, mensaje, estado
         this.dataInfoCupones = respuesta['cupon']; //informacion d ela tabla cupon
         this.dataInfoCodigo = respuesta['data']; // a que le aplicara
@@ -865,8 +850,7 @@ export class DetalleCompraComponent implements OnInit {
           estado: this.dataInfoCodigo,
         }
         this.alertaAplicarDescuentos(data);
-        console.log(this.dataInfoCupones, this.dataInfoCodigo, this.dataInfoMensaje, this.dataInfoEstado);
-      }
+       }
       if (respuesta['estado'] === 6) {
         this.dataInfoCupones = respuesta['cupon']; //informacion d ela tabla cupon
         this.dataInfoCodigo = respuesta['data']; // a que le aplicara
@@ -874,7 +858,6 @@ export class DetalleCompraComponent implements OnInit {
         this.dataInfoEstado = respuesta['estado']; //estado
 
         this.obtenerProductoTotalCategoria();
-        console.log(respuesta);
       }
       if (respuesta['estado'] === 7) {
         this.dataInfoCupones = respuesta['cupon']; //informacion d ela tabla cupon
@@ -898,7 +881,6 @@ export class DetalleCompraComponent implements OnInit {
 
   alertaAplicarDescuentos(informacion) {
     this.valorConcupon = null;
-    console.log(informacion['cupon']['cupon_porcentaje']);
     let porcentaje = informacion['cupon']['cupon_porcentaje'];
 
     const swalWithBootstrapButtons = Swal.mixin({
@@ -938,10 +920,8 @@ export class DetalleCompraComponent implements OnInit {
   }
 
   obtenerProductoTotalCategoria() {
-    console.log('obtenerProductoTotalCategoria');
     let data = Object.assign({}, this.respuestaCupon);
     let cupon = data['cupon'];
-    console.log(data, this.respuestaCupon);
     if (data['estado'] === 6) {
       let productosFiltrados = this.carritoAnterior.filter(producto => {
         return producto['categorias'].filter(producto_categoria => {
@@ -960,8 +940,6 @@ export class DetalleCompraComponent implements OnInit {
         return item1 + (descuento);
       }, 0);
       this.valorConcupon = subTotalConDescuento;
-      console.log(this.productosConDescuentos);
-      console.log(productosFiltrados);
     }
   }
 
@@ -974,14 +952,12 @@ export class DetalleCompraComponent implements OnInit {
       //   let idProductoCupon = cuponPreguntas.map(productosFiltrados => productosFiltrados['producto_codigo']);
       this.productosConDescuentos = cuponPreguntas.map(productosFiltrados => productosFiltrados['producto_codigo']);
       let productosConDescuentos = this.carritoAnterior.filter(producto => this.productosConDescuentos.includes(producto['id_producto']));
-      console.log(productosConDescuentos);
       let subTotalConDescuento = productosConDescuentos.reduce((acumulador, producto) => {
         let subTotal = (producto.cantidad * producto.precio);
         let descuento = subTotal * Number(cupon['cupon_porcentaje']) / 100;
         return acumulador + (descuento);
       }, 0);
       this.valorConcupon = subTotalConDescuento;
-      console.log(this.productosConDescuentos);
     }
   }
 
@@ -1052,50 +1028,6 @@ export class DetalleCompraComponent implements OnInit {
     }
   }
 
-  // Falta Validar Registro.
- /* sendRegister() {
-
-    console.log(this.myForm);
-
-
-    if (this.myForm.errors == null) {
-      //var salt = bcrypt.genSaltSync(10);
-      // var passwd = bcrypt.hashSync(this.myForm.value.password, salt);
-      var fecha_nacimiento = this.myForm.value.fecha_nacimiento.toISOString().slice(0, 10);
-
-      const data = {
-        estado: 1,
-        deleted: 0,
-        id_tienda: 1,
-        password: this.myForm.value.password,
-        apellidos: this.myForm.value.last_name,
-        nombres: this.myForm.value.first_name,
-        email: this.myForm.value.email_new,
-        fecha_nacimiento: fecha_nacimiento,
-        genero: this.myForm.value.genero
-      }
-
-      this.http.httpPost('clientes-register', data).toPromise().then(response => {
-        console.log(response[`user`]);
-
-        if (response && response['estado'] == true) {
-          this.alertaS.showToasterWarning(response['mensaje']);
-          return;
-        }
-
-        if (response[`user`]) {
-          console.log(response[`user`]);
-          localStorage.setItem('userAthletic', JSON.stringify(response[`user`]));
-          this.loginGlobal.changeMessage();
-          this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
-          this.ruta.navigate(['/perfil']);
-        }
-      }).catch( error => {
-        console.log(error);
-      })
-    }
-  }*/
-
   getErrorMessageLogin() {
     if (this.email.hasError('required')) {
       return 'El campo es requerido.';
@@ -1144,9 +1076,43 @@ export class DetalleCompraComponent implements OnInit {
 
     const dialogRef = this.dialog.open(ModalDireccionesComponent, {
       width: '700px',
-      data: {datos:  this.usuario?this.usuario.id_cliente:0}
+      data: {
+        datos:  this.usuario?this.usuario.id_cliente:0,
+        direccion: this.codigoEdicionDireccion
+      }
     });
 
+  }
+
+  validarTipoPago(valor, event?) {
+
+    if (valor === 1) {
+      this.dataPedidos.pedido_mediopago = 'CREDITO';
+      this.dataPedidos.pedido_estado = 'APROBADO';
+    }
+    if (valor === 2) {
+      this.dataPedidos.pedido_mediopago = 'DEBITO';
+      this.dataPedidos.pedido_estado = 'APROBADO';
+    }
+    if (valor === 3) {
+      this.dataPedidos.pedido_mediopago = 'CONTRAENTREGA';
+      this.dataPedidos.pedido_estado = 'PENDIENTE';
+    }
+
+  }
+
+  obtenervalorEnvioDefecto() {
+    const data = {
+      cliente: this.usuario.id_cliente,
+
+    }
+    this.setHtpp.httpPost('listar-valor-envio-defecto',data).toPromise().then(respuesta=> {
+      this.gastosEnvio = respuesta['transporte']['transporte_valorenvio'];
+      this.gastosEnvio = this.gastosEnvio * this.cantidadProductoReales;
+      //this.direccionEstado = respuesta['ciudad'];
+      this.direccionEstado = respuesta['direccion'];
+      console.log( this.direccionEstado);
+    });
   }
 
 }

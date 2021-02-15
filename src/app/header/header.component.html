@@ -10,16 +10,6 @@
       <span class="separator"></span>
     </div>
 
-    <!--  <img class="icon-info" src="assets/img/header/envios.svg">
-      <span class="text-gray">Envíos a todo el país</span>
-      <span class="separator"></span>
-
-      <img class="icon-info" src="assets/img/header/devoluciones.svg">
-      <span class="text-gray">Política de devoluciones</span>
-      <span class="separator"></span>
-
-      <img class="icon-info" src="assets/img/header/help.svg">
-      <span class="text-gray">¿Necesita ayuda?</span>-->
     </div>
   </mat-toolbar-row>
 
@@ -45,7 +35,7 @@
                     <!-- Ciclo - Categorias -->
                     <div *ngFor="let item of categorias_prin" class="cambiar-color">
                       <p [ngClass]=" item.id_categoria == categoria_select ? 'list-categ list-act' : 'list-categ'" >
-                        <a href="#" (mouseover)="changeSubCategoria(item.id_categoria, item.hijos)">{{item.name_cat}}</a>
+                        <a (click)="productosHome(item.name_cat, item.id_categoria)"  (mouseover)="changeSubCategoria(item.id_categoria, item.hijos)">{{item.name_cat}}</a>
                         <mat-icon aria-hidden="false" class="icon-list-cat" aria-label="Icon">keyboard_arrow_right</mat-icon>
                       </p>
                     </div>
@@ -60,15 +50,14 @@
                         <p class="title-categ"  routerLink="/productos" >{{element.name_cat}}</p>
                         <ul class="list-sb-categ">
                           <li class="item-categ" *ngFor="let item of element.hijos">
-                            <a routerLink="/productos" routerLinkActive="active"> {{item.name_cat}} </a>
+                            <a  (click)="productosHome(item.name_cat, item.id_categoria)" routerLinkActive="active"> {{item.name_cat}} </a>
                           </li>
                         </ul>
                       </div>
                       <div>
                         <ul class="list-sb-categ">
-                          <li class="item-categ-btn"> <a href=""> Ver todo</a></li>
-                          <li class="item-categ-btn"> <a href=""> Novedades</a></li>
-                          <li class="item-categ-btn"> <a href=""> Promociones</a></li>
+                          <li class="item-categ-btn"> <a routerLink="/productos"> Ver todo</a></li>
+                          <li class="item-categ-btn"> <a routerLink="/productos/05/nuevo"> Promociones</a></li>
                         </ul>
                       </div>
                     </div>
@@ -82,13 +71,7 @@
                           <li class="item-categ"> <a href=""> Bubble Gummers</a></li>
                         </ul>
                       </div>
-                      <div>
-                        <ul class="list-sb-categ">
-                          <li class="item-categ-btn"> <a href=""> Ver todo</a></li>
-                          <li class="item-categ-btn"> <a href=""> Novedades</a></li>
-                          <li class="item-categ-btn"> <a href=""> Promociones</a></li>
-                        </ul>
-                      </div>
+
                     </div>
                   </div>
                   <div class="hide-image-mega-menu" fxLayout="row wrap">
@@ -97,11 +80,6 @@
                         <img src="{{sesion['url_imagen']}}" class="w-100" alt="" style="margin: -4px">
                       </a>
                     </div>
-                    <!--<div class="h-100 w-50" class="menu-column">
-                      <a *ngFor="let sesion of disenoMenu.column_2" href="{{(sesion.link_to != null ? sesion.link_to : '#')}}">
-                        <img src="{{sesion.url_imagen}}" class="w-90" alt="">
-                      </a>
-                    </div>-->
                   </div>
                 </div>
             </div>
@@ -121,7 +99,6 @@
         <!-- Position end -->
         <div class="flex-row ml-md-auto d-none d-sm-flex ing5-items-header">
           <button [routerLink]="usuario?'/pedidos':'/login'" class="line-height-ini" mat-button fxLayoutAlign="end">
-            <!-- <img src="assets/img/icons/load-carriage.png" class="mrg-top-5"> -->
             <img class="header-pedidos" src="assets/img/header/pedidos.svg">
             <p class="text-menu">Pedidos</p>
           </button>

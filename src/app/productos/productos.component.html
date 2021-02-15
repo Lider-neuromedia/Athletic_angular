@@ -72,6 +72,13 @@
                 </div>
               </mat-card>
 
+              <mat-card class="col-md-12 mrg-top-20 card-filter">
+                <p class="title-filter">Descuento</p>
+                <div *ngFor="let item of descuentosProductos">
+                  <mat-checkbox (change)="productosDescuentos($event, item.id)" class="check-filter">{{item.nombre}}</mat-checkbox>
+                </div>
+              </mat-card>
+
                 <mat-card class="col-md-12 mrg-top-20 mrg-botn-40 card-filter">
                     <p class="title-filter">Precio</p>
                     <div class="row">
@@ -174,13 +181,23 @@
                         </div>
                     </div>
                 </div>
+              <div class="content-productos content-productos-2" *ngIf="productos.length < 1">
 
+                <div class="icono-triste">
+                    <span class="material-icons">
+                    sentiment_very_dissatisfied
+                    </span>
+                  <p>Ningun producto disponible</p>
+                </div>
+              </div>
                 <div class="row mrg-top-20 w-100" style="margin-left: 10px !important;">
-                    <ng-container *ngIf="productos.length == 0">
+                <!--    <ng-container *ngIf="productos.length == 0">
                         <div class="not-product">
                             <p>Ningun producto disponible </p><mat-icon style="color: #ff596a;">sentiment_very_dissatisfied</mat-icon>
                         </div>
-                    </ng-container>
+                    </ng-container>-->
+
+
 
                     <ng-container *ngIf="view_active == 1">
                       <div *ngFor="let item of productos | paginate:page_size:page_number"
