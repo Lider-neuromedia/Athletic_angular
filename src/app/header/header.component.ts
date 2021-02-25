@@ -30,7 +30,7 @@ export class HeaderComponent {
   carritoAnterior: any;
   cantidadCarrito: number = 0;
   favoritosCantidad: number;
-
+  cantidadProductoReales: any;
   @HostListener('window:scroll', ['$event'])
   onWindowScroll($event) {
     const numb = window.scrollY;
@@ -142,7 +142,9 @@ export class HeaderComponent {
     localStorage.removeItem('userAthletic');
     this.loginGlobal.changeMessage();
     this.usuario = null;
+
     this.llamarDatoLocalesUsuario();
+    this.favoritosCantidad = null;
     this.router.navigate(['/']);
   }
 
@@ -164,6 +166,7 @@ export class HeaderComponent {
     this.variablesGl.currentMessage.subscribe(response => {
       this.carritoAnterior = response;
       //console.log(this.carritoAnterior);
+      this.cantidadProductoRealesPedido();
     });
 
   }
@@ -173,6 +176,7 @@ export class HeaderComponent {
     this.loginGlobal.currentMessage.subscribe(response => {
       this.usuario = response;
       //this.contadorFavoritos();
+      this.llamarDatosFavoritos();
     });
 
   }
@@ -220,6 +224,18 @@ export class HeaderComponent {
         console.error("Error en el diseño.");
       }
     );
+  }
+
+  cantidadProductoRealesPedido() {
+
+    const valorTotalLista = JSON.parse(localStorage.getItem('athletic'));
+    if (valorTotalLista) {
+      this.cantidadProductoReales = valorTotalLista.reduce((item1, item2) => {
+        return item1 + item2.cantidad;
+      }, 0);
+    }
+    console.log(this.cantidadProductoReales);
+    return this.cantidadProductoReales;
   }
 
   productosHome(producto, codigo) {

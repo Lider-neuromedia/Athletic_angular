@@ -366,8 +366,7 @@ mat-dialog-content {
   margin-bottom: 10px;
   padding: 0 1em;
   -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
+
   font-weight: 800;
 }
 .porcentaje-descuento {

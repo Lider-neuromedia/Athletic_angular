@@ -53,6 +53,10 @@ export class ModalDireccionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.codigoDepartamento = null;
+
+    this.losDepartamentos();
     this.direcciones = {
       ciudad_codigo: null,
       cliente_codigo: null,
@@ -86,33 +90,31 @@ export class ModalDireccionesComponent implements OnInit {
 
   }
 
-  selectEventDepartamento(item) {
-    // do something with selected item
-    console.log('item', item);
-    this.capturarDepartamento = item.id;
-    console.log('item', item, this.capturarDepartamento);
-  }
 
-  onChangeSearchDepartamento(val: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-    console.log(val);
-    const data = {
-      departamento: val
-    }
 
-    this.setHtpp.httpPost('listar-departamento-direcciones', data).toPromise().then(respuesta => {
-      console.log(respuesta);
+  losDepartamentos() {
+    this.setHtpp.httpGet('listar-departamento-direcciones').toPromise().then(respuesta => {
+
       this.departamentos = respuesta[`data`];
+      console.log(this.departamentos);
     }).catch(error => {
       console.log(error);
     })
   }
 
-  onFocusedDepartamento(e){
-    // do something when input is focused
-    console.log('e', e);
+  onchangeCiudades() {
+    console.log(this.codigoDepartamento);
+
+    this.setHtpp.httpGetParamt('listar-ciudades-direcciones', this.codigoDepartamento).toPromise().then(respuesta => {
+      console.log(respuesta);
+      this.ciudades = respuesta[`data`];
+    }).catch(error => {
+      console.log(error);
+    })
+
   }
+
+
 
   selectEventCiudad(item) {
     // do something with selected item
@@ -120,25 +122,6 @@ export class ModalDireccionesComponent implements OnInit {
     console.log(this.direcciones);
   }
 
-  onChangeSearchCiudad(val: string) {
-
-    console.log(val);
-    const data = {
-      departamento: this.capturarDepartamento,
-      ciudad: val
-    }
-
-    this.setHtpp.httpPost('listar-ciudades-direcciones', data).toPromise().then(respuesta => {
-      console.log(respuesta);
-      this.ciudades = respuesta[`data`];
-    }).catch(error => {
-      console.log(error);
-    })
-  }
-
-  onFocusedCiudad(e){
-    // do something when input is focused
-  }
 
   crearDirecciones() {
     this.direcciones.cliente_codigo =   this.usuario.id_cliente;
@@ -206,4 +189,22 @@ export class ModalDireccionesComponent implements OnInit {
     this.dialogRef.close();
   }
 
+
+  validarCampos() {
+    if (this.direcciones.ciudad_codigo === null || this.direcciones.ciudad_codigo == null ||
+        this.direcciones.direccion_barrio === null || this.direcciones.direccion_barrio == null ||
+        this.direcciones.direccion_celular === null || this.direcciones.direccion_celular == null ||
+        this.direcciones.direccion_lugar === null || this.direcciones.direccion_lugar == null ||
+      this.direcciones.direccion_nombre === null || this.direcciones.direccion_nombre == null ||
+      this.direcciones.direccion_ubicacion === null || this.direcciones.direccion_ubicacion == null ||
+      this.direcciones.usuario_apellido === null || this.direcciones.usuario_apellido == null ||
+      this.direcciones.usuario_nombre === null || this.direcciones.usuario_nombre == null ||
+      this.direcciones.direccion_celular === null || this.direcciones.direccion_celular == null
+
+    ) {
+        return false;
+    }else {
+      return true;
+    }
+  }
 }

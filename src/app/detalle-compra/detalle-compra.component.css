@@ -1036,3 +1036,31 @@ span {
 .predeterminada-direccion {
   font-size: 15px !important;
 }
+
+.mes-expiracion, .anio-expiracion {
+  margin-bottom: 30px !important;
+}
+
+.tengo-cupo{
+  height: 27px !important;
+  width: 80%;
+}
+
+.lupa {
+  background: #FF596A;
+  border-radius: 0px 5px 5px 0px;
+  width: 42px;
+  height: 41px;
+  position: absolute;
+  top: 96px;
+  right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.select-nuevo {
+  height: 58px;
+  margin-top: 5px;
+}

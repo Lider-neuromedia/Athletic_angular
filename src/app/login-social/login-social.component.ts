@@ -7,6 +7,8 @@ import {SendHttpData} from "../tools/SendHttpData";
 import {Router} from "@angular/router";
 import {AlertasService} from "../servicio/alertas/alertas.service";
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
+import {FavoritosService} from "../servicio/favoritos/favoritos.service";
+import {VariablesService} from "../servicio/variable-global/variables.service";
 
 @Component({
   selector: 'app-login-social',
@@ -14,17 +16,26 @@ import {LoginGlobalService} from "../servicio/login-global/login-global.service"
   styleUrls: ['./login-social.component.css']
 })
 export class LoginSocialComponent implements OnInit {
-
+  usuario: any;
+  producto: any;
+  carritoCompras: any;
   constructor(private authService: SocialAuthService,
               private formBuilder: FormBuilder,
               public globalVar: GlobalVarService,
               private http: SendHttpData,
               public router: Router,
               private alertaS: AlertasService,
-              private loginGlobal: LoginGlobalService) { }
+              private loginGlobal: LoginGlobalService,
+              private favoritoSe: FavoritosService,
+              private variablesGl: VariablesService,
+              private favorito: FavoritosService,
+              ) { }
 
   ngOnInit(): void {
+    this.producto = localStorage.getItem('favoritos');
+    this.carritoCompras = JSON.parse(localStorage.getItem('athletic'));
     this.signOut()
+
   }
 
   signInWithGoogle(): void {
@@ -56,10 +67,23 @@ export class LoginSocialComponent implements OnInit {
 
         if (response[`user`]) {
           console.log(response[`user`]);
+          this.usuario = response[`user`];
           localStorage.setItem('userAthletic', JSON.stringify(response[`user`]));
           this.loginGlobal.changeMessage();
           this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
-          this.router.navigate(['/perfil']);
+        //  this.router.navigate(['/perfil']);
+          if (this.producto) {
+            this.agregarProductoFavorito();
+            this.router.navigate(['/favoritos']);
+          } else {
+            if (this.carritoCompras.length > 0) {
+              this.router.navigate(['/detalle-de-la-compra']);
+            } else {
+              this.router.navigate(['/perfil']);
+            }
+
+          }
+
         }
       }).catch( error => {
         console.log(error);
@@ -96,10 +120,23 @@ export class LoginSocialComponent implements OnInit {
 
         if (response[`user`]) {
           console.log(response[`user`]);
+          this.usuario = response[`user`];
           localStorage.setItem('userAthletic', JSON.stringify(response[`user`]));
           this.loginGlobal.changeMessage();
           this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
-          this.router.navigate(['/detalle-de-la-compra']);
+
+
+          if (this.producto) {
+            this.agregarProductoFavorito();
+            this.router.navigate(['/favoritos']);
+          } else {
+            if (this.carritoCompras.length > 0) {
+              this.router.navigate(['/detalle-de-la-compra']);
+            } else {
+              this.router.navigate(['/perfil']);
+            }
+          }
+
         }
       }).catch( error => {
         console.log(error);
@@ -114,6 +151,31 @@ export class LoginSocialComponent implements OnInit {
   signOut(): void {
     this.authService.signOut();
   }
+
+
+
+
+  agregarProductoFavorito() {
+
+    const data = {
+      usuario: this.usuario['id_cliente'],
+      producto:  this.producto
+    };
+
+
+    this.http.httpPost('agregar-productos-favorito', data).toPromise().then(respuesta => {
+      if (respuesta[`estado`]) {
+        this.favorito.changeMessage();
+        this.alertaS.showToasterFull(`Articulo agregado a favoritos`);
+        localStorage.removeItem('favoritos');
+      }
+    }).catch(error => {
+
+    })
+
+    console.log(this.producto, data);
+  }
+
 
 
 }

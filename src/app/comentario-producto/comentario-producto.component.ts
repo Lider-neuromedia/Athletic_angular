@@ -36,6 +36,7 @@ export class ComentarioProductoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.removeItem('favoritos');
     this.usuario = JSON.parse(localStorage.getItem('userAthletic'));
     this.color1 = '#b3aeae';
     this.color2 = '#b3aeae';
@@ -111,9 +112,15 @@ export class ComentarioProductoComponent implements OnInit {
   }
 
   crearCalificacionUsuario() {
+
+    if (!this.almacenarDatos.calificacion) {
+      this.alertaS.showToasterWarning('debes marcar el numero de estrellas ');
+      return;
+    }
     console.log(this.infor['datos']['id_producto'], this.infor['datos']);
     this.almacenarDatos.usuario =  this.usuario.id_cliente;
     this.almacenarDatos.producto = this.infor['datos']['id_producto'];
+
     console.log(this.almacenarDatos);
     this.setHtpp.httpPost('crear-comentarios', this.almacenarDatos).toPromise().then(respuesta => {
       this.alertaS.showToasterFull(respuesta['mensaje']);

@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { ErrorStateMatcher } from '@angular/material/core';
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 import {AlertasService} from "../servicio/alertas/alertas.service";
+import {FavoritosService} from "../servicio/favoritos/favoritos.service";
+import {VariablesService} from "../servicio/variable-global/variables.service";
 
 @Component({
   selector: 'app-login',
@@ -23,13 +25,17 @@ export class LoginComponent implements OnInit {
   // Register
   myForm: FormGroup;
   matcher = new MyErrorStateMatcher();
-
+  usuario: any;
+  producto: any;
   constructor(
               private formBuilder: FormBuilder,
               public globalVar: GlobalVarService,
               private http: SendHttpData,
               public router: Router,
               private alertaS: AlertasService,
+              private favoritoSe: FavoritosService,
+              private variablesGl: VariablesService,
+              private favorito: FavoritosService,
               private loginGlobal: LoginGlobalService) {
 
     this.myForm = this.formBuilder.group({
@@ -44,7 +50,10 @@ export class LoginComponent implements OnInit {
 
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+    this.producto = localStorage.getItem('favoritos');
+  }
 
   sendLogin() {
     if (this.email.errors == null && this.password.errors == null) {
@@ -54,11 +63,18 @@ export class LoginComponent implements OnInit {
           if (response.response == 'error') {
             this.alertaS.showToasterError('credenciales invalidas');
           } else {
+            this.usuario = response.user;
             localStorage.setItem('userAthletic', JSON.stringify(response.user));
             localStorage.setItem('token', JSON.stringify(response.token));
             this.loginGlobal.changeMessage();
             this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
-            this.router.navigate(['/perfil']);
+
+            if (this.producto) {
+              this.agregarProductoFavorito();
+              this.router.navigate(['/favoritos']);
+            } else {
+              this.router.navigate(['/']);
+            }
           }
         },
           error => {
@@ -103,10 +119,17 @@ export class LoginComponent implements OnInit {
 
         if (response[`user`]) {
           console.log(response[`user`]);
+          this.usuario = response[`user`];
           localStorage.setItem('userAthletic', JSON.stringify(response[`user`]));
           this.loginGlobal.changeMessage();
           this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
-          this.router.navigate(['/']);
+          if (this.producto) {
+            this.agregarProductoFavorito();
+            this.router.navigate(['/favoritos']);
+          } else {
+            this.router.navigate(['/']);
+          }
+
         }
         }).catch( error => {
           console.log(error);
@@ -157,6 +180,28 @@ export class LoginComponent implements OnInit {
     }
   }
 
+
+  agregarProductoFavorito() {
+
+    const data = {
+      usuario: this.usuario['id_cliente'],
+      producto:  this.producto
+    };
+
+
+    this.http.httpPost('agregar-productos-favorito', data).toPromise().then(respuesta => {
+      if (respuesta[`estado`]) {
+        this.favorito.changeMessage();
+        this.alertaS.showToasterFull(`Articulo agregado a favoritos`);
+        localStorage.removeItem('favoritos');
+      }
+    }).catch(error => {
+
+    })
+
+    console.log(this.producto, data);
+  }
+
 }
 
 
@@ -167,4 +212,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
     return (invalidCtrl || invalidParent);
   }
+
+
+
 }

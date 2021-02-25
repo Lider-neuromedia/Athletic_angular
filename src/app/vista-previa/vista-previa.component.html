@@ -27,9 +27,9 @@
               <p> <span class="price-prod-desc-full price-des"  *ngIf="producto && producto.valor_descuento != null">{{producto? (producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0') : ''}} </span> <span class="porcentaje-descuento" *ngIf="producto.valor_descuento">{{ " - " + producto.valor_descuento+"%"}}</span></p>
             </div>
 
-            <div class="box-select-talla">
-              <i class="flecha-select">▼</i>
-                <select class="my-own-form-control bold mrg-botn-10 btn-select" (change)="checkearTalla($event.target.value)"  placeholder="Elige tu talla" id="talla">
+            <div class="box-select-tall">
+
+                <select class="my-own-form-control" (change)="checkearTalla($event.target.value)"  placeholder="Elige tu talla" id="talla">
 
                     <option selected value="">Elige tu talla</option>
                     <option *ngFor="let item of  producto ?producto['combinaciones'] : 0;" value="{{item.valor}}" >{{item.valor}}</option>

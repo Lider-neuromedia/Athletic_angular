@@ -60,3 +60,7 @@ font-weight: 700;
   width: 26px;
   margin-top: -25px !important;
 }
+
+.form-group {
+  margin-bottom: 0 !important;
+}

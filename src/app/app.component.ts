@@ -84,7 +84,7 @@ export class AppComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Eliminar!',
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
         this.carrito = localStorage.getItem('athletic');
@@ -143,6 +143,19 @@ export class AppComponent implements OnInit {
 
     if (proceso === 1) {
       this.carritoNuevo[indice].cantidad++;
+
+
+      const result = this.carritoNuevo[indice]['combinaciones'].filter(item => item.valor ==  this.carritoNuevo[indice].talla);
+      console.log(this.carritoNuevo[indice].cantidad);
+
+      if (this.carritoNuevo[indice].cantidad <= result[0]['cantidad']) {
+
+      } else {
+        this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario '+ result[0]['cantidad']);
+        return;
+      }
+      console.log(result);
+
     } else {
       if (this.carritoNuevo[indice].cantidad > 1) {
         this.carritoNuevo[indice].cantidad--;

@@ -1390,3 +1390,68 @@ app-vista-previa  ngx-gallery {
 app-detalle-compra .mat-radio-button.mat-accent .mat-radio-inner-circle {
   background-color: #2aad48 !important;
 }
+
+
+
+.img-zoom-lens {
+  /*border: 1px solid #d4d4d4; para mostrar el cuadro de la lupa*/
+  position: absolute;
+  /*set the size of the lens:*/
+  width: 120px;
+  height: 120px;
+}
+
+.img-zoom-result {
+
+  width: 200px;
+  height: 200px;
+}
+
+
+
+img:focus {
+  outline: dotted 1px !important;
+  outline: -webkit-focus-ring-color auto 0px !important;
+}
+
+
+img {
+  outline: dotted 1px !important;
+  outline: -webkit-focus-ring-color auto 0px !important;
+}
+
+.form-control:focus {
+  color: #495057 !important;
+  background-color: #fff !important;
+  border-color: #bfc4c4 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+
+.swal2-styled.swal2-confirm {
+  display: inline-block!important;
+  height: 45px!important;
+  border-radius: 25px!important;
+  border: 1px solid #ff596a!important;
+  background-color: #ff596a!important;
+}
+
+
+.swal2-cancel{
+  display: inline-block;
+  height: 45px!important;
+  border-radius: 25px!important;
+  border: 1px solid #ff596a!important;
+  background-color: white!important;
+  color: #ff596a!important;
+}
+
+.swal2-cancel:hover{
+  display: inline-block!important;
+  height: 45px!important;
+  border-radius: 25px!important;
+  border: 1px solid #ff596a!important;
+  background-color: #ff596a!important;
+  color: white!important;
+}

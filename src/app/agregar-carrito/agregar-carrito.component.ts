@@ -43,6 +43,7 @@ export class AgregarCarritoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.removeItem('favoritos');
   }
 
   getProducts(id) {

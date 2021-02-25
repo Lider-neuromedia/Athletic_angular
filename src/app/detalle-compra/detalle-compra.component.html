@@ -127,9 +127,8 @@
                     </div>
                     <div class="precio-acciones col-md-3">
                     <span class="precio-descuento">{{data['precio'] * data['cantidad'] | currency}}</span>
-                      <p><span class="precio-normal">{{data['precio_general'] * data['cantidad'] | currency}}</span>
-                        <span class="porcentaje-descuento" *ngIf="data['valor_descuento']">
-                         {{ " - " + data['valor_descuento'] + "%" }} </span>
+                      <p><span class="precio-normal" *ngIf="data['valor_descuento']">{{data['precio_general'] * data['cantidad'] | currency}}</span>
+                        <span class="porcentaje-descuento" *ngIf="data['valor_descuento']"> {{ " - " + data['valor_descuento'] + "%" }} </span>
                       </p>
                       <div class="talla">
                         Talla : {{data['talla']}}
@@ -343,11 +342,32 @@
                   <div class="contenedor-title"><span class="span-tuitulo">Mis direcciones</span></div>
                   <div> <button mat-raised-button color="primary"
                                 class="agregar-direccion-boton"
-                                (click)="openDialog()">Agregar más  direcciones
+                                (click)="usuario ? openDialog() : pasarSguiente(2)">Agregar más  direcciones
                   </button></div>
                 </div>
 
-                <div class="row">
+                <div class="content-productos content-productos-2" *ngIf="!usuario && !cargarDirecciones">
+
+                  <div class="icono-triste">
+                    <span class="material-icons">
+                    sentiment_very_dissatisfied
+                    </span>
+                    <p>Debes iniciar sesión</p>
+                  </div>
+                </div>
+
+                <div class="content-productos content-productos-2" *ngIf="cargarDirecciones.length < 1">
+
+                  <div class="icono-triste">
+                    <span class="material-icons">
+                    sentiment_very_dissatisfied
+                    </span>
+                    <p>No has agregado tus direcciones</p>
+                  </div>
+                </div>
+
+
+                <div class="row" *ngIf="cargarDirecciones">
                   <div class="col-md-4 mb-20 tarjetas ng-star-inserted  clas-contenedor-direccion"
                        *ngFor="let data of cargarDirecciones ; let indices = index">
                     <div class="campo-direcciones direccion-box">
@@ -444,64 +464,97 @@
                                         <p>
                                           <mat-form-field appearance="outline">
                                             <mat-label>Nombre del titular</mat-label>
-                                            <input matInput placeholder="Nombre del titular">
+                                            <input matInput placeholder="Nombre del titular" [(ngModel)]="cargarInfoCredito.Nombre">
+                                          </mat-form-field>
+                                        </p>
+
+                                      </div>
+                                      <div class="col-6">
+                                        <p>
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Apellido del titular</mat-label>
+                                            <input matInput placeholder="Apellido del titular" [(ngModel)]="cargarInfoCredito.Apellido">
+                                          </mat-form-field>
+                                        </p>
+
+                                      </div>
+                                      <div class="col-6">
+                                        <select class="form-control select-nuevo"  >
+                                          <option  [value]="null">Tipo de documento</option>
+                                          <option  [value]="'CC'">CC</option>
+                                          <option  [value]="'CE'">CE</option>
+                                        </select>
+                                      </div>
+
+                                      <div class="col-6">
+                                        <p>
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Número de documento del titular</mat-label>
+                                            <input matInput placeholder="Número de documento del titular" type="number" [(ngModel)]="cargarInfoCredito.Documento">
                                           </mat-form-field>
                                         </p>
                                       </div>
-                                      <div class="col-6">
+                                    </div>
+
+                                    <div class="row">
+                                      <div class="col-md-6">
                                         <p>
                                           <mat-form-field appearance="outline">
                                             <mat-label>Número de la tarjeta</mat-label>
-                                            <input matInput placeholder="Número de la tarjeta">
+                                            <input matInput placeholder="Número de la tarjeta" [(ngModel)]="cargarInfoCredito.campo1">
                                           </mat-form-field>
                                         </p>
                                       </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-md-3">
-                                        <mat-form-field appearance="fill">
-                                          <mat-label>Mes de expiración</mat-label>
-                                          <mat-select>
-                                            <mat-option *ngFor="let me of mes"
-                                                        [value]="me['id']">{{me['prefijo']}}</mat-option>
-                                          </mat-select>
-                                        </mat-form-field>
-                                      </div>
-
-                                      <div class="col-md-3">
-                                        <mat-form-field appearance="fill">
-                                          <mat-label>Año de expiración</mat-label>
-                                          <mat-select>
-                                            <mat-option *ngFor="let ani of aniotarjeta"
-                                                        [value]="ani">{{ani}}</mat-option>
-                                          </mat-select>
-                                        </mat-form-field>
-                                      </div>
-
-                                      <div class="col-6">
+                                      <div class="col-md-6">
                                         <p>
                                           <mat-form-field appearance="outline">
                                             <mat-label>CVV</mat-label>
-                                            <input matInput placeholder="CVV">
+                                            <input matInput placeholder="CVV"  type="password" required
+                                                   minlength="3" maxlength="3" [(ngModel)]="cargarInfoCredito.campo2">
                                           </mat-form-field>
                                         </p>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-3 anio-expiracion">
+
+
+
+                                        <select class="form-control select-nuevo "  [(ngModel)]="cargarInfoCredito.campo3">
+                                          <option  [value]="null">Año de expiración</option>
+                                          <option  *ngFor="let ani of aniotarjeta" [value]="ani">{{ani}}</option>
+                                        </select>
+                                      </div>
+
+                                      <div class="col-md-3  mes-expiracion ">
+
+                                        <select class="form-control select-nuevo"  [(ngModel)]="cargarInfoCredito.campo4" >
+                                          <option  [value]="null">Mes de expiración</option>
+                                          <option  *ngFor="let me of mes" [value]="me['id']">{{me['prefijo']}}</option>
+                                        </select>
+
+
+                                      </div>
+
+                                      <div class="col-6 numero-cuotas">
+                                        <select class="form-control select-nuevo"   [(ngModel)]="cargarInfoCredito.campo5">
+                                          <option  [value]="null">Numero de cuotas</option>
+                                          <option  *ngFor="let cuota of numeroCuotasPagos" [value]="cuota">{{cuota}}</option>
+                                        </select>
                                       </div>
                                     </div>
                                     <div class="row">
                                       <div class="col-6">
                                         <p>
                                           <mat-form-field appearance="outline">
-                                            <mat-label>Nombre del titular</mat-label>
-                                            <input matInput placeholder="Nombre del titular">
+                                            <mat-label>Número de celular</mat-label>
+                                            <input matInput placeholder="Número de celular" type="number"  [(ngModel)]="cargarInfoCredito.Celular">
                                           </mat-form-field>
                                         </p>
                                       </div>
                                       <div class="col-6">
                                         <p>
-                                          <mat-form-field appearance="outline">
-                                            <mat-label>Nombre del titular</mat-label>
-                                            <input matInput placeholder="Nombre del titular">
-                                          </mat-form-field>
+
                                         </p>
                                       </div>
                                     </div>
@@ -555,15 +608,13 @@
                                           </div>
 
                                           <div class="col-6">
-                                            <p>
                                               <mat-form-field appearance="fill">
-                                                <mat-label>Banco</mat-label>
-                                                <mat-select>
-                                                  <mat-option *ngFor="let ban of bancos"
-                                                              [value]="ban['id']">{{ban['name']}}</mat-option>
+                                                <mat-label>Seleccionar banco</mat-label>
+                                                <mat-select [(ngModel)]="cualesElBanco">
+                                                  <mat-option *ngFor="let ban of dataBancos"
+                                                              [value]="ban['codigo']">{{ban['nombre']}}</mat-option>
                                                 </mat-select>
                                               </mat-form-field>
-                                            </p>
                                           </div>
                                           <div class="col-6">
                                             <p>
@@ -638,7 +689,7 @@
 
                   <div class="col-md-12">
 
-
+                    <hr class="hr-separador-productos">
                    <mat-nav-list class="opciones-menu-lateral contra-entrega-opcion">
                      <mat-checkbox
                        class="pago-contraentregas"
@@ -719,9 +770,9 @@
             {{cantidadProductoReales ? cantidadProductoReales : 0 }} Productos
           </p>
           <div class="row">
-            <div class="col-md-7 precio-original">Precio original</div>
-            <div class="col-md-5 valor-precio-original" style="text-decoration: line-through;"  *ngIf="valorTotalAnterior">{{valorTotalAnterior | currency}}</div>
-            <div class="col-md-5 valor-precio-original" style="text-decoration: line-through;" *ngIf="!valorTotalAnterior">{{ 0 | currency}}</div>
+            <div class="col-md-7 precio-original" *ngIf="carritoAnterior && valorTotalAnterior > valorTotal">Precio original</div>
+            <div class="col-md-5 valor-precio-original" style="text-decoration: line-through;"  *ngIf="valorTotalAnterior && valorTotalAnterior > valorTotal">{{valorTotalAnterior | currency}}</div>
+            <div class="col-md-5 valor-precio-original" style="text-decoration: line-through;" *ngIf="!valorTotalAnterior && valorTotalAnterior > valorTotal">{{ 0 | currency}}</div>
           </div>
           <div class="row">
             <div class="col-md-7 precio-con-descuento">Precio con descuento</div>
@@ -783,15 +834,18 @@
 
               <div *ngIf="usuario">
                 <p for="validationTooltipUsername">Cupón</p>
-                <div class="input-group">
-                  <input type="text" class="form-control" [(ngModel)]="codigoCupon"
+                <!--<div class="input-group">-->
+                <div class="contenedor-buscador-informacion">
+                  <input style="width: 80% !important;" type="text" class="form-control tengo-cupo" [(ngModel)]="codigoCupon"
                          id="validationTooltipUsername"
                          placeholder="Escribe o pega el código"
                          aria-describedby="validationTooltipUsernamePrepend"
                          required>
-                  <button class="boton-buscar" (click)="buscarCuponDisponibles()">
-                    <span class=" material-icons">search</span>
-                  </button>
+
+                  <div class="lupa" (click)="buscarCuponDisponibles()">
+                    <img src="assets/img/blanco.svg" alt="">
+                  </div>
+
                 </div>
               </div>
               <div *ngIf="!usuario">
@@ -806,7 +860,7 @@
         </ul>
 
         <div class="call-to-action-bolsa">
-          <button class="pay-now" *ngIf="habilitarBotonPago <= 3">
+          <button class="pay-now" *ngIf="habilitarBotonPago <= 3 " (click)="continuarBoton(1)">
                   <span class="circle-go-shop">
                     <span class="material-icons">
                     done
@@ -831,3 +885,5 @@
 </div>
 
 <app-flecha-arriba></app-flecha-arriba>
+
+

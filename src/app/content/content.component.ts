@@ -111,6 +111,7 @@ export class ContentComponent implements OnInit {
   }
 
   ngOnInit() {
+    localStorage.removeItem('favoritos');
     //this.deshabilitarCarga = true;
     // this.getProducts();
     this.size();

@@ -7,9 +7,23 @@
 			<div class="col-md-9">
 				<h2 class="account-title">Mis direcciones</h2>
 				<div class="form-direcciones" action="">
+
 					<div class="row row-direcciones">
 
             <div class="col-md-6">
+              <select class="form-control"  (change)="onchangeCiudades()" [(ngModel)]="codigoDepartamento">
+                <option [value]="null">Seleccione un departamento</option>
+                <option  *ngFor="let item of departamentos" [value]="item['id']" >{{item['nombre']}}</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <select class="form-control" [(ngModel)]="direcciones.ciudad_codigo">
+                <option [value]="null" *ngIf="ciudades">Seleccione una ciudad</option>
+                <option *ngFor="let data of ciudades" [value]="data['id_ciudad']">{{data['nombre']}}</option>
+              </select>
+            </div>
+
+            <!--<div class="col-md-6">
 							<div class="form-group">
                 <label >Departamento</label>
                 <div class="ng-autocomplete">
@@ -34,7 +48,6 @@
                 </div>
 							</div>
 						</div>
-
 						<div class="col-md-6">
 							<div class="form-group">
                 <label >Ciudad</label>
@@ -59,7 +72,8 @@
                   </ng-template>
                 </div>
 							</div>
-            </div>
+            </div>-->
+
             <div class="col-md-6">
 							<div class="form-group">
 								<label >Barrio</label>
@@ -126,8 +140,8 @@
 				</div>
 
 				<div class="row row-save-adress" >
-					<a class="save-adrres" (click)="crearDirecciones()" *ngIf="!codigo">Guardar dirección</a>
-          <a class="save-adrres" (click)=" actualizarDirecciones()" *ngIf="codigo">Actualizar dirección</a>
+					<button class="save-adrres" (click)="crearDirecciones()" *ngIf="!codigo"  [disabled]="validarCampos() === false" >Guardar dirección</button>
+          <button class="save-adrres" (click)=" actualizarDirecciones()" *ngIf="codigo"  [disabled]="validarCampos() === false" >Actualizar dirección</button>
 				</div>
 			</div>
 		</div>

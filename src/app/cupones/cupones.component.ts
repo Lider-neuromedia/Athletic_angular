@@ -33,6 +33,7 @@ listaCupones: any;
 
   ngOnInit(): void {
     this.listarLosCupones();
+    localStorage.removeItem('favoritos');
   }
 
   llamarDatoLocalesUsuario() {

@@ -646,3 +646,30 @@ element.style {
   justify-items: center;
   text-align: inherit;
 }
+
+.swal2-styled.swal2-confirm {
+  display: inline-block;
+  height: 45px;
+  border-radius: 25px;
+  border: 1px solid #ff596a;
+  background-color: #ff596a;
+}
+
+
+.swal2-cancel{
+  display: inline-block;
+  height: 45px;
+  border-radius: 25px;
+  border: 1px solid #ff596a;
+  background-color: white;
+  color: #ff596a;
+}
+
+.swal2-cancel:hover{
+  display: inline-block;
+  height: 45px;
+  border-radius: 25px;
+  border: 1px solid #ff596a;
+  background-color: #ff596a;
+  color: white;
+}

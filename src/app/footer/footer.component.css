@@ -4,7 +4,7 @@
     list-style: none;
     padding: 0;
   }
-  
+
   .title-footer{
     color: #5D5C5D;
     font-size: 13px;
@@ -13,7 +13,7 @@
     line-height: 16.34px;
     text-transform: uppercase;
   }
-  
+
   .item-footer{
     color: #353435;
     font-size: 11px;
@@ -22,7 +22,7 @@
     line-height: 13.83px;
     margin-bottom: 10px;
   }
-  
+
   .brd-right:before{
     content: "";
     position: absolute;
@@ -33,7 +33,7 @@
     /*Warning consola.*/
     background-image: radial-gradient(50% 100%, #D8D8D8 0%, rgba(255, 255, 255, 0) 100%);
   }
-  
+
   .txt-derchos{
     color: #5D5C5D;
     font-size: 12px;
@@ -43,7 +43,7 @@
     text-align: left;
     margin: 0;
   }
-  
+
   .txt-neuro{
   color: #5D5C5D;
   font-size: 12px;
@@ -53,9 +53,9 @@
   text-align: right;
   margin: 0;
   }
-  
+
   .copy{
-    background: #D8D8D8; 
+    background: #D8D8D8;
     padding-top: 12px;
     padding-bottom: 12px;
   }
@@ -67,4 +67,15 @@
 .list-footer a:hover{
   font-weight: 700;
   text-decoration: none;
+}
+
+.align-items-center {
+  margin-top: 14px;
+
+}
+
+
+.align-items-center button{
+  width: 100%;
+
 }

@@ -50,6 +50,7 @@ export class ItemProductoComponent implements OnInit {
   @Input() data:[];
 
   ngOnInit(): void {
+    localStorage.removeItem('favoritos');
     console.log(this.id)
     this.getProducts(this.id);
     if (this.showButtons) {

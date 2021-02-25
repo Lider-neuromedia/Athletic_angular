@@ -10,7 +10,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {Ng5SliderModule} from 'ng5-slider';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxGalleryModule} from 'ngx-gallery-9';
-
+import { NgxImgZoomModule } from 'ngx-img-zoom';
 
 
 
@@ -115,6 +115,7 @@ import {
       preventDuplicates: true,
     }),
     SocialLoginModule,
+    NgxImgZoomModule
   ],
   providers: [
     {

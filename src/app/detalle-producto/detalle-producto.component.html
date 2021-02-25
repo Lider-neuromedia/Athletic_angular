@@ -11,62 +11,85 @@
         </div>
 
         <div class="row">
-            <div class="col-md-8 content-images h-xs-300px detalle-slider">
-              <ngx-gallery class="w-100 ngx-gallery-100" [options]="galleryOptions" [images]="galleryImages">
-              </ngx-gallery>
-            </div>
+            <div class="col-md-8 content-images h-xs-300px detalle-slider" (mouseout)="ocultarZoom()" >
+
+              <div class="img-zoom-container" id="contenedor-imagen">
+                <img id="myimage" *ngIf="imagenesView || imagenCambbiar"
+                     (mouseover)="imageZoom('myimage', 'myresult')"
+                     [src]="imagenCambbiar?imagenCambbiar:imagenesView[0].img">
+
+                <div id="myresult" class="img-zoom-result mover-div" >
+
+                </div>
+
+              </div>
+
+              <div class="contenedor-fotos-mini mt-3">
+
+                  <img  *ngFor="let data of imagenesView"
+                        [src]="data['img']" height="100"
+                        (mouseover)="cambiarImagen(data['img'])">
+
+              </div>
+
+              <!--<ngx-gallery id="myimage" (mouseover)="imageZoom('ngx-gallery-image', 'myresult')"  class="w-100 ngx-gallery-100" [options]="galleryOptions" [images]="galleryImages">
+                        </ngx-gallery>-->
 
 
-          <div class="col-md-4 mrg-top-10 detalle-info">
-            <div class="detalle-puntaje-valoracion">
-              <div class="puntaje">
 
-                <!-- <div class="box-comment" *ngFor="let data of totalComentario?totalComentario:0">
-                   <h3>{{data['comentario_titulo']}}</h3>
+          </div>
 
-                   <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 1">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                   </div>
 
-                   <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 2">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                   </div>
+        <div class="col-md-4 mrg-top-10 detalle-info">
+          <div class="detalle-puntaje-valoracion">
+            <div class="puntaje">
 
-                   <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 3">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                   </div>
+              <!-- <div class="box-comment" *ngFor="let data of totalComentario?totalComentario:0">
+                 <h3>{{data['comentario_titulo']}}</h3>
 
-                   <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 4">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                     <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
-                   </div>
+                 <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 1">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                   <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                   <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                   <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                 </div>
 
-                   <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 5">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                     <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
-                   </div>
-                   <p class="resena">
-                     {{data['comentario_descripcion']}}
-                   </p>
-                 </div>-->
+                 <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 2">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                   <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                   <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                 </div>
+
+                 <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 3">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                   <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                 </div>
+
+                 <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 4">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   <img src="assets/img/icons/star_inactiveiconos_interna.svg" alt="">
+                 </div>
+
+                 <div class="estrellas-comentarios" *ngIf="data['comentario_calificacion'] === 5">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                   <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
+                 </div>
+                 <p class="resena">
+                   {{data['comentario_descripcion']}}
+                 </p>
+               </div>-->
 
                         <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
                         <img src="assets/img/icons/iconos_internastar_active.svg" alt="">
@@ -99,8 +122,8 @@
             </div>
                 <div class="content-strech content-cuotas">
                   <p class="cuotas">Hasta 12 cuotas de <span *ngIf="producto"
-                                                             class="txt-dark-bold">{{producto.precio / 12 | number : '1.1-2'}}</span><span
-                    *ngIf="!producto" class="txt-dark-bold">{{0 | number : '1.1-2'}}</span></p>
+                                                             class="txt-dark-bold">{{producto.precio / 12 |currency:'COP':'symbol-narrow' :'1.0-0'}}</span><span
+                    *ngIf="!producto" class="txt-dark-bold">{{0  |currency:'COP':'symbol-narrow' :'1.0-0'}}</span></p>
                 </div>
                 <div class="content-strech mrg-botn-15" *ngIf="producto && producto.valor_descuento != null">
                   <!-- <p class="txt-descuento">Aplica descuento de {{producto?producto.valor_descuento: 0}}%</p>-->
@@ -108,11 +131,11 @@
                 </div>
                 <div class="w-80">
                     <div class="box-select-talla">
-                        <i class="flecha-select">▼</i>
+                        <!--<i class="flecha-select">▼</i>-->
                       <select class="my-own-form-control" placeholder="Elige tu talla" id="talla"
                               (change)="checkearTalla($event.target.value)">
                         <option selected value="" class="color-talla">Elige tu talla</option>
-                        <option class="color-talla" *ngFor="let item of producto?producto.combinaciones: producto;" value="{{item.valor}}">
+                        <option class="color-talla" *ngFor="let item of tallasDelProductoFiltradas;"  value="{{item.valor}}">
                           {{item.valor}}</option>
                       </select>
                     </div>
@@ -142,14 +165,15 @@
                       <p>Añadir a mis favoritos</p>
                     </div>
                   </button>-->
-                  <button (click)="agregarProductosAlCarrito() "
+                  <button (click)="agregarProductosAlCarrito() " [disabled]="!returnEstadoProducto"
                           class="btn-full-view mrg-botn-10 btn-bolsa-favoritos" color="primary"
                           mat-raised-button>
                     <div class="favoritos-bolsa">
                       <div class="img-bolsa">
                         <img alt="" src="assets/img/icons/inactive.png">
                       </div>
-                      <p>Añadir a la bolsa</p>
+                      <p *ngIf="!returnEstadoProducto">Producto agotado</p>
+                      <p *ngIf="returnEstadoProducto">Añadir a la bolsa</p>
                     </div>
                   </button>
                   <button (click)="usuario ? agregarProductoFavorito() : ingresar()"  *ngIf="!condicionBotonFavorito"
@@ -442,7 +466,7 @@
               <div class="col-md-8 comentarios">
                 <h2>Comentarios</h2>
                 <p class="small-comment">{{cantidadComentario ? cantidadComentario[0]['cantidad'] : 0}} comentarios</p>
-                <div class="content-productos content-productos-2" *ngIf="totalComentario.length < 1">
+                <div class="content-productos content-productos-2" *ngIf="totalComentario && totalComentario.length < 1">
 
                   <div class="icono-triste">
                     <span class="material-icons">
@@ -452,7 +476,7 @@
                   </div>
                 </div>
 
-                <div  *ngIf="cantidadComentario.length > 0">
+                <div  *ngIf="cantidadComentario && cantidadComentario.length > 0">
 
                   <div class="box-comment" *ngFor="let data of totalComentario?totalComentario:0">
                     <h3>{{data['comentario_titulo']}}</h3>
@@ -560,7 +584,6 @@
                    </a>
                  </li>
                </ul>-->
-
                </div>
             </div>
         </section>
@@ -598,6 +621,21 @@
             </div>
         </section>
 
+      <section>
+        <div class="container"
+             fxLayout
+             fxLayout.xs="column"
+             fxLayoutAlign="center"
+             fxLayoutGap="10px"
+             fxLayoutGap.xs="0">
+
+          <div fxFlexFill fxLayout="column">
+
+
+          </div>
+        </div>
+
+      </section>
 
     </div>
 </div>

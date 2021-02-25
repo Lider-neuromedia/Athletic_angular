@@ -1,0 +1,31 @@
+export interface PagoCredito {
+  id?: string;
+  campo1?: string;
+  campo2?: string;
+  campo3?: string;
+  campo4?: string;
+  campo5?: string;
+  campo6?: string;
+  campo7?: string;
+  campo8?: string;
+  campo9?: string;
+  campo10?: string;
+  Referencia?: string;
+  Valortotal?: string;
+  Valorbase?: string;
+  Valoriva?: string;
+  Terminal?: string;
+  Descripcion?: string;
+  Documento?: string;
+  Nombre?: string;
+  Apellido?: string;
+  Direccion?: string;
+  Telefono?: string;
+  Celular?: string;
+  Ciudad?: string;
+  Pais?: string;
+  FechaVcm?: string;
+  Correo?: string;
+  ip?: string;
+  tokenSeguridad?: string;
+}

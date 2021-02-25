@@ -118,9 +118,10 @@
 
             <div class="d-block mrg-top-20">
                 <div class="d-none d-md-block row w-100" style="margin-left: 10px !important;">
-                    <div class="col-md-12 clase-banner">
-                        <img src="assets/img/productos/baner_productos.png" class="w-100 border-rad-mild" alt=""
-                            srcset="">
+                    <div class="col-md-12 clase-banner" routerLink="/productos/05/nuevo" *ngIf="disenoHome && disenoHome[0]['url_imagen']">
+                      <img [src]="imagenCategorias?imagenCategorias: ''" class="w-100 border-rad-mild" alt="" *ngIf="imagenCategorias">
+                      <img [src]="disenoHome[0]['url_imagen']" class="w-100 border-rad-mild" alt="" *ngIf="!imagenCategorias">
+
                     </div>
                 </div>
                 <div class="d-none d-md-block row w-100 mrg-top-20" style="margin-left: 10px !important;">

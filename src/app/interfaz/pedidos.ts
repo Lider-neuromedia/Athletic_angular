@@ -9,4 +9,5 @@ export interface Pedidos {
   pedido_referencia?: string;
   direccion_codigo: number;
   pedido_mediopago: string;
+
 }

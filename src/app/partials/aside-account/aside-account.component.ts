@@ -23,6 +23,7 @@ export class AsideAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.removeItem('favoritos');
   }
 
   cerrarSesion(){

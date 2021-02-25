@@ -31,6 +31,7 @@ export class RecuperarClaveComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.removeItem('favoritos');
     $('body, html').animate({
       scrollTop: '0px'
     }, 300);

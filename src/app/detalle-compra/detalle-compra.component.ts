@@ -13,6 +13,7 @@ import {ComentarioProductoComponent} from "../comentario-producto/comentario-pro
 import {MatDialog} from "@angular/material/dialog";
 import {ModalDireccionesComponent} from "../modal-direcciones/modal-direcciones.component";
 import {FavoritosService} from "../servicio/favoritos/favoritos.service";
+import {PagoCredito} from "../interfaz/pagoCredito";
 
 
 @Component({
@@ -24,6 +25,7 @@ export class DetalleCompraComponent implements OnInit {
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  cargarInfoCredito: PagoCredito;
 
 
   email = new FormControl('', [Validators.required, Validators.email]);
@@ -33,7 +35,7 @@ export class DetalleCompraComponent implements OnInit {
   myForm: FormGroup;
   matcher = new MyErrorStateMatcher();
 
-
+  cualesElBanco = null;
   carrito: any;
   carritoAnterior = [];
   cantidadCarrito = 0;
@@ -59,7 +61,7 @@ export class DetalleCompraComponent implements OnInit {
   cargarDirecciones: any;
   direccionEstado: any;
   codigoEdicionDireccion: number;
-
+  numeroCuotasPagos = [];
   circulo11: string;
   barra11: string;
   texto11: string;
@@ -116,6 +118,11 @@ export class DetalleCompraComponent implements OnInit {
   valorACancelar: number;
   cantidadProductoReales: any;
   marcarContraentrega: boolean;
+  dataBancos: any;
+  acumuladorItem: number;
+
+  retornnoDelPEdido: any;
+  obtenerIpEquipo: any;
 
   constructor(
     private variablesGl: VariablesService,
@@ -133,7 +140,30 @@ export class DetalleCompraComponent implements OnInit {
 
   }
 
+  cuotasPago() {
+
+    for (let i =1;  i <= 36; i++) {
+      this.numeroCuotasPagos.push(i);
+    }
+    console.log(this.numeroCuotasPagos);
+  }
   ngOnInit(): void {
+    this.cuotasPago();
+    this.llamarInformacionCredito();
+    this.dataPedidos = {
+      usuario_codigo: null,
+      pedido_respuesta: null,
+      pedido_codigo: null,
+      pedido_referencia: null,
+      pedido_valor: null,
+      pedido_estado: 'APROBADO',
+      cliente_codigo: null,
+      direccion_codigo: null,
+      pedido_mediopago: ''
+
+    }
+
+    localStorage.removeItem('favoritos');
     this.habilita1 = true;
     this.circulo1 = '#FF596A';
     this.barra1 = '#FF596A';
@@ -171,7 +201,7 @@ export class DetalleCompraComponent implements OnInit {
     this.texto44 = '#969696';
 
     this.barra55 = '#969696';
-
+    this.informacionBancos();
     this.llamarDatoLocales();
     this.miCarritoCompraContador();
     this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
@@ -183,39 +213,10 @@ export class DetalleCompraComponent implements OnInit {
     this.cargarTodasLasDirecciones();
     this.obtenervalorEnvioDefecto();
 
-    this.dataPedidos = {
-      usuario_codigo: null,
-      pedido_respuesta: null,
-      pedido_codigo: null,
-      pedido_referencia: null,
-      pedido_valor: null,
-      pedido_estado: 'APROBADO',
-      cliente_codigo: null,
-      direccion_codigo: null,
-      pedido_mediopago: null
 
-    }
 
     this.setUsuario();
 
-    this.bancos = [
-      {
-        id: 1,
-        name: 'Bancolombia'
-      },
-      {
-        id: 2,
-        name: 'Banco Avevilla'
-      },
-      {
-        id: 3,
-        name: 'Banco Popular'
-      },
-      {
-        id: 4,
-        name: 'Banco de Bogota'
-      }
-    ];
     this.tipoDocumento = [
       {
         id: 1,
@@ -302,6 +303,15 @@ export class DetalleCompraComponent implements OnInit {
 
     if (proceso === 1) {
       this.carritoNuevo[indice].cantidad++;
+      const result = this.carritoNuevo[indice]['combinaciones'].filter(item => item.valor ==  this.carritoNuevo[indice].talla);
+      console.log(this.carritoNuevo[indice].cantidad);
+
+      if (this.carritoNuevo[indice].cantidad <= result[0]['cantidad']) {
+
+      } else {
+        this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario '+ result[0]['cantidad']);
+        return;
+      }
     } else {
       if (this.carritoNuevo[indice].cantidad > 1) {
         this.carritoNuevo[indice].cantidad--;
@@ -311,8 +321,10 @@ export class DetalleCompraComponent implements OnInit {
       }
     }
 
+
     localStorage.setItem('athletic', JSON.stringify(this.carritoNuevo));
     this.variablesGl.changeMessage();
+    this.obtenervalorEnvioDefecto();
   }
 
   quitarItemCarrito(data, co) {
@@ -475,19 +487,31 @@ export class DetalleCompraComponent implements OnInit {
 
     this.barra5 = '#FF596A';
     this.barra55 = '#FF596A';
-    this.setHtpp.httpPost('crear-pedido', data).toPromise().then(respuesta => {
+    this.setHtpp.httpPost('crear-pedido', data).toPromise().then(async respuesta => {
+      console.log(respuesta);
+      this.retornnoDelPEdido = respuesta['data'][0];
+      this.obtenerIpEquipo = respuesta['ip'];
+      await  this.pasareladePago();
+
       this.alertaS.showToasterFull('Pedido realizado exitosamente');
+      localStorage.removeItem('athletic');
+      this.variablesGl.changeMessage();
+      this.gastosEnvio = 0;
+    //  this.ruta.navigate(['/']);
     }).catch(error => {
       console.log(error);
     });
+
+
   }
 
   llamarDatoLocalesUsuario() {
 
     this.loginGlobal.currentMessage.subscribe(response => {
       this.usuario = response;
-
-
+      if (this.usuario) {
+        this.pasarSguiente2(1);
+      }
     });
   }
 
@@ -753,6 +777,9 @@ export class DetalleCompraComponent implements OnInit {
       this.habilitarBotonPago = 4;
     }
 
+
+    console.log(value);
+
   }
 
 
@@ -775,11 +802,14 @@ export class DetalleCompraComponent implements OnInit {
         this.loginGlobal.changeMessage();
         this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
         this.alertaS.showToasterFull('Registro guardado exitosmente');
+
         this.habilita2 = false;
-        this.habilita3 = true;
+        this.pasarSguiente2(3);
+        /*this.habilita3 = true;
         this.circulo33 = '#FF596A';
         this.barra33 = '#FF596A';
         this.texto33 = '#FF596A';
+        this.llamarDatoLocales();*/
         this.setUsuario();
 
       }
@@ -1009,7 +1039,7 @@ export class DetalleCompraComponent implements OnInit {
   sendLogin() {
     if (this.email.errors == null && this.password.errors == null) {
       var data = { email: this.email.value, password: this.password.value };
-      this.setHtpp.httpPost('clientes-login', data).subscribe(
+      this.setHtpp.httpPost('clientes-login-movil', data).subscribe(
         response => {
           if (response.response == 'error') {
             this.alertaS.showToasterError('credenciales invalidas');
@@ -1085,7 +1115,7 @@ export class DetalleCompraComponent implements OnInit {
   }
 
   validarTipoPago(valor, event?) {
-
+    console.log(valor, this.dataPedidos);
     if (valor === 1) {
       this.dataPedidos.pedido_mediopago = 'CREDITO';
       this.dataPedidos.pedido_estado = 'APROBADO';
@@ -1113,6 +1143,266 @@ export class DetalleCompraComponent implements OnInit {
       this.direccionEstado = respuesta['direccion'];
       console.log( this.direccionEstado);
     });
+  }
+
+  informacionBancos() {
+
+    this.dataBancos =   [
+      {
+        codigo: 1040,
+        nombre: "BANCO AGRARIO"
+      },
+      {
+        codigo: 1052,
+        nombre: "BANCO AV VILLAS"
+      },
+      {
+        codigo: 1032,
+        nombre: "BANCO CAJA SOCIAL BCSC SA"
+      },
+      {
+        codigo: 1066,
+        nombre: "BANCO COOPERATIVO COOPCENTRAL"
+      },
+      {
+        codigo: 1558,
+        nombre: "BANCO CREDIFINANCIERA SA."
+      },
+      {
+        codigo: 1051,
+        nombre: "BANCO DAVIVIENDA SA"
+      },
+      {
+        codigo: 1001,
+        nombre: "BANCO DE BOGOTA"
+      },
+      {
+        codigo: 1023,
+        nombre: "BANCO DE OCCIDENTE"
+      },
+      {
+        codigo: 1062,
+        nombre: "BANCO FALABELLA S.A."
+      },
+      {
+        codigo: 1063,
+        nombre: "BANCO FINANDINA S.A."
+      },
+      {
+        codigo: 1012,
+        nombre: "BANCO GNB SUDAMERIS"
+      },
+      {
+        codigo: 1047,
+        nombre: "BANCO MUNDO MUJER"
+      },
+      {
+        codigo: 1060,
+        nombre: "BANCO PICHINCHA"
+      },
+      {
+        codigo: 1002,
+        nombre: "BANCO POPULAR"
+      },
+      {
+        codigo: 1065,
+        nombre: "BANCO SANTANDER DE NEGOCIOS COLOMBIA S.A"
+      },
+      {
+        codigo: 1069,
+        nombre: "BANCO SERFINANZA S.A"
+      },
+      {
+        codigo: 1053,
+        nombre: "BANCO W S.A."
+      },
+      {
+        codigo: 1031,
+        nombre: "BANCOLDEX S.A."
+      },
+      {
+        codigo: 1007,
+        nombre: "BANCOLOMBIA"
+      },
+      {
+        codigo: 1061,
+        nombre: "BANCOOMEVA"
+      },
+      {
+        codigo: 1013,
+        nombre: "BBVA COLOMBIA"
+      },
+      {
+        codigo: 1009,
+        nombre: "CITIBANK"
+      },
+      {
+        codigo: 1370,
+        nombre: "COLTEFINANCIERA S.A"
+      },
+      {
+        codigo: 1292,
+        nombre: "CONFIAR COOPERATIVA FINANCIERA"
+      },
+      {
+        codigo: 1291,
+        nombre: "COOFINEP COOPERATIVA FINANCIER"
+      },
+      {
+        codigo: 1283,
+        nombre: "COOPERATIVA FINANCIERA DE ANTIOQUIA"
+      },
+      {
+        codigo: 1289,
+        nombre: "COOTRAFA COOPERATIVA FINANCIERA"
+      },
+      {
+        codigo: 1551,
+        nombre: "DAVIPLATA"
+      },
+      {
+        codigo: 1121,
+        nombre: "FINANCIERA JURISCOOP S.A. COMPAÑIA DE FINANCIAMIENTO"
+      },
+      {
+        codigo: 1303,
+        nombre: "GIROS Y FINANZAS CF"
+      },
+      {
+        codigo: 1014,
+        nombre: "ITAU"
+      },
+      {
+        codigo: 1006,
+        nombre: "ITAU antes Corpbanca"
+      },
+      {
+        codigo: 1067,
+        nombre: "MIBANCO S.A."
+      },
+      {
+        codigo: 1507,
+        nombre: "NEQUI"
+      },
+      {
+        codigo: 1151,
+        nombre: "RAPPIPAY"
+      },
+      {
+        codigo: 1019,
+        nombre: "SCOTIABANK COLPATRIA S.A"
+      }
+    ];
+
+  }
+
+  pasareladePago() {
+    const ruta = 'https://ws.tucompra.net/tcWSDRest/api/autenticar';
+      let data = {
+          "usuario": 'montanag2021',
+          "clave": '@montanag2021@',
+          "terminal": 'hb93n836840hw586'
+      }
+      this.setHtpp.peticionPost(ruta, data).toPromise().then(async respu => {
+        console.log(respu);
+       await this.dataGenerarPago(respu);
+      }).catch(error => {
+        console.log(error);
+
+      })
+
+  }
+
+  continuarBoton(item: number) {
+
+   this.habilitarBotonPago = this.habilitarBotonPago +item;
+
+   if (this.usuario && this.habilitarBotonPago == 2) {
+     this.habilitarBotonPago = 3;
+   }
+
+    this.pasarSguiente2(this.habilitarBotonPago);
+    console.log(this.habilitarBotonPago);
+
+  }
+
+
+  dataGenerarPago(token) {
+    //this.retornnoDelPEdido tokenSeguridad
+    console.log (JSON.parse(token)['tokenSeguridad'], this.obtenerIpEquipo );
+
+    const  pedido = {
+      "MetodoPago": {
+        "id": "",
+        "campo1": this.cargarInfoCredito.campo1,
+        "campo2": this.cargarInfoCredito.campo2,
+        "campo3": this.cargarInfoCredito.campo3,
+        "campo4": this.cargarInfoCredito.campo4,
+        "campo5": this.cargarInfoCredito.campo5,
+        "campo6": this.cargarInfoCredito.campo6,
+        "campo7": this.cargarInfoCredito.campo7,
+        "campo8": this.cargarInfoCredito.campo8,
+        "campo9": this.cargarInfoCredito.campo9,
+        "campo10": this.cargarInfoCredito.campo10
+      },
+      "Referencia": this.retornnoDelPEdido['pedido_referencia'],
+      "Valortotal": this.retornnoDelPEdido['pedido_valor'],
+      "Valorbase":  this.retornnoDelPEdido['pedido_valor'],
+      "Valoriva": 0,
+      "Terminal": "",
+      "Descripcion": this.cargarInfoCredito.Descripcion,
+      "Documento": this.cargarInfoCredito.Documento,
+      "Nombre": this.cargarInfoCredito.Nombre,
+      "Apellido": this.cargarInfoCredito.Apellido,
+      "Direccion": this.retornnoDelPEdido['direccion_ubicacion'],
+      "Telefono": this.cargarInfoCredito.Celular,
+      "Celular": this.cargarInfoCredito.Celular,
+      "Ciudad": this.retornnoDelPEdido['nombre'],
+      "Pais": "Colombia",
+      "FechaVcm": "",
+      "Correo": this.usuario['email'],
+      "ip": this.obtenerIpEquipo,
+      "tokenSeguridad": JSON.parse(token)['tokenSeguridad']
+    }
+
+    console.log(pedido);
+
+  }
+
+  llamarInformacionCredito() {
+
+    this.cargarInfoCredito = {
+      id: null,
+      campo1: null,
+      campo2: null,
+      campo3: null,
+      campo4: null,
+      campo5: null,
+      campo6: null,
+      campo7: null,
+      campo8: null,
+      campo9: null,
+      campo10:null,
+      Referencia: null,
+      Valortotal: null,
+      Valorbase: null,
+      Valoriva: null,
+      Terminal: null,
+      Descripcion: 'Pago de pedido Athletic Air',
+      Documento: null,
+      Nombre: null,
+      Apellido: null,
+      Direccion: null,
+      Telefono: null,
+      Celular: null,
+      Ciudad: null,
+      Pais: null,
+      FechaVcm: null,
+      Correo: null,
+      ip: null,
+      tokenSeguridad:null,
+    }
+
   }
 
 }

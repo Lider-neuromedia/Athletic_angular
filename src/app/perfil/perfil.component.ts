@@ -28,6 +28,7 @@ export class PerfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.removeItem('favoritos');
     this.usuario = {
       password: null,
       clave: null,

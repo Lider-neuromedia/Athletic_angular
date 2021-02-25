@@ -30,6 +30,7 @@ textoInterfaz: any;
   }
 
   ngOnInit(): void {
+    localStorage.removeItem('favoritos');
     this.listaDetalleCupones();
   }
 

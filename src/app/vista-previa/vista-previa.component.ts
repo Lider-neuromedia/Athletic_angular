@@ -54,7 +54,7 @@ export class VistaPreviaComponent implements OnInit {
   optionSlideDestacados:any = [];
 
   ngOnInit(): void {
-
+    localStorage.removeItem('favoritos');
     this.galleryImages = [
       {
         small: "/N-1008/assets/img/productos/producto-interna.png",

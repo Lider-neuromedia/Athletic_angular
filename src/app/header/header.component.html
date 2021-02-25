@@ -33,9 +33,10 @@
                 <div fxLayout="row" >
                   <div fxLayout="column" class="mrg-top-10 cont-categ" fxLayoutAlign="left">
                     <!-- Ciclo - Categorias -->
-                    <div *ngFor="let item of categorias_prin" class="cambiar-color">
+                    <div *ngFor="let item of categorias_prin?categorias_prin:0" class="cambiar-color">
                       <p [ngClass]=" item.id_categoria == categoria_select ? 'list-categ list-act' : 'list-categ'" >
-                        <a (click)="productosHome(item.name_cat, item.id_categoria)"  (mouseover)="changeSubCategoria(item.id_categoria, item.hijos)">{{item.name_cat}}</a>
+                        <a (click)="productosHome(item.name_cat, item.id_categoria)"
+                           (mouseover)="changeSubCategoria(item.id_categoria, item.hijos)">{{item.name_cat}}</a>
                         <mat-icon aria-hidden="false" class="icon-list-cat" aria-label="Icon">keyboard_arrow_right</mat-icon>
                       </p>
                     </div>
@@ -98,11 +99,11 @@
 
         <!-- Position end -->
         <div class="flex-row ml-md-auto d-none d-sm-flex ing5-items-header">
-          <button [routerLink]="usuario?'/pedidos':'/login'" class="line-height-ini" mat-button fxLayoutAlign="end">
+          <button [routerLink]="usuario?'/pedidos':'/login-movil'" class="line-height-ini" mat-button fxLayoutAlign="end">
             <img class="header-pedidos" src="assets/img/header/pedidos.svg">
             <p class="text-menu">Pedidos</p>
           </button>
-          <button [routerLink]="usuario?'/favoritos':'/login'"   class="line-height-ini" mat-button fxLayoutAlign="end">
+          <button [routerLink]="usuario?'/favoritos':'/login-movil'"   class="line-height-ini" mat-button fxLayoutAlign="end">
             <img class="header-favoritos" src="assets/img/header/favoritos.svg">
             <span class="cantidad-favoritos">{{favoritosCantidad? favoritosCantidad: 0}}</span>
             <p class="text-menu">Mis favoritos</p>
@@ -113,7 +114,7 @@
           </button>
           <button class="line-height-ini" (click)="toggleOpenBolsa()" mat-button fxLayoutAlign="end">
             <img class="bolsa" src="assets/img/header/bolsa.svg">
-            <span class="cantidad-producto">{{carritoAnterior? carritoAnterior.length: 0}}</span>
+            <span class="cantidad-producto">{{cantidadProductoReales? cantidadProductoReales : 0}}</span>
             <p class="text-menu">Bolsa</p>
           </button>
         </div>
@@ -228,10 +229,10 @@
       Mis reseñas
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
     </button>
-    <button class="btn-menu" mat-menu-item [routerLink]="usuario?'/cupones':'/login'" >
+    <!--<button class="btn-menu" mat-menu-item [routerLink]="usuario?'/cupones':'/login'" >
       Mis cupones
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>
-    </button>
+    </button>-->
     <button class="btn-menu" mat-menu-item [routerLink]="usuario?'/direcciones':'/login'" >
       Mis direcciones
       <mat-icon aria-hidden="false" class="icon-list-menu" aria-label="Icon">keyboard_arrow_right</mat-icon>

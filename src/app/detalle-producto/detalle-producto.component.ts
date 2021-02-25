@@ -22,6 +22,7 @@ export class DetalleProductoComponent implements OnInit {
   producto : any;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  imagenesView: any;
   descuento;
   valor_ant;
   precio_desc;
@@ -73,6 +74,10 @@ export class DetalleProductoComponent implements OnInit {
   to: any;
   total: number = 1;
   cantidadPagina: number = 1;
+  mostrarZoom: boolean;
+  imagenCambbiar: string;
+  tallasDelProductoFiltradas: any;
+  returnEstadoProducto: any;
 
   constructor(
     public dialog: MatDialog,
@@ -142,6 +147,11 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.removeItem('favoritos');
+    this.imagenCambbiar = '';
+    document.getElementById('myresult').style.display = 'none';
+
+    this.mostrarZoom = false;
 
     $('body, html').animate({
       scrollTop: '0px'
@@ -275,9 +285,10 @@ export class DetalleProductoComponent implements OnInit {
   // Productos
   getProducts(id) {
     this.http.httpGet('productos/' + id, null, false).subscribe(
-      response => {
+      async response => {
         this.producto = response;
         console.log(this.producto);
+        await  this.validarEstadodelProducto();
         this.producto.precio = Math.round(this.producto.precio)
         $('#detalle').html(response.descripcion_prod);
         $('blockquote').addClass('col-md-4');
@@ -291,7 +302,11 @@ export class DetalleProductoComponent implements OnInit {
 
           gallery.push(img);
         });
+
+        this.tallasDelProductoFiltradas = this.producto['combinaciones'].filter(datos => datos.cantidad > 0);
+        //const result = this.producto['combinaciones'].filter(item => item.valor == talla);
         this.galleryImages = gallery;
+        this.imagenesView = response.imagenes;
       },
       error => { console.log("error." + error); }
     );
@@ -318,33 +333,37 @@ export class DetalleProductoComponent implements OnInit {
     this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
     console.log(this.carritoAnterior);
 
-    if (this.cantidadProductos > 0) {
-      this.producto['talla'] = this.opcionSeleccionado;
-      this.producto['cantidad'] = this.cantidadProductos;
-      this.addProductoCarrito.push(this.producto);
-      console.log(this.addProductoCarrito);
 
-      if (this.addProductoCarrito) {
-        if (this.carritoAnterior) {
-        } else {
-          this.carritoAnterior = [];
+    if (this.verTalalsAgotadas(this.opcionSeleccionado, this.cantidadProductos, this.producto['id_producto'])) {
+      if (this.cantidadProductos > 0) {
+        this.producto['talla'] = this.opcionSeleccionado;
+        this.producto['cantidad'] = this.cantidadProductos;
+        this.addProductoCarrito.push(this.producto);
+        console.log(this.addProductoCarrito);
+
+        if (this.addProductoCarrito) {
+          if (this.carritoAnterior) {
+          } else {
+            this.carritoAnterior = [];
+          }
+
+          this.carritoAnterior.push(this.producto);
+          localStorage.setItem('athletic', JSON.stringify(this.carritoAnterior));
         }
 
-        this.carritoAnterior.push(this.producto);
-        localStorage.setItem('athletic', JSON.stringify(this.carritoAnterior));
+
+        this.addProductoCarrito = [];
+        this.cantidadProductos = 1;
+
+        this.alertaS.showToasterFull(`Articulo Agregado Corectamente`);
+
+
+      } else {
+        this.alertaS.showToasterError(`Debes agregar Minimo un producto ,  ${this.cantidadProductos}`);
       }
-
-
-      this.addProductoCarrito = [];
-      this.cantidadProductos = 1;
-
-      this.alertaS.showToasterFull(`Articulo Agregado Corectamente`);
-
-
-    } else {
-      this.alertaS.showToasterError(`Debes agregar Minimo un producto ,  ${this.cantidadProductos}`);
+      this.variablesGl.changeMessage();
     }
-    this.variablesGl.changeMessage();
+
   }
 
 
@@ -397,7 +416,10 @@ export class DetalleProductoComponent implements OnInit {
 
   }
   ingresar() {
-    this.ruta.navigate(['login']);
+
+      localStorage.setItem('favoritos', JSON.stringify(this.producto.id_producto))
+
+    this.ruta.navigate(['login-movil']);
   }
 
   openDialog() {
@@ -498,7 +520,7 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   autenticarse() {
-    this.ruta.navigate(['login']);
+    this.ruta.navigate(['login-movil']);
   }
 
   listarProductosRelacionados(codigo) {
@@ -519,6 +541,41 @@ export class DetalleProductoComponent implements OnInit {
   checkearTalla(evento) {
     console.log(evento);
     this.opcionSeleccionado = evento;
+  }
+
+  verTalalsAgotadas(talla: string, cantidad: number, producto: number) {
+
+    console.log(this.producto['combinaciones'], talla, cantidad, producto);
+    //Filtro cual es la talla del producto que estan comprando
+    const result = this.producto['combinaciones'].filter(item => item.valor == talla);
+    console.log(result, result[0]['cantidad']);
+    //luego que obtengo los datos de la base de datos valido que si la cantidad que estan comprando es menor o igual a la que tengo
+    //En la base de datos lo deje permitir comprando de lo contrario nooooooooo podra
+    if (cantidad <= result[0]['cantidad']) {
+
+      let dattos = {
+          producto: producto,
+          atributo: result[0]['id_atributo_value'],
+          cantidad: cantidad,
+          stock: result[0]['id_stock'],
+      };
+      this.producto['stock'] = dattos;
+      return true;
+    //Si esta corecta la cantida le devuelvo true al carrito de compras
+    }else {
+      this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+ result[0]['cantidad']);
+      return false;
+      //De lo contrario devuelvo false y le digo que la cantidad maxima debe ser la que tengo en  la base de datos
+    }
+
+    /*cantidad: 12
+    id_atributo_group: 2
+    id_atributo_value: 16
+    id_combinacion: 1349
+    precio: null
+    sku: null
+    valor: "40"*/
+
   }
 
   getPagination(url: string): void{
@@ -572,6 +629,97 @@ export class DetalleProductoComponent implements OnInit {
         });
       }
     })
+
+  }
+
+  ocultarZoom() {
+    document.getElementById('myresult').style.display = 'none';
+    console.log( this.mostrarZoom)
+  }
+
+
+  imageZoom(imgID, resultID) {
+    document.getElementById('myresult').style.display = 'block';
+    this.mostrarZoom = true;
+    var img, lens, result, cx, cy;
+    img = document.getElementById(imgID);
+    result = document.getElementById(resultID);
+    /*create lens:*/
+    lens = document.createElement("DIV");
+    lens.setAttribute("class", "img-zoom-lens");
+    /*insert lens:*/
+    img.parentElement.insertBefore(lens, img);
+    /*calculate the ratio between result DIV and lens:*/
+    cx = result.offsetWidth / lens.offsetWidth;
+    cy = result.offsetHeight / lens.offsetHeight;
+    /*set background properties for the result DIV:*/
+    result.style.backgroundImage = "url('" + img.src + "')";
+    result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+    /*execute a function when someone moves the cursor over the image, or the lens:*/
+    lens.addEventListener("mousemove", moveLens);
+    img.addEventListener("mousemove", moveLens);
+    /*and also for touch screens:*/
+    lens.addEventListener("touchmove", moveLens);
+    img.addEventListener("touchmove", moveLens);
+    function moveLens(e) {
+      var pos, x, y;
+      /*prevent any other actions that may occur when moving over the image:*/
+      e.preventDefault();
+      /*get the cursor's x and y positions:*/
+      pos = getCursorPos(e);
+      /*calculate the position of the lens:*/
+      x = pos.x - (lens.offsetWidth / 2);
+      y = pos.y - (lens.offsetHeight / 2);
+      /*prevent the lens from being positioned outside the image:*/
+      if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
+      if (x < 0) {x = 0;}
+      if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
+      if (y < 0) {y = 0;}
+      /*set the position of the lens:*/
+      lens.style.left = x + "px";
+      lens.style.top = y + "px";
+      /*display what the lens "sees":*/
+      result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+    }
+    function getCursorPos(e) {
+      var a, x = 0, y = 0;
+      e = e || window.event;
+      /*get the x and y positions of the image:*/
+      a = img.getBoundingClientRect();
+      /*calculate the cursor's x and y coordinates, relative to the image:*/
+      x = e.pageX - a.left;
+      y = e.pageY - a.top;
+      /*consider any page scrolling:*/
+      x = x - window.pageXOffset;
+      y = y - window.pageYOffset;
+      return {x : x, y : y};
+    }
+
+  }
+
+  cambiarImagen(imagen) {
+
+    this.imagenCambbiar = imagen;
+  }
+
+
+  getUrlImage(url: string) {
+    return `url('${url}')`;
+  }
+
+
+  validarEstadodelProducto() {
+
+    console.log(this.producto);
+
+
+      this.returnEstadoProducto = this.producto['combinaciones'].reduce((item1, item2) => {
+        //return item1 + (item2.cantidad);
+        return item1 + item2.cantidad;
+      }, 0);
+
+ //   return this.returnEstadoProducto;
+    console.log(this.returnEstadoProducto);
 
   }
 

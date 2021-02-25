@@ -18,6 +18,29 @@ import {AgregarCarritoComponent} from "../agregar-carrito/agregar-carrito.compon
 })
 export class ProductosComponent implements OnInit {
 
+  disenoHome = {
+    sesion_1 : [],
+    sesion_2 : [],
+    sesion_3 : [],
+    sesion_4 : [],
+    sesion_5 : [],
+    sesion_6 : [],
+    sesion_7 : [],
+    sesion_8 : [],
+    sesion_9 : [],
+    sesion_10 : [],
+    sesion_11 : [],
+    sesion_12 : [],
+    sesion_13 : [],
+    sesion_14 : [],
+    sesion_15 : [],
+    sesion_16 : [],
+    sesion_17 : [],
+    sesion_18 : [],
+    sesion_19 : [],
+  };
+
+
   minValue: number = 0;
   maxValue: number = 300000;
   options: Options = {
@@ -51,8 +74,10 @@ export class ProductosComponent implements OnInit {
   talla: any;
   opcionSeleccionado: any;
   infoExtraer: any;
+  imagenCategorias: any;
   descuentosProductos: any;
   codigoFiltro: any;
+  dataImagenesBanner: any;
   constructor(
     private http: SendHttpData,
     public dialog: MatDialog,
@@ -68,35 +93,16 @@ export class ProductosComponent implements OnInit {
 
   ngOnInit(): void {
 
+    localStorage.removeItem('favoritos');
+    this.getDisenoHome();
     this.activatedRoute.params.subscribe(value => {
 
       console.log(value.id);
       this.codigoFiltro = value.id;
 
       if (value.id) {
+        this.llamarMarcasUrl(value.id);
 
-        this.http.httpGetParamt('categorias-productos', value.id).toPromise().then(respuesta => {
-          console.log(respuesta);
-          this.infoExtraer = respuesta[`data`]['codigo_cat'];
-          this.infoExtraer = this.infoExtraer.substring(0, 3);
-
-          if (this.infoExtraer == 'H01') {
-            this.changeCategorie(true, 2);
-            this.filter_estadoPrducto = null;
-            // this.filter_categorias = [2];
-          }else if (this.infoExtraer == 'M02') {
-            this.changeCategorie(true, 11);
-            this.filter_estadoPrducto = null;
-            // this.filter_categorias = [11];
-          }else if (this.infoExtraer == 'K03') {
-            this.changeCategorie(true, 19);
-            // this.filter_categorias = [19];
-            this.filter_estadoPrducto = null;
-          }
-          console.log(this.infoExtraer, this.filter_categorias);
-        }).catch(error => {
-          console.log(error);
-        })
       }
       this.checkMarcas = value.marca;
       console.log(value, this.checkMarcas);
@@ -139,6 +145,47 @@ export class ProductosComponent implements OnInit {
         nombre: 'No'
       }
     ];
+  }
+
+  listarCategoriasBaner(val) {
+    this.http.httpGet('categorias-productos-banner').toPromise().then(respuesta => {
+      console.log(respuesta);
+      this.dataImagenesBanner = respuesta['data'];
+       let dataFinal =  this.dataImagenesBanner.filter(datos => datos.id_categoria  == val);
+      this.imagenCategorias = dataFinal[0]['img'];
+    });
+
+
+  }
+
+  llamarMarcasUrl(id) {
+
+    this.listarCategoriasBaner(id);
+
+    this.http.httpGetParamt('categorias-productos', id).toPromise().then(respuesta => {
+      console.log(respuesta);
+      this.infoExtraer = respuesta[`data`]['codigo_cat'];
+      //this.imagenCategorias = respuesta[`data`]['img'];
+      this.infoExtraer = this.infoExtraer.substring(0, 3);
+
+      if (this.infoExtraer == 'H01') {
+        this.changeCategorie(true, 2);
+        this.filter_estadoPrducto = null;
+        // this.filter_categorias = [2];
+      }else if (this.infoExtraer == 'M02') {
+        this.changeCategorie(true, 11);
+        this.filter_estadoPrducto = null;
+        // this.filter_categorias = [11];
+      }else if (this.infoExtraer == 'K03') {
+        this.changeCategorie(true, 19);
+        // this.filter_categorias = [19];
+        this.filter_estadoPrducto = null;
+      }
+      console.log(this.infoExtraer, this.filter_categorias);
+    }).catch(error => {
+      console.log(error);
+    });
+
   }
 
   openDialog() {
@@ -184,6 +231,7 @@ export class ProductosComponent implements OnInit {
 
   changeMarca($event, id) {
 
+
     console.log($event, id);
     if ($event.checked) {
       if (this.filter_marcas == null) {
@@ -220,6 +268,10 @@ export class ProductosComponent implements OnInit {
   }
 
   changeCategorie($event, id) {
+
+    this.listarCategoriasBaner(id);
+
+
     if ($event.checked) {
       if (this.filter_categorias == null) {
         this.filter_categorias = [id];
@@ -481,7 +533,7 @@ export class ProductosComponent implements OnInit {
   }
 
   ingresar() {
-    this.ruta.navigate(['login']);
+    this.ruta.navigate(['login-movil']);
   }
 
   llamarDatoLocalesUsuario() {
@@ -557,5 +609,18 @@ export class ProductosComponent implements OnInit {
     }
     this.addPrice();
     this.setFilter();
+  }
+
+
+  getDisenoHome(){
+    this.http.httpGet('disenoHome').subscribe(
+      response => {
+        this.disenoHome = response['sesion_19'];
+        console.log(this.disenoHome);
+      },
+      error => {
+        console.error("Error en el diseño.");
+      }
+    );
   }
 }

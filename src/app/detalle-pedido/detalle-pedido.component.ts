@@ -30,6 +30,7 @@ export class DetallePedidoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.removeItem('favoritos');
   }
 
   getDetalleProductos()  {

@@ -8,10 +8,10 @@ export class SendHttpData {
   //private baseUrl = 'http://pruebasneuro.co/N-1041/public/api/';
    private baseUrl = 'http://localhost:8000/api/';
 
-  //private baseUrl = ' https://pruebasneuro.co/N-1059/api/public/api/';
+ //private baseUrl = ' https://pruebasneuro.co/N-1061/api/public/api/';
   // Key prestashop
   // private key = "JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
-  // private full = "display=full";
+  // private full = "display=full"; Neuro*123$
 
   constructor(private _http: HttpClient) { }
 
@@ -20,7 +20,7 @@ export class SendHttpData {
   //   if (full) {
   //     url = url + "&" + this.full;
   //   }
-  //   if (filter != null) {
+  //   if (filter != null) {Neuro2020*
   //     url = url + "&" + filter;
   //   }
   //   return url;
@@ -58,6 +58,11 @@ export class SendHttpData {
   httpGetPaginar(route:string, filter:string = null, full=true):Observable<any>{
     var url = route;
     return this._http.get(url);
+  }
+
+
+  peticionPost(ruta, data) {
+    return this._http.post(ruta, data,{responseType: 'text'});
   }
 
 

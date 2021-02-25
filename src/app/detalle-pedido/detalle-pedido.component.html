@@ -13,17 +13,17 @@
               <div class="pedido-info">
                 <div class="row row-pedido-info ">
                   <div class="col-md-3">
-                    <p>Origen. {{ encabezado['origen']}}</p>
+                    <p>Origen. {{  encabezado && encabezado['origen']?encabezado['origen']:''}}</p>
                   </div>
                   <div class="col-md-3">
-                    <p>Destino. {{ encabezado['destino']}}</p>
+                    <p>Destino. {{ encabezado && encabezado['destino']?encabezado['destino']:''}}</p>
                   </div>
                   <div class="col-md-6">
-                    <p *ngIf="encabezado && encabezado['transportadora_tiempoestimado']">estimado de entrega. de {{ encabezado['transportadora_tiempoestimado']}}</p>
+                    <p >estimado de entrega. {{ encabezado?encabezado['transportadora_tiempoestimado']: ''}}</p>
                   </div>
                 </div>
               </div>
-              <div class="pedido-estado cerrado">Estado: <span>{{encabezado['pedido_estado']}}</span></div>
+              <div class="pedido-estado cerrado">Estado: <span>{{encabezado && encabezado['pedido_estado']?encabezado['pedido_estado']:''}}</span></div>
             </div>
             <div class="items">
 

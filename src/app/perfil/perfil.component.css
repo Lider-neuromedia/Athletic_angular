@@ -3,3 +3,11 @@
     border-radius: 25px;
     width: 133px;
 }
+
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #bfc4c4 !important;
+  outline: 0;
+  box-shadow: none;
+}
