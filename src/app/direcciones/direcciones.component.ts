@@ -144,14 +144,15 @@ export class DireccionesComponent implements OnInit {
       this.direcciones.direccion_celular = respuesta['data'][0]['direccion_celular'];
       this.direcciones.direccion_barrio = respuesta['data'][0]['direccion_barrio'];
       this.direcciones.direccion_ubicacion = respuesta['data'][0]['direccion_ubicacion'];
-      this.direcciones.ciudad_codigo = respuesta['data'][0]['ciudad_codigo'];
+      this.direcciones.ciudad_codigo = respuesta['data'][0]['id_ciudad'];
 
       this.direcciones.usuario_nombre = respuesta['data'][0]['usuario_nombre'];
       this.direcciones.usuario_apellido = respuesta['data'][0]['usuario_apellido'];
       this.direcciones.direccion_lugar = respuesta['data'][0]['direccion_lugar'];
       this.direcciones.usuario_recibir_informacion = respuesta['data'][0]['usuario_recibir_informacion'];
       this.direcciones.direccion_estado = respuesta['data'][0]['direccion_estado'];
-      this.codigoDepartamento = respuesta['data'][0]['departamento'];
+      this.codigoDepartamento = respuesta['data'][0]['id'];
+      this.onchangeCiudades();
       this.codigoCiudad = respuesta['data'][0]['ciudad'];
       console.log(this.direcciones);
     }).catch(error => {

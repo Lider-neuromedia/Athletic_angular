@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 import Swal from "sweetalert2";
 import {GlobalVarService} from "../common/global-var.service";
 import {MyErrorStateMatcher} from "../login/login.component";
-import {ComentarioProductoComponent} from "../comentario-producto/comentario-producto.component";
+
 import {MatDialog} from "@angular/material/dialog";
 import {ModalDireccionesComponent} from "../modal-direcciones/modal-direcciones.component";
 import {FavoritosService} from "../servicio/favoritos/favoritos.service";
@@ -26,11 +26,14 @@ export class DetalleCompraComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   cargarInfoCredito: PagoCredito;
+  cargarInfoDebito: PagoCredito;
 
 
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
-
+  publicKey = '-----BEGIN PUBLIC KEY-----\n' +
+    'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApRSn/UOt4H2V0vZrEOsLb1YkQv7p0+dUIra7h4Srq7KbKxL2mtKQnKjnhmVbon446h713ItYMmXCJNzz/K/UtWT/elnMR74uL2ODaQ1qQvAuDGfFfbVQ+3WDxnC6LWcvA8VViAlZHjftkSGz8GubJ1a8RBIYqvnSXL67oBgF8IVeQQDXCSPMXUYpS/hP/vICFuyVL3GafOn535tJRz0l2vHKA9kB3s+ycy12J9vHzGB6+297LDs37XjUrQ/z52OBvUK/QivksueGrw/ITSwz76iT15kXChc1ZDYRaeKTGYsvYRfluEroSILPkdP5/2PCDNeqwr+SwNLuJC31ACT0+wIDAQAB\n' +
+    '-----END PUBLIC KEY-----';
   // Register
   myForm: FormGroup;
   matcher = new MyErrorStateMatcher();
@@ -123,6 +126,11 @@ export class DetalleCompraComponent implements OnInit {
 
   retornnoDelPEdido: any;
   obtenerIpEquipo: any;
+  credencialesPAsarelaPago: any;
+  rupaparaRealizarPago: any;
+  rutaparaObtenerBancos: any;
+  codigoDeLosBancos: any;
+  terminarBancos: any;
 
   constructor(
     private variablesGl: VariablesService,
@@ -135,7 +143,9 @@ export class DetalleCompraComponent implements OnInit {
     private favoritoSe: FavoritosService,
     private loginGlobal: LoginGlobalService) {
 
+    //
     this.llamarDatoLocalesUsuario();
+    this.informacionBancos();
 
 
   }
@@ -201,7 +211,6 @@ export class DetalleCompraComponent implements OnInit {
     this.texto44 = '#969696';
 
     this.barra55 = '#969696';
-    this.informacionBancos();
     this.llamarDatoLocales();
     this.miCarritoCompraContador();
     this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
@@ -491,10 +500,16 @@ export class DetalleCompraComponent implements OnInit {
       console.log(respuesta);
       this.retornnoDelPEdido = respuesta['data'][0];
       this.obtenerIpEquipo = respuesta['ip'];
-      await  this.pasareladePago();
+      this.credencialesPAsarelaPago = respuesta['credenciales'];
 
-      this.alertaS.showToasterFull('Pedido realizado exitosamente');
-      localStorage.removeItem('athletic');
+      setTimeout(()=>{
+          this.pasareladePago();
+      }, 2000);
+
+
+
+
+     // localStorage.removeItem('athletic');
       this.variablesGl.changeMessage();
       this.gastosEnvio = 0;
     //  this.ruta.navigate(['/']);
@@ -1102,6 +1117,17 @@ export class DetalleCompraComponent implements OnInit {
   }
 
 
+  openDialogNuevo() {
+
+    const dialogRef = this.dialog.open(ModalDireccionesComponent, {
+      width: '700px',
+      data: {
+        datos:  this.usuario?this.usuario.id_cliente:0,
+        direccion: null
+      }
+    });
+  }
+
   openDialog() {
 
     const dialogRef = this.dialog.open(ModalDireccionesComponent, {
@@ -1146,198 +1172,104 @@ export class DetalleCompraComponent implements OnInit {
   }
 
   informacionBancos() {
-
-    this.dataBancos =   [
-      {
-        codigo: 1040,
-        nombre: "BANCO AGRARIO"
-      },
-      {
-        codigo: 1052,
-        nombre: "BANCO AV VILLAS"
-      },
-      {
-        codigo: 1032,
-        nombre: "BANCO CAJA SOCIAL BCSC SA"
-      },
-      {
-        codigo: 1066,
-        nombre: "BANCO COOPERATIVO COOPCENTRAL"
-      },
-      {
-        codigo: 1558,
-        nombre: "BANCO CREDIFINANCIERA SA."
-      },
-      {
-        codigo: 1051,
-        nombre: "BANCO DAVIVIENDA SA"
-      },
-      {
-        codigo: 1001,
-        nombre: "BANCO DE BOGOTA"
-      },
-      {
-        codigo: 1023,
-        nombre: "BANCO DE OCCIDENTE"
-      },
-      {
-        codigo: 1062,
-        nombre: "BANCO FALABELLA S.A."
-      },
-      {
-        codigo: 1063,
-        nombre: "BANCO FINANDINA S.A."
-      },
-      {
-        codigo: 1012,
-        nombre: "BANCO GNB SUDAMERIS"
-      },
-      {
-        codigo: 1047,
-        nombre: "BANCO MUNDO MUJER"
-      },
-      {
-        codigo: 1060,
-        nombre: "BANCO PICHINCHA"
-      },
-      {
-        codigo: 1002,
-        nombre: "BANCO POPULAR"
-      },
-      {
-        codigo: 1065,
-        nombre: "BANCO SANTANDER DE NEGOCIOS COLOMBIA S.A"
-      },
-      {
-        codigo: 1069,
-        nombre: "BANCO SERFINANZA S.A"
-      },
-      {
-        codigo: 1053,
-        nombre: "BANCO W S.A."
-      },
-      {
-        codigo: 1031,
-        nombre: "BANCOLDEX S.A."
-      },
-      {
-        codigo: 1007,
-        nombre: "BANCOLOMBIA"
-      },
-      {
-        codigo: 1061,
-        nombre: "BANCOOMEVA"
-      },
-      {
-        codigo: 1013,
-        nombre: "BBVA COLOMBIA"
-      },
-      {
-        codigo: 1009,
-        nombre: "CITIBANK"
-      },
-      {
-        codigo: 1370,
-        nombre: "COLTEFINANCIERA S.A"
-      },
-      {
-        codigo: 1292,
-        nombre: "CONFIAR COOPERATIVA FINANCIERA"
-      },
-      {
-        codigo: 1291,
-        nombre: "COOFINEP COOPERATIVA FINANCIER"
-      },
-      {
-        codigo: 1283,
-        nombre: "COOPERATIVA FINANCIERA DE ANTIOQUIA"
-      },
-      {
-        codigo: 1289,
-        nombre: "COOTRAFA COOPERATIVA FINANCIERA"
-      },
-      {
-        codigo: 1551,
-        nombre: "DAVIPLATA"
-      },
-      {
-        codigo: 1121,
-        nombre: "FINANCIERA JURISCOOP S.A. COMPAÑIA DE FINANCIAMIENTO"
-      },
-      {
-        codigo: 1303,
-        nombre: "GIROS Y FINANZAS CF"
-      },
-      {
-        codigo: 1014,
-        nombre: "ITAU"
-      },
-      {
-        codigo: 1006,
-        nombre: "ITAU antes Corpbanca"
-      },
-      {
-        codigo: 1067,
-        nombre: "MIBANCO S.A."
-      },
-      {
-        codigo: 1507,
-        nombre: "NEQUI"
-      },
-      {
-        codigo: 1151,
-        nombre: "RAPPIPAY"
-      },
-      {
-        codigo: 1019,
-        nombre: "SCOTIABANK COLPATRIA S.A"
+    this.setHtpp.httpGet('listar-credenciales-banco').toPromise().then( respuesta => {
+      console.log(respuesta);
+      this.rutaparaObtenerBancos =  respuesta['listaBancos'];
+      this.codigoDeLosBancos =  respuesta['codigoBancos'];
+      this.terminarBancos  =  respuesta['terminal'];
+      let ruta = respuesta['ruta'];
+      const data = {
+        "usuario": respuesta['usuario'],
+        "clave": respuesta['clave'],
+        "terminal": respuesta['terminal'],
       }
-    ];
 
-  }
-
-  pasareladePago() {
-    const ruta = 'https://ws.tucompra.net/tcWSDRest/api/autenticar';
-      let data = {
-          "usuario": 'montanag2021',
-          "clave": '@montanag2021@',
-          "terminal": 'hb93n836840hw586'
-      }
-      this.setHtpp.peticionPost(ruta, data).toPromise().then(async respu => {
+      this.setHtpp.peticionPost(ruta, data).toPromise().then( respu => {
         console.log(respu);
-       await this.dataGenerarPago(respu);
-      }).catch(error => {
-        console.log(error);
+        const item = {
+          "idMetodoPago": this.codigoDeLosBancos,
+          "terminal": this.terminarBancos,
+          "accessToken": JSON.parse(respu)['tokenSeguridad'] //"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyL251bGwiLCJleHAiOjE2MTQ2MTg5NzZ9.cfetLB8iY7rxWxpJ_rAQSVgMGfGoYWKSIWziyTgy2ms"
+        }
+
+        this.setHtpp.peticionPost(this.rutaparaObtenerBancos, item).toPromise().then( respu => {
+          console.log(respu);
+          this.dataBancos = JSON.parse(respu);
+          console.log(this.dataBancos);
+        })
 
       })
+    }).catch(error => {
+      console.log(error);
+    });
 
   }
 
   continuarBoton(item: number) {
 
-   this.habilitarBotonPago = this.habilitarBotonPago +item;
+    this.habilitarBotonPago = this.habilitarBotonPago +item;
 
-   if (this.usuario && this.habilitarBotonPago == 2) {
-     this.habilitarBotonPago = 3;
-   }
+    if (this.usuario && this.habilitarBotonPago == 2) {
+      this.habilitarBotonPago = 3;
+    }
 
     this.pasarSguiente2(this.habilitarBotonPago);
     console.log(this.habilitarBotonPago);
 
   }
 
+  /**
+   * Metodo de autenticacion de la pasarela de pagos tuCompra por tema de seguriada las credenciales estan en el Backend
+   */
+  pasareladePago() {
 
+    const ruta =  this.credencialesPAsarelaPago['ruta'];
+      let data = {
+          "usuario": this.credencialesPAsarelaPago['usuario'],
+          "clave": this.credencialesPAsarelaPago['clave'],
+          "terminal": this.credencialesPAsarelaPago['terminal'],
+      }
+      this.setHtpp.peticionPost(ruta, data).toPromise().then( respu => {
+        console.log(respu);
+
+        setTimeout(()=>{
+
+          if (this.dataPedidos.pedido_mediopago == 'CREDITO') {
+            this.dataGenerarPago(respu);
+          }
+
+          if (this.dataPedidos.pedido_mediopago == 'DEBITO') {
+            this.dataGenerarPagoDebito(respu);
+          }
+
+
+        }, 2000);
+
+      }).catch(error => {
+        console.log(error);
+
+      })
+  }
+
+  /**
+   * Metodo encargado de obtener los datos del Formulario y enviarlo a la pasarela de pago
+   * Campo1 Numero de tarjeta
+   * Campo2 Codigo CVV
+   * Campo3 Año de Ex.
+   * Campo4 Mes de Ex.
+   * Por tema de seguridad de la apsarela se deben encriptar estos datos
+   */
   dataGenerarPago(token) {
     //this.retornnoDelPEdido tokenSeguridad
-    console.log (JSON.parse(token)['tokenSeguridad'], this.obtenerIpEquipo );
+    console.log (JSON.parse(token)['tokenSeguridad'], this.obtenerIpEquipo, this.credencialesPAsarelaPago['rutaPagos'] );
 
     const  pedido = {
       "MetodoPago": {
-        "id": "",
-        "campo1": this.cargarInfoCredito.campo1,
-        "campo2": this.cargarInfoCredito.campo2,
-        "campo3": this.cargarInfoCredito.campo3,
-        "campo4": this.cargarInfoCredito.campo4,
+        "id": "37", //metodo de pago
+        "campo1": "5a23c0c0f78f7be3a7d4ac1935e46ac32277620d7367878ffde803c200fa4df75f2b0f74ff841f976fcbf57d625f6343e7a63372682f423db43665ceac0c180e781d942198f1e9895c464c4762189905864f66995fea3eccb3e8437580ba053dd9761d4b2f495a9e4b7c95e178f73b7114df54b4883b346c0db110f6012dcc19abb0e3ec707eed166aaea426dc5f503deed591d10f48dac019f4118b792f957fb4b630c10246bb8504a28d9ae03f8ce8138ac4d96f635d84d7f3ea3aca1b61af613e599692030863ad356f3c7e0df3a1f905c6e2823ad967eefe668304a330572f525c902886a23b3f5695602e4dc76b4d1951aece5c0e79b9ff39d494e7166b",
+        "campo2": "7d8979ba580655d6ac60ca8e8560c21e32b5e74fd42c74acc800980ede7ea6119a06e6d705b37e1ece31a24779e159c7f2e4e236a4e90f6b4063cfc81c1ecb59fbe3a126772281bd36e325cd4fbb30ad3cc013ce4ccd44914e7b5d150618e222a4c1494cbdbd04ebd8ca9e7ffd09938cffd5fba6a7e95987434b0faae82c2fb1b8180d6f6c8d29bb16f621333afd58d90f2f2880135d28c666b79b852b99451a78e4899688036ed6cd1702cc57c01598d334b87299771401353f97085cadc7da0adad1f0791e38399debd3751adfd06e979215d936bd299e2e0d77a0a90b9185638e0790ae14a783ba8d02252f01236071725fc42d806e6f248d0621fe8e01ed",
+        "campo3": "85df06710816bc7704139de809d00d1e08a09016ba4f2143acb0e3f9cc9d10c6c274ae4308c2f5154d0ac02ffa206097dbce09a1363dfaa72f3c800b0a46f142aa3b47b55df88054e6986a2e1d75267c81779d7fcc6d4bd74783762abb3f6d44d4cbc3921ee0894b84f2fa9a83c9f857f69ecfa6aaa49d99e5a52906898a3a7e215a0dc805510f0c00d6c134de8ed24a0060cd6b23325dfd491006ff513336b1a33cb3e25effd1294a2bb571dcd47eae97fa1bb7366c43b03888c93fa0b6c7a3cc9aad91adb17402068eeee21b30077a394e2fb46511209ef3bfd9bfae8c2fa38787c4f32776643956f1c779d5f35abc14b69ce77ef8e16c0f4fe4bb36c021ab",
+        "campo4": "01896fd32ee4b0f071202161a20c21ca974f00106bc65aa957f1069ce24586dbecfbeec7677401d71cb9b4776d8a53c1caf5bb4cbfd87d5c1c93004f53537da3ed2edaa3dfd6ae86e1717634f89dc1c8d544105c417abf7586093fddd8f6b0535163da4df7b3c18c78f1812167feff8cd0010bfbd85c3ec42d2bb0c6c485e10f1940fdbedc736b8471d4d939e15062a277cbb9d52f5e5bdf190d4dd371ebd0b772e9d5b62e8e880dc133a8b522383521572fe5e8de0c86e02cb918b284e251f0e08aa790db7119e92878319085381fadd15c7969381574df46b29072a032b3df668ced9964d65bd38cf39a0833296bf2086b9d1f68464f3c1b989ca45b643d4c",
         "campo5": this.cargarInfoCredito.campo5,
         "campo6": this.cargarInfoCredito.campo6,
         "campo7": this.cargarInfoCredito.campo7,
@@ -1345,12 +1277,12 @@ export class DetalleCompraComponent implements OnInit {
         "campo9": this.cargarInfoCredito.campo9,
         "campo10": this.cargarInfoCredito.campo10
       },
-      "Referencia": this.retornnoDelPEdido['pedido_referencia'],
+      "Referencia": "2021126112942",
       "Valortotal": this.retornnoDelPEdido['pedido_valor'],
       "Valorbase":  this.retornnoDelPEdido['pedido_valor'],
-      "Valoriva": 0,
-      "Terminal": "",
-      "Descripcion": this.cargarInfoCredito.Descripcion,
+      "Valoriva": "0",
+      "Terminal": "hb93n836840hw586",
+      "Descripcion": this.cargarInfoCredito.Descripcion+'//'+this.retornnoDelPEdido['pedido_referencia'],
       "Documento": this.cargarInfoCredito.Documento,
       "Nombre": this.cargarInfoCredito.Nombre,
       "Apellido": this.cargarInfoCredito.Apellido,
@@ -1359,13 +1291,135 @@ export class DetalleCompraComponent implements OnInit {
       "Celular": this.cargarInfoCredito.Celular,
       "Ciudad": this.retornnoDelPEdido['nombre'],
       "Pais": "Colombia",
-      "FechaVcm": "",
+      "FechaVcm": "2021-06-12",
       "Correo": this.usuario['email'],
-      "ip": this.obtenerIpEquipo,
+      "ip": " 192.168.1.5",
       "tokenSeguridad": JSON.parse(token)['tokenSeguridad']
-    }
+    };
+
+    //const  ruta = 'https://ws.tucompra.net/tcWSDRest/api/confirmacionTransaccionMedioPago';
+    const  ruta = this.credencialesPAsarelaPago['rutaPagos'];
+    this.setHtpp.peticionPost(ruta, pedido).toPromise().then( async respuesta => {
+      console.log(respuesta);
+       this.cambiarEstadoPedido(respuesta);
+    }).catch(error => {
+      console.log(error);
+    });
 
     console.log(pedido);
+
+  }
+
+  oncheckBanco() {
+    // @ts-ignore
+    var cod = document.getElementById("banco").value;
+    // @ts-ignore
+    var combo = document.getElementById("banco");
+    // @ts-ignore
+    var selected = combo.options[combo.selectedIndex].text;
+    this.cargarInfoDebito.campo1 = cod;
+    this.cargarInfoDebito.campo2 = selected;
+
+
+
+console.log(cod,selected)
+  }
+  dataGenerarPagoDebito(token) {
+    //this.retornnoDelPEdido tokenSeguridad
+    console.log (JSON.parse(token)['tokenSeguridad'], this.obtenerIpEquipo, this.credencialesPAsarelaPago['ruta'] );
+
+    const  pedido = {
+      "MetodoPago": {
+        "id": this.cargarInfoDebito.id, //metodo de pago
+        "campo1": this.cargarInfoDebito.campo1,
+        "campo2": this.cargarInfoDebito.campo2,
+        "campo3": this.cargarInfoDebito.campo3,
+        "campo4": this.credencialesPAsarelaPago['rutaBanco'], //'https://www.grupobancolombia.com/',
+        "campo5": this.cargarInfoDebito.campo5,
+        "campo6": this.cargarInfoDebito.campo6,
+        "campo7": this.cargarInfoDebito.campo7,
+        "campo8": this.cargarInfoDebito.campo8,
+        "campo9": this.cargarInfoDebito.campo9,
+        "campo10": this.cargarInfoDebito.campo10
+      },
+      "Referencia": this.retornnoDelPEdido['pedido_referencia'],
+      "Valortotal": this.retornnoDelPEdido['pedido_valor'],
+      "Valorbase":  this.retornnoDelPEdido['pedido_valor'],
+      "Valoriva": "0",
+      "Terminal": "hb93n836840hw586",
+      "Descripcion": this.cargarInfoDebito.Descripcion+'//'+this.retornnoDelPEdido['pedido_referencia'],
+      "Documento": this.cargarInfoDebito.Documento,
+      "Nombre": this.cargarInfoDebito.Nombre,
+      "Apellido": this.cargarInfoDebito.Apellido,
+      "Direccion": this.retornnoDelPEdido['direccion_ubicacion'],
+      "Telefono": this.cargarInfoDebito.Celular,
+      "Celular": this.cargarInfoDebito.Celular,
+      "Ciudad": this.retornnoDelPEdido['nombre'],
+      "Pais": "Colombia",
+      "FechaVcm": "2021-06-12",
+      "Correo": this.usuario['email'],
+      "ip": " 192.168.1.5",
+      "tokenSeguridad": JSON.parse(token)['tokenSeguridad']
+    };
+
+    //const  ruta = 'https://ws.tucompra.net/tcWSDRest/api/confirmacionTransaccionMedioPago';
+    const  ruta = this.credencialesPAsarelaPago['rutaPagos'];
+    this.setHtpp.peticionPost(ruta, pedido).toPromise().then( async respuesta => {
+      console.log(respuesta);
+      this.cambiarEstadoPedido(respuesta);
+    }).catch(error => {
+      console.log(error);
+    });
+
+    console.log(pedido);
+
+  }
+
+
+
+  /**
+   * Metodo encargado re recibir los datos de la pasarela de pago y  actualizar el pedido y almacenar informacion de la pasarela
+   */
+  cambiarEstadoPedido(respuesta) {
+
+    let response = JSON.parse(respuesta)
+    const  data = {
+      CodigoRespuesta: response['CodigoRespuesta'],
+      Descripcion: response['Descripcion'],
+      CodigoSeguimiento: response['CodigoSeguimiento'],
+      estado: response['estado'],
+      urlBanco: response['urlBanco'],
+      numeroAutorizacion: response['numeroAutorizacion'],
+      referencia: response['referencia'],
+      valor: response['valor'],
+      numeroTransaccion: response['numeroTransaccion'],
+      tokenTarjeta: response['tokenTarjeta'],
+      codigoPedido: this.retornnoDelPEdido['pedido_codigo']
+    };
+    console.log(data);
+    console.log(response);
+
+    setTimeout(()=>{
+
+      this.setHtpp.httpPost('cambiar-estado-del-pedido', data).toPromise().then(async respuesta => {
+        console.log(respuesta);
+
+        if (respuesta['estado'] == 1 ) {
+          this.alertaS.showToasterFull(respuesta['mensaje']);
+        }
+
+        if (respuesta['estado'] == 2 ) {
+          this.alertaS.showToasterWarning(respuesta['mensaje']);
+        }
+
+        if (respuesta['estado'] == 3 ) {
+          this.alertaS.showToasterError(respuesta['mensaje']);
+        }
+
+      }).catch(error => {
+      });
+    }, 7000);
+
 
   }
 
@@ -1388,7 +1442,39 @@ export class DetalleCompraComponent implements OnInit {
       Valorbase: null,
       Valoriva: null,
       Terminal: null,
-      Descripcion: 'Pago de pedido Athletic Air',
+      Descripcion: 'Pago de pedido Athletic Air por medio de Tarjeta de CREDITO ',
+      Documento: null,
+      Nombre: null,
+      Apellido: null,
+      Direccion: null,
+      Telefono: null,
+      Celular: null,
+      Ciudad: null,
+      Pais: null,
+      FechaVcm: null,
+      Correo: null,
+      ip: null,
+      tokenSeguridad:null,
+    }
+
+    this.cargarInfoDebito = {
+      id: /*Prueba*/'41' /*Produccion 3*/,
+      campo1: null,
+      campo2: null,
+      campo3: null,
+      campo4: null,
+      campo5: null,
+      campo6: null,
+      campo7: null,
+      campo8: null,
+      campo9: null,
+      campo10:null,
+      Referencia: null,
+      Valortotal: null,
+      Valorbase: null,
+      Valoriva: null,
+      Terminal: null,
+      Descripcion: 'Pago de pedido Athletic Air por medio de Tarjeta de DEBITO ',
       Documento: null,
       Nombre: null,
       Apellido: null,
@@ -1404,6 +1490,7 @@ export class DetalleCompraComponent implements OnInit {
     }
 
   }
+
 
 }
 

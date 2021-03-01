@@ -342,7 +342,7 @@
                   <div class="contenedor-title"><span class="span-tuitulo">Mis direcciones</span></div>
                   <div> <button mat-raised-button color="primary"
                                 class="agregar-direccion-boton"
-                                (click)="usuario ? openDialog() : pasarSguiente(2)">Agregar más  direcciones
+                                (click)="usuario ? openDialogNuevo() : pasarSguiente(2)">Agregar más  direcciones
                   </button></div>
                 </div>
 
@@ -558,7 +558,7 @@
                                         </p>
                                       </div>
                                     </div>
-                                    <div class="row clase-boto-seleccionar">
+                                    <!--<div class="row clase-boto-seleccionar">
                                       <div class="col-md-12">
                                         <div class="justify-content-center align-items-center">
                                           <button mat-raised-button color="primary" class="agregar-direccion-boton">
@@ -566,7 +566,7 @@
                                           </button>
                                         </div>
                                       </div>
-                                    </div>
+                                    </div>-->
                                   </a>
                                 </li>
                               </ul>
@@ -608,65 +608,62 @@
                                           </div>
 
                                           <div class="col-6">
-                                              <mat-form-field appearance="fill">
-                                                <mat-label>Seleccionar banco</mat-label>
-                                                <mat-select [(ngModel)]="cualesElBanco">
-                                                  <mat-option *ngFor="let ban of dataBancos"
-                                                              [value]="ban['codigo']">{{ban['nombre']}}</mat-option>
-                                                </mat-select>
+
+                                            <p>
+                                              <mat-form-field appearance="outline">
+                                                <mat-label>Nombre del titular</mat-label>
+                                                <input matInput placeholder="Nombre del titular" [(ngModel)]="cargarInfoDebito.Nombre">
                                               </mat-form-field>
+                                            </p>
                                           </div>
                                           <div class="col-6">
                                             <p>
                                               <mat-form-field appearance="outline">
-                                                <mat-label>Nombre del titular</mat-label>
-                                                <input matInput placeholder="Nombre del titular">
+                                                <mat-label>Apellido del titular</mat-label>
+                                                <input matInput placeholder="Apellido del titular"  [(ngModel)]="cargarInfoDebito.Apellido">
                                               </mat-form-field>
                                             </p>
                                           </div>
                                         </div>
                                         <div class="row">
                                           <div class="col-md-6">
-                                            <mat-form-field appearance="fill">
-                                              <mat-label>Tipo de persona</mat-label>
-                                              <mat-select>
-                                                <mat-option value="1">Natural</mat-option>
-                                                <mat-option value="2">Juridica</mat-option>
-                                                <mat-option value="3">Otra</mat-option>
-                                              </mat-select>
-                                            </mat-form-field>
+                                            <select class="form-control select-nuevo"   [(ngModel)]="cargarInfoDebito.campo3">
+                                              <option  [value]="null">Tipo de persona</option>
+                                              <option  [value]="'0'">Natural</option>
+                                              <option  [value]="'1'">Juridica</option>
+                                            </select>
+
                                           </div>
+                                          <div class="col-md-6">
 
-                                          <div class="col-6">
-
-                                            <mat-form-field appearance="fill">
-                                              <mat-label>Tipo de documento</mat-label>
-                                              <mat-select>
-                                                <mat-option *ngFor="let tper of tipoDocumento"
-                                                            [value]="tper['id']">{{tper['tipo']}}</mat-option>
-                                              </mat-select>
-                                            </mat-form-field>
+                                            <select class="form-control select-nuevo"  id="banco" (change)="oncheckBanco()" >
+                                              <option  [value]="null">Seleccionar banco</option>
+                                              <option   *ngFor="let ban of dataBancos"
+                                                        [value]="ban['codigoBanco']">{{ban['nombreBanco']}}</option>
+                                            </select>
                                           </div>
                                         </div>
-                                        <div class="row">
-                                          <div class="col-6">
-                                            <p>
-                                              <mat-form-field appearance="outline">
+                                        <div class="row select-nuevo2">
+                                          <div class="col-md-6">
+                                            <p >
+                                              <mat-form-field appearance="outline" >
                                                 <mat-label>Documento de identificación</mat-label>
-                                                <input matInput placeholder="Documento de identificación">
+                                                <input matInput placeholder="Documento de identificación"  [(ngModel)]="cargarInfoDebito.Documento">
                                               </mat-form-field>
                                             </p>
+
                                           </div>
+
                                           <div class="col-6">
-                                            <p>
+                                            <p >
                                               <mat-form-field appearance="outline">
-                                                <mat-label>Teléfono</mat-label>
-                                                <input matInput placeholder="Teléfono">
+                                                <mat-label>Número celular</mat-label>
+                                                <input matInput placeholder="Número celular"  [(ngModel)]="cargarInfoDebito.Celular">
                                               </mat-form-field>
                                             </p>
                                           </div>
                                         </div>
-                                        <div class="row clase-boto-seleccionar">
+                                        <!--<div class="row clase-boto-seleccionar">
                                           <div class="col-md-12">
                                             <div class="justify-content-center align-items-center">
                                               <button mat-raised-button color="primary"
@@ -674,7 +671,7 @@
                                               </button>
                                             </div>
                                           </div>
-                                        </div>
+                                        </div>-->
                                       </a>
                                     </li>
                                   </ul>
