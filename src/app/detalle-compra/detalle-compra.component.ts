@@ -14,7 +14,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {ModalDireccionesComponent} from "../modal-direcciones/modal-direcciones.component";
 import {FavoritosService} from "../servicio/favoritos/favoritos.service";
 import {PagoCredito} from "../interfaz/pagoCredito";
-
+import {ThemePalette} from '@angular/material/core';
+import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-detalle-compra',
@@ -27,7 +28,11 @@ export class DetalleCompraComponent implements OnInit {
   secondFormGroup: FormGroup;
   cargarInfoCredito: PagoCredito;
   cargarInfoDebito: PagoCredito;
+  condicionarLoadig: boolean;
 
+  color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'determinate';
+  value = 50;
 
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
@@ -69,6 +74,9 @@ export class DetalleCompraComponent implements OnInit {
   barra11: string;
   texto11: string;
   habilita11: boolean;
+
+  validarQuePagoSeRealizara = 0;
+
 
   circulo22: string;
   barra22: string;
@@ -158,6 +166,8 @@ export class DetalleCompraComponent implements OnInit {
     console.log(this.numeroCuotasPagos);
   }
   ngOnInit(): void {
+
+    this.condicionarLoadig = false;
     this.cuotasPago();
     this.llamarInformacionCredito();
     this.dataPedidos = {
@@ -477,6 +487,8 @@ export class DetalleCompraComponent implements OnInit {
       return;
     }
 
+    this.condicionarLoadig = true;
+
     this.referencia = new Date().getFullYear() + '' + new Date().getMonth() + '' + new Date().getDate() + '' + new Date().getHours() + '' + new Date().getMinutes() + '' + new Date().getSeconds();
     this.valorPedido = this.valorTotal;
 
@@ -497,28 +509,77 @@ export class DetalleCompraComponent implements OnInit {
     this.barra5 = '#FF596A';
     this.barra55 = '#FF596A';
     this.setHtpp.httpPost('crear-pedido', data).toPromise().then(async respuesta => {
-      console.log(respuesta);
+      console.log(respuesta['data'][0]['pedido_codigo']);
       this.retornnoDelPEdido = respuesta['data'][0];
       this.obtenerIpEquipo = respuesta['ip'];
       this.credencialesPAsarelaPago = respuesta['credenciales'];
 
-      setTimeout(()=>{
+
+      if (this.validarQuePagoSeRealizara === 1 || this.validarQuePagoSeRealizara === 2) {
+        setTimeout(() => {
           this.pasareladePago();
-      }, 2000);
+        }, 2000);
+      }
 
+      if (this.validarQuePagoSeRealizara === 3) {
 
+        setTimeout(()=>{
+          Swal.fire({
+            icon: 'info',
+            title: 'Oops...',
+            text: 'El pedido se realizo de forma correcta'
+          });
 
+          this.variablesGl.changeMessage();
+          this.ruta.navigate([ `/detalle-pedido/${respuesta['data'][0]['pedido_codigo']}`])
+          this.condicionarLoadig = false;
+        }, 5000);
 
-     // localStorage.removeItem('athletic');
+      //  localStorage.removeItem('athletic');
+
+      }
+
+      this.pasarSguiente2(2);
+
+//http://localhost:4200/#/detalle-pedido/403
+      // localStorage.removeItem('athletic');
       this.variablesGl.changeMessage();
       this.gastosEnvio = 0;
-    //  this.ruta.navigate(['/']);
+      //  this.ruta.navigate(['/']);
     }).catch(error => {
       console.log(error);
     });
 
-
   }
+
+  validarFormularioPagos(tdOtc) {
+
+    let texto = "";
+    if (tdOtc === 1) {
+      texto = 'Quieres cancelar tu pedido con la tajeta de Credito?';
+    }
+    if (tdOtc === 2) {
+      texto = 'Quieres cancelar tu pedido con la tajeta de Debito?';
+    }
+    if (tdOtc === 3) {
+      texto = 'Quieres cancelar tu pedido por medio de Contraentrega?';
+    }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: texto,
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+       this.realizarPedidos();
+      }
+    })
+  }
+
 
   llamarDatoLocalesUsuario() {
 
@@ -1141,18 +1202,25 @@ export class DetalleCompraComponent implements OnInit {
   }
 
   validarTipoPago(valor, event?) {
+
+    console.log(valor);
     console.log(valor, this.dataPedidos);
     if (valor === 1) {
       this.dataPedidos.pedido_mediopago = 'CREDITO';
       this.dataPedidos.pedido_estado = 'APROBADO';
+      this.validarQuePagoSeRealizara = 1;
     }
+
     if (valor === 2) {
       this.dataPedidos.pedido_mediopago = 'DEBITO';
       this.dataPedidos.pedido_estado = 'APROBADO';
+      this.validarQuePagoSeRealizara = 2;
     }
+
     if (valor === 3) {
       this.dataPedidos.pedido_mediopago = 'CONTRAENTREGA';
       this.dataPedidos.pedido_estado = 'PENDIENTE';
+      this.validarQuePagoSeRealizara = 3;
     }
 
   }
@@ -1160,12 +1228,10 @@ export class DetalleCompraComponent implements OnInit {
   obtenervalorEnvioDefecto() {
     const data = {
       cliente: this.usuario.id_cliente,
-
     }
     this.setHtpp.httpPost('listar-valor-envio-defecto',data).toPromise().then(respuesta=> {
       this.gastosEnvio = respuesta['transporte']['transporte_valorenvio'];
       this.gastosEnvio = this.gastosEnvio * this.cantidadProductoReales;
-      //this.direccionEstado = respuesta['ciudad'];
       this.direccionEstado = respuesta['direccion'];
       console.log( this.direccionEstado);
     });
@@ -1279,10 +1345,10 @@ export class DetalleCompraComponent implements OnInit {
       },
       "Referencia": "2021126112942",
       "Valortotal": this.retornnoDelPEdido['pedido_valor'],
-      "Valorbase":  this.retornnoDelPEdido['pedido_valor'],
+      "Valorbase": this.retornnoDelPEdido['pedido_valor'],
       "Valoriva": "0",
       "Terminal": "hb93n836840hw586",
-      "Descripcion": this.cargarInfoCredito.Descripcion+'//'+this.retornnoDelPEdido['pedido_referencia'],
+      "Descripcion": this.cargarInfoCredito.Descripcion + '//' + this.retornnoDelPEdido['pedido_referencia'],
       "Documento": this.cargarInfoCredito.Documento,
       "Nombre": this.cargarInfoCredito.Nombre,
       "Apellido": this.cargarInfoCredito.Apellido,
@@ -1293,15 +1359,15 @@ export class DetalleCompraComponent implements OnInit {
       "Pais": "Colombia",
       "FechaVcm": "2021-06-12",
       "Correo": this.usuario['email'],
-      "ip": " 192.168.1.5",
+      "ip": this.obtenerIpEquipo,
       "tokenSeguridad": JSON.parse(token)['tokenSeguridad']
     };
 
     //const  ruta = 'https://ws.tucompra.net/tcWSDRest/api/confirmacionTransaccionMedioPago';
-    const  ruta = this.credencialesPAsarelaPago['rutaPagos'];
-    this.setHtpp.peticionPost(ruta, pedido).toPromise().then( async respuesta => {
+    const ruta = this.credencialesPAsarelaPago['rutaPagos'];
+    this.setHtpp.peticionPost(ruta, pedido).toPromise().then(async respuesta => {
       console.log(respuesta);
-       this.cambiarEstadoPedido(respuesta);
+      this.cambiarEstadoPedido(respuesta);
     }).catch(error => {
       console.log(error);
     });
@@ -1321,14 +1387,14 @@ export class DetalleCompraComponent implements OnInit {
     this.cargarInfoDebito.campo2 = selected;
 
 
-
-console.log(cod,selected)
+    console.log(cod, selected)
   }
+
   dataGenerarPagoDebito(token) {
     //this.retornnoDelPEdido tokenSeguridad
-    console.log (JSON.parse(token)['tokenSeguridad'], this.obtenerIpEquipo, this.credencialesPAsarelaPago['ruta'] );
+    console.log(JSON.parse(token)['tokenSeguridad'], this.obtenerIpEquipo, this.credencialesPAsarelaPago['ruta']);
 
-    const  pedido = {
+    const pedido = {
       "MetodoPago": {
         "id": this.cargarInfoDebito.id, //metodo de pago
         "campo1": this.cargarInfoDebito.campo1,
@@ -1344,10 +1410,10 @@ console.log(cod,selected)
       },
       "Referencia": this.retornnoDelPEdido['pedido_referencia'],
       "Valortotal": this.retornnoDelPEdido['pedido_valor'],
-      "Valorbase":  this.retornnoDelPEdido['pedido_valor'],
+      "Valorbase": this.retornnoDelPEdido['pedido_valor'],
       "Valoriva": "0",
       "Terminal": "hb93n836840hw586",
-      "Descripcion": this.cargarInfoDebito.Descripcion+'//'+this.retornnoDelPEdido['pedido_referencia'],
+      "Descripcion": this.cargarInfoDebito.Descripcion + '//' + this.retornnoDelPEdido['pedido_referencia'],
       "Documento": this.cargarInfoDebito.Documento,
       "Nombre": this.cargarInfoDebito.Nombre,
       "Apellido": this.cargarInfoDebito.Apellido,
@@ -1358,13 +1424,13 @@ console.log(cod,selected)
       "Pais": "Colombia",
       "FechaVcm": "2021-06-12",
       "Correo": this.usuario['email'],
-      "ip": " 192.168.1.5",
+      "ip": this.obtenerIpEquipo,
       "tokenSeguridad": JSON.parse(token)['tokenSeguridad']
     };
 
     //const  ruta = 'https://ws.tucompra.net/tcWSDRest/api/confirmacionTransaccionMedioPago';
-    const  ruta = this.credencialesPAsarelaPago['rutaPagos'];
-    this.setHtpp.peticionPost(ruta, pedido).toPromise().then( async respuesta => {
+    const ruta = this.credencialesPAsarelaPago['rutaPagos'];
+    this.setHtpp.peticionPost(ruta, pedido).toPromise().then(async respuesta => {
       console.log(respuesta);
       this.cambiarEstadoPedido(respuesta);
     }).catch(error => {
@@ -1396,6 +1462,7 @@ console.log(cod,selected)
       tokenTarjeta: response['tokenTarjeta'],
       codigoPedido: this.retornnoDelPEdido['pedido_codigo']
     };
+    let  codigoPedido = this.retornnoDelPEdido['pedido_codigo'];
     console.log(data);
     console.log(response);
 
@@ -1405,16 +1472,38 @@ console.log(cod,selected)
         console.log(respuesta);
 
         if (respuesta['estado'] == 1 ) {
-          this.alertaS.showToasterFull(respuesta['mensaje']);
+          //this.alertaS.showToasterFull(respuesta['mensaje']);
+          Swal.fire({
+            icon: 'info',
+            title: 'Oops...',
+            text: respuesta['mensaje']
+          });
+          localStorage.removeItem('athletic');
+          this.variablesGl.changeMessage();
+          this.ruta.navigate([ `/detalle-pedido/${codigoPedido}`]);
         }
 
         if (respuesta['estado'] == 2 ) {
-          this.alertaS.showToasterWarning(respuesta['mensaje']);
+          //this.alertaS.showToasterWarning(respuesta['mensaje']);
+          Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: respuesta['mensaje']
+          });
+          localStorage.removeItem('athletic');
+          this.variablesGl.changeMessage();
+          this.ruta.navigate([ `/detalle-pedido/${codigoPedido}`]);
         }
 
         if (respuesta['estado'] == 3 ) {
-          this.alertaS.showToasterError(respuesta['mensaje']);
+          //this.alertaS.showToasterError(respuesta['mensaje']);
+          Swal.fire({
+            icon: 'info',
+            title: 'Oops...',
+            text: respuesta['mensaje'],
+          })
         }
+        this.condicionarLoadig = false;
 
       }).catch(error => {
       });

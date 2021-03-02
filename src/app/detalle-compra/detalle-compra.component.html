@@ -466,6 +466,7 @@
                                             <mat-label>Nombre del titular</mat-label>
                                             <input matInput placeholder="Nombre del titular" [(ngModel)]="cargarInfoCredito.Nombre">
                                           </mat-form-field>
+                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Nombre">Para continuar ingrese su nombre</mat-hint>
                                         </p>
 
                                       </div>
@@ -475,24 +476,36 @@
                                             <mat-label>Apellido del titular</mat-label>
                                             <input matInput placeholder="Apellido del titular" [(ngModel)]="cargarInfoCredito.Apellido">
                                           </mat-form-field>
+                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Apellido">Para continuar ingrese su apellido</mat-hint>
                                         </p>
 
                                       </div>
                                       <div class="col-6">
-                                        <select class="form-control select-nuevo"  >
-                                          <option  [value]="null">Tipo de documento</option>
-                                          <option  [value]="'CC'">CC</option>
-                                          <option  [value]="'CE'">CE</option>
-                                        </select>
-                                      </div>
 
-                                      <div class="col-6">
                                         <p>
                                           <mat-form-field appearance="outline">
                                             <mat-label>Número de documento del titular</mat-label>
                                             <input matInput placeholder="Número de documento del titular" type="number" [(ngModel)]="cargarInfoCredito.Documento">
                                           </mat-form-field>
+                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Documento">Para continuar ingrese su documento</mat-hint>
                                         </p>
+                                        <!--<select class="form-control select-nuevo"  >
+                                          <option  [value]="null">Tipo de documento</option>
+                                          <option  [value]="'CC'">CC</option>
+                                          <option  [value]="'CE'">CE</option>
+                                        </select>-->
+                                      </div>
+
+                                      <div class="col-6">
+
+                                        <p>
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Número de celular</mat-label>
+                                            <input matInput placeholder="Número de celular" type="number"  [(ngModel)]="cargarInfoCredito.Celular">
+                                          </mat-form-field>
+                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Celular">Para continuar ingrese su celular</mat-hint>
+                                        </p>
+
                                       </div>
                                     </div>
 
@@ -501,8 +514,11 @@
                                         <p>
                                           <mat-form-field appearance="outline">
                                             <mat-label>Número de la tarjeta</mat-label>
-                                            <input matInput placeholder="Número de la tarjeta" [(ngModel)]="cargarInfoCredito.campo1">
+                                            <input matInput placeholder="Número de la tarjeta" type="text"
+                                                   minlength="16" maxlength="16"
+                                                   [(ngModel)]="cargarInfoCredito.campo1">
                                           </mat-form-field>
+                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo1">Para continuar Número de la tarjeta</mat-hint>
                                         </p>
                                       </div>
                                       <div class="col-md-6">
@@ -512,38 +528,45 @@
                                             <input matInput placeholder="CVV"  type="password" required
                                                    minlength="3" maxlength="3" [(ngModel)]="cargarInfoCredito.campo2">
                                           </mat-form-field>
+                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo2">Para continuar ingrese codigo CVV</mat-hint>
                                         </p>
                                       </div>
                                     </div>
                                     <div class="row">
                                       <div class="col-md-3 anio-expiracion">
+                                        <p>
+                                          <select class="form-control select-nuevo "  [(ngModel)]="cargarInfoCredito.campo3">
+                                            <option  [value]="null">Año de expiración</option>
+                                            <option  *ngFor="let ani of aniotarjeta" [value]="ani">{{ani}}</option>
+                                          </select>
+                                        </p>
 
-
-
-                                        <select class="form-control select-nuevo "  [(ngModel)]="cargarInfoCredito.campo3">
-                                          <option  [value]="null">Año de expiración</option>
-                                          <option  *ngFor="let ani of aniotarjeta" [value]="ani">{{ani}}</option>
-                                        </select>
+                                        <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo3">Para continuar ingrese año Exp.</mat-hint>
                                       </div>
 
                                       <div class="col-md-3  mes-expiracion ">
 
-                                        <select class="form-control select-nuevo"  [(ngModel)]="cargarInfoCredito.campo4" >
-                                          <option  [value]="null">Mes de expiración</option>
-                                          <option  *ngFor="let me of mes" [value]="me['id']">{{me['prefijo']}}</option>
-                                        </select>
-
+                                        <p>
+                                          <select class="form-control select-nuevo"  [(ngModel)]="cargarInfoCredito.campo4" >
+                                            <option  [value]="null">Mes de expiración</option>
+                                            <option  *ngFor="let me of mes" [value]="me['id']">{{me['prefijo']}}</option>
+                                          </select>
+                                        </p>
+                                        <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo4">Para continuar ingrese mes de Exp</mat-hint>
 
                                       </div>
 
                                       <div class="col-6 numero-cuotas">
-                                        <select class="form-control select-nuevo"   [(ngModel)]="cargarInfoCredito.campo5">
-                                          <option  [value]="null">Numero de cuotas</option>
-                                          <option  *ngFor="let cuota of numeroCuotasPagos" [value]="cuota">{{cuota}}</option>
-                                        </select>
+                                        <p>
+                                          <select class="form-control select-nuevo"   [(ngModel)]="cargarInfoCredito.campo5">
+                                            <option  [value]="null">Numero de cuotas</option>
+                                            <option  *ngFor="let cuota of numeroCuotasPagos" [value]="cuota">{{cuota}}</option>
+                                          </select>
+                                        </p>
+                                        <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo5">Para  ingrese cantidad de cuotas</mat-hint>
                                       </div>
                                     </div>
-                                    <div class="row">
+                                  <!--  <div class="row">
                                       <div class="col-6">
                                         <p>
                                           <mat-form-field appearance="outline">
@@ -557,7 +580,7 @@
 
                                         </p>
                                       </div>
-                                    </div>
+                                    </div>-->
                                     <!--<div class="row clase-boto-seleccionar">
                                       <div class="col-md-12">
                                         <div class="justify-content-center align-items-center">
@@ -615,6 +638,7 @@
                                                 <input matInput placeholder="Nombre del titular" [(ngModel)]="cargarInfoDebito.Nombre">
                                               </mat-form-field>
                                             </p>
+                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Nombre">Para continuar ingrese su nombre</mat-hint>
                                           </div>
                                           <div class="col-6">
                                             <p>
@@ -623,24 +647,32 @@
                                                 <input matInput placeholder="Apellido del titular"  [(ngModel)]="cargarInfoDebito.Apellido">
                                               </mat-form-field>
                                             </p>
+                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Apellido">Para continuar ingrese su apellido</mat-hint>
                                           </div>
                                         </div>
                                         <div class="row">
                                           <div class="col-md-6">
-                                            <select class="form-control select-nuevo"   [(ngModel)]="cargarInfoDebito.campo3">
-                                              <option  [value]="null">Tipo de persona</option>
-                                              <option  [value]="'0'">Natural</option>
-                                              <option  [value]="'1'">Juridica</option>
-                                            </select>
+                                           <p>
+                                             <select class="form-control select-nuevo"   [(ngModel)]="cargarInfoDebito.campo3">
+                                               <option  [value]="null">Tipo de persona</option>
+                                               <option  [value]="'0'">Natural</option>
+                                               <option  [value]="'1'">Juridica</option>
+                                             </select>
+                                           </p>
+                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.campo3">Para continuar ingrese Tipo de persona</mat-hint>
 
                                           </div>
                                           <div class="col-md-6">
 
-                                            <select class="form-control select-nuevo"  id="banco" (change)="oncheckBanco()" >
-                                              <option  [value]="null">Seleccionar banco</option>
-                                              <option   *ngFor="let ban of dataBancos"
-                                                        [value]="ban['codigoBanco']">{{ban['nombreBanco']}}</option>
-                                            </select>
+                                              <p>
+                                                <select class="form-control select-nuevo"  id="banco" (change)="oncheckBanco()" >
+                                                  <option  [value]="null">Seleccionar banco</option>
+                                                  <option   *ngFor="let ban of dataBancos"
+                                                            [value]="ban['codigoBanco']">{{ban['nombreBanco']}}</option>
+                                                </select>
+                                              </p>
+                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.campo1">Para continuar ingrese el banco</mat-hint>
+
                                           </div>
                                         </div>
                                         <div class="row select-nuevo2">
@@ -651,6 +683,7 @@
                                                 <input matInput placeholder="Documento de identificación"  [(ngModel)]="cargarInfoDebito.Documento">
                                               </mat-form-field>
                                             </p>
+                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Documento">Para continuar ingrese su documento</mat-hint>
 
                                           </div>
 
@@ -661,6 +694,8 @@
                                                 <input matInput placeholder="Número celular"  [(ngModel)]="cargarInfoDebito.Celular">
                                               </mat-form-field>
                                             </p>
+                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Celular">Para continuar ingrese su celular</mat-hint>
+
                                           </div>
                                         </div>
                                         <!--<div class="row clase-boto-seleccionar">
@@ -866,7 +901,19 @@
             Continuar
           </button>
 
-          <button class="pay-now" *ngIf="habilitarBotonPago == 4" (click)="realizarPedidos()">
+          <button class="pay-now" *ngIf="habilitarBotonPago === 4 && validarQuePagoSeRealizara === 1"
+                  [disabled]="cargarInfoCredito.Nombre === '' || cargarInfoCredito.Nombre === null ||
+                              cargarInfoCredito.Apellido === '' || cargarInfoCredito.Apellido === null ||
+                              cargarInfoCredito.Documento === '' || cargarInfoCredito.Documento === null ||
+                              cargarInfoCredito.Celular === '' || cargarInfoCredito.Celular === null ||
+                              cargarInfoCredito.campo1 === '' || cargarInfoCredito.campo1 === null ||
+                              cargarInfoCredito.campo2 === '' || cargarInfoCredito.campo2 === null ||
+                              cargarInfoCredito.campo3 === '' || cargarInfoCredito.campo3 === null ||
+                              cargarInfoCredito.campo4 === '' || cargarInfoCredito.campo4 === null ||
+                              cargarInfoCredito.campo5 === '' || cargarInfoCredito.campo5 === null
+                            "
+
+                  (click)="validarFormularioPagos(1)">
                   <span class="circle-go-shop">
                     <span class="material-icons">
                     done
@@ -874,12 +921,66 @@
                   </span>
             Pagar ahora
           </button>
+
+          <button class="pay-now" *ngIf="habilitarBotonPago === 4 && validarQuePagoSeRealizara === 2"
+
+                  [disabled]="cargarInfoDebito.Nombre === '' || cargarInfoDebito.Nombre === null ||
+                              cargarInfoDebito.Apellido === '' || cargarInfoDebito.Apellido === null ||
+                              cargarInfoDebito.campo3 === '' || cargarInfoDebito.campo3 === null ||
+                              cargarInfoDebito.Documento === ''  || cargarInfoDebito.Documento === null ||
+                              cargarInfoDebito.Celular === '' || cargarInfoDebito.Celular === null ||
+                              cargarInfoDebito.campo1 ===  '' || cargarInfoDebito.campo1 === null
+                            "
+
+                  (click)="validarFormularioPagos(2)">
+                  <span class="circle-go-shop">
+                    <span class="material-icons">
+                    done
+                    </span>
+                  </span>
+            Pagar ahora
+          </button>
+
+          <button class="pay-now" *ngIf="habilitarBotonPago == 4 && validarQuePagoSeRealizara === 3" (click)="validarFormularioPagos(3)">
+                  <span class="circle-go-shop">
+                    <span class="material-icons">
+                    done
+                    </span>
+                  </span>
+            Pagar ahora
+          </button>
+
+          <button class="pay-now" *ngIf="habilitarBotonPago == 4 && validarQuePagoSeRealizara === 0" >
+                  <span class="circle-go-shop">
+                    <span class="material-icons">
+                    done
+                    </span>
+                  </span>
+            Pagar ahora
+          </button>
+
         </div>
 
       </div>
     </div>
   </div>
+
+
 </div>
+
+<!--<div class="loader">
+<mat-spinner></mat-spinner>
+  <div class="spinner-border text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>-->
+
+<div class="loading" *ngIf="condicionarLoadig">
+  <mat-spinner></mat-spinner>
+</div>
+
+
+
 
 <app-flecha-arriba></app-flecha-arriba>
 

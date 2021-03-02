@@ -58,6 +58,7 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider
 } from 'angularx-social-login';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import {
     RegistroFormComponent,
     ModalDireccionesComponent,
     LoginSocialComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -115,7 +117,8 @@ import {
       preventDuplicates: true,
     }),
     SocialLoginModule,
-    NgxImgZoomModule
+    NgxImgZoomModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {
