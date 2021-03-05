@@ -205,7 +205,6 @@ export class ContentComponent implements OnInit {
       response => {
         this.disenoHome = response;
         this.disenioSesion18 = response['sesion_18'];
-        console.error(this.disenioSesion18);
       },
       error => {
         console.error("Error en el diseño.");
@@ -229,7 +228,6 @@ export class ContentComponent implements OnInit {
     this.http.httpGetParamt('productosDestacadosPromociones',this.btn_active ).subscribe(
       response => {
         this.carouselDescatadosUno8 = response;
-        console.log(this.carouselDescatadosUno8);
       },
       error => {
         console.error("Error consumiento productos destacados.");

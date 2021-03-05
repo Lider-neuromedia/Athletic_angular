@@ -1455,3 +1455,11 @@ img {
   background-color: #ff596a!important;
   color: white!important;
 }
+
+app-direcciones .mat-radio-label-content {
+  color: #0d0d0d;
+}
+
+app-modal-direcciones .mat-radio-label-content {
+  color: #0d0d0d;
+}

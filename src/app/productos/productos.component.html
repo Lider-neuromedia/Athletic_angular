@@ -118,9 +118,9 @@
 
             <div class="d-block mrg-top-20">
                 <div class="d-none d-md-block row w-100" style="margin-left: 10px !important;">
-                    <div class="col-md-12 clase-banner" routerLink="/productos/05/nuevo" *ngIf="disenoHome && disenoHome[0]['url_imagen']">
+                    <div class="col-md-12 clase-banner" routerLink="/productos/05/nuevo" *ngIf="disenoHome">
                       <img [src]="imagenCategorias?imagenCategorias: ''" class="w-100 border-rad-mild" alt="" *ngIf="imagenCategorias">
-                      <img [src]="disenoHome[0]['url_imagen']" class="w-100 border-rad-mild" alt="" *ngIf="!imagenCategorias">
+                      <img [src]="disenoHome?disenoHome[0]['url_imagen']: ''" class="w-100 border-rad-mild" alt="" *ngIf="!imagenCategorias">
 
                     </div>
                 </div>
@@ -168,7 +168,7 @@
                                         <!-- <li class="page-item active" aria-current="page">
                                             <span class="page-link">1<span class="sr-only">(current)</span></span>
                                         </li> -->
-                                        <li *ngFor="let item of [].constructor(pages.max_pages); let i = index" [class]="(pages.first_page+i == page_number) ? 'page-item active' : 'page-item'">
+                                        <li *ngFor="let item of [].constructor(pages?pages.max_pages:0); let i = index" [class]="(pages.first_page+i == page_number) ? 'page-item active' : 'page-item'">
                                             <a class="page-link text-gray" (click)="changePage(pages.first_page+i)">{{pages.first_page+i}}</a>
                                         </li>
                                         <li class="page-item">
@@ -322,7 +322,7 @@
                                 <!-- <li class="page-item active" aria-current="page">
                                     <span class="page-link">1<span class="sr-only">(current)</span></span>
                                 </li> -->
-                                <li *ngFor="let item of [].constructor(pages.max_pages); let i = index" [class]="(pages.first_page+i == page_number) ? 'page-item active' : 'page-item'">
+                                <li *ngFor="let item of [].constructor(pages?pages.max_pages: 0); let i = index" [class]="(pages.first_page+i == page_number) ? 'page-item active' : 'page-item'">
                                     <a class="page-link text-gray" (click)="changePage(pages.first_page+i)">{{pages.first_page+i}}</a>
                                 </li>
                                 <li class="page-item">

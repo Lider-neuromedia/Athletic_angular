@@ -23,7 +23,5 @@ export class FavoritosService {
 
   consultarDatosLocales() {
     this.data.next(JSON.parse(localStorage.getItem('userAthletic'))) ;
-    console.log(this.data)
-
   }
 }

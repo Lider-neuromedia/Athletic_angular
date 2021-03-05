@@ -6,7 +6,7 @@ import {AlertasService} from "../servicio/alertas/alertas.service";
 import {ActivatedRoute} from "@angular/router";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FavoritosService} from "../servicio/favoritos/favoritos.service";
-
+import Swal from "sweetalert2";
 @Component({
   selector: 'app-modal-direcciones',
   templateUrl: './modal-direcciones.component.html',
@@ -94,19 +94,14 @@ export class ModalDireccionesComponent implements OnInit {
 
   losDepartamentos() {
     this.setHtpp.httpGet('listar-departamento-direcciones').toPromise().then(respuesta => {
-
       this.departamentos = respuesta[`data`];
-      console.log(this.departamentos);
     }).catch(error => {
       console.log(error);
     })
   }
 
   onchangeCiudades() {
-    console.log(this.codigoDepartamento);
-
     this.setHtpp.httpGetParamt('listar-ciudades-direcciones', this.codigoDepartamento).toPromise().then(respuesta => {
-      console.log(respuesta);
       this.ciudades = respuesta[`data`];
     }).catch(error => {
       console.log(error);
@@ -119,24 +114,56 @@ export class ModalDireccionesComponent implements OnInit {
   selectEventCiudad(item) {
     // do something with selected item
     this.direcciones.ciudad_codigo = item.id_ciudad;
-    console.log(this.direcciones);
   }
 
 
   crearDirecciones() {
     this.direcciones.cliente_codigo =   this.usuario.id_cliente;
-    this.setHtpp.httpPost('crear-direcciones', this.direcciones).toPromise().then(respuesta => {
-      console.log(respuesta);
-      if (respuesta[`estado`]) {
-        this.alertaService.showToasterFull(respuesta[`data`]);
-        this.favoritoSe.changeMessage();
-        this.onNoClick();
+
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Deceas dejar esta dirección como predeterminada?",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si' ,
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.direcciones.direccion_estado = 1;
+        this.setHtpp.httpPost('crear-direcciones', this.direcciones).toPromise().then(respuesta => {
+          if (respuesta[`estado`]) {
+            this.alertaService.showToasterFull(respuesta[`data`]);
+            this.favoritoSe.changeMessage();
+            this.onNoClick();
+          } else {
+            this.alertaService.showToasterError(respuesta[`data`]);
+          }
+        }).catch(error => {
+          console.log(error);
+        })
       } else {
-        this.alertaService.showToasterError(respuesta[`data`]);
+        this.direcciones.direccion_estado = 0;
+        this.setHtpp.httpPost('crear-direcciones', this.direcciones).toPromise().then(respuesta => {
+          if (respuesta[`estado`]) {
+            this.alertaService.showToasterFull(respuesta[`data`]);
+            this.favoritoSe.changeMessage();
+            this.onNoClick();
+          } else {
+            this.alertaService.showToasterError(respuesta[`data`]);
+          }
+        }).catch(error => {
+          console.log(error);
+        })
       }
-    }).catch(error => {
-      console.log(error);
     })
+
+
+    console.log( this.direcciones.direccion_estado);
+    return;
+
+
   }
 
   editarDirecciones(value) {
@@ -144,8 +171,6 @@ export class ModalDireccionesComponent implements OnInit {
       direccion: value
     }
     this.setHtpp.httpPost('editar-direcciones', data).toPromise().then(respuesta => {
-      console.log(respuesta);
-
       this.direcciones.direccion_nombre = respuesta['data'][0]['direccion_nombre'];
       this.direcciones.direccion_codigo = respuesta['data'][0]['direccion_codigo'];
       this.direcciones.direccion_telefono = respuesta['data'][0]['direccion_telefono'];
@@ -162,7 +187,6 @@ export class ModalDireccionesComponent implements OnInit {
       this.codigoDepartamento = respuesta['data'][0]['id'];
       this.onchangeCiudades();
       this.codigoCiudad = respuesta['data'][0]['ciudad'];
-      console.log(this.direcciones, this.codigoCiudad );
       this.favoritoSe.changeMessage();
     }).catch(error => {
       console.log(error);
@@ -171,7 +195,6 @@ export class ModalDireccionesComponent implements OnInit {
   }
   actualizarDirecciones() {
     this.direcciones.cliente_codigo =   this.usuario.id_cliente;
-    console.log(this.direcciones);
 
     this.setHtpp.httpPost('actualizar-direcciones', this.direcciones).toPromise().then(respuesta => {
       if (respuesta[`estado`]) {
@@ -200,7 +223,8 @@ export class ModalDireccionesComponent implements OnInit {
       this.direcciones.direccion_ubicacion === null || this.direcciones.direccion_ubicacion == null ||
       this.direcciones.usuario_apellido === null || this.direcciones.usuario_apellido == null ||
       this.direcciones.usuario_nombre === null || this.direcciones.usuario_nombre == null ||
-      this.direcciones.direccion_celular === null || this.direcciones.direccion_celular == null
+      this.direcciones.direccion_celular === null || this.direcciones.direccion_celular == null ||
+      this.direcciones.direccion_estado  === null || this.direcciones.direccion_estado == null
 
     ) {
         return false;

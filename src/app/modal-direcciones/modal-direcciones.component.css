@@ -63,8 +63,20 @@ button[_ngcontent-jts-c373] {
   transition: all .6s ease;
   background: #FFFFFF;
 }
-select {
+.separador {
 
   margin-bottom: 12px;
 
+}
+
+label {
+  color: black !important;
+}
+
+span {
+  color: #FF596A;
+}
+
+.form-group {
+  margin-bottom: 0.5rem;
 }

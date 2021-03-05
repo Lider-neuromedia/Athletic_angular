@@ -120,7 +120,9 @@
                        </span>
               </p>
             </div>
+                 <span *ngIf="!returnEstadoProducto || returnEstadoProducto < 0" style="color: #FF596A">Actualmente no hay inventario</span>
                 <div class="content-strech content-cuotas">
+
                   <p class="cuotas">Hasta 12 cuotas de <span *ngIf="producto"
                                                              class="txt-dark-bold">{{producto.precio / 12 |currency:'COP':'symbol-narrow' :'1.0-0'}}</span><span
                     *ngIf="!producto" class="txt-dark-bold">{{0  |currency:'COP':'symbol-narrow' :'1.0-0'}}</span></p>
@@ -130,15 +132,16 @@
                     <a href="#" class="link-terminos">Ver términos y condiciones</a>
                 </div>
                 <div class="w-80">
-                    <div class="box-select-talla">
-                        <!--<i class="flecha-select">▼</i>-->
-                      <select class="my-own-form-control" placeholder="Elige tu talla" id="talla"
-                              (change)="checkearTalla($event.target.value)">
-                        <option selected value="" class="color-talla">Elige tu talla</option>
-                        <option class="color-talla" *ngFor="let item of tallasDelProductoFiltradas;"  value="{{item.valor}}">
-                          {{item.valor}}</option>
-                      </select>
-                    </div>
+                  <div class="box-select-talla">
+                    <!--<i class="flecha-select">▼</i>-->
+                    <select class="my-own-form-control" placeholder="Elige tu talla" id="talla"
+                            (change)="checkearTalla($event.target.value)">
+                      <option selected value="" class="color-talla">Elige tu talla</option>
+                      <option class="color-talla" *ngFor="let item of tallasDelProductoFiltradas;"  value="{{item.valor}}">
+                        {{item.valor}}</option>
+                    </select>
+                  </div>
+
                     <div class="cantidad mrg-botn-10 btn-select">
                         <label for="input-cant" class="lbl-cant">Cantidad</label>
                         <input id="input-cant" class="mrg-botn-10 input-cant" [ngModel]="cantidadProductos" type="number">
@@ -151,29 +154,14 @@
                         -
                       </button>
                     </div>
-                  <!--  <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary" (click)="agregarProductosAlCarrito()">
-                        <mat-icon class="icon-small">work</mat-icon>Añadir pedido
-                    </button>
-
-                  <button (click)="usuario?agregarProductoFavorito() : ingresar()" class="btn-full-view btn-corazon-favoritos"
-                          color="primary"
-                          mat-stroked-button>
-                    <div class="favoritos-productos">
-                      <div class="img-corazon">
-                        <mat-icon class="icon-small">favorite_border</mat-icon>
-                      </div>
-                      <p>Añadir a mis favoritos</p>
-                    </div>
-                  </button>-->
-                  <button (click)="agregarProductosAlCarrito() " [disabled]="!returnEstadoProducto"
+                  <button (click)="agregarProductosAlCarrito() " [disabled]="!returnEstadoProducto || returnEstadoProducto < 0"
                           class="btn-full-view mrg-botn-10 btn-bolsa-favoritos" color="primary"
                           mat-raised-button>
                     <div class="favoritos-bolsa">
                       <div class="img-bolsa">
                         <img alt="" src="assets/img/icons/inactive.png">
                       </div>
-                      <p *ngIf="!returnEstadoProducto">Producto agotado</p>
-                      <p *ngIf="returnEstadoProducto">Añadir a la bolsa</p>
+                      <p >Añadir a la bolsa</p>
                     </div>
                   </button>
                   <button (click)="usuario ? agregarProductoFavorito() : ingresar()"  *ngIf="!condicionBotonFavorito"
@@ -200,89 +188,9 @@
                     </div>
                   </button>
 
-
-                  <!-- <button mat-raised-button class="btn-full-view mrg-botn-10" color="primary" (click)="usuario?agregarProductoFavorito(): ingresar()" *ngIf="!condicionBotonFavorito">
-                     <mat-icon aria-hidden="false" aria-label="Icon">favorite_outline</mat-icon>Añadir favoritos
-                   </button>-->
                 </div>
             </div>
         </div>
-
-        <!-- <mat-tab-group class="mrg-top-20">
-
-            <mat-tab label="Descripcion">
-                <div class="content-tab d-block d-sm-flex p-top-50  mrg-botn-20">
-                    <div class="col-md-6 col-xs-12">
-                        <div class="content-strech mrg-botn-30">
-                            <p class="prod-subtitle">{{producto.marca}}</p>
-                            <p class="prod-title">{{producto.name}}</p>
-                        </div>
-                        <div>
-                            <p class="text-pink font-w-500">{{producto.resumen}}</p>
-                            <p class="text-dart font-w-500">{{producto.descripcion}}</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xs-12 d-flex justify-content-center">
-                        <img src="assets/img/home/zap-9.png" class="w-80" alt="">
-                    </div>
-                </div>
-            </mat-tab>
-
-            <mat-tab label="Detalle">
-                <div class="content-tab mrg-top-20">
-                    <div class="col-md-12 mrg-botn-30">
-                        <p class="prod-title">Detalle</p>
-                    </div>
-                    <div class="d-block d-sm-flex">
-                        <div class="col-md-4 col-xs-12">
-                            <ul>
-                                <li class="mrg-botn-10 text-dark font-w-500">Sistema de amarre de cordones</li>
-                                <li class="mrg-botn-10 text-dark font-w-500">Exterior tejido con refuerzos de TPU</li>
-                                <li class="mrg-botn-10 text-dark font-w-500">Diseño ajustado y elástico</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4 col-xs-12">
-                            <ul>
-                                <li class="mrg-botn-10 text-dark font-w-500">Sistema de amarre de cordones</li>
-                                <li class="mrg-botn-10 text-dark font-w-500">Exterior tejido con refuerzos de TPU</li>
-                                <li class="mrg-botn-10 text-dark font-w-500">Diseño ajustado y elástico</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4 col-xs-12">
-                            <ul>
-                                <li class="mrg-botn-10 text-dark font-w-500">Sistema de amarre de cordones</li>
-                                <li class="mrg-botn-10 text-dark font-w-500">Exterior tejido con refuerzos de TPU</li>
-                                <li class="mrg-botn-10 text-dark font-w-500">Diseño ajustado y elástico</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </mat-tab>
-
-            <mat-tab label="Valoraciones & Sugerencias">
-                <div class="d-block d-sm-flex mrg-top-20">
-                    <div class="col-md-4 content-tab mrg-botn-20">
-                        <div class="content-strech mrg-botn-30">
-                            <p class="prod-title">Valoraciones</p>
-                            <p class="prod-subtitle">18 comentarios</p>
-                        </div>
-                        <div class="d-flex">
-                            Barra de progreso
-                        </div>
-                    </div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-7 content-tab mrg-botn-20">
-                        <div class="content-strech mrg-botn-30">
-                            <p class="prod-title">Comentarios</p>
-                            <p class="prod-subtitle">12 comentarios</p>
-                        </div>
-                    </div>
-                </div>
-            </mat-tab>
-
-        </mat-tab-group> -->
-
-
 
         <div class="row">
             <div class="col-sm-12">

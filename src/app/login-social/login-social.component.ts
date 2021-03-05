@@ -66,22 +66,15 @@ export class LoginSocialComponent implements OnInit {
         }
 
         if (response[`user`]) {
-          console.log(response[`user`]);
           this.usuario = response[`user`];
           localStorage.setItem('userAthletic', JSON.stringify(response[`user`]));
           this.loginGlobal.changeMessage();
           this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
-        //  this.router.navigate(['/perfil']);
           if (this.producto) {
             this.agregarProductoFavorito();
             this.router.navigate(['/favoritos']);
           } else {
-            if (this.carritoCompras.length > 0) {
-              this.router.navigate(['/detalle-de-la-compra']);
-            } else {
-              this.router.navigate(['/perfil']);
-            }
-
+            this.router.navigate(['/']);
           }
 
         }
@@ -125,17 +118,13 @@ export class LoginSocialComponent implements OnInit {
           this.loginGlobal.changeMessage();
           this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
 
-
           if (this.producto) {
             this.agregarProductoFavorito();
             this.router.navigate(['/favoritos']);
           } else {
-            if (this.carritoCompras.length > 0) {
-              this.router.navigate(['/detalle-de-la-compra']);
-            } else {
-              this.router.navigate(['/perfil']);
-            }
+            this.router.navigate(['/']);
           }
+
 
         }
       }).catch( error => {

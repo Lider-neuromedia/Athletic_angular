@@ -158,7 +158,6 @@ export class DetalleProductoComponent implements OnInit {
     }, 300);
 
     this.activatedRoute.params.subscribe(value => {
-     console.log(value);
       this.getProducts(value.id);
       this.calculoProductoResenia(value.id);
       this.cargarLosComentarios(value.id);
@@ -257,7 +256,6 @@ export class DetalleProductoComponent implements OnInit {
         }
       );
     });
-    console.log(productos);
     this.productos_relac = productos;
   }
 
@@ -279,7 +277,7 @@ export class DetalleProductoComponent implements OnInit {
       );
     });
     this.tallas = values;
-    console.log(this.tallas);
+
   }
 
   // Productos
@@ -287,7 +285,6 @@ export class DetalleProductoComponent implements OnInit {
     this.http.httpGet('productos/' + id, null, false).subscribe(
       async response => {
         this.producto = response;
-        console.log(this.producto);
         await  this.validarEstadodelProducto();
         this.producto.precio = Math.round(this.producto.precio)
         $('#detalle').html(response.descripcion_prod);
@@ -324,23 +321,18 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   agregarProductosAlCarrito() {
-    console.log(this.cantidadProductos, this.producto);
     if (!this.opcionSeleccionado) {
       this.alertaS.showToasterError('Debes seleccionar una talla');
       return;
     }
 
     this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
-    console.log(this.carritoAnterior);
-
 
     if (this.verTalalsAgotadas(this.opcionSeleccionado, this.cantidadProductos, this.producto['id_producto'])) {
       if (this.cantidadProductos > 0) {
         this.producto['talla'] = this.opcionSeleccionado;
         this.producto['cantidad'] = this.cantidadProductos;
         this.addProductoCarrito.push(this.producto);
-        console.log(this.addProductoCarrito);
-
         if (this.addProductoCarrito) {
           if (this.carritoAnterior) {
           } else {
@@ -383,9 +375,6 @@ export class DetalleProductoComponent implements OnInit {
     }).catch(error => {
 
     })
-
-
-    console.log(this.producto, data);
   }
 
 
@@ -404,7 +393,6 @@ export class DetalleProductoComponent implements OnInit {
         usuario: this.usuario.id_cliente,
         producto: producto
       };
-      console.log(data);
       this.http.httpPost('valirdar-agregado-favorito', data).toPromise().then(respuesta => {
 
         this.condicionBotonFavorito = respuesta[`data`];
@@ -454,16 +442,10 @@ export class DetalleProductoComponent implements OnInit {
           this.to = respuesta[`comentarios`][`to`];
           this.total = respuesta[`comentarios`][`total`];
           this.cantidad = respuesta[`comentarios`][0];
-          console.log(this.total, this.cantidad, this.totalComentario, this.to)
           let contado = 0;
           for (let i = 1; i <= this.cantidadComentario[0]['cantidad']; i++) {
             contado++;
-            console.log(i);
           }
-          console.log(contado);
-          console.log(this.cantidadComentario[0]['cantidad']);
-          console.log(this.totalComentario);
-          console.log(this.cantidadComentario.length);
         }).catch(error => {
 
         });
@@ -481,7 +463,6 @@ export class DetalleProductoComponent implements OnInit {
 
       this.favoritoSe.currentMessage.subscribe(response => {
         this.http.httpPost('pintar-calculo-por-productos', data).toPromise().then(respuesta => {
-          console.log(respuesta);
           this.uno = respuesta['uno'];
           this.dos = respuesta['dos'];
           this.tres = respuesta['tres'];
@@ -496,7 +477,6 @@ export class DetalleProductoComponent implements OnInit {
           this.tamanio4 = respuesta['todas']['todas'] ? respuesta['cuatro']['cuatro'] / respuesta['todas']['todas'] * 100 : 0;
           this.tamanio5 = respuesta['todas']['todas'] ? respuesta['cinco']['cinco'] / respuesta['todas']['todas'] * 100 : 0;
 
-          console.log(this.tamanio1, this.tamanio2, this.tamanio3, this.tamanio4, this.tamanio5)
 
           if (this.tamanio1 > 99) {
             this.tamanio1 = 100;
@@ -529,26 +509,19 @@ export class DetalleProductoComponent implements OnInit {
     };
 
     this.http.httpPost('listar-productos-relacionados', data).toPromise().then(respuesta => {
-      console.log(respuesta);
-
       this.carouselDescatadosUno = respuesta[`data`];
       this.url = respuesta[`ruta`];
-
-      console.log(this.carouselDescatadosUno, this.url)
     });
   }
 
   checkearTalla(evento) {
-    console.log(evento);
     this.opcionSeleccionado = evento;
   }
 
   verTalalsAgotadas(talla: string, cantidad: number, producto: number) {
 
-    console.log(this.producto['combinaciones'], talla, cantidad, producto);
     //Filtro cual es la talla del producto que estan comprando
     const result = this.producto['combinaciones'].filter(item => item.valor == talla);
-    console.log(result, result[0]['cantidad']);
     //luego que obtengo los datos de la base de datos valido que si la cantidad que estan comprando es menor o igual a la que tengo
     //En la base de datos lo deje permitir comprando de lo contrario nooooooooo podra
     if (cantidad <= result[0]['cantidad']) {
@@ -579,9 +552,7 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   getPagination(url: string): void{
-    console.log(url);
     this.http.httpGetPaginar(url).toPromise().then(response => {
-      console.log(response);
       if (response[`comentarios`]){
         this.totalComentario  = response[`comentarios`][`data`];
         this.currentPage  = response[`comentarios`][`current_page`];
@@ -593,7 +564,6 @@ export class DetalleProductoComponent implements OnInit {
         this.to = response[`comentarios`][`to`];
         this.total = response[`comentarios`][`total`];
         this.cantidad = response[`comentarios`][0];
-        console.log( this.total, this.cantidad, this.totalComentario,  this.to )
       }
 
     });
@@ -605,7 +575,6 @@ export class DetalleProductoComponent implements OnInit {
       usuario: this.usuario.id_cliente,
       producto: this.producto.id_producto
     }
-    console.log(data);
     Swal.fire({
       title: '¿Estás seguro?',
       text: "¡No podrás revertir esto!",
@@ -634,7 +603,6 @@ export class DetalleProductoComponent implements OnInit {
 
   ocultarZoom() {
     document.getElementById('myresult').style.display = 'none';
-    console.log( this.mostrarZoom)
   }
 
 
@@ -709,18 +677,9 @@ export class DetalleProductoComponent implements OnInit {
 
 
   validarEstadodelProducto() {
-
-    console.log(this.producto);
-
-
       this.returnEstadoProducto = this.producto['combinaciones'].reduce((item1, item2) => {
-        //return item1 + (item2.cantidad);
         return item1 + item2.cantidad;
       }, 0);
-
- //   return this.returnEstadoProducto;
-    console.log(this.returnEstadoProducto);
-
   }
 
 }

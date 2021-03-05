@@ -356,7 +356,7 @@
                   </div>
                 </div>
 
-                <div class="content-productos content-productos-2" *ngIf="cargarDirecciones.length < 1">
+                <div class="content-productos content-productos-2" *ngIf="usuario && !cargarDirecciones">
 
                   <div class="icono-triste">
                     <span class="material-icons">
@@ -413,380 +413,684 @@
                 </div>
               </div>
 
-              <div class="contenedor-registro-local contenedor-registro-pagos" style="height: 60vh" *ngIf="habilita4">
-                <div class="row titulo-secciones">
-                  <div class="col-md-8">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <span class="span-tuitulo">Realizar pago</span>
+                <div class="contenedor-registro-local contenedor-registro-pagos" style="height: 100vh" *ngIf="habilita4">
+                   <div class="row titulo-secciones titulo-row titulo-secciones">
+                    <div class="col-md-8">
+                      <div class="row">
+                        <div class="col-md-12 " style="right: -19px;">
+                          <span class="span-tuitulo">Realizar pago</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="row otros-pagos">
+
                   <div class="col-md-12">
-                    <mat-nav-list class="opciones-menu-lateral"  (click)="validarTipoPago(1)">
-
-                      <a>
-                        <ul class="nav flex-column flex-nowrap overflow-hidden">
-                          <li class="nav-item clase-titulo-menu">
-
-                            <a class="nav-link collapsed text-truncate link-rutas" href="#submenu3"
-                               data-toggle="collapse" data-target="#submenu3">
-                              <img src="./assets/img/iconos/titulos/credito-copyPNG.png" class="pago-electronico">
+                    <div id="accordion">
+                      <div class="" >
+                        <div class="card-header" id="headingTwo"   [style]="'background-color:' +colorDelosTapUno+';color:'+colorDelosTitulosTapUno">
+                          <h5 class="mb-0">
+                            <a id="desplegar-credito" (click)="validarTipoPago(1)"
+                               class="btn btn-link collapsed decoracion-texto"
+                               data-toggle="collapse"
+                               data-target="#collapseTwo"
+                               aria-expanded="false"
+                               aria-controls="collapseTwo">
+                              <img src="./assets/img/colapse/credito.png" class="pago-electronico">
                               <span class="d-sm-inline color-titulo-menu"> Tarjeta de crédito</span>
                             </a>
-
-                            <div class="collapse" id="submenu3" aria-expanded="false">
-                              <ul class="flex-column pl-2 nav  otro-colo">
-
-                                <li class="nav-item">
-                                  <a>
-                                    <div class="row">
-                                      <hr class="separador">
-                                      <div class="col-md-12 titulo-tarjeta-contactenos-columna">
+                          </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                          <div class="card-body" style="padding: 1px !important;">
+                            <a>
+                              <div class="row">
+                                <div class="col-md-12 titulo-tarjeta-contactenos-columna">
                                          <span class="titulo-tarjeta-contactenos">
                                          Contamos con muchas opciones de pago.
                                         </span>
-                                      </div>
-                                      <div class="row metos-pagos-tarjeta">
-                                        <img src="assets/img/iconos/credito/mastercardPNG.png">
+                                </div>
+                                <div class="row metos-pagos-tarjeta">
+                                  <img src="assets/img/iconos/credito/mastercardPNG.png">
+                                  <img src="assets/img/iconos/credito/visaPNG.png">
+                                  <img src="assets/img/iconos/credito/american.png">
+                                  <img src="assets/img/iconos/credito/dinersPNG.png">
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <p>
+                                    <mat-form-field appearance="outline">
+                                      <mat-label>Nombre del titular</mat-label>
+                                      <input matInput placeholder="Nombre del titular" [(ngModel)]="cargarInfoCredito.Nombre">
+                                    </mat-form-field>
+                                    <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Nombre">Para continuar ingrese su nombre</mat-hint>
+                                  </p>
+
+                                </div>
+                                <div class="col-6">
+                                  <p>
+                                    <mat-form-field appearance="outline">
+                                      <mat-label>Apellido del titular</mat-label>
+                                      <input matInput placeholder="Apellido del titular" [(ngModel)]="cargarInfoCredito.Apellido">
+                                    </mat-form-field>
+                                    <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Apellido">Para continuar ingrese su apellido</mat-hint>
+                                  </p>
+
+                                </div>
+                                <div class="col-6">
+
+                                  <p>
+                                    <mat-form-field appearance="outline">
+                                      <mat-label>Número de documento del titular</mat-label>
+                                      <input matInput placeholder="Número de documento del titular" type="number" [(ngModel)]="cargarInfoCredito.Documento">
+                                    </mat-form-field>
+                                    <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Documento">
+                                      Ingrese su documento
+                                    </mat-hint>
+                                  </p>
+                                  <!--<select class="form-control select-nuevo"  >
+                                    <option  [value]="null">Tipo de documento</option>
+                                    <option  [value]="'CC'">CC</option>
+                                    <option  [value]="'CE'">CE</option>
+                                  </select>-->
+                                </div>
+
+                                <div class="col-6">
+
+                                  <p>
+                                    <mat-form-field appearance="outline">
+                                      <mat-label>Número de celular</mat-label>
+                                      <input matInput placeholder="Número de celular" type="number"  [(ngModel)]="cargarInfoCredito.Celular">
+                                    </mat-form-field>
+                                    <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Celular">Ingrese
+                                      su celular
+                                    </mat-hint>
+                                  </p>
+
+                                </div>
+                              </div>
+
+
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <p>
+                                    <mat-form-field appearance="outline">
+                                      <mat-label>Número de la tarjeta</mat-label>
+                                      <input matInput placeholder="Número de la tarjeta" type="text"
+                                             minlength="16" maxlength="16"
+                                             (ngModelChange)="devolverImagenBancarias(cargarInfoCredito.campo1)"
+                                             [(ngModel)]="cargarInfoCredito.campo1">
+                                    </mat-form-field>
+                                    <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo1">Número
+                                      de la tarjeta
+                                    </mat-hint>
+                                  </p>
+                                </div>
+
+                                <div class="col-md-6">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <p>
+                                        <mat-form-field appearance="outline">
+                                          <mat-label>CVV</mat-label>
+                                          <input matInput placeholder="CVV" type="password" required
+                                                 minlength="3" maxlength="3"
+                                                 [(ngModel)]="cargarInfoCredito.campo2">
+                                        </mat-form-field>
+                                        <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo2">
+                                          ingrese codigo CVV
+                                        </mat-hint>
+                                      </p>
+                                    </div>
+                                    <div class="col-md-6 tarjetas-pago">
+                                      <span *ngIf="devolverImagenTarjeta == 4">
                                         <img src="assets/img/iconos/credito/visaPNG.png">
-                                        <img src="assets/img/iconos/credito/americanPNG.png">
+                                      </span>
+                                      <span *ngIf="devolverImagenTarjeta == 5">
+                                        <img src="assets/img/iconos/credito/mastercardPNG.png">
+                                      </span>
+                                      <span *ngIf="devolverImagenTarjeta == 6">
+                                        <img src="assets/img/iconos/credito/american.png">
+                                      </span>
+                                      <span *ngIf="devolverImagenTarjeta == 7">
                                         <img src="assets/img/iconos/credito/dinersPNG.png">
-                                        <img src="assets/img/iconos/credito/fallabellaPNG.png">
-                                        <img src="assets/img/iconos/credito/linioPNG.png">
-                                      </div>
+                                      </span>
+
+                                      <span *ngIf="tarjetanoHabilitada">
+                                        {{tarjetanoHabilitada}}
+                                      </span>
+
                                     </div>
-                                    <div class="row">
-                                      <div class="col-6">
-                                        <p>
-                                          <mat-form-field appearance="outline">
-                                            <mat-label>Nombre del titular</mat-label>
-                                            <input matInput placeholder="Nombre del titular" [(ngModel)]="cargarInfoCredito.Nombre">
-                                          </mat-form-field>
-                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Nombre">Para continuar ingrese su nombre</mat-hint>
-                                        </p>
+                                  </div>
+                                </div>
+                              </div>
 
-                                      </div>
-                                      <div class="col-6">
-                                        <p>
-                                          <mat-form-field appearance="outline">
-                                            <mat-label>Apellido del titular</mat-label>
-                                            <input matInput placeholder="Apellido del titular" [(ngModel)]="cargarInfoCredito.Apellido">
-                                          </mat-form-field>
-                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Apellido">Para continuar ingrese su apellido</mat-hint>
-                                        </p>
+                              <div class="row">
+                                <div class="col-md-3 anio-expiracion">
+                                  <p>
+                                    <select class="form-control select-nuevo"  [(ngModel)]="cargarInfoCredito.campo4" >
+                                      <option  [value]="null">Mes de expiración</option>
+                                      <option  *ngFor="let me of mes" [value]="me['id']">{{me['prefijo']}}</option>
+                                    </select>
+                                  </p>
 
-                                      </div>
-                                      <div class="col-6">
+                                  <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo4">Para continuar ingrese año Exp.</mat-hint>
+                                </div>
 
-                                        <p>
-                                          <mat-form-field appearance="outline">
-                                            <mat-label>Número de documento del titular</mat-label>
-                                            <input matInput placeholder="Número de documento del titular" type="number" [(ngModel)]="cargarInfoCredito.Documento">
-                                          </mat-form-field>
-                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Documento">Para continuar ingrese su documento</mat-hint>
-                                        </p>
-                                        <!--<select class="form-control select-nuevo"  >
-                                          <option  [value]="null">Tipo de documento</option>
-                                          <option  [value]="'CC'">CC</option>
-                                          <option  [value]="'CE'">CE</option>
-                                        </select>-->
-                                      </div>
+                                <div class="col-md-3  mes-expiracion ">
 
-                                      <div class="col-6">
+                                  <p>
+                                    <select class="form-control select-nuevo "
+                                            [(ngModel)]="cargarInfoCredito.campo3">
+                                      <option [value]="null">Año de expiración</option>
+                                      <option *ngFor="let ani of aniotarjeta" [value]="ani">{{ani}}</option>
+                                    </select>
+                                  </p>
+                                  <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo3">Para continuar ingrese mes de Exp</mat-hint>
 
-                                        <p>
-                                          <mat-form-field appearance="outline">
-                                            <mat-label>Número de celular</mat-label>
-                                            <input matInput placeholder="Número de celular" type="number"  [(ngModel)]="cargarInfoCredito.Celular">
-                                          </mat-form-field>
-                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Celular">Para continuar ingrese su celular</mat-hint>
-                                        </p>
+                                </div>
 
-                                      </div>
-                                    </div>
+                                <div class="col-6 numero-cuotas">
+                                  <p>
+                                    <select class="form-control select-nuevo"   [(ngModel)]="cargarInfoCredito.campo5">
+                                      <option  [value]="null">Número de cuotas</option>
+                                      <option  *ngFor="let cuota of numeroCuotasPagos" [value]="cuota">{{cuota}}</option>
+                                    </select>
+                                  </p>
+                                  <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo5">Para  ingrese cantidad de cuotas</mat-hint>
+                                </div>
+                              </div>
+                              <!--  <div class="row">
+                                  <div class="col-6">
+                                    <p>
+                                      <mat-form-field appearance="outline">
+                                        <mat-label>Número de celular</mat-label>
+                                        <input matInput placeholder="Número de celular" type="number"  [(ngModel)]="cargarInfoCredito.Celular">
+                                      </mat-form-field>
+                                    </p>
+                                  </div>
+                                  <div class="col-6">
+                                    <p>
 
-                                    <div class="row">
-                                      <div class="col-md-6">
-                                        <p>
-                                          <mat-form-field appearance="outline">
-                                            <mat-label>Número de la tarjeta</mat-label>
-                                            <input matInput placeholder="Número de la tarjeta" type="text"
-                                                   minlength="16" maxlength="16"
-                                                   [(ngModel)]="cargarInfoCredito.campo1">
-                                          </mat-form-field>
-                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo1">Para continuar Número de la tarjeta</mat-hint>
-                                        </p>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <p>
-                                          <mat-form-field appearance="outline">
-                                            <mat-label>CVV</mat-label>
-                                            <input matInput placeholder="CVV"  type="password" required
-                                                   minlength="3" maxlength="3" [(ngModel)]="cargarInfoCredito.campo2">
-                                          </mat-form-field>
-                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo2">Para continuar ingrese codigo CVV</mat-hint>
-                                        </p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-md-3 anio-expiracion">
-                                        <p>
-                                          <select class="form-control select-nuevo "  [(ngModel)]="cargarInfoCredito.campo3">
-                                            <option  [value]="null">Año de expiración</option>
-                                            <option  *ngFor="let ani of aniotarjeta" [value]="ani">{{ani}}</option>
-                                          </select>
-                                        </p>
+                                    </p>
+                                  </div>
+                                </div>-->
+                              <!--<div class="row clase-boto-seleccionar">
+                                <div class="col-md-12">
+                                  <div class="justify-content-center align-items-center">
+                                    <button mat-raised-button color="primary" class="agregar-direccion-boton">
+                                      Seleccionar
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>-->
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="" >
+                        <div class="card-header" id="headingThree"   [style]="'background-color:' +colorDelosTapDos">
+                          <h5 class="mb-0">
+                            <a id="desplegar-pse" (click)="validarTipoPago(2)" class="btn btn-link collapsed decoracion-texto" data-toggle="collapse" data-target="#collapseThree"
+                               aria-expanded="false" aria-controls="collapseThree">
+                              <img src="./assets/img/colapse/pse.png" class="pago-electronico">
+                              <span class="d-sm-inline color-titulo-menu">Pago con débito</span>
+                            </a>
+                          </h5>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                             data-parent="#accordion">
+                          <div class="card-body">
+                            <a>
+                              <div class="row">
 
-                                        <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo3">Para continuar ingrese año Exp.</mat-hint>
-                                      </div>
-
-                                      <div class="col-md-3  mes-expiracion ">
-
-                                        <p>
-                                          <select class="form-control select-nuevo"  [(ngModel)]="cargarInfoCredito.campo4" >
-                                            <option  [value]="null">Mes de expiración</option>
-                                            <option  *ngFor="let me of mes" [value]="me['id']">{{me['prefijo']}}</option>
-                                          </select>
-                                        </p>
-                                        <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo4">Para continuar ingrese mes de Exp</mat-hint>
-
-                                      </div>
-
-                                      <div class="col-6 numero-cuotas">
-                                        <p>
-                                          <select class="form-control select-nuevo"   [(ngModel)]="cargarInfoCredito.campo5">
-                                            <option  [value]="null">Numero de cuotas</option>
-                                            <option  *ngFor="let cuota of numeroCuotasPagos" [value]="cuota">{{cuota}}</option>
-                                          </select>
-                                        </p>
-                                        <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo5">Para  ingrese cantidad de cuotas</mat-hint>
-                                      </div>
-                                    </div>
-                                  <!--  <div class="row">
-                                      <div class="col-6">
-                                        <p>
-                                          <mat-form-field appearance="outline">
-                                            <mat-label>Número de celular</mat-label>
-                                            <input matInput placeholder="Número de celular" type="number"  [(ngModel)]="cargarInfoCredito.Celular">
-                                          </mat-form-field>
-                                        </p>
-                                      </div>
-                                      <div class="col-6">
-                                        <p>
-
-                                        </p>
-                                      </div>
-                                    </div>-->
-                                    <!--<div class="row clase-boto-seleccionar">
-                                      <div class="col-md-12">
-                                        <div class="justify-content-center align-items-center">
-                                          <button mat-raised-button color="primary" class="agregar-direccion-boton">
-                                            Seleccionar
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </div>-->
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                          </li>
-
-                        </ul>
-                      </a>
-                    </mat-nav-list>
-
-                  </div>
-                </div>
-
-                <div class="row otros-pagos">
-
-                  <div class="col-md-12">
-                    <mat-nav-list class="opciones-menu-lateral"  (click)="validarTipoPago(2)">
-
-                      <a>
-                        <ul class="nav flex-column flex-nowrap overflow-hidden">
-                          <li class="nav-item clase-titulo-menu">
-                            <hr class="hr-separador-productos">
-                            <a class="nav-link collapsed text-truncate link-rutas" href="#submenu2"
-                               data-toggle="collapse" data-target="#submenu2">
-                              <img src="./assets/img/iconos/titulos/debito-copyPNG.png" class="pago-electronico">
-                              <span class="d-sm-inline color-titulo-menu">Pago con débito</span></a>
-                            <div class="collapse" id="submenu2" aria-expanded="false">
-                              <ul class="flex-column pl-2 nav  otro-colo">
-                                <li class="nav-item">
-                                  <ul class="flex-column pl-2 nav  otro-colo">
-                                    <li class="nav-item">
-                                      <a>
-                                        <div class="row">
-
-                                          <div class="col-md-12  titulo-tarjeta-contactenos-columna">
+                                <div class="col-md-12  titulo-tarjeta-contactenos-columna">
                                             <span class="titulo-tarjeta-contactenos">
                                          Contamos con muchas opciones de pago.
                                         </span>
-                                          </div>
+                                </div>
 
-                                          <div class="col-6">
+                                <div class="col-6">
 
-                                            <p>
-                                              <mat-form-field appearance="outline">
-                                                <mat-label>Nombre del titular</mat-label>
-                                                <input matInput placeholder="Nombre del titular" [(ngModel)]="cargarInfoDebito.Nombre">
-                                              </mat-form-field>
-                                            </p>
-                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Nombre">Para continuar ingrese su nombre</mat-hint>
-                                          </div>
-                                          <div class="col-6">
-                                            <p>
-                                              <mat-form-field appearance="outline">
-                                                <mat-label>Apellido del titular</mat-label>
-                                                <input matInput placeholder="Apellido del titular"  [(ngModel)]="cargarInfoDebito.Apellido">
-                                              </mat-form-field>
-                                            </p>
-                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Apellido">Para continuar ingrese su apellido</mat-hint>
-                                          </div>
+                                  <p>
+                                    <mat-form-field appearance="outline">
+                                      <mat-label>Nombre del titular</mat-label>
+                                      <input matInput placeholder="Nombre del titular" [(ngModel)]="cargarInfoDebito.Nombre">
+                                    </mat-form-field>
+                                  </p>
+                                  <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Nombre">Para continuar ingrese su nombre</mat-hint>
+                                </div>
+                                <div class="col-6">
+                                  <p>
+                                    <mat-form-field appearance="outline">
+                                      <mat-label>Apellido del titular</mat-label>
+                                      <input matInput placeholder="Apellido del titular"  [(ngModel)]="cargarInfoDebito.Apellido">
+                                    </mat-form-field>
+                                  </p>
+                                  <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Apellido">Para continuar ingrese su apellido</mat-hint>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <p>
+                                    <select class="form-control select-nuevo"   [(ngModel)]="cargarInfoDebito.campo3">
+                                      <option  [value]="null">Tipo de persona</option>
+                                      <option  [value]="'0'">Natural</option>
+                                      <option  [value]="'1'">Juridica</option>
+                                    </select>
+                                  </p>
+                                  <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.campo3">Para continuar ingrese Tipo de persona</mat-hint>
+
+                                </div>
+                                <div class="col-md-6">
+
+                                  <p>
+                                    <select class="form-control select-nuevo"  id="banco" (change)="oncheckBanco()" >
+                                      <option  [value]="null">Seleccionar banco</option>
+                                      <option   *ngFor="let ban of dataBancos"
+                                                [value]="ban['codigoBanco']">{{ban['nombreBanco']}}</option>
+                                    </select>
+                                  </p>
+                                  <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.campo1">Para continuar ingrese el banco</mat-hint>
+
+                                </div>
+                              </div>
+                              <div class="row select-nuevo2">
+                                <div class="col-md-6">
+                                  <p >
+                                    <mat-form-field appearance="outline" >
+                                      <mat-label>Documento de identificación</mat-label>
+                                      <input matInput placeholder="Documento de identificación"  [(ngModel)]="cargarInfoDebito.Documento">
+                                    </mat-form-field>
+                                  </p>
+                                  <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Documento">Para continuar ingrese su documento</mat-hint>
+
+                                </div>
+
+                                <div class="col-6">
+                                  <p >
+                                    <mat-form-field appearance="outline">
+                                      <mat-label>Número celular</mat-label>
+                                      <input matInput placeholder="Número celular"  [(ngModel)]="cargarInfoDebito.Celular">
+                                    </mat-form-field>
+                                  </p>
+                                  <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Celular">Para continuar ingrese su celular</mat-hint>
+
+                                </div>
+                              </div>
+                              <!--<div class="row clase-boto-seleccionar">
+                                <div class="col-md-12">
+                                  <div class="justify-content-center align-items-center">
+                                    <button mat-raised-button color="primary"
+                                            class="agregar-direccion-boton">Seleccionar
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>-->
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!--         <mat-nav-list class="opciones-menu-lateral contra-entrega-opcion">-->
+                    <!--<mat-checkbox
+                      class="pago-contraentregas"
+                      (click)="validarTipoPago(3, $event)"
+                      [(ngModel)]="marcarContraentrega"
+                      color="primary">
+                     <span class="">
+                       Pago con efectivo a contra entrega
+                     </span>
+                    </mat-checkbox>-->
+
+                    <!--  <a>
+                       <ul class="nav flex-column flex-nowrap overflow-hidden">
+                         <hr class="hr-separador-productos">
+                         <li class="nav-item clase-titulo-menu">
+                           <a class="nav-link collapsed text-truncate link-rutas" href="#submenu1"
+                              data-toggle="collapse" data-target="#submenu1">
+                             <img src="./assets/img/iconos/titulos/efectivo-copyPNG.png" class="pago-electronico">
+                             <span class="d-sm-inline color-titulo-menu">Pago con efectivo a contra entrega</span></a>
+                           <div class="collapse" id="submenu1" aria-expanded="false">
+                             <ul class="flex-column pl-2 nav  otro-colo">
+                               <li class="nav-item">
+                                 <a>
+
+                                   <div class="row">
+                                     <div class="col-md-3"></div>
+                                     <div class="col-md-6 div-pago-en-efectivo">
+                                       <p class="pago-en-efectivo">
+                                         Paga con efectivo
+                                       </p>
+                                     </div>
+                                     <div class="col-md-3"></div>
+                                   </div>
+                                   <div class="row">
+                                     <div class="col-md-3"></div>
+                                     <div class="col-md-6 div-contre-entrega">
+                                       <p class="contre-entrega">
+                                         Puedes pagar tu pedido a contraentrega en la dirección de entrega elegida
+                                       </p>
+                                     </div>
+                                     <div class="col-md-3"></div>
+                                   </div>
+                                   <div class="row">
+                                     <div class="col-md-3"></div>
+                                     <div class="col-md-6">
+                                       <div class="justify-content-center align-items-center centrar-boton">
+                                         <button mat-raised-button color="primary" class="agregar-direccion-boton">
+                                           Seleccionar
+                                         </button>
+                                       </div>
+                                     </div>
+                                     <div class="col-md-3"></div>
+                                   </div>
+
+                                 </a>
+                               </li>
+                             </ul>
+                           </div>
+                         </li>
+                       </ul>
+                     </a>-->
+                    <!--</mat-nav-list>-->
+                  </div>
+
+                  <!--<div class="row otros-pagos">
+                    <div class="col-md-12">
+                      <mat-nav-list class="opciones-menu-lateral"  (click)="validarTipoPago(1)">
+
+                        <a>
+                          <ul class="nav flex-column flex-nowrap overflow-hidden">
+                            <li class="nav-item clase-titulo-menu">
+
+                              <a class="nav-link collapsed text-truncate link-rutas" href="#submenu3"
+                                 data-toggle="collapse" data-target="#submenu3">
+                                <img src="./assets/img/iconos/titulos/credito-copyPNG.png" class="pago-electronico">
+                                <span class="d-sm-inline color-titulo-menu"> Tarjeta de crédito</span>
+                              </a>
+
+                              <div class="collapse" id="submenu3" aria-expanded="false">
+                                <ul class="flex-column pl-2 nav  otro-colo">
+
+                                  <li class="nav-item">
+                                    <a>
+                                      <div class="row">
+                                        <hr class="separador">
+                                        <div class="col-md-12 titulo-tarjeta-contactenos-columna">
+                                           <span class="titulo-tarjeta-contactenos">
+                                           Contamos con muchas opciones de pago.
+                                          </span>
                                         </div>
-                                        <div class="row">
-                                          <div class="col-md-6">
-                                           <p>
-                                             <select class="form-control select-nuevo"   [(ngModel)]="cargarInfoDebito.campo3">
-                                               <option  [value]="null">Tipo de persona</option>
-                                               <option  [value]="'0'">Natural</option>
-                                               <option  [value]="'1'">Juridica</option>
-                                             </select>
-                                           </p>
-                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.campo3">Para continuar ingrese Tipo de persona</mat-hint>
+                                        <div class="row metos-pagos-tarjeta">
+                                          <img src="assets/img/iconos/credito/mastercardPNG.png">
+                                          <img src="assets/img/iconos/credito/visaPNG.png">
+                                          <img src="assets/img/iconos/credito/americanPNG.png">
+                                          <img src="assets/img/iconos/credito/dinersPNG.png">
+                                          <img src="assets/img/iconos/credito/fallabellaPNG.png">
+                                          <img src="assets/img/iconos/credito/linioPNG.png">
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-6">
+                                          <p>
+                                            <mat-form-field appearance="outline">
+                                              <mat-label>Nombre del titular</mat-label>
+                                              <input matInput placeholder="Nombre del titular" [(ngModel)]="cargarInfoCredito.Nombre">
+                                            </mat-form-field>
+                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Nombre">Para continuar ingrese su nombre</mat-hint>
+                                          </p>
 
-                                          </div>
-                                          <div class="col-md-6">
+                                        </div>
+                                        <div class="col-6">
+                                          <p>
+                                            <mat-form-field appearance="outline">
+                                              <mat-label>Apellido del titular</mat-label>
+                                              <input matInput placeholder="Apellido del titular" [(ngModel)]="cargarInfoCredito.Apellido">
+                                            </mat-form-field>
+                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Apellido">Para continuar ingrese su apellido</mat-hint>
+                                          </p>
 
+                                        </div>
+                                        <div class="col-6">
+
+                                          <p>
+                                            <mat-form-field appearance="outline">
+                                              <mat-label>Número de documento del titular</mat-label>
+                                              <input matInput placeholder="Número de documento del titular" type="number" [(ngModel)]="cargarInfoCredito.Documento">
+                                            </mat-form-field>
+                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Documento">
+                                              Ingrese su documento
+                                            </mat-hint>
+                                          </p>
+                                        </div>
+
+                                        <div class="col-6">
+
+                                          <p>
+                                            <mat-form-field appearance="outline">
+                                              <mat-label>Número de celular</mat-label>
+                                              <input matInput placeholder="Número de celular" type="number"  [(ngModel)]="cargarInfoCredito.Celular">
+                                            </mat-form-field>
+                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.Celular">Ingrese
+                                              su celular
+                                            </mat-hint>
+                                          </p>
+
+                                        </div>
+                                      </div>
+
+
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <p>
+                                            <mat-form-field appearance="outline">
+                                              <mat-label>Número de la tarjeta</mat-label>
+                                              <input matInput placeholder="Número de la tarjeta" type="text"
+                                                     minlength="16" maxlength="16"
+                                                     (ngModelChange)="devolverImagenBancarias(cargarInfoCredito.campo1)"
+                                                     [(ngModel)]="cargarInfoCredito.campo1">
+                                            </mat-form-field>
+                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo1">Número
+                                              de la tarjeta
+                                            </mat-hint>
+                                          </p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                          <div class="row">
+                                            <div class="col-md-6">
                                               <p>
-                                                <select class="form-control select-nuevo"  id="banco" (change)="oncheckBanco()" >
-                                                  <option  [value]="null">Seleccionar banco</option>
-                                                  <option   *ngFor="let ban of dataBancos"
-                                                            [value]="ban['codigoBanco']">{{ban['nombreBanco']}}</option>
-                                                </select>
+                                                <mat-form-field appearance="outline">
+                                                  <mat-label>CVV</mat-label>
+                                                  <input matInput placeholder="CVV" type="password" required
+                                                         minlength="3" maxlength="3"
+                                                         [(ngModel)]="cargarInfoCredito.campo2">
+                                                </mat-form-field>
+                                                <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo2">
+                                                  ingrese codigo CVV
+                                                </mat-hint>
                                               </p>
-                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.campo1">Para continuar ingrese el banco</mat-hint>
-
-                                          </div>
-                                        </div>
-                                        <div class="row select-nuevo2">
-                                          <div class="col-md-6">
-                                            <p >
-                                              <mat-form-field appearance="outline" >
-                                                <mat-label>Documento de identificación</mat-label>
-                                                <input matInput placeholder="Documento de identificación"  [(ngModel)]="cargarInfoDebito.Documento">
-                                              </mat-form-field>
-                                            </p>
-                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Documento">Para continuar ingrese su documento</mat-hint>
-
-                                          </div>
-
-                                          <div class="col-6">
-                                            <p >
-                                              <mat-form-field appearance="outline">
-                                                <mat-label>Número celular</mat-label>
-                                                <input matInput placeholder="Número celular"  [(ngModel)]="cargarInfoDebito.Celular">
-                                              </mat-form-field>
-                                            </p>
-                                            <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Celular">Para continuar ingrese su celular</mat-hint>
-
-                                          </div>
-                                        </div>
-                                        <!--<div class="row clase-boto-seleccionar">
-                                          <div class="col-md-12">
-                                            <div class="justify-content-center align-items-center">
-                                              <button mat-raised-button color="primary"
-                                                      class="agregar-direccion-boton">Seleccionar
-                                              </button>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <p>
+                                                <mat-label>Foto</mat-label>
+                                                {{devolverImagenTarjeta}}
+                                              </p>
+                                              <span *ngIf="devolverImagenTarjeta == 4"></span>
+                                              <span *ngIf="devolverImagenTarjeta == 5"></span>
+                                              <span *ngIf="devolverImagenTarjeta == 6"></span>
+                                              <span *ngIf="devolverImagenTarjeta == 7"></span>
                                             </div>
                                           </div>
-                                        </div>-->
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </li>
-                              </ul>
-                            </div>
-                          </li>
-                        </ul>
-                      </a>
-                    </mat-nav-list>
-                  </div>
-
-                  <div class="col-md-12">
-
-                    <hr class="hr-separador-productos">
-                   <mat-nav-list class="opciones-menu-lateral contra-entrega-opcion">
-                     <mat-checkbox
-                       class="pago-contraentregas"
-                       (click)="validarTipoPago(3, $event)"
-                       [(ngModel)]="marcarContraentrega"
-                       color="primary">
-                      <span class="">
-                        Pago con efectivo a contra entrega
-                      </span>
-                     </mat-checkbox>
-
-                     <!--  <a>
-                        <ul class="nav flex-column flex-nowrap overflow-hidden">
-                          <hr class="hr-separador-productos">
-                          <li class="nav-item clase-titulo-menu">
-                            <a class="nav-link collapsed text-truncate link-rutas" href="#submenu1"
-                               data-toggle="collapse" data-target="#submenu1">
-                              <img src="./assets/img/iconos/titulos/efectivo-copyPNG.png" class="pago-electronico">
-                              <span class="d-sm-inline color-titulo-menu">Pago con efectivo a contra entrega</span></a>
-                            <div class="collapse" id="submenu1" aria-expanded="false">
-                              <ul class="flex-column pl-2 nav  otro-colo">
-                                <li class="nav-item">
-                                  <a>
-
-                                    <div class="row">
-                                      <div class="col-md-3"></div>
-                                      <div class="col-md-6 div-pago-en-efectivo">
-                                        <p class="pago-en-efectivo">
-                                          Paga con efectivo
-                                        </p>
-                                      </div>
-                                      <div class="col-md-3"></div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-md-3"></div>
-                                      <div class="col-md-6 div-contre-entrega">
-                                        <p class="contre-entrega">
-                                          Puedes pagar tu pedido a contraentrega en la dirección de entrega elegida
-                                        </p>
-                                      </div>
-                                      <div class="col-md-3"></div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-md-3"></div>
-                                      <div class="col-md-6">
-                                        <div class="justify-content-center align-items-center centrar-boton">
-                                          <button mat-raised-button color="primary" class="agregar-direccion-boton">
-                                            Seleccionar
-                                          </button>
                                         </div>
                                       </div>
-                                      <div class="col-md-3"></div>
-                                    </div>
 
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                          </li>
-                        </ul>
-                      </a>-->
-                    </mat-nav-list>
-                  </div>
+                                      <div class="row">
+                                        <div class="col-md-3 anio-expiracion">
+                                          <p>
+                                            <select class="form-control select-nuevo "
+                                                    [(ngModel)]="cargarInfoCredito.campo3">
+                                              <option [value]="null">Año de expiración</option>
+                                              <option *ngFor="let ani of aniotarjeta" [value]="ani">{{ani}}</option>
+                                            </select>
+                                          </p>
+
+                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo3">Para continuar ingrese año Exp.</mat-hint>
+                                        </div>
+
+                                        <div class="col-md-3  mes-expiracion ">
+
+                                          <p>
+                                            <select class="form-control select-nuevo"  [(ngModel)]="cargarInfoCredito.campo4" >
+                                              <option  [value]="null">Mes de expiración</option>
+                                              <option  *ngFor="let me of mes" [value]="me['id']">{{me['prefijo']}}</option>
+                                            </select>
+                                          </p>
+                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo4">Para continuar ingrese mes de Exp</mat-hint>
+
+                                        </div>
+
+                                        <div class="col-6 numero-cuotas">
+                                          <p>
+                                            <select class="form-control select-nuevo"   [(ngModel)]="cargarInfoCredito.campo5">
+                                              <option  [value]="null">Numero de cuotas</option>
+                                              <option  *ngFor="let cuota of numeroCuotasPagos" [value]="cuota">{{cuota}}</option>
+                                            </select>
+                                          </p>
+                                          <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoCredito.campo5">Para  ingrese cantidad de cuotas</mat-hint>
+                                        </div>
+                                      </div>
+
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+
+                          </ul>
+                        </a>
+                      </mat-nav-list>
+
+
+                    </div>
+
+                  </div>-->
+
+                  <!-- <div class="row otros-pagos">
+
+                     <div class="col-md-12">
+                       <mat-nav-list class="opciones-menu-lateral"  (click)="validarTipoPago(2)">
+
+                         <a>
+                           <ul class="nav flex-column flex-nowrap overflow-hidden">
+                             <li class="nav-item clase-titulo-menu">
+                               <hr class="hr-separador-productos">
+                               <a class="nav-link collapsed text-truncate link-rutas" href="#submenu2"
+                                  data-toggle="collapse" data-target="#submenu2">
+                                 <img src="./assets/img/iconos/titulos/debito-copyPNG.png" class="pago-electronico">
+                                 <span class="d-sm-inline color-titulo-menu">Pago con débito</span></a>
+                               <div class="collapse" id="submenu2" aria-expanded="false">
+                                 <ul class="flex-column pl-2 nav  otro-colo">
+                                   <li class="nav-item">
+                                     <ul class="flex-column pl-2 nav  otro-colo">
+                                       <li class="nav-item">
+                                         <a>
+                                           <div class="row">
+
+                                             <div class="col-md-12  titulo-tarjeta-contactenos-columna">
+                                               <span class="titulo-tarjeta-contactenos">
+                                            Contamos con muchas opciones de pago.
+                                           </span>
+                                             </div>
+
+                                             <div class="col-6">
+
+                                               <p>
+                                                 <mat-form-field appearance="outline">
+                                                   <mat-label>Nombre del titular</mat-label>
+                                                   <input matInput placeholder="Nombre del titular" [(ngModel)]="cargarInfoDebito.Nombre">
+                                                 </mat-form-field>
+                                               </p>
+                                               <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Nombre">Para continuar ingrese su nombre</mat-hint>
+                                             </div>
+                                             <div class="col-6">
+                                               <p>
+                                                 <mat-form-field appearance="outline">
+                                                   <mat-label>Apellido del titular</mat-label>
+                                                   <input matInput placeholder="Apellido del titular"  [(ngModel)]="cargarInfoDebito.Apellido">
+                                                 </mat-form-field>
+                                               </p>
+                                               <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Apellido">Para continuar ingrese su apellido</mat-hint>
+                                             </div>
+                                           </div>
+                                           <div class="row">
+                                             <div class="col-md-6">
+                                              <p>
+                                                <select class="form-control select-nuevo"   [(ngModel)]="cargarInfoDebito.campo3">
+                                                  <option  [value]="null">Tipo de persona</option>
+                                                  <option  [value]="'0'">Natural</option>
+                                                  <option  [value]="'1'">Juridica</option>
+                                                </select>
+                                              </p>
+                                               <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.campo3">Para continuar ingrese Tipo de persona</mat-hint>
+
+                                             </div>
+                                             <div class="col-md-6">
+
+                                                 <p>
+                                                   <select class="form-control select-nuevo"  id="banco" (change)="oncheckBanco()" >
+                                                     <option  [value]="null">Seleccionar banco</option>
+                                                     <option   *ngFor="let ban of dataBancos"
+                                                               [value]="ban['codigoBanco']">{{ban['nombreBanco']}}</option>
+                                                   </select>
+                                                 </p>
+                                               <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.campo1">Para continuar ingrese el banco</mat-hint>
+
+                                             </div>
+                                           </div>
+                                           <div class="row select-nuevo2">
+                                             <div class="col-md-6">
+                                               <p >
+                                                 <mat-form-field appearance="outline" >
+                                                   <mat-label>Documento de identificación</mat-label>
+                                                   <input matInput placeholder="Documento de identificación"  [(ngModel)]="cargarInfoDebito.Documento">
+                                                 </mat-form-field>
+                                               </p>
+                                               <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Documento">Para continuar ingrese su documento</mat-hint>
+
+                                             </div>
+
+                                             <div class="col-6">
+                                               <p >
+                                                 <mat-form-field appearance="outline">
+                                                   <mat-label>Número celular</mat-label>
+                                                   <input matInput placeholder="Número celular"  [(ngModel)]="cargarInfoDebito.Celular">
+                                                 </mat-form-field>
+                                               </p>
+                                               <mat-hint class="campo-obligatorio" *ngIf="!cargarInfoDebito.Celular">Para continuar ingrese su celular</mat-hint>
+
+                                             </div>
+                                           </div>
+                                         </a>
+                                       </li>
+                                     </ul>
+                                   </li>
+                                 </ul>
+                               </div>
+                             </li>
+                           </ul>
+                         </a>
+                       </mat-nav-list>
+                     </div>
+
+
+                   </div>-->
                 </div>
-              </div>
+
+
             </div>
           </div>
         </div>
@@ -849,10 +1153,18 @@
         <ul class="aside-account aside-account-text">
           <p>Métodos de pago</p>
           <div class="row metos-pagos">
-            <img src="assets/img/iconos/metodos/metodo1.png">
-            <img src="assets/img/iconos/metodos/metodo2.png">
-            <img src="assets/img/iconos/metodos/metodo3.png">
-            <img src="assets/img/iconos/metodos/metodo4.png">
+            <img src="assets/img/iconos/credito/mastercardPNG.png">
+            <img src="assets/img/iconos/credito/visaPNG.png">
+            <img src="assets/img/iconos/credito/american.png">
+            <img src="assets/img/iconos/credito/pse.png">
+            <img src="assets/img/iconos/credito/dinersPNG.png">
+
+
+          <!--  <img src="assets/img/iconos/metodos/master.png">
+            <img src="assets/img/iconos/metodos/visa.png">
+            <img src="assets/img/iconos/metodos/diners.png">
+            <img src="assets/img/iconos/metodos/american.png">
+            <img src="assets/img/iconos/metodos/pse.png">-->
           </div>
         </ul>
 
@@ -913,7 +1225,7 @@
                               cargarInfoCredito.campo5 === '' || cargarInfoCredito.campo5 === null
                             "
 
-                  (click)="validarFormularioPagos(1)">
+                  (click)="usuario ? realizarPedidos() : pasarSguiente(2)">
                   <span class="circle-go-shop">
                     <span class="material-icons">
                     done
@@ -932,7 +1244,7 @@
                               cargarInfoDebito.campo1 ===  '' || cargarInfoDebito.campo1 === null
                             "
 
-                  (click)="validarFormularioPagos(2)">
+                  (click)="usuario ? realizarPedidos() : pasarSguiente(2)">
                   <span class="circle-go-shop">
                     <span class="material-icons">
                     done
@@ -941,14 +1253,14 @@
             Pagar ahora
           </button>
 
-          <button class="pay-now" *ngIf="habilitarBotonPago == 4 && validarQuePagoSeRealizara === 3" (click)="validarFormularioPagos(3)">
+          <!--<button class="pay-now" *ngIf="habilitarBotonPago == 4 && validarQuePagoSeRealizara === 3" (click)="validarFormularioPagos(3)">
                   <span class="circle-go-shop">
                     <span class="material-icons">
                     done
                     </span>
                   </span>
             Pagar ahora
-          </button>
+          </button>-->
 
           <button class="pay-now" *ngIf="habilitarBotonPago == 4 && validarQuePagoSeRealizara === 0" >
                   <span class="circle-go-shop">
@@ -976,7 +1288,21 @@
 </div>-->
 
 <div class="loading" *ngIf="condicionarLoadig">
-  <mat-spinner></mat-spinner>
+  <div class="row">
+
+    <div class="col-md-12">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div class="col-md-12">
+      <p  class="mensaje-proceso">
+        Un momento estamos procesando tu pago
+      </p>
+    </div>
+
+  </div>
+
+
 </div>
 
 

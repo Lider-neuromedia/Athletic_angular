@@ -51,7 +51,6 @@ export class ItemProductoComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.removeItem('favoritos');
-    console.log(this.id)
     this.getProducts(this.id);
     if (this.showButtons) {
       this.jQuery();
@@ -133,16 +132,13 @@ export class ItemProductoComponent implements OnInit {
   agregarProductosAlCarrito() {
     this.agregarABolsa();
     this.cantidad = 1;
-    console.log(this.cantidad,  this.producto );
 
     this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
-    console.log(this.carritoAnterior);
 
     if (this.cantidad > 0) {
 
       this.producto['cantidad'] = this.cantidad;
       this.addProductoCarrito.push(this.producto);
-      console.log(this.addProductoCarrito);
 
       if (this.addProductoCarrito) {
         if (this.carritoAnterior) {

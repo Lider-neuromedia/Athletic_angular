@@ -23,9 +23,7 @@ export class VariablesService {
 
   consultarDatosLocales() {
     this.data.next(JSON.parse(localStorage.getItem('athletic'))) ;
-    console.log(this.data)
-
-  }
+   }
 
 
 }

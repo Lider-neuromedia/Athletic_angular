@@ -97,7 +97,6 @@ export class ProductosComponent implements OnInit {
     this.getDisenoHome();
     this.activatedRoute.params.subscribe(value => {
 
-      console.log(value.id);
       this.codigoFiltro = value.id;
 
       if (value.id) {
@@ -105,7 +104,6 @@ export class ProductosComponent implements OnInit {
 
       }
       this.checkMarcas = value.marca;
-      console.log(value, this.checkMarcas);
       this.getProducts();
     });
 
@@ -118,9 +116,7 @@ export class ProductosComponent implements OnInit {
     this.getMarcas();
 
     if (this.codigoFiltro == '05') {
-      console.log(this.codigoFiltro);
         this.filter_estadoPrducto = [1]
-       // this.productosNuevos(true, 1);
         this.setFilter();
     }
     // this.getFiltersValue();
@@ -149,7 +145,6 @@ export class ProductosComponent implements OnInit {
 
   listarCategoriasBaner(val) {
     this.http.httpGet('categorias-productos-banner').toPromise().then(respuesta => {
-      console.log(respuesta);
       this.dataImagenesBanner = respuesta['data'];
        let dataFinal =  this.dataImagenesBanner.filter(datos => datos.id_categoria  == val);
       this.imagenCategorias = dataFinal[0]['img'];
@@ -163,36 +158,24 @@ export class ProductosComponent implements OnInit {
     this.listarCategoriasBaner(id);
 
     this.http.httpGetParamt('categorias-productos', id).toPromise().then(respuesta => {
-      console.log(respuesta);
       this.infoExtraer = respuesta[`data`]['codigo_cat'];
-      //this.imagenCategorias = respuesta[`data`]['img'];
+
       this.infoExtraer = this.infoExtraer.substring(0, 3);
 
       if (this.infoExtraer == 'H01') {
         this.changeCategorie(true, 2);
         this.filter_estadoPrducto = null;
-        // this.filter_categorias = [2];
       }else if (this.infoExtraer == 'M02') {
         this.changeCategorie(true, 11);
         this.filter_estadoPrducto = null;
-        // this.filter_categorias = [11];
       }else if (this.infoExtraer == 'K03') {
         this.changeCategorie(true, 19);
-        // this.filter_categorias = [19];
         this.filter_estadoPrducto = null;
       }
-      console.log(this.infoExtraer, this.filter_categorias);
     }).catch(error => {
       console.log(error);
     });
 
-  }
-
-  openDialog() {
-    const dialogRef = this.dialog.open(VistaPreviaComponent, {
-      width: '800px',
-      data: {id: this.id_prd_vstaprev}
-    });
   }
 
   // Cambio de vistas
@@ -200,17 +183,11 @@ export class ProductosComponent implements OnInit {
     this.view_active = view;
   }
 
-  // Obtener tarjetas de filtros -> Ejemplo: talla, color, etc...
-  getFiltersValue() {
-    // inactivo por el momento.
-   }
-
   // Productos
   getProducts(filter = null) {
     this.http.httpGet('productos').subscribe(
       response => {
         this.productos = response;
-        console.log(this.productos );
         this.calcularPaginas();
         this.calculoProductoResenia(this.productos['id_producto']);
       },
@@ -231,8 +208,6 @@ export class ProductosComponent implements OnInit {
 
   changeMarca($event, id) {
 
-
-    console.log($event, id);
     if ($event.checked) {
       if (this.filter_marcas == null) {
         this.filter_marcas = [id];
@@ -451,7 +426,6 @@ export class ProductosComponent implements OnInit {
         }else{
           first_page = this.page_number;
         }
-        // console.log(first_page);
         this.pages = {
           first_page : first_page,
           last_page : this.pages.last_page,
@@ -475,10 +449,7 @@ export class ProductosComponent implements OnInit {
       return;
     }
 
-    console.log(this.cantidad,  producto );
-
     this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
-    console.log(this.carritoAnterior);
 
     if (this.cantidad > 0) {
 
@@ -486,7 +457,6 @@ export class ProductosComponent implements OnInit {
       producto['talla'] = this.opcionSeleccionado;
       producto['precio'] = producto['precio_descuento']?producto['precio_descuento'] : producto['precio_impuesto'];
       this.addProductoCarrito.push(producto);
-      console.log(this.addProductoCarrito, producto);
 
       if (this.addProductoCarrito) {
         if (this.carritoAnterior) {
@@ -527,9 +497,6 @@ export class ProductosComponent implements OnInit {
     }).catch(error => {
 
     })
-
-
-    console.log(producto, data);
   }
 
   ingresar() {
@@ -551,7 +518,6 @@ export class ProductosComponent implements OnInit {
       producto: producto
     };
     this.http.httpPost('pintar-calculo-por-productos', data).toPromise().then(respuesta => {
-      console.log(respuesta);
       this.todas  = respuesta['todas'];
 
 
@@ -561,7 +527,6 @@ export class ProductosComponent implements OnInit {
   }
 
   checkearTalla(evento) {
-      console.log(evento);
       this.opcionSeleccionado = evento;
   }
   agregarABolsa(producto) {
@@ -616,7 +581,6 @@ export class ProductosComponent implements OnInit {
     this.http.httpGet('disenoHome').subscribe(
       response => {
         this.disenoHome = response['sesion_19'];
-        console.log(this.disenoHome);
       },
       error => {
         console.error("Error en el diseño.");

@@ -37,3 +37,28 @@ select {
   margin-bottom: 12px;
 
 }
+.separador {
+
+  margin-bottom: 12px;
+
+}
+
+label {
+  color: black !important;
+}
+
+span {
+  color: #FF596A;
+}
+
+.form-group {
+  margin-bottom: 0.5rem;
+}
+
+mat-radio-button  label{
+  color: black !important;
+}
+
+:host .mat-radio-label {
+  color: black !important;
+}

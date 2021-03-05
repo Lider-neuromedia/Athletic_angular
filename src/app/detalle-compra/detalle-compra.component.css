@@ -383,7 +383,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .pago-electronico {
-  width: 20px;
+  width: 30px;
   padding: 1px;
   margin-right: 5px;
 }
@@ -893,8 +893,8 @@ span {
   justify-content: center;
 }
 .metos-pagos img {
-  margin: 10px;
-  height: 100%;
+  margin: 8px;
+
 }
 
 .aside-account-text {
@@ -1091,4 +1091,33 @@ span {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.decoracion-texto {
+  text-decoration: none;
+}
+
+.btn-link {
+  font-weight: 600;
+  color: #0d0d0d;
+
+  text-decoration: none;
+}
+
+#accordion {
+  background-color: #FFFFFF;
+}
+
+.titulo-secciones {
+  margin-bottom: 25px;
+}
+
+.tarjetas-pago {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.mensaje-proceso {
+  color: #FF596A
 }

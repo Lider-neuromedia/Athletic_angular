@@ -16,6 +16,8 @@ import {FavoritosService} from "../servicio/favoritos/favoritos.service";
 import {PagoCredito} from "../interfaz/pagoCredito";
 import {ThemePalette} from '@angular/material/core';
 import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
+import * as JsEncryptModule from '../../assets/js/jsencrypt.min.js';
+
 
 @Component({
   selector: 'app-detalle-compra',
@@ -29,6 +31,12 @@ export class DetalleCompraComponent implements OnInit {
   cargarInfoCredito: PagoCredito;
   cargarInfoDebito: PagoCredito;
   condicionarLoadig: boolean;
+  colorDelosTapUno: string;
+  colorDelosTapDos: string;
+  colorDelosTitulosTapUno: string;
+  colorDelosTitulosTapDos: string;
+  tarjetanoHabilitada: string;
+  abrirObciondePagos: number;
 
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'determinate';
@@ -36,9 +44,9 @@ export class DetalleCompraComponent implements OnInit {
 
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
-  publicKey = '-----BEGIN PUBLIC KEY-----\n' +
-    'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApRSn/UOt4H2V0vZrEOsLb1YkQv7p0+dUIra7h4Srq7KbKxL2mtKQnKjnhmVbon446h713ItYMmXCJNzz/K/UtWT/elnMR74uL2ODaQ1qQvAuDGfFfbVQ+3WDxnC6LWcvA8VViAlZHjftkSGz8GubJ1a8RBIYqvnSXL67oBgF8IVeQQDXCSPMXUYpS/hP/vICFuyVL3GafOn535tJRz0l2vHKA9kB3s+ycy12J9vHzGB6+297LDs37XjUrQ/z52OBvUK/QivksueGrw/ITSwz76iT15kXChc1ZDYRaeKTGYsvYRfluEroSILPkdP5/2PCDNeqwr+SwNLuJC31ACT0+wIDAQAB\n' +
-    '-----END PUBLIC KEY-----';
+  publicKey = "-----BEGIN PUBLIC KEY-----\n" +
+    "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApRSn/UOt4H2V0vZrEOsLb1YkQv7p0+dUIra7h4Srq7KbKxL2mtKQnKjnhmVbon446h713ItYMmXCJNzz/K/UtWT/elnMR74uL2ODaQ1qQvAuDGfFfbVQ+3WDxnC6LWcvA8VViAlZHjftkSGz8GubJ1a8RBIYqvnSXL67oBgF8IVeQQDXCSPMXUYpS/hP/vICFuyVL3GafOn535tJRz0l2vHKA9kB3s+ycy12J9vHzGB6+297LDs37XjUrQ/z52OBvUK/QivksueGrw/ITSwz76iT15kXChc1ZDYRaeKTGYsvYRfluEroSILPkdP5/2PCDNeqwr+SwNLuJC31ACT0+wIDAQAB\n" +
+    "-----END PUBLIC KEY-----";
   // Register
   myForm: FormGroup;
   matcher = new MyErrorStateMatcher();
@@ -139,6 +147,10 @@ export class DetalleCompraComponent implements OnInit {
   rutaparaObtenerBancos: any;
   codigoDeLosBancos: any;
   terminarBancos: any;
+  encriptacion: any;
+  cypherText: string = '';
+  plainText: string = '4111111111111111';
+  devolverImagenTarjeta: number = 0;
 
   constructor(
     private variablesGl: VariablesService,
@@ -149,24 +161,45 @@ export class DetalleCompraComponent implements OnInit {
     public dialog: MatDialog,
     public globalVar: GlobalVarService,
     private favoritoSe: FavoritosService,
-    private loginGlobal: LoginGlobalService) {
+    private loginGlobal: LoginGlobalService,
+  ) {
 
-    //
+    //this.encriptar();
     this.llamarDatoLocalesUsuario();
     this.informacionBancos();
 
+  }
+
+  encriptar(data) {
+    var encrypt = new JsEncryptModule.JSEncrypt({default_key_size: 2048});
+    encrypt.setPublicKey(this.publicKey)
+    return this.base64ToHex(encrypt.encrypt(data));
 
   }
+
+  base64ToHex(str) {
+    const raw = atob(str);
+    let result = '';
+    for (let i = 0; i < raw.length; i++) {
+      const hex = raw.charCodeAt(i).toString(16);
+      result += (hex.length === 2 ? hex : '0' + hex);
+    }
+    return result;
+  }
+
 
   cuotasPago() {
 
-    for (let i =1;  i <= 36; i++) {
+    for (let i = 1; i <= 36; i++) {
       this.numeroCuotasPagos.push(i);
     }
-    console.log(this.numeroCuotasPagos);
   }
-  ngOnInit(): void {
 
+  ngOnInit(): void {
+    this.colorDelosTapUno = '';
+    this.colorDelosTapDos = '';
+    this.colorDelosTitulosTapUno = '';
+    this.colorDelosTitulosTapDos = '';
     this.condicionarLoadig = false;
     this.cuotasPago();
     this.llamarInformacionCredito();
@@ -183,7 +216,6 @@ export class DetalleCompraComponent implements OnInit {
 
     }
 
-    localStorage.removeItem('favoritos');
     this.habilita1 = true;
     this.circulo1 = '#FF596A';
     this.barra1 = '#FF596A';
@@ -230,9 +262,6 @@ export class DetalleCompraComponent implements OnInit {
     this.retornarDias();
     this.retornarAnioTarjeta();
     this.cargarTodasLasDirecciones();
-    this.obtenervalorEnvioDefecto();
-
-
 
     this.setUsuario();
 
@@ -288,7 +317,6 @@ export class DetalleCompraComponent implements OnInit {
         return item1 + item2.cantidad;
       }, 0);
     }
-    console.log(this.cantidadProductoReales);
     return this.cantidadProductoReales;
   }
 
@@ -323,7 +351,6 @@ export class DetalleCompraComponent implements OnInit {
     if (proceso === 1) {
       this.carritoNuevo[indice].cantidad++;
       const result = this.carritoNuevo[indice]['combinaciones'].filter(item => item.valor ==  this.carritoNuevo[indice].talla);
-      console.log(this.carritoNuevo[indice].cantidad);
 
       if (this.carritoNuevo[indice].cantidad <= result[0]['cantidad']) {
 
@@ -482,6 +509,16 @@ export class DetalleCompraComponent implements OnInit {
 
   realizarPedidos() {
 
+    if (this.validarQuePagoSeRealizara === 1 ) {
+      if (this.cargarInfoCredito.campo1.length < 16) {
+        this.alertaS.showToasterError('Su tarjeta de credito no es  valida');
+        return;
+      }
+    }
+
+
+
+
     if (!this.direccionEstado) {
       this.alertaS.showToasterError('Marcar la dirección de envio del pedido');
       return;
@@ -509,7 +546,6 @@ export class DetalleCompraComponent implements OnInit {
     this.barra5 = '#FF596A';
     this.barra55 = '#FF596A';
     this.setHtpp.httpPost('crear-pedido', data).toPromise().then(async respuesta => {
-      console.log(respuesta['data'][0]['pedido_codigo']);
       this.retornnoDelPEdido = respuesta['data'][0];
       this.obtenerIpEquipo = respuesta['ip'];
       this.credencialesPAsarelaPago = respuesta['credenciales'];
@@ -525,8 +561,8 @@ export class DetalleCompraComponent implements OnInit {
 
         setTimeout(()=>{
           Swal.fire({
-            icon: 'info',
-            title: 'Oops...',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
             text: 'El pedido se realizo de forma correcta'
           });
 
@@ -534,52 +570,17 @@ export class DetalleCompraComponent implements OnInit {
           this.ruta.navigate([ `/detalle-pedido/${respuesta['data'][0]['pedido_codigo']}`])
           this.condicionarLoadig = false;
         }, 5000);
-
-      //  localStorage.removeItem('athletic');
-
       }
 
       this.pasarSguiente2(2);
 
-//http://localhost:4200/#/detalle-pedido/403
-      // localStorage.removeItem('athletic');
       this.variablesGl.changeMessage();
       this.gastosEnvio = 0;
-      //  this.ruta.navigate(['/']);
     }).catch(error => {
       console.log(error);
     });
 
   }
-
-  validarFormularioPagos(tdOtc) {
-
-    let texto = "";
-    if (tdOtc === 1) {
-      texto = 'Quieres cancelar tu pedido con la tajeta de Credito?';
-    }
-    if (tdOtc === 2) {
-      texto = 'Quieres cancelar tu pedido con la tajeta de Debito?';
-    }
-    if (tdOtc === 3) {
-      texto = 'Quieres cancelar tu pedido por medio de Contraentrega?';
-    }
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: texto,
-      icon: 'info',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Aceptar!',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-       this.realizarPedidos();
-      }
-    })
-  }
-
 
   llamarDatoLocalesUsuario() {
 
@@ -587,6 +588,7 @@ export class DetalleCompraComponent implements OnInit {
       this.usuario = response;
       if (this.usuario) {
         this.pasarSguiente2(1);
+        this.obtenervalorEnvioDefecto();
       }
     });
   }
@@ -656,7 +658,6 @@ export class DetalleCompraComponent implements OnInit {
 
   editarDireccion(codigo) {
     this.codigoEdicionDireccion = codigo;
-    //this.ruta.navigate(['modificar-direcciones/', codigo])
     this.openDialog();
 
   }
@@ -803,6 +804,7 @@ export class DetalleCompraComponent implements OnInit {
       this.habilita3 = false;
       this.habilita4 = false;
       this.habilitarBotonPago = 2;
+
     }
     if (value === 3) {
 
@@ -826,6 +828,7 @@ export class DetalleCompraComponent implements OnInit {
       this.habilita3 = true;
       this.habilita4 = false;
       this.habilitarBotonPago = 3;
+      this.cargarTodasLasDirecciones();
     }
     if (value === 4) {
 
@@ -852,9 +855,6 @@ export class DetalleCompraComponent implements OnInit {
       this.habilita4 = true;
       this.habilitarBotonPago = 4;
     }
-
-
-    console.log(value);
 
   }
 
@@ -981,7 +981,6 @@ export class DetalleCompraComponent implements OnInit {
       icon: 'warning',
       title: `${cupon}`,
       text: `${mensaje}`,
-      footer: '<a href></a>'
     });
   }
 
@@ -1037,7 +1036,6 @@ export class DetalleCompraComponent implements OnInit {
         }).length > 0;
       });
 
-      //let productosFiltradosIds = productosFiltrados.map(productoFiltrado => productoFiltrado['id_producto']);
       this.productosConDescuentos = productosFiltrados.map(productoFiltrado => productoFiltrado['id_producto']);
 
       let subTotalConDescuento = productosFiltrados.reduce((item1, item2) => {
@@ -1134,19 +1132,6 @@ export class DetalleCompraComponent implements OnInit {
     }
   }
 
-  getErrorMessageLogin() {
-    if (this.email.hasError('required')) {
-      return 'El campo es requerido.';
-    }
-    if (this.email.hasError('email')) {
-      return 'Debe ser en formato email';
-    }
-    if (this.password.hasError('password')) {
-      return 'Debe ser en formato email';
-    }
-  }
-
-
   checkPasswords(group: FormGroup) { // here we have the 'passwords' group
     let pass = group.controls.password.value;
     let confirmPass = group.controls.confirmPassword.value;
@@ -1203,18 +1188,26 @@ export class DetalleCompraComponent implements OnInit {
 
   validarTipoPago(valor, event?) {
 
-    console.log(valor);
-    console.log(valor, this.dataPedidos);
+    this.abrirObciondePagos = valor;
     if (valor === 1) {
+      this.colorDelosTapUno = '#f1f1f1';
+      this.colorDelosTapDos = '';
+      this.colorDelosTitulosTapUno = '#FF596A';
+      this.colorDelosTitulosTapDos = '';
       this.dataPedidos.pedido_mediopago = 'CREDITO';
       this.dataPedidos.pedido_estado = 'APROBADO';
       this.validarQuePagoSeRealizara = 1;
     }
 
     if (valor === 2) {
+      this.colorDelosTapUno = '';
+      this.colorDelosTapDos = '#f1f1f1';
+      this.colorDelosTitulosTapUno = '';
+      this.colorDelosTitulosTapDos = '#FF596A';
       this.dataPedidos.pedido_mediopago = 'DEBITO';
       this.dataPedidos.pedido_estado = 'APROBADO';
       this.validarQuePagoSeRealizara = 2;
+
     }
 
     if (valor === 3) {
@@ -1230,16 +1223,14 @@ export class DetalleCompraComponent implements OnInit {
       cliente: this.usuario.id_cliente,
     }
     this.setHtpp.httpPost('listar-valor-envio-defecto',data).toPromise().then(respuesta=> {
-      this.gastosEnvio = respuesta['transporte']['transporte_valorenvio'];
+      this.gastosEnvio =  respuesta['transporte'] ? respuesta['transporte']['transporte_valorenvio'] : 0;
       this.gastosEnvio = this.gastosEnvio * this.cantidadProductoReales;
       this.direccionEstado = respuesta['direccion'];
-      console.log( this.direccionEstado);
     });
   }
 
   informacionBancos() {
     this.setHtpp.httpGet('listar-credenciales-banco').toPromise().then( respuesta => {
-      console.log(respuesta);
       this.rutaparaObtenerBancos =  respuesta['listaBancos'];
       this.codigoDeLosBancos =  respuesta['codigoBancos'];
       this.terminarBancos  =  respuesta['terminal'];
@@ -1251,7 +1242,6 @@ export class DetalleCompraComponent implements OnInit {
       }
 
       this.setHtpp.peticionPost(ruta, data).toPromise().then( respu => {
-        console.log(respu);
         const item = {
           "idMetodoPago": this.codigoDeLosBancos,
           "terminal": this.terminarBancos,
@@ -1259,9 +1249,7 @@ export class DetalleCompraComponent implements OnInit {
         }
 
         this.setHtpp.peticionPost(this.rutaparaObtenerBancos, item).toPromise().then( respu => {
-          console.log(respu);
           this.dataBancos = JSON.parse(respu);
-          console.log(this.dataBancos);
         })
 
       })
@@ -1277,10 +1265,10 @@ export class DetalleCompraComponent implements OnInit {
 
     if (this.usuario && this.habilitarBotonPago == 2) {
       this.habilitarBotonPago = 3;
+      this.pasarSguiente2(this.habilitarBotonPago);
+    } else {
+      this.pasarSguiente(this.habilitarBotonPago);
     }
-
-    this.pasarSguiente2(this.habilitarBotonPago);
-    console.log(this.habilitarBotonPago);
 
   }
 
@@ -1296,7 +1284,6 @@ export class DetalleCompraComponent implements OnInit {
           "terminal": this.credencialesPAsarelaPago['terminal'],
       }
       this.setHtpp.peticionPost(ruta, data).toPromise().then( respu => {
-        console.log(respu);
 
         setTimeout(()=>{
 
@@ -1313,6 +1300,13 @@ export class DetalleCompraComponent implements OnInit {
 
       }).catch(error => {
         console.log(error);
+        this.condicionarLoadig = false;
+        this. pasarSguiente2(4);
+        Swal.fire({
+          icon: 'warning',
+          confirmButtonText: 'Aceptar',
+          text: 'Actualmente el servicio no esta disponible intentalo mas tarde',
+        });
 
       })
   }
@@ -1327,15 +1321,14 @@ export class DetalleCompraComponent implements OnInit {
    */
   dataGenerarPago(token) {
     //this.retornnoDelPEdido tokenSeguridad
-    console.log (JSON.parse(token)['tokenSeguridad'], this.obtenerIpEquipo, this.credencialesPAsarelaPago['rutaPagos'] );
 
     const  pedido = {
       "MetodoPago": {
-        "id": "37", //metodo de pago
-        "campo1": "5a23c0c0f78f7be3a7d4ac1935e46ac32277620d7367878ffde803c200fa4df75f2b0f74ff841f976fcbf57d625f6343e7a63372682f423db43665ceac0c180e781d942198f1e9895c464c4762189905864f66995fea3eccb3e8437580ba053dd9761d4b2f495a9e4b7c95e178f73b7114df54b4883b346c0db110f6012dcc19abb0e3ec707eed166aaea426dc5f503deed591d10f48dac019f4118b792f957fb4b630c10246bb8504a28d9ae03f8ce8138ac4d96f635d84d7f3ea3aca1b61af613e599692030863ad356f3c7e0df3a1f905c6e2823ad967eefe668304a330572f525c902886a23b3f5695602e4dc76b4d1951aece5c0e79b9ff39d494e7166b",
-        "campo2": "7d8979ba580655d6ac60ca8e8560c21e32b5e74fd42c74acc800980ede7ea6119a06e6d705b37e1ece31a24779e159c7f2e4e236a4e90f6b4063cfc81c1ecb59fbe3a126772281bd36e325cd4fbb30ad3cc013ce4ccd44914e7b5d150618e222a4c1494cbdbd04ebd8ca9e7ffd09938cffd5fba6a7e95987434b0faae82c2fb1b8180d6f6c8d29bb16f621333afd58d90f2f2880135d28c666b79b852b99451a78e4899688036ed6cd1702cc57c01598d334b87299771401353f97085cadc7da0adad1f0791e38399debd3751adfd06e979215d936bd299e2e0d77a0a90b9185638e0790ae14a783ba8d02252f01236071725fc42d806e6f248d0621fe8e01ed",
-        "campo3": "85df06710816bc7704139de809d00d1e08a09016ba4f2143acb0e3f9cc9d10c6c274ae4308c2f5154d0ac02ffa206097dbce09a1363dfaa72f3c800b0a46f142aa3b47b55df88054e6986a2e1d75267c81779d7fcc6d4bd74783762abb3f6d44d4cbc3921ee0894b84f2fa9a83c9f857f69ecfa6aaa49d99e5a52906898a3a7e215a0dc805510f0c00d6c134de8ed24a0060cd6b23325dfd491006ff513336b1a33cb3e25effd1294a2bb571dcd47eae97fa1bb7366c43b03888c93fa0b6c7a3cc9aad91adb17402068eeee21b30077a394e2fb46511209ef3bfd9bfae8c2fa38787c4f32776643956f1c779d5f35abc14b69ce77ef8e16c0f4fe4bb36c021ab",
-        "campo4": "01896fd32ee4b0f071202161a20c21ca974f00106bc65aa957f1069ce24586dbecfbeec7677401d71cb9b4776d8a53c1caf5bb4cbfd87d5c1c93004f53537da3ed2edaa3dfd6ae86e1717634f89dc1c8d544105c417abf7586093fddd8f6b0535163da4df7b3c18c78f1812167feff8cd0010bfbd85c3ec42d2bb0c6c485e10f1940fdbedc736b8471d4d939e15062a277cbb9d52f5e5bdf190d4dd371ebd0b772e9d5b62e8e880dc133a8b522383521572fe5e8de0c86e02cb918b284e251f0e08aa790db7119e92878319085381fadd15c7969381574df46b29072a032b3df668ced9964d65bd38cf39a0833296bf2086b9d1f68464f3c1b989ca45b643d4c",
+        "id": this.devolverCodigoEntidadBancariaCredito(this.cargarInfoCredito.campo1), //metodo de pago
+        "campo1": this.encriptar(this.cargarInfoCredito.campo1),
+        "campo2": this.encriptar(this.cargarInfoCredito.campo2),
+        "campo3": this.encriptar(this.cargarInfoCredito.campo3),
+        "campo4": this.encriptar(this.cargarInfoCredito.campo4),
         "campo5": this.cargarInfoCredito.campo5,
         "campo6": this.cargarInfoCredito.campo6,
         "campo7": this.cargarInfoCredito.campo7,
@@ -1343,7 +1336,7 @@ export class DetalleCompraComponent implements OnInit {
         "campo9": this.cargarInfoCredito.campo9,
         "campo10": this.cargarInfoCredito.campo10
       },
-      "Referencia": "2021126112942",
+      "Referencia": this.retornnoDelPEdido['pedido_referencia'],
       "Valortotal": this.retornnoDelPEdido['pedido_valor'],
       "Valorbase": this.retornnoDelPEdido['pedido_valor'],
       "Valoriva": "0",
@@ -1366,13 +1359,11 @@ export class DetalleCompraComponent implements OnInit {
     //const  ruta = 'https://ws.tucompra.net/tcWSDRest/api/confirmacionTransaccionMedioPago';
     const ruta = this.credencialesPAsarelaPago['rutaPagos'];
     this.setHtpp.peticionPost(ruta, pedido).toPromise().then(async respuesta => {
-      console.log(respuesta);
       this.cambiarEstadoPedido(respuesta);
     }).catch(error => {
       console.log(error);
     });
 
-    console.log(pedido);
 
   }
 
@@ -1387,12 +1378,10 @@ export class DetalleCompraComponent implements OnInit {
     this.cargarInfoDebito.campo2 = selected;
 
 
-    console.log(cod, selected)
   }
 
   dataGenerarPagoDebito(token) {
     //this.retornnoDelPEdido tokenSeguridad
-    console.log(JSON.parse(token)['tokenSeguridad'], this.obtenerIpEquipo, this.credencialesPAsarelaPago['ruta']);
 
     const pedido = {
       "MetodoPago": {
@@ -1431,13 +1420,11 @@ export class DetalleCompraComponent implements OnInit {
     //const  ruta = 'https://ws.tucompra.net/tcWSDRest/api/confirmacionTransaccionMedioPago';
     const ruta = this.credencialesPAsarelaPago['rutaPagos'];
     this.setHtpp.peticionPost(ruta, pedido).toPromise().then(async respuesta => {
-      console.log(respuesta);
       this.cambiarEstadoPedido(respuesta);
     }).catch(error => {
       console.log(error);
     });
 
-    console.log(pedido);
 
   }
 
@@ -1462,20 +1449,15 @@ export class DetalleCompraComponent implements OnInit {
       tokenTarjeta: response['tokenTarjeta'],
       codigoPedido: this.retornnoDelPEdido['pedido_codigo']
     };
-    let  codigoPedido = this.retornnoDelPEdido['pedido_codigo'];
-    console.log(data);
-    console.log(response);
-
-    setTimeout(()=>{
+    let codigoPedido = this.retornnoDelPEdido['pedido_codigo'];
+    let mensajePAsarela = response['Descripcion'];
+    setTimeout(() => {
 
       this.setHtpp.httpPost('cambiar-estado-del-pedido', data).toPromise().then(async respuesta => {
-        console.log(respuesta);
-
-        if (respuesta['estado'] == 1 ) {
-          //this.alertaS.showToasterFull(respuesta['mensaje']);
+        if (respuesta['estado'] == 1) {
           Swal.fire({
-            icon: 'info',
-            title: 'Oops...',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
             text: respuesta['mensaje']
           });
           localStorage.removeItem('athletic');
@@ -1484,10 +1466,9 @@ export class DetalleCompraComponent implements OnInit {
         }
 
         if (respuesta['estado'] == 2 ) {
-          //this.alertaS.showToasterWarning(respuesta['mensaje']);
           Swal.fire({
             icon: 'warning',
-            title: 'Oops...',
+            confirmButtonText: 'Aceptar',
             text: respuesta['mensaje']
           });
           localStorage.removeItem('athletic');
@@ -1496,12 +1477,13 @@ export class DetalleCompraComponent implements OnInit {
         }
 
         if (respuesta['estado'] == 3 ) {
-          //this.alertaS.showToasterError(respuesta['mensaje']);
+
+          this. pasarSguiente2(4);
           Swal.fire({
-            icon: 'info',
-            title: 'Oops...',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
             text: respuesta['mensaje'],
-          })
+          });
         }
         this.condicionarLoadig = false;
 
@@ -1575,9 +1557,113 @@ export class DetalleCompraComponent implements OnInit {
       FechaVcm: null,
       Correo: null,
       ip: null,
-      tokenSeguridad:null,
+      tokenSeguridad: null,
     }
 
+  }
+
+
+  devolverImagenBancarias(value) {
+
+
+    if (!value) {
+      this.devolverImagenTarjeta = 0;
+      this.tarjetanoHabilitada = '';
+    }
+
+    let codigo = null;
+    var data = value.substring(0, 1);
+
+    /**
+     * Pruebas
+     */
+
+    if (value.length > 2)  {
+
+      if (data === '4') {
+        codigo = 4;
+        this.tarjetanoHabilitada = '';
+      }
+      if (data === '5') {
+        codigo = 5;
+        this.tarjetanoHabilitada = '';
+      }
+      if (data === '6') {
+        codigo = 6;
+        this.tarjetanoHabilitada = '';
+      }
+      if (data === '7') {
+        codigo = 7;
+        this.tarjetanoHabilitada = '';
+      }
+
+      if (!codigo) {
+        this.tarjetanoHabilitada = 'No soporta esta tarjeta';
+      }
+
+      /**
+       * Producción
+       */
+      /* if (data === '4') {
+         codigo = 4;
+       }
+       if (data === '5') {
+         codigo = 5;
+       }
+       if (data === '6') {
+         codigo =6;
+       }
+       if (data === '7') {
+         codigo = 7;
+       }*/
+      this.devolverImagenTarjeta = codigo;
+    } else {
+      this.devolverImagenTarjeta = 0;
+    }
+
+
+  }
+
+
+  devolverCodigoEntidadBancariaCredito(tarjeta) {
+
+    let codigo = null;
+    var data = tarjeta.substring(0, 1);
+
+    /**
+     * Pruebas
+     */
+
+    if (data === '4') {
+      codigo = 37;
+    }
+    if (data === '5') {
+      codigo = 38;
+    }
+    if (data === '6') {
+      codigo = 39;
+    }
+    if (data === '7') {
+      codigo = 40;
+    }
+
+    /**
+     * Producción
+     */
+    /* if (data === '4') {
+       codigo = 2;
+     }
+     if (data === '5') {
+       codigo = 1;
+     }
+     if (data === '6') {
+       codigo = 5;
+     }
+     if (data === '7') {
+       codigo = 4;
+     }*/
+    this.devolverImagenTarjeta = codigo;
+    return codigo;
   }
 
 

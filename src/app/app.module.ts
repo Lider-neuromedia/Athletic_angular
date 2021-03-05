@@ -118,7 +118,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     }),
     SocialLoginModule,
     NgxImgZoomModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+
+
   ],
   providers: [
     {

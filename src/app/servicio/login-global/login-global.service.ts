@@ -23,7 +23,5 @@ export class LoginGlobalService {
 
   consultarDatosLocales() {
     this.data.next(JSON.parse(localStorage.getItem('userAthletic'))) ;
-    console.log(this.data)
-
   }
 }

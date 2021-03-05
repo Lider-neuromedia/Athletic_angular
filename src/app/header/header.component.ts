@@ -69,8 +69,6 @@ export class HeaderComponent {
     private loginGlobal: LoginGlobalService,
     private variablesGl: VariablesService,
     private favoritoSe: FavoritosService) {
-   // this.usuario = JSON.parse(localStorage.getItem('user'));
-    //console.log(this.usuario);
     this.llamarDatoLocalesUsuario();
   }
 
@@ -92,7 +90,6 @@ export class HeaderComponent {
       response => {
         var data = response.categorias;
         this.categorias_prin = data.hijos;
-        console.log( this.categorias_prin);
         this.categorias = data.hijos;
         var cat_inicial = this.categorias_prin[0];
         this.changeSubCategoria(cat_inicial.id_categoria, cat_inicial.hijos);
@@ -152,7 +149,6 @@ export class HeaderComponent {
     this.http.httpGet('disenoOneSesion/16').subscribe(
       response => {
         this.disenoMenu = response;
-        console.log( this.disenoMenu);
       },
       error => {
         console.error("Error en el diseño.");
@@ -165,7 +161,6 @@ export class HeaderComponent {
 
     this.variablesGl.currentMessage.subscribe(response => {
       this.carritoAnterior = response;
-      //console.log(this.carritoAnterior);
       this.cantidadProductoRealesPedido();
     });
 
@@ -181,20 +176,6 @@ export class HeaderComponent {
 
   }
 
-  /*contadorFavoritos() {
-      let data = {
-      cliente:  this.usuario.id_cliente
-      }
-    this.http.httpPost('contar-numeros-favorito', data).toPromise()
-      .then(respuesta => {
-      console.log(respuesta);
-      this.favoritosCantidad = respuesta[`data`][0]['cantidad'];
-        console.log(this.favoritosCantidad);
-    }).catch(error => {
-      console.log(error);
-    });
-  }*/
-
   llamarDatosFavoritos() {
     if (this.usuario) {
     this.favoritoSe.currentMessage.subscribe(response => {
@@ -203,9 +184,7 @@ export class HeaderComponent {
       }
       this.http.httpPost('contar-numeros-favorito', data).toPromise()
         .then(respuesta => {
-          console.log(respuesta);
           this.favoritosCantidad = respuesta[`data`][0]['cantidad'];
-          console.log(this.favoritosCantidad);
         }).catch(error => {
         console.log(error);
       });
@@ -218,7 +197,6 @@ export class HeaderComponent {
     this.http.httpGet('disenoHome').subscribe(
       response => {
         this.disenoHome = response['sesion_17'];
-        console.log(this.disenoHome);
       },
       error => {
         console.error("Error en el diseño.");
@@ -234,7 +212,6 @@ export class HeaderComponent {
         return item1 + item2.cantidad;
       }, 0);
     }
-    console.log(this.cantidadProductoReales);
     return this.cantidadProductoReales;
   }
 
@@ -246,7 +223,6 @@ export class HeaderComponent {
 
     this.nameProducto = this.nameProducto.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
     this.ruta.navigate(['/productos/'+ codigo + '/' + this.nameProducto])
-    console.log(this.nameProducto)
 
   }
 }
