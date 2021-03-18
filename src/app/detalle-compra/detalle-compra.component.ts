@@ -166,7 +166,7 @@ export class DetalleCompraComponent implements OnInit {
 
     //this.encriptar();
     this.llamarDatoLocalesUsuario();
-    this.informacionBancos();
+
 
   }
 
@@ -196,6 +196,7 @@ export class DetalleCompraComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.informacionBancos();
     this.colorDelosTapUno = '';
     this.colorDelosTapDos = '';
     this.colorDelosTitulosTapUno = '';
@@ -514,6 +515,13 @@ export class DetalleCompraComponent implements OnInit {
         this.alertaS.showToasterError('Su tarjeta de credito no es  valida');
         return;
       }
+
+
+      if (this.cargarInfoCredito.campo2.length < 3) {
+        this.alertaS.showToasterError('Ingrese el código de seguridad corectamente');
+        return;
+      }
+
     }
 
 
@@ -709,7 +717,7 @@ export class DetalleCompraComponent implements OnInit {
     }
     if (value === 3) {
 
-      this.circulo1 = '#FF596A';
+    /*  this.circulo1 = '#FF596A';
       this.barra1 = '#FF596A';
       this.texto1 = '#FF596A';
       this.circulo2 = '#FF596A';
@@ -728,11 +736,10 @@ export class DetalleCompraComponent implements OnInit {
       this.habilita2 = false;
       this.habilita3 = true;
       this.habilita4 = false;
-      this.habilitarBotonPago = 3;
+      this.habilitarBotonPago = 3;*/
     }
     if (value === 4) {
-
-      this.circulo1 = '#FF596A';
+      /*this.circulo1 = '#FF596A';
       this.barra1 = '#FF596A';
       this.texto1 = '#FF596A';
 
@@ -753,7 +760,7 @@ export class DetalleCompraComponent implements OnInit {
       this.habilita2 = false;
       this.habilita3 = false;
       this.habilita4 = true;
-      this.habilitarBotonPago = 4;
+      this.habilitarBotonPago = 4;*/
     }
 
 
@@ -916,11 +923,12 @@ export class DetalleCompraComponent implements OnInit {
     this.dataInfoCodigo = null;
     this.dataInfoMensaje = null;
     this.dataInfoEstado = null;
-/*
-    if (this.codigoCupon.length > 0) {
-      this.alertaS.showToasterError('Ingrese un codigo valido en esta casilla');
+    console.log('aksjbajksdasdasdaddas')
+    if (!this.codigoCupon) {
+      console.log('aksjbajksdasdasdaddas')
+      this.alertaS.showToasterError('Ingrese un código valido en esta casilla');
       return;
-    }*/
+    }
 
     let data = {
       cupon: this.codigoCupon,
@@ -1166,7 +1174,8 @@ export class DetalleCompraComponent implements OnInit {
   openDialogNuevo() {
 
     const dialogRef = this.dialog.open(ModalDireccionesComponent, {
-      width: '700px',
+      width: '650px',
+      height: '658px',
       data: {
         datos:  this.usuario?this.usuario.id_cliente:0,
         direccion: null
@@ -1177,7 +1186,8 @@ export class DetalleCompraComponent implements OnInit {
   openDialog() {
 
     const dialogRef = this.dialog.open(ModalDireccionesComponent, {
-      width: '700px',
+      width: '650px',
+      height: '658px',
       data: {
         datos:  this.usuario?this.usuario.id_cliente:0,
         direccion: this.codigoEdicionDireccion
@@ -1250,6 +1260,7 @@ export class DetalleCompraComponent implements OnInit {
 
         this.setHtpp.peticionPost(this.rutaparaObtenerBancos, item).toPromise().then( respu => {
           this.dataBancos = JSON.parse(respu);
+          console.log( this.dataBancos);
         })
 
       })
@@ -1262,9 +1273,12 @@ export class DetalleCompraComponent implements OnInit {
   continuarBoton(item: number) {
 
     this.habilitarBotonPago = this.habilitarBotonPago +item;
-
-    if (this.usuario && this.habilitarBotonPago == 2) {
-      this.habilitarBotonPago = 3;
+      console.log( this.habilitarBotonPago)
+    if (this.usuario) {
+      if (this.usuario && this.habilitarBotonPago == 2) {
+        this.habilitarBotonPago = 3;
+      }
+      console.log( this.habilitarBotonPago)
       this.pasarSguiente2(this.habilitarBotonPago);
     } else {
       this.pasarSguiente(this.habilitarBotonPago);
@@ -1431,7 +1445,7 @@ export class DetalleCompraComponent implements OnInit {
 
 
   /**
-   * Metodo encargado re recibir los datos de la pasarela de pago y  actualizar el pedido y almacenar informacion de la pasarela
+   * Metodo encargado de recibir los datos de la pasarela de pago y  actualizar el pedido y almacenar informacion de la pasarela
    */
   cambiarEstadoPedido(respuesta) {
 
@@ -1455,24 +1469,30 @@ export class DetalleCompraComponent implements OnInit {
 
       this.setHtpp.httpPost('cambiar-estado-del-pedido', data).toPromise().then(async respuesta => {
         if (respuesta['estado'] == 1) {
+          localStorage.removeItem('athletic');
+         await this.variablesGl.changeMessage();
+
           Swal.fire({
             icon: 'success',
             confirmButtonText: 'Aceptar',
             text: respuesta['mensaje']
           });
-          localStorage.removeItem('athletic');
-          this.variablesGl.changeMessage();
+         // localStorage.removeItem('athletic');
+
           this.ruta.navigate([ `/detalle-pedido/${codigoPedido}`]);
         }
 
         if (respuesta['estado'] == 2 ) {
+          localStorage.removeItem('athletic');
+          await this.variablesGl.changeMessage()
+
           Swal.fire({
             icon: 'warning',
             confirmButtonText: 'Aceptar',
             text: respuesta['mensaje']
           });
-          localStorage.removeItem('athletic');
-          this.variablesGl.changeMessage();
+         // localStorage.removeItem('athletic');
+
           this.ruta.navigate([ `/detalle-pedido/${codigoPedido}`]);
         }
 
@@ -1485,7 +1505,8 @@ export class DetalleCompraComponent implements OnInit {
             text: respuesta['mensaje'],
           });
         }
-        this.condicionarLoadig = false;
+
+       this.condicionarLoadig = false;
 
       }).catch(error => {
       });

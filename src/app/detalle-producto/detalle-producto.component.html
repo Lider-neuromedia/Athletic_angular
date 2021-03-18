@@ -120,7 +120,7 @@
                        </span>
               </p>
             </div>
-                 <span *ngIf="!returnEstadoProducto || returnEstadoProducto < 0" style="color: #FF596A">Actualmente no hay inventario</span>
+                 <span *ngIf="!returnEstadoProducto" style="color: #FF596A">Actualmente no hay inventario</span>
                 <div class="content-strech content-cuotas">
 
                   <p class="cuotas">Hasta 12 cuotas de <span *ngIf="producto"
@@ -133,13 +133,43 @@
                 </div>
                 <div class="w-80">
                   <div class="box-select-talla">
+
+                 <!--   <select class="my-own-form-control" placeholder="Elige tu talla" id="talla"  *ngFor="let grupo of tallasDelProductoFiltradas"
+                           >
+                          <option selected value="" class="color-talla">{{grupo['nombre_publico']}}</option>
+                          <option class="color-talla"
+                                  *ngFor="let value of grupo['atributos_values'];"  value="{{value.valor}}">
+                                   {{value.valor}}
+                          </option>
+                    </select>-->
+
                     <!--<i class="flecha-select">▼</i>-->
-                    <select class="my-own-form-control" placeholder="Elige tu talla" id="talla"
+                  <!--  <select class="my-own-form-control" placeholder="Elige tu talla" id="talla"
                             (change)="checkearTalla($event.target.value)">
                       <option selected value="" class="color-talla">Elige tu talla</option>
                       <option class="color-talla" *ngFor="let item of tallasDelProductoFiltradas;"  value="{{item.valor}}">
                         {{item.valor}}</option>
+                    </select>-->
+
+                    <select class="my-own-form-control" placeholder="Elige tu talla" id="color"
+                            (change)="checkColores($event.target.value)">
+                      <option selected value="" class="color-talla">Color</option>
+                      <option class="color-talla"
+                              *ngFor="let item of  almacenColores"  value="{{item.id_stock}}">
+                        {{item.valor}}
+                      </option>
                     </select>
+
+
+                    <select [(ngModel)]="opcionSeleccionado" class="my-own-form-control" placeholder="Elige tu talla"
+                            id="talla" (change)="checkearTalla($event.target.value)">
+                      <option selected [value]="null" class="color-talla">Talla</option>
+                      <option class="color-talla"
+                              *ngFor="let value of  almacenTalals"  value="{{value.valor}}">
+                        {{value.valor}}
+                      </option>
+                    </select>
+
                   </div>
 
                     <div class="cantidad mrg-botn-10 btn-select">
@@ -154,7 +184,7 @@
                         -
                       </button>
                     </div>
-                  <button (click)="agregarProductosAlCarrito() " [disabled]="!returnEstadoProducto || returnEstadoProducto < 0"
+                  <button (click)="agregarProductosAlCarrito() " [disabled]="!returnEstadoProducto"
                           class="btn-full-view mrg-botn-10 btn-bolsa-favoritos" color="primary"
                           mat-raised-button>
                     <div class="favoritos-bolsa">
@@ -441,18 +471,7 @@
                       <a class="text-pink" (click)="getPagination(prevPageUrl)">
                         <mat-icon class="center-icon">chevron_left</mat-icon>
                       </a>
-
-                     <!-- <li *ngFor="let tem  of totalComentario;let i = index">
-                    <p >{{i+1}}</p>
-                        </li>-->
-                     <!-- <button class="ui left labeled icon button" (click)="getPagination(prevPageUrl)"
-                     <         *ngIf="prevPageUrl != null">
-                        <div class="icon">
-                          <i class="chevron left icon"></i>
-                        </div>
-
-                        Atras
-                      </button>-->
+z
 
 
 
@@ -548,3 +567,4 @@
     </div>
 </div>
 <app-flecha-arriba></app-flecha-arriba>
+

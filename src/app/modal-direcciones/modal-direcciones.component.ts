@@ -122,7 +122,7 @@ export class ModalDireccionesComponent implements OnInit {
 
     Swal.fire({
       title: '¿Estás seguro?',
-      text: "Deceas dejar esta dirección como predeterminada?",
+      text: "Deseas dejar esta dirección como predeterminada?",
       icon: 'info',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

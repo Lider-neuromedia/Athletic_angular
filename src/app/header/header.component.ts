@@ -211,6 +211,8 @@ export class HeaderComponent {
       this.cantidadProductoReales = valorTotalLista.reduce((item1, item2) => {
         return item1 + item2.cantidad;
       }, 0);
+    } else {
+      this.cantidadProductoReales = 0;
     }
     return this.cantidadProductoReales;
   }

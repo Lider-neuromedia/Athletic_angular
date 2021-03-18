@@ -28,6 +28,7 @@ export class PedidosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.variablesGl.changeMessage();
     this.listarMisPedidos();
     localStorage.removeItem('favoritos');
   }

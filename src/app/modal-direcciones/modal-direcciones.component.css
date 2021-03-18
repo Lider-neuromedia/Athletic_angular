@@ -4,7 +4,7 @@
 
 .row-save-adress{
   justify-content: center;
-  margin-top: 2em;
+  margin-top: 1px;
 }
 
 .row-save-adress .save-adrres{
@@ -27,7 +27,6 @@ width: 100% !important;
 .save-adrres {
   cursor: pointer;
 }
-
 mat-radio-button{
   padding: 10px;
 }
@@ -49,6 +48,7 @@ mat-radio-button{
   transition: all .6s ease;
   background: #FFFFFF;
   font-weight: 900;
+  z-index: 1000;
 }
 
 button[_ngcontent-jts-c373] {
@@ -78,5 +78,5 @@ span {
 }
 
 .form-group {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1px;
 }

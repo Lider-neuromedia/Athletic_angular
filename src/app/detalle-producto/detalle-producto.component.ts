@@ -62,7 +62,7 @@ export class DetalleProductoComponent implements OnInit {
   colorTexto: any;
   unicaValoracion: any;
   url: any;
-  opcionSeleccionado: any;
+  opcionSeleccionado = null;
   carouselDescatadosUno: any;
 
   currentPage: any;
@@ -77,7 +77,10 @@ export class DetalleProductoComponent implements OnInit {
   mostrarZoom: boolean;
   imagenCambbiar: string;
   tallasDelProductoFiltradas: any;
-  returnEstadoProducto: any;
+  returnEstadoProducto: boolean;
+  almacenColores: any;
+  almacenTalals: any;
+  coloralCarrito: any;
 
   constructor(
     public dialog: MatDialog,
@@ -147,6 +150,8 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.returnEstadoProducto = true;
     localStorage.removeItem('favoritos');
     this.imagenCambbiar = '';
     document.getElementById('myresult').style.display = 'none';
@@ -285,7 +290,9 @@ export class DetalleProductoComponent implements OnInit {
     this.http.httpGet('productos/' + id, null, false).subscribe(
       async response => {
         this.producto = response;
-        await  this.validarEstadodelProducto();
+        this.almacenColores = response.combinaciones
+       // this.almacenTalals = response.combinacionesTallas
+        //await  this.validarEstadodelProducto();
         this.producto.precio = Math.round(this.producto.precio)
         $('#detalle').html(response.descripcion_prod);
         $('blockquote').addClass('col-md-4');
@@ -300,7 +307,7 @@ export class DetalleProductoComponent implements OnInit {
           gallery.push(img);
         });
 
-        this.tallasDelProductoFiltradas = this.producto['combinaciones'].filter(datos => datos.cantidad > 0);
+        this.tallasDelProductoFiltradas = this.producto['combinaciones'];
         //const result = this.producto['combinaciones'].filter(item => item.valor == talla);
         this.galleryImages = gallery;
         this.imagenesView = response.imagenes;
@@ -321,7 +328,7 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   agregarProductosAlCarrito() {
-    if (!this.opcionSeleccionado) {
+    if (!this.opcionSeleccionado || this.opcionSeleccionado == '' || this.opcionSeleccionado == null) {
       this.alertaS.showToasterError('Debes seleccionar una talla');
       return;
     }
@@ -332,6 +339,7 @@ export class DetalleProductoComponent implements OnInit {
       if (this.cantidadProductos > 0) {
         this.producto['talla'] = this.opcionSeleccionado;
         this.producto['cantidad'] = this.cantidadProductos;
+        this.producto['color'] = this.coloralCarrito[0]['valor'];
         this.addProductoCarrito.push(this.producto);
         if (this.addProductoCarrito) {
           if (this.carritoAnterior) {
@@ -347,7 +355,7 @@ export class DetalleProductoComponent implements OnInit {
         this.addProductoCarrito = [];
         this.cantidadProductos = 1;
 
-        this.alertaS.showToasterFull(`Articulo Agregado Corectamente`);
+        this.alertaS.showToasterFull(`Articulo Agregado Correctamente`);
 
 
       } else {
@@ -514,14 +522,31 @@ export class DetalleProductoComponent implements OnInit {
     });
   }
 
+  checkColores(event) {
+    this.returnEstadoProducto = true;
+    console.log(event);
+    this.almacenTalals = this.producto['combinacionesTallas'].filter(item => item.id_stock == event);
+    this.coloralCarrito = this.producto['combinaciones'].filter(item => item.id_stock == event);
+    console.log(this.coloralCarrito[0]['valor']);
+
+
+    if (event && this.almacenTalals.length == 0) {
+      console.log('esta vacio', this.almacenTalals.length);
+      this.returnEstadoProducto = false;
+    }
+
+  }
+
   checkearTalla(evento) {
     this.opcionSeleccionado = evento;
   }
 
+
+
   verTalalsAgotadas(talla: string, cantidad: number, producto: number) {
 
     //Filtro cual es la talla del producto que estan comprando
-    const result = this.producto['combinaciones'].filter(item => item.valor == talla);
+    const result = this.producto['combinacionesTallas'].filter(item => item.valor == talla);
     //luego que obtengo los datos de la base de datos valido que si la cantidad que estan comprando es menor o igual a la que tengo
     //En la base de datos lo deje permitir comprando de lo contrario nooooooooo podra
     if (cantidad <= result[0]['cantidad']) {
@@ -530,10 +555,13 @@ export class DetalleProductoComponent implements OnInit {
           producto: producto,
           atributo: result[0]['id_atributo_value'],
           cantidad: cantidad,
-          stock: result[0]['id_stock'],
+          id_stock: result[0]['destallestock_codigo'],
       };
       this.producto['stock'] = dattos;
+      console.log(dattos);
       return true;
+
+
     //Si esta corecta la cantida le devuelvo true al carrito de compras
     }else {
       this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+ result[0]['cantidad']);
@@ -675,11 +703,11 @@ export class DetalleProductoComponent implements OnInit {
     return `url('${url}')`;
   }
 
-
+/*
   validarEstadodelProducto() {
       this.returnEstadoProducto = this.producto['combinaciones'].reduce((item1, item2) => {
         return item1 + item2.cantidad;
       }, 0);
-  }
+  }*/
 
 }
