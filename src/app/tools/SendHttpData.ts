@@ -1,13 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class SendHttpData {
 
-   private baseUrl = 'http://localhost:8000/api/';
+  //  private baseUrl = 'http://localhost:8000/api/';
 
-  //private baseUrl = 'https://pruebasneuro.co/N-1061/api/public/api/';
+  private baseUrl = 'https://pruebasneuro.co/N-1061/api/public/api/';
+  cargando: boolean;
+  cargandoCategoria: boolean;
+  cargandoMarca: boolean;
+  cargandoCateProdBan: boolean;
+  cargandoCateProd: boolean;
+  cargandoProductos: boolean;
+  cargandoDisenoHome: boolean;
+  cargandoProdDest: boolean;
+  cargandoProdDestProm: boolean;
   // Key prestashop
   // private key = "JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
   // private full = "display=full"; Neuro*123$
@@ -29,6 +39,73 @@ export class SendHttpData {
   httpGet(route:string, filter:string = null, full=true):Observable<any>{
     var url = this.baseUrl + route;
     return this._http.get(url);
+  }
+  getProductosDestacadosPromociones(id: number): Observable<any>{
+    if(this.cargandoProdDestProm){
+      return of([]);
+    }
+    this.cargandoProdDestProm = true;
+    let url = `${this.baseUrl}productosDestacadosPromociones/${id}`;
+    return this._http.get(url).pipe( tap( () => this.cargandoProdDestProm = false));
+  }
+  getProductosDestacados(): Observable<any>{
+    if(this.cargandoProdDest){
+      return of([]);
+    }
+    this.cargandoProdDest = true;
+    let url = `${this.baseUrl}productosDestacados`;
+    return this._http.get(url).pipe( tap( () => this.cargandoProdDest = false));
+  }
+  getDisenoHome(): Observable<any>{
+    if(this.cargandoDisenoHome){
+      return of([]);
+    }
+    this.cargandoDisenoHome = true;
+    let url = `${this.baseUrl}disenoHome`;
+    return this._http.get(url).pipe( tap( () => this.cargandoDisenoHome = false));
+  }
+  getProductos(): Observable<any>{
+    if(this.cargandoProductos){
+      return of([]);
+    }
+    this.cargandoProductos = true;
+    var url = this.baseUrl;
+    return this._http.get(url).pipe(tap( () => this.cargandoProductos = false));
+  }
+  getCategorias(): Observable<any>{
+    if(this.cargandoCategoria){
+      return of([]);
+    }
+    this.cargandoCategoria = true;
+    let url = `${this.baseUrl}categorias`;
+    return this._http.get(url).pipe(tap( () => this.cargandoCategoria = false));
+  }
+
+  getMarca(): Observable<any>{
+    if(this.cargandoMarca){
+      return of([]);
+    }
+    this.cargandoMarca = true;
+    let url = `${this.baseUrl}marcas`;
+    return this._http.get(url).pipe( tap (() => this.cargandoMarca = false));
+  }
+
+  getCategoriasProductosBanner(){
+    if(this.cargandoCateProdBan){
+      return of([]);
+    }
+    this.cargandoCateProdBan = true;
+    let url = `${this.baseUrl}categorias-productos-banner`;
+    return this._http.get(url).pipe( tap( () => this.cargandoCateProdBan = false));
+  }
+
+  getCategoriasProductos(id: number){
+    if(this.cargandoCateProd){
+      return of([]);
+    }
+    this.cargandoCateProd = true;
+    let url = `${this.baseUrl}categorias-productos/${id}`;
+    return this._http.get(url).pipe( tap( () => this.cargandoCateProd = false));
   }
 
   // Peticion Http GET

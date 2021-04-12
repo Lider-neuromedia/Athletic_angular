@@ -101,7 +101,7 @@ export class ProductosComponent implements OnInit {
 
       if (value.id) {
         this.llamarMarcasUrl(value.id);
-
+        return;
       }
       this.checkMarcas = value.marca;
       this.getProducts();
@@ -144,10 +144,17 @@ export class ProductosComponent implements OnInit {
   }
 
   listarCategoriasBaner(val) {
-    this.http.httpGet('categorias-productos-banner').toPromise().then(respuesta => {
+    if(this.http.cargandoCateProdBan){
+      return;
+    }
+    this.http.getCategoriasProductosBanner().toPromise().then(respuesta => {
       this.dataImagenesBanner = respuesta['data'];
-       let dataFinal =  this.dataImagenesBanner.filter(datos => datos.id_categoria  == val);
+      let dataFinal =  this.dataImagenesBanner.filter(datos => datos.id_categoria  == val);
       this.imagenCategorias = dataFinal[0]['img'];
+    // this.http.httpGet('categorias-productos-banner').toPromise().then(respuesta => {
+    //   this.dataImagenesBanner = respuesta['data'];
+    //    let dataFinal =  this.dataImagenesBanner.filter(datos => datos.id_categoria  == val);
+    //   this.imagenCategorias = dataFinal[0]['img'];
     });
 
 
@@ -157,7 +164,10 @@ export class ProductosComponent implements OnInit {
 
     this.listarCategoriasBaner(id);
 
-    this.http.httpGetParamt('categorias-productos', id).toPromise().then(respuesta => {
+    if(this.http.cargandoCateProd){
+      return;
+    }
+    this.http.getCategoriasProductos(id).toPromise().then(respuesta => {
       this.infoExtraer = respuesta[`data`]['codigo_cat'];
 
       this.infoExtraer = this.infoExtraer.substring(0, 3);
@@ -175,6 +185,24 @@ export class ProductosComponent implements OnInit {
     }).catch(error => {
       console.log(error);
     });
+    // this.http.httpGetParamt('categorias-productos', id).toPromise().then(respuesta => {
+    //   this.infoExtraer = respuesta[`data`]['codigo_cat'];
+
+    //   this.infoExtraer = this.infoExtraer.substring(0, 3);
+
+    //   if (this.infoExtraer == 'H01') {
+    //     this.changeCategorie(true, 2);
+    //     this.filter_estadoPrducto = null;
+    //   }else if (this.infoExtraer == 'M02') {
+    //     this.changeCategorie(true, 11);
+    //     this.filter_estadoPrducto = null;
+    //   }else if (this.infoExtraer == 'K03') {
+    //     this.changeCategorie(true, 19);
+    //     this.filter_estadoPrducto = null;
+    //   }
+    // }).catch(error => {
+    //   console.log(error);
+    // });
 
   }
 
@@ -185,7 +213,10 @@ export class ProductosComponent implements OnInit {
 
   // Productos
   getProducts(filter = null) {
-    this.http.httpGet('productos').subscribe(
+    if(this.http.cargandoProductos){
+      return;
+    }
+    this.http.getProductos().subscribe(
       response => {
         this.productos = response;
         this.calcularPaginas();
@@ -193,17 +224,34 @@ export class ProductosComponent implements OnInit {
       },
       error => { console.error("error." + error); }
     );
+    // this.http.httpGet('productos').subscribe(
+    //   response => {
+    //     this.productos = response;
+    //     this.calcularPaginas();
+    //     this.calculoProductoResenia(this.productos['id_producto']);
+    //   },
+    //   error => { console.error("error." + error); }
+    // );
   }
 
   // Marcas
   getMarcas() {
-    this.http.httpGet('marcas').subscribe(
+    if(this.http.cargandoMarca){
+      return;
+    }
+    this.http.getMarca().subscribe(
       response => {
         var data = response.marcas;
-        this.marcas = data;
-      },
-      error => { console.log("error." + error); }
-    );
+            this.marcas = data;
+      }, error => console.log("error",error)
+    )
+    // this.http.httpGet('marcas').subscribe(
+    //   response => {
+    //     var data = response.marcas;
+    //     this.marcas = data;
+    //   },
+    //   error => { console.log("error." + error); }
+    // );
   }
 
   changeMarca($event, id) {
@@ -227,19 +275,34 @@ export class ProductosComponent implements OnInit {
 
   // Categorias
   getCategories() {
-    this.http.httpGet('categorias').subscribe(
+    if(this.http.cargandoCategoria){
+      return;
+    }
+    this.http.getCategorias().subscribe(
       response => {
         var data = response.categorias;
-        var categorias = [];
-        data.forEach((element) => {
-          if (element.id_parent == 1) {
-            categorias.push({ id_categoria: element.id_categoria, name_cat: element.name_cat });
-          }
-        });
-        this.categorias_prin = categorias;
-      },
-      error => { console.log("error." + error); }
-    );
+            var categorias = [];
+            data.forEach((element) => {
+              if (element.id_parent == 1) {
+                categorias.push({ id_categoria: element.id_categoria, name_cat: element.name_cat });
+              }
+            });
+            this.categorias_prin = categorias;
+      }, error => console.error(error)
+    )
+    // this.http.httpGet('categorias').subscribe(
+    //   response => {
+    //     var data = response.categorias;
+    //     var categorias = [];
+    //     data.forEach((element) => {
+    //       if (element.id_parent == 1) {
+    //         categorias.push({ id_categoria: element.id_categoria, name_cat: element.name_cat });
+    //       }
+    //     });
+    //     this.categorias_prin = categorias;
+    //   },
+    //   error => { console.log("error." + error); }
+    // );
   }
 
   changeCategorie($event, id) {

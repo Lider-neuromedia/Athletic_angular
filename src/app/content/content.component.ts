@@ -201,7 +201,10 @@ export class ContentComponent implements OnInit {
   }
 
   getDisenoHome(){
-    this.http.httpGet('disenoHome').subscribe(
+    if(this.http.cargandoDisenoHome){
+      return;
+    }
+    this.http.getDisenoHome().subscribe(
       response => {
         this.disenoHome = response;
         this.disenioSesion18 = response['sesion_18'];
@@ -210,10 +213,22 @@ export class ContentComponent implements OnInit {
         console.error("Error en el diseño.");
       }
     );
+    // this.http.httpGet('disenoHome').subscribe(
+    //   response => {
+    //     this.disenoHome = response;
+    //     this.disenioSesion18 = response['sesion_18'];
+    //   },
+    //   error => {
+    //     console.error("Error en el diseño.");
+    //   }
+    // );
   }
 
   getProductsDest(){
-    this.http.httpGet('productosDestacados').subscribe(
+    if(this.http.cargandoProdDest){
+      return;
+    }
+    this.http.getProductosDestacados().subscribe(
       response => {
         this.carouselDescatadosUno = response;
       },
@@ -221,11 +236,22 @@ export class ContentComponent implements OnInit {
         console.error("Error consumiento productos destacados.");
       }
     );
+    // this.http.httpGet('productosDestacados').subscribe(
+    //   response => {
+    //     this.carouselDescatadosUno = response;
+    //   },
+    //   error => {
+    //     console.error("Error consumiento productos destacados.");
+    //   }
+    // );
    // this.deshabilitarCarga = false;
   }
 
   getProductsDestContenido8(){
-    this.http.httpGetParamt('productosDestacadosPromociones',this.btn_active ).subscribe(
+    if(this.http.cargandoProdDestProm){
+      return;
+    }
+    this.http.getProductosDestacadosPromociones(this.btn_active).subscribe(
       response => {
         this.carouselDescatadosUno8 = response;
       },
@@ -233,6 +259,14 @@ export class ContentComponent implements OnInit {
         console.error("Error consumiento productos destacados.");
       }
     );
+    // this.http.httpGetParamt('productosDestacadosPromociones',this.btn_active ).subscribe(
+    //   response => {
+    //     this.carouselDescatadosUno8 = response;
+    //   },
+    //   error => {
+    //     console.error("Error consumiento productos destacados.");
+    //   }
+    // );
   }
 
   ngOnDestroy() {

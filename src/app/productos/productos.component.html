@@ -10,7 +10,7 @@
         </div>
         <div class="d-flex">
             <div class="d-none d-md-block mrg-top-20">
-                <mat-card *ngFor="let item of filtros; let i of index" class="card-filter col-md-12 mrg-botn-20">
+                <mat-card *ngFor="let item of filtros; let i = index" class="card-filter col-md-12 mrg-botn-20">
                     <p class="title-filter">{{item.name}}</p>
                     <div class="row dbl-fila-filter">
                         <div class="col-md-6" *ngFor="let value of item.valores" style="padding-right: 3px;">
