@@ -9,16 +9,16 @@ export class SendHttpData {
   //  private baseUrl = 'http://localhost:8000/api/';
 
   private baseUrl = 'https://pruebasneuro.co/N-1061/api/public/api/';
-  cargandoProducto: boolean;
-  cargandoCategoria: boolean;
-  cargandoMarca: boolean;
-  cargandoCateProdBan: boolean;
-  cargandoCateProd: boolean;
-  cargandoProductos: boolean;
-  cargandoDisenoHome: boolean;
-  cargandoProdDest: boolean;
-  cargandoProdDestProm: boolean;
-  cargandoFiltro: boolean;
+  cargandoProducto: boolean = false;
+  cargandoCategoria: boolean = false;
+  cargandoMarca: boolean = false;
+  cargandoCateProdBan: boolean = false;
+  cargandoCateProd: boolean = false;
+  cargandoProductos: boolean = false;
+  cargandoDisenoHome: boolean = false;
+  cargandoProdDest: boolean = false;
+  cargandoProdDestProm: boolean = false;
+  cargandoFiltro: boolean = false;
   // Key prestashop
   // private key = "JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
   // private full = "display=full"; Neuro*123$

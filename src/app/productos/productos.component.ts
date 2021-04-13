@@ -10,6 +10,7 @@ import {VariablesService} from "../servicio/variable-global/variables.service";
 import {FavoritosService} from "../servicio/favoritos/favoritos.service";
 import * as $ from "jquery";
 import {AgregarCarritoComponent} from "../agregar-carrito/agregar-carrito.component";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-productos',
@@ -78,6 +79,7 @@ export class ProductosComponent implements OnInit {
   descuentosProductos: any;
   codigoFiltro: any;
   dataImagenesBanner: any;
+  identificador = [];
   constructor(
     private http: SendHttpData,
     public dialog: MatDialog,
@@ -305,21 +307,30 @@ export class ProductosComponent implements OnInit {
     // );
   }
 
-  changeCategorie($event, id) {
+  changeCategorie(event, id) {
+      
+      this.listarCategoriasBaner(id);
+    
+    console.log(event);
 
-    this.listarCategoriasBaner(id);
-
-
-    if ($event.checked) {
+    if(event.target?.checked){
       if (this.filter_categorias == null) {
-        this.filter_categorias = [id];
-      } else {
-        this.filter_categorias.push(id);
-      }
-    } else {
-      for (let i = 0; i < this.filter_categorias.length; i++) {
-        if (this.filter_categorias[i] == id) {
-          this.filter_categorias.splice(i, 1);
+            this.filter_categorias = [id];
+            console.log("checked ",this.filter_categorias);
+          }else {
+              if(this.filter_categorias.length >= 1){
+                this.filter_categorias.pop();
+                console.log(this.filter_categorias);
+              }
+                this.filter_categorias.push(id);
+                console.log("No checked ",this.filter_categorias);
+              }
+        } else {
+          console.log(id);
+            for (let i = 0; i < this.filter_categorias.length; i++) {
+              if (this.filter_categorias[i] == id) {
+                console.log(this.filter_categorias[i]);
+                this.filter_categorias.splice(i, 1);
         }
       }
     }

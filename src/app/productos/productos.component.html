@@ -60,8 +60,14 @@
 
                 <mat-card class="col-md-12 mrg-top-20 card-filter">
                     <p class="title-filter">Categoria</p>
-                    <div *ngFor="let categoria of categorias_prin">
-                        <mat-checkbox (change)="changeCategorie($event, categoria.id_categoria)" class="check-filter">{{categoria.name_cat}}</mat-checkbox>
+                    <div *ngFor="let categoria of categorias_prin; let i = index">
+                        <div class="form-check">
+                            <input class="form-check-input" (change)="changeCategorie($event, categoria.id_categoria)" type="radio" name="exampleRadios" id="exampleRadios1">
+                            <label class="form-check-label" style="font-size: 10px;" for="exampleRadios1">
+                                {{categoria.name_cat}}
+                            </label>
+                          </div>
+                        <!-- <mat-checkbox name="categoria" (change)="changeCategorie($event, categoria.id_categoria)" class="check-filter" #check>{{categoria.name_cat}}</mat-checkbox> -->
                     </div>
                 </mat-card>
 
