@@ -3,12 +3,11 @@
 
     <input class="buscador"
            (focusin)="mostrarBuscador = true"
-           type="text"
+           type="search"
            [(ngModel)]="dataBuscador"
            autocomplete="false"
            autocomplete="off"
            autocomplete="disabled"
-           (blur)="perderFoto()"
            (keyup)="showSearchResults($event)"
            (change)="buscadorProductos($event)"
            placeholder="Busca por producto, marca o categoría">

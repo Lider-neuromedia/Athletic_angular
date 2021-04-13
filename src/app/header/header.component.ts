@@ -226,6 +226,12 @@ export class HeaderComponent {
     this.nameProducto = this.nameProducto.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
     this.ruta.navigate(['/productos/'+ codigo + '/' + this.nameProducto])
 
+    $('.dropdown-menu').toggleClass("activar");
+
+  }
+
+  abrirMegaMenu(){
+    $('.dropdown-menu').toggleClass("activar");
   }
 }
 

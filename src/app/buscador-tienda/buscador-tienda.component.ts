@@ -34,6 +34,7 @@ export class BuscadorTiendaComponent implements OnInit {
     this.ocultar = false;
     this.dataBuscador = null;
     this.dataBuscador = '';
+    this.perderFoco();
   }
 
 
@@ -54,13 +55,15 @@ export class BuscadorTiendaComponent implements OnInit {
         console.log(respuesta);
 
         if (respuesta['data'].length > 0) {
-          console.log('asbdkabd k asd----------------false' );
+          // console.log('asbdkabd k asd----------------false' );
+          this.flag = true;
           this.recorerBusqueda = respuesta['data'];
           this.url = respuesta['ruta'];
           document.getElementById('pintar-informacion');
           this.mostrarBusquedaVacias = false;
         } else {
-          console.log('asbdkabd k asd----------------');
+          // console.log('asbdkabd k asd----------------');
+          this.flag = false;
           this.recorerBusqueda = null;
           this.mostrarBusquedaVacias = true;
           //document.getElementById('pintar-informacion2');
@@ -73,17 +76,17 @@ export class BuscadorTiendaComponent implements OnInit {
       this.recorerBusqueda = null;
       this.mostrarBusquedaVacias = false;
       document.getElementById('pintar-informacion');
-      console.log('asbdkabd k asd');
+      // console.log('asbdkabd k asd');
     }
 
   }
 
-  perderFoto(){
-    this.flag = !this.flag;
+  perderFoco(){
+    $("mat-sidenav-content").click(() => {
       this.recorerBusqueda = null;
       this.mostrarBusquedaVacias = false;
       document.getElementById('pintar-informacion');
-      console.log('asbdkabd k asd');
+    });
   }
 
   buscadorProductos(e) {
