@@ -313,24 +313,44 @@ export class ProductosComponent implements OnInit {
     
     console.log(event);
 
-    if(event.target?.checked){
+    // if(event.target?.checked){
+    //   if (this.filter_categorias == null) {
+    //         this.filter_categorias = [id];
+    //         console.log("checked ",this.filter_categorias);
+    //       }else {
+    //           if(this.filter_categorias.length >= 1){
+    //             this.filter_categorias.pop();
+    //             console.log(this.filter_categorias);
+    //           }
+    //             this.filter_categorias.push(id);
+    //             console.log("No checked ",this.filter_categorias);
+    //           }
+    //     } else {
+    //       console.log(id);
+    //         for (let i = 0; i < this.filter_categorias.length; i++) {
+    //           if (this.filter_categorias[i] == id) {
+    //             console.log(this.filter_categorias[i]);
+    //             this.filter_categorias.splice(i, 1);
+    //     }
+    //   }
+    // }
+    
+
+
+
+    if (event.checked) {
       if (this.filter_categorias == null) {
-            this.filter_categorias = [id];
-            console.log("checked ",this.filter_categorias);
-          }else {
-              if(this.filter_categorias.length >= 1){
-                this.filter_categorias.pop();
-                console.log(this.filter_categorias);
-              }
-                this.filter_categorias.push(id);
-                console.log("No checked ",this.filter_categorias);
-              }
-        } else {
-          console.log(id);
-            for (let i = 0; i < this.filter_categorias.length; i++) {
-              if (this.filter_categorias[i] == id) {
-                console.log(this.filter_categorias[i]);
-                this.filter_categorias.splice(i, 1);
+        this.filter_categorias = [id];
+        console.log("checked ",this.filter_categorias);
+      } else {
+        
+        this.filter_categorias.push(id);
+        console.log("No checked ",this.filter_categorias);
+      }
+    } else {
+      for (let i = 0; i < this.filter_categorias.length; i++) {
+        if (this.filter_categorias[i] == id) {
+          this.filter_categorias.splice(i, 1);
         }
       }
     }

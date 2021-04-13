@@ -19,6 +19,8 @@ export class BuscadorTiendaComponent implements OnInit {
   mostrarBuscador: boolean;
   url: any;
   bolsa = false;
+  flag = false;
+
 
   mostrarBusquedaVacias: boolean;
   constructor(    public router: Router,
@@ -36,8 +38,11 @@ export class BuscadorTiendaComponent implements OnInit {
 
 
   showSearchResults(event: any) {
+    console.log(event);
     if (this.dataBuscador.length) {
-      console.log(this.dataBuscador);
+
+      // console.log(this.dataBuscador);
+      // console.log(this.url);
 
       const  data = {
         buscar: this.dataBuscador.toUpperCase()
@@ -73,7 +78,16 @@ export class BuscadorTiendaComponent implements OnInit {
 
   }
 
+  perderFoto(){
+    this.flag = !this.flag;
+      this.recorerBusqueda = null;
+      this.mostrarBusquedaVacias = false;
+      document.getElementById('pintar-informacion');
+      console.log('asbdkabd k asd');
+  }
+
   buscadorProductos(e) {
+    // console.log(e);
     console.log(this.dataBuscador);
   }
 
