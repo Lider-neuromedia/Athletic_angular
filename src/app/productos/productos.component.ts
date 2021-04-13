@@ -389,8 +389,10 @@ export class ProductosComponent implements OnInit {
     if (this.filter_order != null) {
       params += "&orderProd=" + this.filter_order;
     }*/
-
-    this.http.httpPost('filters' , data).subscribe(
+    if(this.http.cargandoFiltro){
+      return;
+    }
+    this.http.setProductoFiltro(data).subscribe(
       response => {
         this.productos = response;
         this.calcularPaginas();
@@ -399,6 +401,15 @@ export class ProductosComponent implements OnInit {
 
       }
     );
+    // this.http.httpPost('filters' , data).subscribe(
+    //   response => {
+    //     this.productos = response;
+    //     this.calcularPaginas();
+    //   },
+    //   error => {
+
+    //   }
+    // );
   }
 
   //Cantidad vista previa

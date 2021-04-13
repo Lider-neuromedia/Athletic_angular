@@ -9,7 +9,7 @@ export class SendHttpData {
   //  private baseUrl = 'http://localhost:8000/api/';
 
   private baseUrl = 'https://pruebasneuro.co/N-1061/api/public/api/';
-  cargando: boolean;
+  cargandoProducto: boolean;
   cargandoCategoria: boolean;
   cargandoMarca: boolean;
   cargandoCateProdBan: boolean;
@@ -18,6 +18,7 @@ export class SendHttpData {
   cargandoDisenoHome: boolean;
   cargandoProdDest: boolean;
   cargandoProdDestProm: boolean;
+  cargandoFiltro: boolean;
   // Key prestashop
   // private key = "JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
   // private full = "display=full"; Neuro*123$
@@ -108,7 +109,26 @@ export class SendHttpData {
     return this._http.get(url).pipe( tap( () => this.cargandoCateProd = false));
   }
 
-  // Peticion Http GET
+  getProducto(id: number): Observable<any>{
+    if(this.cargandoProducto){
+      return of([]);
+    }
+    this.cargandoProducto = true;
+    let url = `${this.baseUrl}productos/${id}`;
+    this._http.get(url).pipe(tap(()=> this.cargandoProducto = false));
+  }
+
+  setProductoFiltro(data: any): Observable<any>{
+    if(this.cargandoFiltro){
+      return of([]);
+    }
+    this.cargandoFiltro = true;
+    let url = `${this.baseUrl}filters`;
+    return this._http.post(url, data).pipe(tap(() => this.cargandoFiltro = false));
+  }
+
+
+  // Peticion Http POST
   httpPost(route:string, data:any):Observable<any>{
     var url = this.baseUrl + route;
     return this._http.post(url, data);

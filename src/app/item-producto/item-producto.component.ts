@@ -106,7 +106,10 @@ export class ItemProductoComponent implements OnInit {
   }
 
   getProducts(id) {
-    this.http.httpGet('productos/' + id, null, false).subscribe(
+    if(this.http.cargandoProducto){
+      return;
+    }
+    this.http.getProducto(id).subscribe(
       response => {
         this.producto = response;
         $('#detalle').html(response.descripcion_prod);
@@ -125,6 +128,25 @@ export class ItemProductoComponent implements OnInit {
       },
       error => { console.log("error." + error); }
     );
+    // this.http.httpGet('productos/' + id, null, false).subscribe(
+    //   response => {
+    //     this.producto = response;
+    //     $('#detalle').html(response.descripcion_prod);
+    //     $('blockquote').addClass('col-md-4');
+    //     var gallery = [];
+    //     response.imagenes.forEach(element => {
+    //       var img = {
+    //         small: element.img,
+    //         medium: element.img,
+    //         big: element.img
+    //       }
+
+    //       gallery.push(img);
+    //     });
+    //     this.galleryImages = gallery;
+    //   },
+    //   error => { console.log("error." + error); }
+    // );
 
   }
 
