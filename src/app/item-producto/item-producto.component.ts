@@ -109,7 +109,7 @@ export class ItemProductoComponent implements OnInit {
     if(this.http.cargandoProducto){
       return;
     }
-    this.http.getProducto(id).subscribe(
+    this.http.getProducto(id)?.subscribe(
       response => {
         this.producto = response;
         $('#detalle').html(response.descripcion_prod);

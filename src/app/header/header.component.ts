@@ -17,7 +17,7 @@ export class HeaderComponent {
   dataProductos: any;
   nameProducto: any;
   categorias = [];
-  categorias_prin = [];
+  categorias_prin: any[];
   sub_categorias = null;
   categoria_select = null;
   usuario = null;
@@ -90,6 +90,7 @@ export class HeaderComponent {
       response => {
         var data = response.categorias;
         this.categorias_prin = data.hijos;
+        console.log(this.categorias_prin);
         this.categorias = data.hijos;
         var cat_inicial = this.categorias_prin[0];
         this.changeSubCategoria(cat_inicial.id_categoria, cat_inicial.hijos);
@@ -197,6 +198,7 @@ export class HeaderComponent {
     this.http.httpGet('disenoHome').subscribe(
       response => {
         this.disenoHome = response['sesion_17'];
+        // console.log(this.disenoHome);
       },
       error => {
         console.error("Error en el diseño.");

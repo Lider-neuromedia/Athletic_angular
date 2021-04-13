@@ -126,7 +126,7 @@
                 <div class="d-none d-md-block row w-100" style="margin-left: 10px !important;">
                     <div class="col-md-12 clase-banner" routerLink="/productos/05/nuevo" *ngIf="disenoHome">
                       <img [src]="imagenCategorias?imagenCategorias: ''" class="w-100 border-rad-mild" alt="" *ngIf="imagenCategorias">
-                      <img [src]="disenoHome?disenoHome[0]['url_imagen']: ''" class="w-100 border-rad-mild" alt="" *ngIf="!imagenCategorias">
+                      <img [src]="disenoHome?disenoHome[0]?.url_imagen: ''" class="w-100 border-rad-mild" alt="" *ngIf="!imagenCategorias">
 
                     </div>
                 </div>
