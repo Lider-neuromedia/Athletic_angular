@@ -351,9 +351,11 @@ export class DetalleCompraComponent implements OnInit {
 
     if (proceso === 1) {
       this.carritoNuevo[indice].cantidad++;
-      const result = this.carritoNuevo[indice]['combinaciones'].filter(item => item.valor ==  this.carritoNuevo[indice].talla);
-
-      if (this.carritoNuevo[indice].cantidad <= result[0]['cantidad']) {
+      const result = this.carritoNuevo[indice];
+      // ['combinaciones'].filter(item => item.valor ==  this.carritoNuevo[indice].talla);
+      // console.log(this.carritoNuevo[indice]);
+      console.log(result);
+      if (this.carritoNuevo[indice].cantidad <= result['cantidad']) {
 
       } else {
         this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario '+ result[0]['cantidad']);

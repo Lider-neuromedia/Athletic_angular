@@ -210,9 +210,11 @@ export class HeaderComponent {
 
     const valorTotalLista = JSON.parse(localStorage.getItem('athletic'));
     if (valorTotalLista) {
-      this.cantidadProductoReales = valorTotalLista.reduce((item1, item2) => {
-        return item1 + item2.cantidad;
-      }, 0);
+      console.log(valorTotalLista);
+      this.cantidadProductoReales = valorTotalLista?.length;
+      // this.cantidadProductoReales = valorTotalLista.reduce((item1, item2) => {
+      //   return item1 + item2.cantidad;
+      // }, 0);
     } else {
       this.cantidadProductoReales = 0;
     }
