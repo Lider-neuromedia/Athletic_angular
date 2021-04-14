@@ -145,10 +145,11 @@ export class AppComponent implements OnInit {
       this.carritoNuevo[indice].cantidad++;
 
 
-      const result = this.carritoNuevo[indice]['combinaciones'].filter(item => item.valor ==  this.carritoNuevo[indice].talla);
+      const result = this.carritoNuevo[indice];
+      // ['combinaciones'].filter(item => item.valor ==  this.carritoNuevo[indice].talla);
       console.log(this.carritoNuevo[indice].cantidad);
 
-      if (this.carritoNuevo[indice].cantidad <= result[0]['cantidad']) {
+      if (this.carritoNuevo[indice].cantidad <= result['cantidad']) {
 
       } else {
         this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario '+ result[0]['cantidad']);
