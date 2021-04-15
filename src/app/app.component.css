@@ -283,7 +283,7 @@
     width: 1px;
     height: 50%;
     /*Warning consola.*/
-    background-image: radial-gradient(50% 100%, #D8D8D8 0%, rgba(255, 255, 255, 0) 100%);
+    background-image: radial-gradient(50% 100% at 0 0, #D8D8D8 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 .btn-home-cate:before{
@@ -294,7 +294,7 @@
     width: 1px;
     height: 50%;
     /*Warning consola.*/
-    background-image: radial-gradient(50% 100%, #D8D8D8 0%, rgba(255, 255, 255, 0) 100%);
+    background-image: radial-gradient(50% 100% at 0 0, #D8D8D8 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 .mes-home{
@@ -347,7 +347,7 @@
     width: 1px;
     height: 50%;
     /*Warning consola.*/
-    background-image: radial-gradient(50% 100%, #D8D8D8 0%, rgba(255, 255, 255, 0) 100%);
+    background-image: radial-gradient(50% 100% at 0 0, #D8D8D8 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 .txt-derchos{

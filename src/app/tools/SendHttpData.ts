@@ -9,7 +9,7 @@ export class SendHttpData {
   //  private baseUrl = 'http://localhost:8000/api/';
 
   // private baseUrl = 'https://pruebasneuro.co/N-1061/api/public/api/';
-  private baseUrl = 'http://pruebasneuro.co/N-1066/athletic_backend/public/api/';
+  private baseUrl = 'https://pruebasneuro.co/N-1066/athletic_backend/public/api/';
   cargandoProducto: boolean = false;
   cargandoCategoria: boolean = false;
   cargandoMarca: boolean = false;
@@ -148,7 +148,7 @@ export class SendHttpData {
 
   // Imagenes de productos.
   getImageProduct(id_prod, id_image){
-    return "http://pruebasneuro.co/N-1007/api/images/products/" + id_prod + "/" + id_image +"?ws_key=JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
+    return "https://pruebasneuro.co/N-1007/api/images/products/" + id_prod + "/" + id_image +"?ws_key=JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
    // return "http://localhost:8000/api/images/products/" + id_prod + "/" + id_image +"?ws_key=JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
   }
 

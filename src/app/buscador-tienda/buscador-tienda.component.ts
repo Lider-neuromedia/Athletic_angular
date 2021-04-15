@@ -58,7 +58,7 @@ export class BuscadorTiendaComponent implements OnInit {
           // console.log('asbdkabd k asd----------------false' );
           this.flag = true;
           this.recorerBusqueda = respuesta['data'];
-          console.log(respuesta);
+          console.log(respuesta['data']);
           this.url = respuesta['ruta'];
           document.getElementById('pintar-informacion');
           this.mostrarBusquedaVacias = false;
@@ -104,7 +104,7 @@ export class BuscadorTiendaComponent implements OnInit {
   listadoProductoTotal(codigo, producto, categoria) {
     this.mostrarBuscador = false;
     console.log(codigo, producto, categoria);
-
+    console.log(producto);
     this.producto = producto.replace(/ /gi, '-');
     this.nameProducto =  this.producto.toLowerCase();
 

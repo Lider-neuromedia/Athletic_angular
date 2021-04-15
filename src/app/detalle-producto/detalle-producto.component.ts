@@ -337,12 +337,13 @@ export class DetalleProductoComponent implements OnInit {
     this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
     console.log(this.carritoAnterior);
 
-    if (this.verTalalsAgotadas(this.opcionSeleccionado, this.cantidadProductos, this.producto['id_producto'])) {
+    if (this.verTalalsAgotadas(this.cantidadProductos, this.producto['id_producto'], this.opcionSeleccionado)) {
       if (this.cantidadProductos > 0) {
         this.producto['talla'] = this.opcionSeleccionado;
         this.producto['cantidad'] = this.cantidadProductos;
         this.producto['color'] = this.coloralCarrito[0]['variation'][0]['valor'];
         this.producto['imagen_destacada'] = this.coloralCarrito[0]['imagenes'][0];
+
         console.log(this.coloralCarrito);
         this.addProductoCarrito.push(this.producto);
         if (this.addProductoCarrito) {
@@ -548,6 +549,12 @@ export class DetalleProductoComponent implements OnInit {
       console.log('esta vacio', this.almacenTalals.length);
       this.returnEstadoProducto = false;
     }
+    let imagenSeleccionada = [];
+    imagenSeleccionada.push({
+      img: this.coloralCarrito[0]['imagenes'][0]
+    }) 
+    this.imagenesView = imagenSeleccionada;
+    console.log(this.imagenesView);
 
   }
 
@@ -557,10 +564,11 @@ export class DetalleProductoComponent implements OnInit {
 
 
 
-  verTalalsAgotadas(talla: string, cantidad: number, producto: number) {
+  verTalalsAgotadas(cantidad: number, producto: number, talla: string) {
 
     //Filtro cual es la talla del producto que estan comprando
     let result;
+    console.log(talla);
     this.producto['combinaciones'].forEach(element => {
       const variacion = [];
       variacion.push(element.variation[1]);
@@ -584,8 +592,6 @@ export class DetalleProductoComponent implements OnInit {
       };
       this.producto['stock'] = dattos;
       return true;
-
-
     //Si esta corecta la cantida le devuelvo true al carrito de compras
     }else {
       this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+ result[0]['cantidad']);

@@ -176,7 +176,7 @@
           <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno"
             [carouselClasses]="['owl-carousel', 'owl-theme']">
             <div class="content-item-product" *ngFor="let item of carouselDescatadosUno">
-              <app-item-producto [id]="item.id_producto" [nuevo]="item.nuevo" [image]="'http://pruebasneuro.co/N-1066/athletic_backend/public/'+item.imagenes[0]?.img" [subtitle]="item.marca.name_marca"
+              <app-item-producto [id]="item.id_producto" [nuevo]="item.nuevo" [image]="'https://pruebasneuro.co/N-1066/athletic_backend/public/'+item.imagenes[0]?.img" [subtitle]="item.marca.name_marca"
                 [title]="item.name_prod" [price]="(item.descuento?.valor != null) ? item.descuento.valor : item.precio_impuesto" [showButtons]="false" [price_ant]="item.precio_general" [descuento]="item.descuento?.valor">
               </app-item-producto>
             </div>

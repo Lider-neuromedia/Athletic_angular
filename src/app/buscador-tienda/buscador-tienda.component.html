@@ -16,8 +16,8 @@
     </div>
 
 
-    <div class="pintar-informacion " id="pintar-informacion" *ngIf="recorerBusqueda && mostrarBuscador && recorerBusqueda.length > 0">
-      <div class="row pb-5 items-productos-bolsas" *ngFor="let data of recorerBusqueda; let indices = index " (click)="listadoProductoTotal(data['id_producto'], data['name_cat'], data['id_categoria'])">
+    <div class="pintar-informacion " id="pintar-informacion" style="width: 100%;" *ngIf="recorerBusqueda && mostrarBuscador && recorerBusqueda.length > 0">
+      <div class="row pb-5 items-productos-bolsas" *ngFor="let data of recorerBusqueda; let indices = index " (click)="listadoProductoTotal(data['id_producto'], data['name_prod'], data['id_marca'])">
         <div class="imagen-producto col-md-3">
           <img [src]="data['img']">
           <!--<img src="assets/img/productos/si.png" alt="" class="descuento-producto">-->
