@@ -17,9 +17,9 @@
 
 
     <div class="pintar-informacion " id="pintar-informacion" *ngIf="recorerBusqueda && mostrarBuscador && recorerBusqueda.length > 0">
-      <div class="row items-productos-bolsas" *ngFor="let data of recorerBusqueda; let indices = index " (click)="listadoProductoTotal(data['id_producto'], data['name_cat'], data['id_categoria'])">
+      <div class="row pb-5 items-productos-bolsas" *ngFor="let data of recorerBusqueda; let indices = index " (click)="listadoProductoTotal(data['id_producto'], data['name_cat'], data['id_categoria'])">
         <div class="imagen-producto col-md-3">
-          <img [src]="url+'/'+data['img']">
+          <img [src]="data['img']">
           <!--<img src="assets/img/productos/si.png" alt="" class="descuento-producto">-->
         </div>
 
@@ -33,17 +33,17 @@
                 <div class="col-md-12">
                   <p class="nombre-pro">{{data['name_prod']}}</p>
                 </div>
-                <div class="col-md-12">
-                  <p class="categoria-pro">{{data['name_cat']}}</p>
-                </div>
+                <!-- <div class="col-md-12" *ngFor="let categoria of data['categorias']">
+                  <p class="categoria-pro">{{categoria}}</p>
+                </div> -->
               </div>
             </div>
           </div>
         </div>
 
         <div class="precio-acciones col-md-4">
-          <p class="precio-descuento">{{data['precio_general'] | currency}}</p>
-          <p class="precio-normal">{{data['precio_impuesto'] | currency}}</p>
+          <p class="precio-descuento">{{data['precio_general'] | currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+          <p class="precio-normal">{{data['precio_impuesto'] | currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
         </div>
 
         <hr class="hr-separador-productos">

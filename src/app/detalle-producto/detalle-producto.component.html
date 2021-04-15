@@ -155,8 +155,8 @@
                             (change)="checkColores($event.target.value)">
                       <option selected value="" class="color-talla">Color</option>
                       <option class="color-talla"
-                              *ngFor="let item of  almacenColores"  value="{{item.id_stock}}">
-                        {{item.valor}}
+                              *ngFor="let item of  almacenColores"  value="{{item.variation[0].valor_id}}">
+                        {{item.variation[0].valor}}
                       </option>
                     </select>
 

@@ -52,6 +52,7 @@ export class ItemProductoComponent implements OnInit {
   ngOnInit(): void {
     localStorage.removeItem('favoritos');
     this.getProducts(this.id);
+    // console.log(this.data);
     if (this.showButtons) {
       this.jQuery();
     }

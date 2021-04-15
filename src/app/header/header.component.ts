@@ -82,6 +82,8 @@ export class HeaderComponent {
     this.getImagenesMenu();
     this.llamarDatoLocalesUsuario();
     this.getDisenoHome();
+    this.perderFoco()
+
 
   }
 
@@ -236,6 +238,10 @@ export class HeaderComponent {
 
   abrirMegaMenu(){
     $('.dropdown-menu').toggleClass("activar");
+  }
+
+  perderFoco(){
+    
   }
 }
 

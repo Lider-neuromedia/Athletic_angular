@@ -10,6 +10,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {ComentarioProductoComponent} from "../comentario-producto/comentario-producto.component";
 import {FavoritosService} from "../servicio/favoritos/favoritos.service";
 import Swal from "sweetalert2";
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-detalle-producto',
@@ -79,7 +80,7 @@ export class DetalleProductoComponent implements OnInit {
   tallasDelProductoFiltradas: any;
   returnEstadoProducto: boolean;
   almacenColores: any;
-  almacenTalals: any;
+  almacenTalals: any[];
   coloralCarrito: any;
 
   constructor(
@@ -334,12 +335,15 @@ export class DetalleProductoComponent implements OnInit {
     }
 
     this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
+    console.log(this.carritoAnterior);
 
     if (this.verTalalsAgotadas(this.opcionSeleccionado, this.cantidadProductos, this.producto['id_producto'])) {
       if (this.cantidadProductos > 0) {
         this.producto['talla'] = this.opcionSeleccionado;
         this.producto['cantidad'] = this.cantidadProductos;
-        this.producto['color'] = this.coloralCarrito[0]['valor'];
+        this.producto['color'] = this.coloralCarrito[0]['variation'][0]['valor'];
+        this.producto['imagen_destacada'] = this.coloralCarrito[0]['imagenes'][0];
+        console.log(this.coloralCarrito);
         this.addProductoCarrito.push(this.producto);
         if (this.addProductoCarrito) {
           if (this.carritoAnterior) {
@@ -524,10 +528,20 @@ export class DetalleProductoComponent implements OnInit {
 
   checkColores(event) {
     this.returnEstadoProducto = true;
+    // this.producto['combinaciones'].forEach(element => {
+    //   const variacion = [];
+    //   variacion.push(element.variation[1]);
+    //   this.almacenTalals = variacion;
+      
+    // });
+    // filter(item => item.valor_id == event);
+    this.coloralCarrito = this.producto['combinaciones'].filter(item => item.variation[0].valor_id == event);
+    this.almacenTalals = this.coloralCarrito[0]['variation']
+    console.log(this.coloralCarrito);
+    console.log(this.almacenTalals);
+    console.log(this.producto);
     console.log(event);
-    this.almacenTalals = this.producto['combinacionesTallas'].filter(item => item.id_stock == event);
-    this.coloralCarrito = this.producto['combinaciones'].filter(item => item.id_stock == event);
-    console.log(this.coloralCarrito[0]['valor']);
+    // console.log(this.coloralCarrito[1]['variation']?.valor);
 
 
     if (event && this.almacenTalals.length == 0) {
@@ -546,19 +560,29 @@ export class DetalleProductoComponent implements OnInit {
   verTalalsAgotadas(talla: string, cantidad: number, producto: number) {
 
     //Filtro cual es la talla del producto que estan comprando
-    const result = this.producto['combinacionesTallas'].filter(item => item.valor == talla);
+    let result;
+    this.producto['combinaciones'].forEach(element => {
+      const variacion = [];
+      variacion.push(element.variation[1]);
+      result = variacion.filter(item => item?.valor == talla)
+      // result = variacion;
+      
+    });
+    console.log(result);
+    console.log(producto);
+    console.log(this.producto);
+    // this.producto['combinacionesTallas'].filter(item => item.valor == talla);
     //luego que obtengo los datos de la base de datos valido que si la cantidad que estan comprando es menor o igual a la que tengo
     //En la base de datos lo deje permitir comprando de lo contrario nooooooooo podra
-    if (cantidad <= result[0]['cantidad']) {
+    if (cantidad <= this.producto['cantidad']) {
 
       let dattos = {
           producto: producto,
-          atributo: result[0]['id_atributo_value'],
+          atributo: result[0]?.id_atributo_value,
           cantidad: cantidad,
-          id_stock: result[0]['destallestock_codigo'],
+          id_stock: result[0]?.destallestock_codigo,
       };
       this.producto['stock'] = dattos;
-      console.log(dattos);
       return true;
 
 

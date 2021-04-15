@@ -8,7 +8,8 @@ export class SendHttpData {
 
   //  private baseUrl = 'http://localhost:8000/api/';
 
-  private baseUrl = 'https://pruebasneuro.co/N-1061/api/public/api/';
+  // private baseUrl = 'https://pruebasneuro.co/N-1061/api/public/api/';
+  private baseUrl = 'http://pruebasneuro.co/N-1066/athletic_backend/public/api/';
   cargandoProducto: boolean = false;
   cargandoCategoria: boolean = false;
   cargandoMarca: boolean = false;

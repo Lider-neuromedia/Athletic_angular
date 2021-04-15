@@ -213,7 +213,7 @@
                           [data]="productos"
                           [descuento]="item.valor_descuento"
                           [id]="item.id_producto"
-                          [image]="item.imagen_portada.img"
+                          [image]="item.imagen_portada?.img"
                           [nuevo]="item.nuevo"
                           [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto"
                           [price_ant]="item.precio_general" [showButtons]="true"

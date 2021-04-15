@@ -230,7 +230,9 @@ export class ContentComponent implements OnInit {
     }
     this.http.getProductosDestacados().subscribe(
       response => {
-        this.carouselDescatadosUno = response;
+        this.carouselDescatadosUno = response.data;
+        console.log(response);
+        console.log(this.carouselDescatadosUno);
       },
       error => {
         console.error("Error consumiento productos destacados.");
@@ -254,6 +256,7 @@ export class ContentComponent implements OnInit {
     this.http.getProductosDestacadosPromociones(this.btn_active).subscribe(
       response => {
         this.carouselDescatadosUno8 = response;
+        console.log(this.carouselDescatadosUno8);
       },
       error => {
         console.error("Error consumiento productos destacados.");

@@ -107,6 +107,7 @@ span .botton-buscar {
 }
 .items-productos-bolsas:hover {
   background-color: #f5f4f4;
+  /* background-color: aqua; */
   cursor: pointer;
 }
 
@@ -146,7 +147,7 @@ span .botton-buscar {
 }
 
 .imagen-producto  img{
-  height: 100%;
+  height: 80%;
 
 }
 

@@ -176,8 +176,8 @@
           <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno"
             [carouselClasses]="['owl-carousel', 'owl-theme']">
             <div class="content-item-product" *ngFor="let item of carouselDescatadosUno">
-              <app-item-producto [id]="item.id_producto" [nuevo]="item.nuevo" [image]="item.imagen_portada.img" [subtitle]="item.name_marca"
-                [title]="item.name_prod" [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto" [showButtons]="false" [price_ant]="item.precio_general" [descuento]="item.valor_descuento">
+              <app-item-producto [id]="item.id_producto" [nuevo]="item.nuevo" [image]="'http://pruebasneuro.co/N-1066/athletic_backend/public/'+item.imagenes[0]?.img" [subtitle]="item.marca.name_marca"
+                [title]="item.name_prod" [price]="(item.descuento?.valor != null) ? item.descuento.valor : item.precio_impuesto" [showButtons]="false" [price_ant]="item.precio_general" [descuento]="item.descuento?.valor">
               </app-item-producto>
             </div>
           </owl-carousel>
@@ -216,10 +216,10 @@
           <app-item-producto
             [id]="item.id_producto"
             [nuevo]="item.nuevo"
-            [image]="item.imagen_portada.img"
-            [subtitle]="item.name_marca"
+            [image]="item.imagenes[0]?.img"
+            [subtitle]="item.marca.name_marca"
             [title]="item.name_prod"
-            [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto"
+            [price]="(item.descuento?.valor != null) ? item.descuento.valor : item.precio_impuesto"
             [showButtons]="false"
             [price_ant]="item.precio_general"
             [descuento]="item.valor_descuento"
@@ -293,7 +293,7 @@
               <app-item-producto
                 [id]="item.id_producto"
                 [nuevo]="item.nuevo"
-                [image]="item.imagen_portada.img"
+                [image]="item.imagen_portada?.img"
                 [subtitle]="item.name_marca"
                 [title]="item.name_prod"
                 [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto"
@@ -338,7 +338,7 @@
         [carouselClasses]="['owl-carousel', 'owl-theme']">
             <div *ngFor="let item of carouselDescatadosUno" class="col-md-10 col-xs-12 d-block justify-content-center">
               <div class="content-img">
-                <img src="{{item.imagen_portada.img}}" class="border-rad-mild" alt="">
+                <img src="{{item.imagenes[0]?.img}}" class="border-rad-mild" alt="">
                 <img src="assets/img/home/nuevo.png" class="img-nuevo" alt="" *ngIf="item.nuevo == 1">
               </div>
               <p class="font-sz-9 text-dark bold" style="line-height: initial;">{{item.name_prod}}</p>

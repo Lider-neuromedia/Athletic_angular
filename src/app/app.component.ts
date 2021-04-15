@@ -43,6 +43,7 @@ export class AppComponent implements OnInit {
 
     this.variablesGl.currentMessage.subscribe(response => {
       this.carritoAnterior = response;
+      console.log(this.carritoAnterior);
       this.valorTotalPedido();
       this.miCarritoCompraContador();
     });

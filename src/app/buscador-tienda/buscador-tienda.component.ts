@@ -58,6 +58,7 @@ export class BuscadorTiendaComponent implements OnInit {
           // console.log('asbdkabd k asd----------------false' );
           this.flag = true;
           this.recorerBusqueda = respuesta['data'];
+          console.log(respuesta);
           this.url = respuesta['ruta'];
           document.getElementById('pintar-informacion');
           this.mostrarBusquedaVacias = false;
@@ -86,6 +87,7 @@ export class BuscadorTiendaComponent implements OnInit {
       this.recorerBusqueda = null;
       this.mostrarBusquedaVacias = false;
       document.getElementById('pintar-informacion');
+      $('.dropdown-menu').removeClass("activar");
     });
   }
 

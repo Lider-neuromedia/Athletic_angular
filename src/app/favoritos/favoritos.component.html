@@ -37,8 +37,8 @@
 								<p class="subtitle-prod">{{data['name_marca']}}</p>
 								<p class="title-prod">{{data['name_prod']}}</p>
 								<div>
-									<p class="precio-descuento">$230.000</p>
-									<p class="precio-normal">$280.000</p>
+									<p class="precio-descuento">{{data['precio_general'] | currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+									<p class="precio-normal">{{data['precio_impuesto'] | currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
 								</div>
 							</div>
 						</div>

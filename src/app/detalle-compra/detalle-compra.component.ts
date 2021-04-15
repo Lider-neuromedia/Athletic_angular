@@ -489,6 +489,8 @@ export class DetalleCompraComponent implements OnInit {
 
     const max = new Date().getFullYear();
     const min = max + 10;
+    console.log(max);
+    console.log(min);
 
     for (let i = min; i >= max; i--) {
       this.aniotarjeta.push(i)
@@ -523,7 +525,6 @@ export class DetalleCompraComponent implements OnInit {
         this.alertaS.showToasterError('Ingrese el código de seguridad corectamente');
         return;
       }
-
     }
 
 
@@ -553,20 +554,24 @@ export class DetalleCompraComponent implements OnInit {
       productos: this.productosConDescuentos ? this.productosConDescuentos : 0
     }
 
+    console.log(data);
+
     this.barra5 = '#FF596A';
     this.barra55 = '#FF596A';
     this.setHtpp.httpPost('crear-pedido', data).toPromise().then(async respuesta => {
       this.retornnoDelPEdido = respuesta['data'][0];
       this.obtenerIpEquipo = respuesta['ip'];
       this.credencialesPAsarelaPago = respuesta['credenciales'];
+      console.log(this.credencialesPAsarelaPago);
 
 
       if (this.validarQuePagoSeRealizara === 1 || this.validarQuePagoSeRealizara === 2) {
         setTimeout(() => {
+          console.log("Entro pasarela pago");
           this.pasareladePago();
         }, 2000);
       }
-
+console.log("No entro pasarela pago");
       if (this.validarQuePagoSeRealizara === 3) {
 
         setTimeout(()=>{
@@ -1295,6 +1300,9 @@ export class DetalleCompraComponent implements OnInit {
 
     const ruta =  this.credencialesPAsarelaPago['ruta'];
       let data = {
+        // "usuario": 'montanag2021',
+        //   "clave": '@montanag2021@',
+        //   "terminal": 'hb93n836840hw586'
           "usuario": this.credencialesPAsarelaPago['usuario'],
           "clave": this.credencialesPAsarelaPago['clave'],
           "terminal": this.credencialesPAsarelaPago['terminal'],
