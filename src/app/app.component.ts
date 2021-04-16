@@ -65,11 +65,13 @@ export class AppComponent implements OnInit {
   valorTotalPedido() {
 
     const valorTotalLista = JSON.parse(localStorage.getItem('athletic'));
+    let i = 0;
     if (valorTotalLista) {
       this.valorTotal = valorTotalLista.reduce((item1, item2) => {
-        return item1 + (item2.cantidad * item2.precio);
+        return item1 + (item2.stock[i].cantidad * item2.precio);
       }, 0);
     }
+    console.log(this.valorTotal);
     return this.valorTotal;
 
   }

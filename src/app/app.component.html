@@ -48,8 +48,8 @@
                 <div class="precio-acciones" style="margin-bottom: 10px">
 
                     <div class="valores">
-                      <p class="precio-descuento">{{data['precio_general'] * data.stock[indices]?.cantidad | currency}}</p>
-                    <p *ngIf="data['precio_general'] !== data['precio']"><span class="precio-normal">{{data['precio'] * data.stock[indices]?.cantidad | currency}}</span>
+                      <p class="precio-descuento">{{data['precio_descuento'] * data.stock[indices]?.cantidad | currency}}</p>
+                    <p *ngIf="data['precio_general'] !== data['precio']"><span class="precio-normal">{{data['precio_impuesto'] * data.stock[indices]?.cantidad | currency}}</span>
                       <span class="porcentaje-descuento" *ngIf="data['valor_descuento']">{{ " - " + data['valor_descuento'] + "%" }} </span>
                     </p>
                     </div>
