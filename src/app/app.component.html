@@ -48,8 +48,8 @@
                 <div class="precio-acciones" style="margin-bottom: 10px">
 
                     <div class="valores">
-                      <p class="precio-descuento">{{data['precio'] * data['cantidad'] | currency}}</p>
-                    <p *ngIf="data['precio_general'] !== data['precio']"><span class="precio-normal">{{data['precio_general'] * data['cantidad'] | currency}}</span>
+                      <p class="precio-descuento">{{data['precio_general'] * data.stock[indices]?.cantidad | currency}}</p>
+                    <p *ngIf="data['precio_general'] !== data['precio']"><span class="precio-normal">{{data['precio'] * data.stock[indices]?.cantidad | currency}}</span>
                       <span class="porcentaje-descuento" *ngIf="data['valor_descuento']">{{ " - " + data['valor_descuento'] + "%" }} </span>
                     </p>
                     </div>
@@ -57,7 +57,7 @@
                   <div class="campos-pruebas">
                        <div><img class="material-icons  imagen-eliminar"  src="assets/img/icons/trash.svg" alt="" (click)="quitarItemCarrito(data, indices)"></div>
                         <div><span class="material-icons " (click)="aumentarDisminuir(data, indices, 0)">remove_circle</span></div>
-                        <div><input class="form-control campo-cantidad " disabled type="number" [value]="data['cantidad']"  name="" ></div>
+                        <div><input class="form-control campo-cantidad " disabled type="number" [value]="data.stock[indices]?.cantidad"  name="" ></div>
                         <div><span class="material-icons "  (click)="aumentarDisminuir(data, indices, 1)">add_circle</span></div>
                   </div>
                   <!--<div class="acciones-cantidad" >

@@ -3,6 +3,7 @@ import {VariablesService} from "./servicio/variable-global/variables.service";
 import {AlertasService} from "./servicio/alertas/alertas.service";
 import Swal from 'sweetalert2'
 import {LoginGlobalService} from "./servicio/login-global/login-global.service";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -90,10 +91,13 @@ export class AppComponent implements OnInit {
       if (result.isConfirmed) {
         this.carrito = localStorage.getItem('athletic');
         let dataCarrito = JSON.parse(this.carrito);
+        console.log(JSON.parse(this.carrito));
+        console.log(data);
+        console.log(co);
         let i = dataCarrito.indexOf(data);
-
+        console.log(i);
         dataCarrito.splice(co, 1);
-
+        console.log(dataCarrito);
 
         localStorage.setItem('athletic', JSON.stringify(dataCarrito));
         this.llamarDatoLocales();
@@ -143,24 +147,27 @@ export class AppComponent implements OnInit {
     this.carritoNuevo = JSON.parse(localStorage.getItem('athletic'));
 
     if (proceso === 1) {
-      this.carritoNuevo[indice].cantidad++;
+      console.log(this.carritoNuevo);
+      this.carritoNuevo[indice].stock[indice].cantidad++;
 
 
-      const result = this.carritoNuevo[indice];
+      const result = this.carritoNuevo[indice].stock[indice];
       // ['combinaciones'].filter(item => item.valor ==  this.carritoNuevo[indice].talla);
-      console.log(this.carritoNuevo[indice].cantidad);
+      console.log(this.carritoNuevo[indice].stock[indice].cantidadTotal);
+      console.log(result);
 
-      if (this.carritoNuevo[indice].cantidad <= result['cantidad']) {
+      if (this.carritoNuevo[indice].stock[indice].cantidad <= result['cantidadTotal']) {
 
       } else {
-        this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario '+ result[0]['cantidad']);
+        this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario '+ result['cantidadTotal']);
+        this.carritoNuevo[indice].stock[indice].cantidad = result['cantidadTotal'];
         return;
       }
       console.log(result);
 
     } else {
-      if (this.carritoNuevo[indice].cantidad > 1) {
-        this.carritoNuevo[indice].cantidad--;
+      if (this.carritoNuevo[indice].stock[indice].cantidad > 1) {
+        this.carritoNuevo[indice].stock[indice].cantidad--;
       } else {
         let datos = 'Articulo agregado a la canasta no puede ser menor a 1 unidad';
         this.alertaS.showToasterWarning(datos);

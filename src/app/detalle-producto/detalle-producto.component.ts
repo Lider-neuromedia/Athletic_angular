@@ -82,6 +82,11 @@ export class DetalleProductoComponent implements OnInit {
   almacenColores: any;
   almacenTalals: any[];
   coloralCarrito: any;
+  combinacionesTemporales: any[] = [];
+  productoTemp: any;
+  dattos = [];
+  stockTotal: number;
+  bandera: boolean;
 
   constructor(
     public dialog: MatDialog,
@@ -333,31 +338,63 @@ export class DetalleProductoComponent implements OnInit {
       this.alertaS.showToasterError('Debes seleccionar una talla');
       return;
     }
-
-    this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
+    if(JSON.parse(localStorage.getItem('athletic'))){
+      this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
+    }else{
+      this.carritoAnterior = [];
+    }
+    
     console.log(this.carritoAnterior);
 
     if (this.verTalalsAgotadas(this.cantidadProductos, this.producto['id_producto'], this.opcionSeleccionado)) {
       if (this.cantidadProductos > 0) {
         this.producto['talla'] = this.opcionSeleccionado;
-        this.producto['cantidad'] = this.cantidadProductos;
+        // this.producto['cantidad'] = this.producto['cantidad'];
         this.producto['color'] = this.coloralCarrito[0]['variation'][0]['valor'];
         this.producto['imagen_destacada'] = this.coloralCarrito[0]['imagenes'][0];
-
-        console.log(this.coloralCarrito);
-        this.addProductoCarrito.push(this.producto);
-        if (this.addProductoCarrito) {
+        // console.log(this.coloralCarrito);
+        
+        this.combinacionesTemporales.push(this.coloralCarrito[0]);
+        this.producto['combinacionesTemporales'] = this.combinacionesTemporales;
+        let i = 0;
+        console.log(this.addProductoCarrito);
+        if(this.carritoAnterior?.length > 0){
+          console.log("existe");
+          this.carritoAnterior.forEach(item => {
+            console.log(item);
+            console.log(this.producto);
+            if( item.color == this.producto.color && item.talla == this.producto.talla){
+              this.carritoAnterior[i] = this.producto;
+              console.log(i);
+              console.log(this.producto);
+              this.bandera = true;
+              return;
+            }
+            i++;
+          })
+        }
+        // }else{
+        //   console.log("No existe");
+        //     this.carritoAnterior.push(this.producto);
+        //    this.bandera = false;
+        // }    
+        if(!this.bandera){
+          console.log("No existe");
+            this.carritoAnterior.push(this.producto);
+        }
+        console.log(this.carritoAnterior);
+        console.log(this.producto);
           if (this.carritoAnterior) {
           } else {
-            this.carritoAnterior = [];
+            // this.carritoAnterior = [];
           }
-
-          this.carritoAnterior.push(this.producto);
+          // this.carritoAnterior.push(this.producto);  
           localStorage.setItem('athletic', JSON.stringify(this.carritoAnterior));
         }
 
 
-        this.addProductoCarrito = [];
+        // this.addProductoCarrito = [];
+        this.bandera = false;
         this.cantidadProductos = 1;
 
         this.alertaS.showToasterFull(`Articulo Agregado Correctamente`);
@@ -368,8 +405,6 @@ export class DetalleProductoComponent implements OnInit {
       }
       this.variablesGl.changeMessage();
     }
-
-  }
 
 
 
@@ -582,19 +617,22 @@ export class DetalleProductoComponent implements OnInit {
     // this.producto['combinacionesTallas'].filter(item => item.valor == talla);
     //luego que obtengo los datos de la base de datos valido que si la cantidad que estan comprando es menor o igual a la que tengo
     //En la base de datos lo deje permitir comprando de lo contrario nooooooooo podra
+    if(!this.producto['combinaciones']){
     if (cantidad <= this.producto['cantidad']) {
-
-      let dattos = {
+      console.log("Sin combinaciones");
+      cantidad -= this.producto['cantidad'];
+        this.dattos.push({
           producto: producto,
           atributo: result[0]?.id_atributo_value,
           cantidad: cantidad,
+          cantidadTotal: this.producto['cantidad'],
           id_stock: result[0]?.destallestock_codigo,
-      };
-      this.producto['stock'] = dattos;
+      });
+      this.producto['stock'] = this.dattos;
       return true;
     //Si esta corecta la cantida le devuelvo true al carrito de compras
     }else {
-      this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+ result[0]['cantidad']);
+      this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+ result[0]?.cantidad);
       return false;
       //De lo contrario devuelvo false y le digo que la cantidad maxima debe ser la que tengo en  la base de datos
     }
@@ -606,7 +644,46 @@ export class DetalleProductoComponent implements OnInit {
     precio: null
     sku: null
     valor: "40"*/
-
+  }else{
+    console.log("Con combinaciones");
+    let dattos = {};
+    let index = 0;
+    if(cantidad <= this.coloralCarrito[0].cantidad){      
+      for (const i of this.dattos) {
+      if(this.coloralCarrito[0].id == i.id){
+        if(cantidad <= i.cantidadTemp){
+          cantidad += i.cantidad
+          this.dattos[index] = {
+            id: this.coloralCarrito[0].id,
+            producto: producto,
+            cantidad: cantidad,
+            cantidadTemp: this.coloralCarrito[0].cantidad - cantidad,
+            cantidadTotal: this.coloralCarrito[0].cantidad
+        };
+        this.producto['stock'] = this.dattos;
+        return true;
+        }else{
+        this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+ this.coloralCarrito[0].cantidad);
+        return false;
+        }
+        
+      }
+      index++;
+    }
+    this.dattos.push({
+      id: this.coloralCarrito[0].id,
+      producto: producto,
+      cantidad: cantidad,
+      cantidadTemp: this.coloralCarrito[0].cantidad - cantidad,
+      cantidadTotal: this.coloralCarrito[0].cantidad
+  });
+    this.producto['stock'] = this.dattos;
+    return true;
+    }else{
+      this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+ this.coloralCarrito[0].cantidad);
+      return false;
+    }
+  }
   }
 
   getPagination(url: string): void{
