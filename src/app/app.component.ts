@@ -4,6 +4,7 @@ import {AlertasService} from "./servicio/alertas/alertas.service";
 import Swal from 'sweetalert2'
 import {LoginGlobalService} from "./servicio/login-global/login-global.service";
 import { Subscription } from 'rxjs';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-root',
@@ -17,9 +18,10 @@ export class AppComponent implements OnInit {
   carrito: any;
   carritoAnterior: any;
   cantidadCarrito = 0;
-  valorTotal: number;
+  valorTotal: number = 0;
   carritoNuevo = [];
   usuario: any;
+  arrayIndex: any;
 
   constructor(
     private variablesGl: VariablesService,
@@ -45,8 +47,9 @@ export class AppComponent implements OnInit {
     this.variablesGl.currentMessage.subscribe(response => {
       this.carritoAnterior = response;
       console.log(this.carritoAnterior);
+      this.valorTotal = 0;
       this.valorTotalPedido();
-      this.miCarritoCompraContador();
+      // this.miCarritoCompraContador();
     });
   }
 
@@ -67,8 +70,23 @@ export class AppComponent implements OnInit {
     const valorTotalLista = JSON.parse(localStorage.getItem('athletic'));
     let i = 0;
     if (valorTotalLista) {
-      this.valorTotal = valorTotalLista.reduce((item1, item2) => {
-        return item1 + (item2.stock[i].cantidad * item2.precio);
+      valorTotalLista.reduce((item1, item2) => {
+        console.log(item2);
+        if(item2.combinaciones.length > 0){
+          item2.combinaciones.forEach(element => {
+            if(item2.id_combinacion == element.id){
+              this.valorTotal = this.valorTotal + (element.stock.cantidad * element.precio);
+              console.log(item2.id_combinacion);
+              console.log(item1);
+              console.log(element.id);
+              console.log(this.valorTotal);
+              return;
+            }
+          });
+          
+        }else{
+          this.valorTotal = this.valorTotal + (item2.stock.cantidad * item2.precio);
+        }
       }, 0);
     }
     console.log(this.valorTotal);
@@ -93,24 +111,37 @@ export class AppComponent implements OnInit {
       if (result.isConfirmed) {
         this.carrito = localStorage.getItem('athletic');
         let dataCarrito = JSON.parse(this.carrito);
+        let i = 0;
         console.log(JSON.parse(this.carrito));
         console.log(data);
         console.log(co);
-        let i = dataCarrito.indexOf(data);
-        console.log(i);
-        dataCarrito.splice(co, 1);
         console.log(dataCarrito);
+        dataCarrito.forEach(element1 => {
+          if(element1.id_combinacion){
+            if(element1.id_combinacion == data.id_combinacion){
+              // console.log(element1.color);
+              // console.log(data.color);
+              return;
+            }
+          }else{
+            if(element1.id_producto == element1.id_producto){
+              return;
+            }
+          }
+          
+          i++;
+        });
 
+        dataCarrito.splice(i, 1);
         localStorage.setItem('athletic', JSON.stringify(dataCarrito));
-        this.llamarDatoLocales();
+        localStorage.setItem('producto-borrado', JSON.stringify(data));
+        this.variablesGl.changeMessage();
+        // this.llamarDatoLocales();
         let datos = 'Articulo removido del Carrito de Compras ';
         this.alertaS.showToasterWarning(datos);
 
-        this.variablesGl.changeMessage();
       }
     })
-
-
   }
 
 
@@ -145,42 +176,33 @@ export class AppComponent implements OnInit {
   }*/
 
   aumentarDisminuir(data, indice, proceso) {
-
+    let i = 0;
     this.carritoNuevo = JSON.parse(localStorage.getItem('athletic'));
-
-    if (proceso === 1) {
-      console.log(this.carritoNuevo);
-      this.carritoNuevo[indice].stock[indice].cantidad++;
-
-
-      const result = this.carritoNuevo[indice].stock[indice];
-      // ['combinaciones'].filter(item => item.valor ==  this.carritoNuevo[indice].talla);
-      console.log(this.carritoNuevo[indice].stock[indice].cantidadTotal);
-      console.log(result);
-
-      if (this.carritoNuevo[indice].stock[indice].cantidad <= result['cantidadTotal']) {
-
-      } else {
-        this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario '+ result['cantidadTotal']);
-        this.carritoNuevo[indice].stock[indice].cantidad = result['cantidadTotal'];
-        return;
-      }
-      console.log(result);
-
-    } else {
-      if (this.carritoNuevo[indice].stock[indice].cantidad > 1) {
-        this.carritoNuevo[indice].stock[indice].cantidad--;
-      } else {
-        let datos = 'Articulo agregado a la canasta no puede ser menor a 1 unidad';
-        this.alertaS.showToasterWarning(datos);
-      }
-
-    }
-
+      // console.log(data);
+      data.combinaciones.forEach(element => {
+        if(data.color == element.variation[0].valor){
+          if(element.stock.cantidad < element.cantidad && proceso === 1){
+            element.stock.cantidad++;
+            element.stock.cantidadTemp--;
+          }else if(element.stock.cantidad > 1 && proceso === 0){
+              element.stock.cantidad--;
+              element.stock.cantidadTemp++;
+          }
+        }
+      });
+      this.carritoNuevo.forEach(element => {
+        console.log(element.color);
+        console.log(data.color);
+        if(element.color == data.color){
+          this.carritoNuevo[i] = data;
+          console.log(data);
+          console.log(this.carritoNuevo);
+        }
+        i++;
+      })
     localStorage.setItem('athletic', JSON.stringify(this.carritoNuevo));
     this.variablesGl.changeMessage();
- //   console.log(this.carritoNuevo);
-
+  //  console.log(this.carritoNuevo);
   }
 
   confirmacion() {

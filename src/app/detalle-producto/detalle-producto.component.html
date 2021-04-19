@@ -151,7 +151,7 @@
                         {{item.valor}}</option>
                     </select>-->
 
-                    <select class="my-own-form-control" placeholder="Elige tu talla" id="color"
+                    <select *ngIf="almacenColores?.length > 0" class="my-own-form-control" placeholder="Elige tu talla" id="color"
                             (change)="checkColores($event.target.value)">
                       <option selected value="" class="color-talla">Color</option>
                       <option class="color-talla"
@@ -161,7 +161,7 @@
                     </select>
 
 
-                    <select [(ngModel)]="opcionSeleccionado" class="my-own-form-control" placeholder="Elige tu talla"
+                    <select *ngIf="almacenColores?.length > 0" [(ngModel)]="opcionSeleccionado" class="my-own-form-control" placeholder="Elige tu talla"
                             id="talla" (change)="checkearTalla($event.target.value)">
                       <option selected [value]="null" class="color-talla">Talla</option>
                       <option class="color-talla"

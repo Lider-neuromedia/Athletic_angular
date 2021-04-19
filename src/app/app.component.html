@@ -47,17 +47,24 @@
                 </div>
                 <div class="precio-acciones" style="margin-bottom: 10px">
 
-                    <div class="valores">
-                      <p class="precio-descuento">{{data['precio_descuento'] * data.stock[indices]?.cantidad | currency}}</p>
-                    <p *ngIf="data['precio_general'] !== data['precio']"><span class="precio-normal">{{data['precio_impuesto'] * data.stock[indices]?.cantidad | currency}}</span>
+                  <div class="valores" *ngIf="data.stock">
+                    <p class="precio-descuento">{{data['precio_descuento'] * data.stock.cantidad | currency}}</p>
+                   <p *ngIf="data['precio_general'] !== data['precio'] && data.stock"><span class="precio-normal">{{data['precio_impuesto'] * data.stock.cantidad | currency}}</span>
+                    <span class="porcentaje-descuento" *ngIf="data['valor_descuento']">{{ " - " + data['valor_descuento'] + "%" }} </span>
+                  </p>
+                  </div>
+                    <div *ngFor="let item of data.combinaciones" class="valores">
+                      <p class="precio-descuento" *ngIf="item.stock && data.color == item.variation[0].valor">{{data['precio_descuento'] * item.stock.cantidad | currency}}</p>
+                     <p *ngIf="data['precio_general'] !== data['precio'] && item.stock && data.color == item.variation[0].valor"><span class="precio-normal">{{data['precio_impuesto'] * item.stock.cantidad | currency}}</span>
                       <span class="porcentaje-descuento" *ngIf="data['valor_descuento']">{{ " - " + data['valor_descuento'] + "%" }} </span>
                     </p>
                     </div>
 
                   <div class="campos-pruebas">
                        <div><img class="material-icons  imagen-eliminar"  src="assets/img/icons/trash.svg" alt="" (click)="quitarItemCarrito(data, indices)"></div>
-                        <div><span class="material-icons " (click)="aumentarDisminuir(data, indices, 0)">remove_circle</span></div>
-                        <div><input class="form-control campo-cantidad " disabled type="number" [value]="data.stock[indices]?.cantidad"  name="" ></div>
+                        <div><span class="material-icons" (click)="aumentarDisminuir(data, indices, 0)" >remove_circle</span></div>
+                        <div *ngFor="let item of data.combinaciones"><input class="form-control campo-cantidad " disabled type="number" *ngIf="item.stock && data.color == item.variation[0].valor" [value]="item.stock.cantidad" name="" ></div>
+                        <div *ngIf="data.stock"><input class="form-control campo-cantidad " disabled type="number" [value]="data.stock.cantidad" name="" ></div>
                         <div><span class="material-icons "  (click)="aumentarDisminuir(data, indices, 1)">add_circle</span></div>
                   </div>
                   <!--<div class="acciones-cantidad" >
