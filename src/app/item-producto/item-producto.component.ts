@@ -8,6 +8,7 @@ import {SendHttpData} from "../tools/SendHttpData";
 import {AlertasService} from "../servicio/alertas/alertas.service";
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 import {VariablesService} from "../servicio/variable-global/variables.service";
+import { DialogDetalleProductoComponent } from '../dialog-detalle-producto/dialog-detalle-producto.component';
 
 @Component({
   selector: 'app-item-producto',
@@ -82,8 +83,7 @@ export class ItemProductoComponent implements OnInit {
   }
 
   openVistaPrevia() {
-    const dialogRef = this.dialog.open(VistaPreviaComponent, {
-      width: '900px',
+    const dialogRef = this.dialog.open(DialogDetalleProductoComponent, {
       data: {id: this.id}
     });
   }

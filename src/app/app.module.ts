@@ -59,6 +59,7 @@ import {
   FacebookLoginProvider
 } from 'angularx-social-login';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { DialogDetalleProductoComponent } from './dialog-detalle-producto/dialog-detalle-producto.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     RegistroFormComponent,
     ModalDireccionesComponent,
     LoginSocialComponent,
+    DialogDetalleProductoComponent,
 
   ],
   imports: [

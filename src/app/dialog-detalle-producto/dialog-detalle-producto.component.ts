@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SendHttpData} from '../tools/SendHttpData';
 import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery-9';
@@ -6,18 +6,17 @@ import * as $ from 'jquery';
 import {AlertasService} from "../servicio/alertas/alertas.service";
 import {VariablesService} from "../servicio/variable-global/variables.service";
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ComentarioProductoComponent} from "../comentario-producto/comentario-producto.component";
 import {FavoritosService} from "../servicio/favoritos/favoritos.service";
 import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-detalle-producto',
-  templateUrl: './detalle-producto.component.html',
-  styleUrls: ['./detalle-producto.component.css']
+  selector: 'app-dialog-detalle-producto',
+  templateUrl: './dialog-detalle-producto.component.html',
+  styleUrls: ['./dialog-detalle-producto.component.css']
 })
-
-export class DetalleProductoComponent implements OnInit {
+export class DialogDetalleProductoComponent implements OnInit {
 
   producto : any;
   galleryOptions: NgxGalleryOptions[];
@@ -94,6 +93,8 @@ export class DetalleProductoComponent implements OnInit {
   bandera: boolean;
 
   constructor(
+    public dialogRef: MatDialogRef<DialogDetalleProductoComponent>,
+  @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
     private route_params: ActivatedRoute,
     public router: Router,
@@ -180,10 +181,10 @@ export class DetalleProductoComponent implements OnInit {
     //   this.listarProductosRelacionados(value.id);
     // });
 
-    this.getProducts(this.route_params.snapshot.params.id);
-    this.validarFavoritos(this.route_params.snapshot.params.id);
-    this.cargarLosComentarios(this.route_params.snapshot.params.id);
-    this.calculoProductoResenia(this.route_params.snapshot.params.id);
+    this.getProducts(this.data.id);
+    this.validarFavoritos(this.data.id);
+    this.cargarLosComentarios(this.data.id);
+    this.calculoProductoResenia(this.data.id);
     this.galleryImages = [
       {
         small: "/N-1008/assets/img/productos/producto-interna.png",
