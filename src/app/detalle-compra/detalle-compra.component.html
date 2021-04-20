@@ -116,7 +116,7 @@
                         <p class="precio-normal" *ngIf="data['valor_descuento'] && data.stock">{{data['precio_impuesto'] * data.stock.cantidad | currency}}</p>
                       </div>
                     <div *ngFor="let item of data.combinaciones">
-                      <span class="precio-descuento" *ngIf="item.stock && data.color == item.variation[0].valor">{{data['precio_descuento'] * item.stock.cantidad | currency}}</span>
+                      <span class="precio-descuento" *ngIf="item.stock && data.color == item.variation[0].valor">{{data['precio'] * item.stock.cantidad | currency}}</span>
                       <p class="precio-normal" *ngIf="data['valor_descuento'] && item.stock && data.color == item.variation[0].valor">{{data['precio_impuesto'] * item.stock.cantidad | currency}}</p>
                       </div>
                       <p><span class="porcentaje-descuento" *ngIf="data['valor_descuento']"> {{ " - " + data['valor_descuento'] + "%" }} </span>

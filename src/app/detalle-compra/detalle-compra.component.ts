@@ -206,13 +206,9 @@ export class DetalleCompraComponent implements OnInit {
     this.llamarInformacionCredito();
     this.dataPedidos = {
       usuario_codigo: null,
-      pedido_respuesta: null,
-      pedido_codigo: null,
       pedido_referencia: null,
       pedido_valor: null,
-      pedido_estado: 'APROBADO',
       cliente_codigo: null,
-      direccion_codigo: null,
       pedido_mediopago: ''
 
     }
@@ -582,14 +578,30 @@ export class DetalleCompraComponent implements OnInit {
     this.dataPedidos.usuario_codigo = this.usuario.id_tienda;
     this.dataPedidos.pedido_referencia = this.referencia;
     this.dataPedidos.pedido_valor = this.valorConcupon ? this.valorPedido + this.gastosEnvio - this.valorConcupon : this.valorPedido + this.gastosEnvio;
-    this.dataPedidos.direccion_codigo = this.direccionEstado;
+    // this.dataPedidos.direccion_codigo = this.direccionEstado;
 
+    let dataDetalles = [];
+    let productos = [];
+
+    this.carritoAnterior.forEach(element1 => {
+      element1.combinaciones.forEach(element2 => {
+        if(element1.id_combinacion == element2.id){
+          dataDetalles.push({
+              id_producto: element1.id_producto,
+              id_variacion: element1.id_combinacion,
+              cantidad: element2.stock.cantidad
+          });
+          productos.push(element1.id_producto);
+        }
+      })
+    })
+    
     const data = {
       pedido: this.dataPedidos,
-      detalle: this.carritoAnterior,
+      detalle: dataDetalles,
       direccion: this.direccionEstado,
       porcentaje: this.dataInfoCupones ? this.dataInfoCupones : 0,
-      productos: this.productosConDescuentos ? this.productosConDescuentos : 0
+      productos: productos
     }
 
     console.log(data);
@@ -597,8 +609,9 @@ export class DetalleCompraComponent implements OnInit {
     this.barra5 = '#FF596A';
     this.barra55 = '#FF596A';
     this.setHtpp.httpPost('crear-pedido', data).toPromise().then(async respuesta => {
-      this.retornnoDelPEdido = respuesta['data'][0];
-      this.obtenerIpEquipo = respuesta['ip'];
+      console.log(respuesta);
+      this.retornnoDelPEdido = respuesta['data'];
+      this.obtenerIpEquipo = respuesta['ip1'];
       this.credencialesPAsarelaPago = respuesta['credenciales'];
       console.log(this.credencialesPAsarelaPago);
 
@@ -620,7 +633,7 @@ console.log("No entro pasarela pago");
           });
 
           this.variablesGl.changeMessage();
-          this.ruta.navigate([ `/detalle-pedido/${respuesta['data'][0]['pedido_codigo']}`])
+          this.ruta.navigate([ `/detalle-pedido/${respuesta['data']['pedido_codigo']}`])
           this.condicionarLoadig = false;
         }, 5000);
       }
@@ -1289,11 +1302,14 @@ console.log("No entro pasarela pago");
       this.rutaparaObtenerBancos =  respuesta['listaBancos'];
       this.codigoDeLosBancos =  respuesta['codigoBancos'];
       this.terminarBancos  =  respuesta['terminal'];
-      let ruta = respuesta['ruta'];
+      let ruta = 'https://ws.tucompra.net/tcWSDRest/api/confirmacionTransaccionMedioPago';
       const data = {
-        "usuario": respuesta['usuario'],
-        "clave": respuesta['clave'],
-        "terminal": respuesta['terminal'],
+        "usuario": 'montanag2021',
+        "clave": '@montanag2021@',
+        "terminal": 'hb93n836840hw586'
+        // "usuario": respuesta['usuario'],
+        // "clave": respuesta['clave'],
+        // "terminal": respuesta['terminal'],
       }
 
       this.setHtpp.peticionPost(ruta, data).toPromise().then( respu => {
@@ -1338,18 +1354,19 @@ console.log("No entro pasarela pago");
 
     const ruta =  this.credencialesPAsarelaPago['ruta'];
       let data = {
-        // "usuario": 'montanag2021',
-        //   "clave": '@montanag2021@',
-        //   "terminal": 'hb93n836840hw586'
-          "usuario": this.credencialesPAsarelaPago['usuario'],
-          "clave": this.credencialesPAsarelaPago['clave'],
-          "terminal": this.credencialesPAsarelaPago['terminal'],
+        "usuario": 'montanag2021',
+          "clave": '@montanag2021@',
+          "terminal": 'hb93n836840hw586'
+          // "usuario": this.credencialesPAsarelaPago['usuario'],
+          // "clave": this.credencialesPAsarelaPago['clave'],
+          // "terminal": this.credencialesPAsarelaPago['terminal'],
       }
       this.setHtpp.peticionPost(ruta, data).toPromise().then( respu => {
 
         setTimeout(()=>{
 
           if (this.dataPedidos.pedido_mediopago == 'CREDITO') {
+            console.log(JSON.parse(respu)['tokenSeguridad']);
             this.dataGenerarPago(respu);
           }
 
@@ -1386,7 +1403,7 @@ console.log("No entro pasarela pago");
 
     const  pedido = {
       "MetodoPago": {
-        "id": this.devolverCodigoEntidadBancariaCredito(this.cargarInfoCredito.campo1), //metodo de pago
+        "id": this.devolverCodigoEntidadBancariaCredito(this.cargarInfoCredito.campo1).toString(), //metodo de pago
         "campo1": this.encriptar(this.cargarInfoCredito.campo1),
         "campo2": this.encriptar(this.cargarInfoCredito.campo2),
         "campo3": this.encriptar(this.cargarInfoCredito.campo3),
@@ -1399,17 +1416,17 @@ console.log("No entro pasarela pago");
         "campo10": this.cargarInfoCredito.campo10
       },
       "Referencia": this.retornnoDelPEdido['pedido_referencia'],
-      "Valortotal": this.retornnoDelPEdido['pedido_valor'],
-      "Valorbase": this.retornnoDelPEdido['pedido_valor'],
+      "Valortotal": this.retornnoDelPEdido['pedido_valor'].toString(),
+      "Valorbase": this.retornnoDelPEdido['pedido_valor'].toString(),
       "Valoriva": "0",
       "Terminal": "hb93n836840hw586",
       "Descripcion": this.cargarInfoCredito.Descripcion + '//' + this.retornnoDelPEdido['pedido_referencia'],
-      "Documento": this.cargarInfoCredito.Documento,
+      "Documento": this.cargarInfoCredito.Documento.toString(),
       "Nombre": this.cargarInfoCredito.Nombre,
       "Apellido": this.cargarInfoCredito.Apellido,
       "Direccion": this.retornnoDelPEdido['direccion_ubicacion'],
-      "Telefono": this.cargarInfoCredito.Celular,
-      "Celular": this.cargarInfoCredito.Celular,
+      "Telefono": this.cargarInfoCredito.Celular.toString(),
+      "Celular": this.cargarInfoCredito.Celular.toString(),
       "Ciudad": this.retornnoDelPEdido['nombre'],
       "Pais": "Colombia",
       "FechaVcm": "2021-06-12",
@@ -1417,9 +1434,12 @@ console.log("No entro pasarela pago");
       "ip": this.obtenerIpEquipo,
       "tokenSeguridad": JSON.parse(token)['tokenSeguridad']
     };
+    
 
     //const  ruta = 'https://ws.tucompra.net/tcWSDRest/api/confirmacionTransaccionMedioPago';
-    const ruta = this.credencialesPAsarelaPago['rutaPagos'];
+    const ruta = 'https://ws.tucompra.net/tcWSDRest/api/confirmacionTransaccionMedioPago';
+    console.log(pedido);
+    console.log(ruta);
     this.setHtpp.peticionPost(ruta, pedido).toPromise().then(async respuesta => {
       this.cambiarEstadoPedido(respuesta);
     }).catch(error => {

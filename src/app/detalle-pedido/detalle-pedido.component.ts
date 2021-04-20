@@ -44,7 +44,7 @@ export class DetallePedidoComponent implements OnInit {
           console.log(respuesta);
 
           this.url = respuesta['ruta'];
-          this.encabezado = respuesta['data'][0];
+          this.encabezado = respuesta['data'];
           this.detalle = respuesta['detalle'];
 
         }).catch(error => {
