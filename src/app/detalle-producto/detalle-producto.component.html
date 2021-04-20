@@ -166,7 +166,9 @@
                       <option selected [value]="null" class="color-talla">Talla</option>
                       <option class="color-talla"
                               *ngFor="let value of  almacenTalals"  value="{{value.valor}}">
-                        {{value.valor}}
+                              <span>
+                                {{value.valor}}
+                              </span>
                       </option>
                     </select>
 

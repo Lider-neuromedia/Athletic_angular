@@ -178,9 +178,9 @@ export class AppComponent implements OnInit {
   aumentarDisminuir(data, indice, proceso) {
     let i = 0;
     this.carritoNuevo = JSON.parse(localStorage.getItem('athletic'));
-      // console.log(data);
+    if(data.combinaciones.length > 0){
       data.combinaciones.forEach(element => {
-        if(data.color == element.variation[0].valor){
+        if(data.id_combinacion == element.id){
           if(element.stock.cantidad < element.cantidad && proceso === 1){
             element.stock.cantidad++;
             element.stock.cantidadTemp--;
@@ -190,16 +190,37 @@ export class AppComponent implements OnInit {
           }
         }
       });
-      this.carritoNuevo.forEach(element => {
-        console.log(element.color);
-        console.log(data.color);
-        if(element.color == data.color){
-          this.carritoNuevo[i] = data;
-          console.log(data);
-          console.log(this.carritoNuevo);
+    }else{
+      console.log(data.id_producto);
+      console.log(data.stock.producto);
+      if(data.id_producto == data.stock.producto){
+        if(data.stock.cantidad < data.cantidad && proceso === 1){
+          console.log("subir cantidad");
+          data.stock.cantidad++;
+          data.stock.cantidadTemp--;
+        }else if(data.stock.cantidad > 1 && proceso === 0){
+          console.log("bajar cantidad");
+          data.stock.cantidad--;
+          data.stock.cantidadTemp++;
         }
-        i++;
-      })
+      }
+    }
+    this.carritoNuevo.forEach(element => {
+      if(data.id_combinacion){
+      if(element.id_combinacion == data.id_combinacion){
+        this.carritoNuevo[i] = data;
+        console.log(data);
+        console.log(this.carritoNuevo);
+      }
+    }else{
+      if(data.id_producto == element.id_producto){
+        this.carritoNuevo[i] = data;
+        console.log(data);
+        console.log(this.carritoNuevo);
+      }
+    }
+    i++;
+    })
     localStorage.setItem('athletic', JSON.stringify(this.carritoNuevo));
     this.variablesGl.changeMessage();
   //  console.log(this.carritoNuevo);

@@ -17,6 +17,7 @@ import {PagoCredito} from "../interfaz/pagoCredito";
 import {ThemePalette} from '@angular/material/core';
 import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 import * as JsEncryptModule from '../../assets/js/jsencrypt.min.js';
+import { element } from 'protractor';
 
 
 @Component({
@@ -548,6 +549,18 @@ export class DetalleCompraComponent implements OnInit {
 
   realizarPedidos() {
 
+    console.log(this.carritoAnterior);
+    this.carritoAnterior.forEach(element1 => {
+      if(element1.stock){
+        element1.cantidad = element1.stock.cantidadTemp;
+      }else{
+        element1.combinaciones.forEach(element2 => {
+          if(element1.id_combinacion == element2.id){
+            element2.cantidad = element2.stock.cantidadTemp;
+          }
+        })
+      }
+    })
     if (this.validarQuePagoSeRealizara === 1 ) {
       if (this.cargarInfoCredito.campo1.length < 16) {
         this.alertaS.showToasterError('Su tarjeta de credito no es  valida');
@@ -594,6 +607,14 @@ export class DetalleCompraComponent implements OnInit {
           productos.push(element1.id_producto);
         }
       })
+      if(element1.combinaciones.length == 0){
+        dataDetalles.push({
+          id_producto: element1.id_producto,
+          id_variacion: element1.id_combinacion,
+          cantidad: element1.stock.cantidad
+        })
+        productos.push(element1.id_producto);
+      }
     })
     
     const data = {
@@ -667,8 +688,10 @@ console.log("No entro pasarela pago");
           const data = {
             cliente: this.usuario.id_cliente
           }
+          console.log(data);
           this.setHtpp.httpPost('listar-direcciones-pedido', data).toPromise().then(respuesta => {
             this.cargarDirecciones = respuesta[`data`];
+            console.log(respuesta);
           }).catch(error => {
             console.log(error);
           })
@@ -700,6 +723,7 @@ console.log("No entro pasarela pago");
     const data = {
       direccion: direccion
     };
+    console.log(data);
 
     Swal.fire({
       title: '¿Estás seguro?',
@@ -994,6 +1018,7 @@ console.log("No entro pasarela pago");
     }
     this.setHtpp.httpPost('consultar-cupones-en-pedidos', data).toPromise().then(respuesta => {
       this.respuestaCupon = respuesta;
+      console.log(respuesta);
 
       if (respuesta['estado'] === 1) {
         this.alertaConfirmacion(respuesta['mensaje'], respuesta['cupon']);
@@ -1304,12 +1329,12 @@ console.log("No entro pasarela pago");
       this.terminarBancos  =  respuesta['terminal'];
       let ruta = 'https://ws.tucompra.net/tcWSDRest/api/confirmacionTransaccionMedioPago';
       const data = {
-        "usuario": 'montanag2021',
-        "clave": '@montanag2021@',
-        "terminal": 'hb93n836840hw586'
-        // "usuario": respuesta['usuario'],
-        // "clave": respuesta['clave'],
-        // "terminal": respuesta['terminal'],
+        // "usuario": 'montanag2021',
+        // "clave": '@montanag2021@',
+        // "terminal": 'hb93n836840hw586'
+        "usuario": respuesta['usuario'],
+        "clave": respuesta['clave'],
+        "terminal": respuesta['terminal'],
       }
 
       this.setHtpp.peticionPost(ruta, data).toPromise().then( respu => {
@@ -1354,12 +1379,12 @@ console.log("No entro pasarela pago");
 
     const ruta =  this.credencialesPAsarelaPago['ruta'];
       let data = {
-        "usuario": 'montanag2021',
-          "clave": '@montanag2021@',
-          "terminal": 'hb93n836840hw586'
-          // "usuario": this.credencialesPAsarelaPago['usuario'],
-          // "clave": this.credencialesPAsarelaPago['clave'],
-          // "terminal": this.credencialesPAsarelaPago['terminal'],
+        // "usuario": 'montanag2021',
+        //   "clave": '@montanag2021@',
+        //   "terminal": 'hb93n836840hw586'
+          "usuario": this.credencialesPAsarelaPago['usuario'],
+          "clave": this.credencialesPAsarelaPago['clave'],
+          "terminal": this.credencialesPAsarelaPago['terminal'],
       }
       this.setHtpp.peticionPost(ruta, data).toPromise().then( respu => {
 
@@ -1539,7 +1564,7 @@ console.log("No entro pasarela pago");
         if (respuesta['estado'] == 1) {
           localStorage.removeItem('athletic');
          await this.variablesGl.changeMessage();
-
+          console.log(respuesta);
           Swal.fire({
             icon: 'success',
             confirmButtonText: 'Aceptar',

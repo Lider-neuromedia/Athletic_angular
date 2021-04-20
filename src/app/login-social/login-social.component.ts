@@ -9,6 +9,7 @@ import {AlertasService} from "../servicio/alertas/alertas.service";
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 import {FavoritosService} from "../servicio/favoritos/favoritos.service";
 import {VariablesService} from "../servicio/variable-global/variables.service";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login-social',
@@ -41,6 +42,7 @@ export class LoginSocialComponent implements OnInit {
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(respuesta => {
 
+      console.log(respuesta);
 
       const data = {
         estado: 1,
@@ -50,15 +52,18 @@ export class LoginSocialComponent implements OnInit {
         apellidos: respuesta[`lastName`],
         nombres: respuesta[`firstName`],
         email: respuesta[`email`],
-        fecha_nacimiento: '',
+        fecha_nacimiento: "1942-01-01",
         genero: 1,
         tipo_registro: 2,
         clave: respuesta[`email`]
       };
       console.log(data);
-
+      Swal.fire('Espere por favor validamos el email', '', 'info');
+      Swal.showLoading();
+      
       this.http.httpPost('clientes-register', data).toPromise().then(response => {
         console.log(response[`user`]);
+        Swal.close();
 
         if (response && response['estado'] == true) {
           this.alertaS.showToasterWarning(response['mensaje']);
@@ -79,6 +84,7 @@ export class LoginSocialComponent implements OnInit {
 
         }
       }).catch( error => {
+        Swal.fire(error.error.errors.email[0],'','error');
         console.log(error);
       })
 

@@ -181,9 +181,10 @@
 
 
                 <div class="row" *ngIf="cargarDirecciones">
-                  <div class="col-md-4 mb-20 tarjetas ng-star-inserted  clas-contenedor-direccion"
+                  <div class="mb-20 tarjetas ng-star-inserted  clas-contenedor-direccion"
                        *ngFor="let data of cargarDirecciones ; let indices = index">
-                    <div class="campo-direcciones direccion-box">
+                       <div class="col-md-4" *ngIf="data.direccion_visible == 1">
+                    <div class="campo-direcciones direccion-box" >
                       <p class="nombre-direccion">{{data['direccion_nombre']}}</p>
                       <p class="direccion">{{data['departamento']}}</p>
                       <p class="direccion">{{data['ciudad']}}</p>
@@ -221,6 +222,7 @@
                         </div>
                       </div>
 
+                    </div>
                     </div>
                   </div>
                 </div>

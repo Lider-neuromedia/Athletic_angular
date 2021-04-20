@@ -138,22 +138,22 @@ export class DireccionesComponent implements OnInit {
     this.setHtpp.httpPost('editar-direcciones', data).toPromise().then(respuesta => {
       console.log(respuesta);
 
-      this.direcciones.direccion_nombre = respuesta['data'][0]['direccion_nombre'];
-      this.direcciones.direccion_codigo = respuesta['data'][0]['direccion_codigo'];
-      this.direcciones.direccion_telefono = respuesta['data'][0]['direccion_telefono'];
-      this.direcciones.direccion_celular = respuesta['data'][0]['direccion_celular'];
-      this.direcciones.direccion_barrio = respuesta['data'][0]['direccion_barrio'];
-      this.direcciones.direccion_ubicacion = respuesta['data'][0]['direccion_ubicacion'];
-      this.direcciones.ciudad_codigo = respuesta['data'][0]['id_ciudad'];
+      this.direcciones.direccion_nombre = respuesta['data']['direccion_nombre'];
+      this.direcciones.direccion_codigo = respuesta['data']['direccion_codigo'];
+      this.direcciones.direccion_telefono = respuesta['data']['direccion_telefono'];
+      this.direcciones.direccion_celular = respuesta['data']['direccion_celular'];
+      this.direcciones.direccion_barrio = respuesta['data']['direccion_barrio'];
+      this.direcciones.direccion_ubicacion = respuesta['data']['direccion_ubicacion'];
+      this.direcciones.ciudad_codigo = respuesta['data']['id_ciudad'];
 
-      this.direcciones.usuario_nombre = respuesta['data'][0]['usuario_nombre'];
-      this.direcciones.usuario_apellido = respuesta['data'][0]['usuario_apellido'];
-      this.direcciones.direccion_lugar = respuesta['data'][0]['direccion_lugar'];
-      this.direcciones.usuario_recibir_informacion = respuesta['data'][0]['usuario_recibir_informacion'];
-      this.direcciones.direccion_estado = respuesta['data'][0]['direccion_estado'];
-      this.codigoDepartamento = respuesta['data'][0]['id'];
+      this.direcciones.usuario_nombre = respuesta['data']['usuario_nombre'];
+      this.direcciones.usuario_apellido = respuesta['data']['usuario_apellido'];
+      this.direcciones.direccion_lugar = respuesta['data']['direccion_lugar'];
+      this.direcciones.usuario_recibir_informacion = respuesta['data']['usuario_recibir_informacion'];
+      this.direcciones.direccion_estado = respuesta['data']['direccion_estado'];
+      this.codigoDepartamento = respuesta['data']['id'];
       this.onchangeCiudades();
-      this.codigoCiudad = respuesta['data'][0]['ciudad'];
+      this.codigoCiudad = respuesta['data']['ciudad'];
       console.log(this.direcciones);
     }).catch(error => {
       console.log(error);

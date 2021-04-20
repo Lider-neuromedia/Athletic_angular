@@ -50,13 +50,13 @@ export class PerfilComponent implements OnInit {
       console.log( this.dataUser);
       this.http.httpGetParamt('clientes-visualizar', this.dataUser.id_cliente).toPromise().then(respuesta => {
         console.log(respuesta);
-        this.usuario.cliente = respuesta[`data`][0].id_cliente;
-        this.usuario.password = respuesta[`data`][0].clave;
-        this.usuario.email = respuesta[`data`][0].email;
-        this.usuario.genero = respuesta[`data`][0].genero;
-        this.usuario.nombres = respuesta[`data`][0].nombres;
-        this.usuario.apellidos = respuesta[`data`][0].apellidos;
-        this.usuario.fecha_nacimiento = respuesta[`data`][0].fecha_nacimiento;
+        this.usuario.cliente = respuesta[`data`].id_cliente;
+        this.usuario.password = respuesta[`data`].clave;
+        this.usuario.email = respuesta[`data`].email;
+        this.usuario.genero = respuesta[`data`].genero;
+        this.usuario.nombres = respuesta[`data`].nombres;
+        this.usuario.apellidos = respuesta[`data`].apellidos;
+        this.usuario.fecha_nacimiento = respuesta[`data`].fecha_nacimiento;
 
 
         console.log(this.usuario);

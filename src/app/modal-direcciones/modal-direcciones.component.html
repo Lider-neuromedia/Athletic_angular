@@ -85,8 +85,8 @@
               <div class="form-group">
 
                 <mat-radio-group aria-label="Select an option" [(ngModel)]="direcciones.direccion_lugar">
-                  <mat-radio-button [value]="1"   [checked]="true" >Trabajo</mat-radio-button>
-                  <mat-radio-button [value]="2"   [checked]="true">Residencia</mat-radio-button>
+                  <mat-radio-button [value]="0"   [checked]="true" >Trabajo</mat-radio-button>
+                  <mat-radio-button [value]="1"   [checked]="true">Residencia</mat-radio-button>
                 </mat-radio-group>
                 <p>
                   <span *ngIf="!direcciones.direccion_lugar">Ingrese lugar de entrega</span>

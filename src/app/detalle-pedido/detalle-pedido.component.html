@@ -16,14 +16,14 @@
                     <p>Origen. {{  encabezado && encabezado['origen']?encabezado['origen']:''}}</p>
                   </div>
                   <div class="col-md-3">
-                    <p>Destino. {{ encabezado && encabezado['destino']?encabezado['destino']:''}}</p>
+                    <p>Destino. {{ encabezado && encabezado['direccion'].ciudad_codigo?encabezado['direccion'].ciudad_codigo:''}}</p>
                   </div>
                   <div class="col-md-6">
                     <p >estimado de entrega. {{ encabezado?encabezado['transportadora_tiempoestimado']: ''}}</p>
                   </div>
                 </div>
               </div>
-              <div class="pedido-estado cerrado">Estado: <span>{{encabezado && encabezado['pedido_estado']?encabezado['pedido_estado']:''}}</span></div>
+              <div class="pedido-estado cerrado">Estado: {{encabezado && encabezado['pedido_estado']?encabezado['pedido_estado']:''}}</div>
             </div>
             <div class="items">
 
@@ -42,13 +42,13 @@
                   <div class="col-md-3">
                     <div class="row">
                       <div class="col-md-12 valor-inicial">
-                        {{item['itempedido_valorunitario'] |currency}} /Unitario
+                        {{encabezado.pedido_valor |currency}} /Unitario
                       </div>
                       <div class="col-md-12 cantidad">
                         {{item['itempedido_cantidad']}} / Cantidad
                       </div>
                       <div class="col-md-12 valor-total">
-                        {{item['itempedido_valorunitario'] * item['itempedido_cantidad'] |currency}}
+                        {{encabezado.pedido_valor * item['itempedido_cantidad'] |currency}}
                       </div>
                     </div>
                   </div>

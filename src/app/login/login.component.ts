@@ -60,12 +60,13 @@ export class LoginComponent implements OnInit {
       var data = { email: this.email.value, password: this.password.value };
       this.http.httpPost('clientes-login', data).subscribe(
         response => {
+          console.log(response);
           if (response.response == 'error') {
             this.alertaS.showToasterError('credenciales invalidas');
           } else {
             this.usuario = response.user;
             localStorage.setItem('userAthletic', JSON.stringify(response.user));
-            localStorage.setItem('token', JSON.stringify(response.token));
+            localStorage.setItem('token', response.token);
             this.loginGlobal.changeMessage();
             this.globalVar.setUser(JSON.parse(localStorage.getItem('userAthletic')));
 
@@ -110,6 +111,7 @@ export class LoginComponent implements OnInit {
       }
 
       this.http.httpPost('clientes-register', data).toPromise().then(response => {
+        console.log(response);
         console.log(response[`user`]);
 
         if (response && response['estado'] == true) {

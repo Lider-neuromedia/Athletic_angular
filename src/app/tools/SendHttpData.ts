@@ -20,6 +20,9 @@ export class SendHttpData {
   cargandoProdDest: boolean = false;
   cargandoProdDestProm: boolean = false;
   cargandoFiltro: boolean = false;
+  token = {
+    token:localStorage.getItem('token')
+  };
   // Key prestashop
   // private key = "JQAET8SZT35N4G8HHDG7XJF7BS6PCCNW";
   // private full = "display=full"; Neuro*123$
@@ -39,7 +42,7 @@ export class SendHttpData {
 
   // Peticion Http GET
   httpGet(route:string, filter:string = null, full=true):Observable<any>{
-    var url = this.baseUrl + route;
+    var url = this.baseUrl + route +'?token='+ this.token.token;;
     return this._http.get(url);
   }
   getProductosDestacadosPromociones(id: number): Observable<any>{
@@ -47,7 +50,7 @@ export class SendHttpData {
       return of([]);
     }
     this.cargandoProdDestProm = true;
-    let url = `${this.baseUrl}productosDestacadosPromociones/${id}`;
+    let url = `${this.baseUrl}productosDestacadosPromociones/${id}?token=${this.token.token}`;
     return this._http.get(url).pipe( tap( () => this.cargandoProdDestProm = false));
   }
   getProductosDestacados(): Observable<any>{
@@ -55,7 +58,7 @@ export class SendHttpData {
       return of([]);
     }
     this.cargandoProdDest = true;
-    let url = `${this.baseUrl}productosDestacados`;
+    let url = `${this.baseUrl}productosDestacados?token=${this.token.token}`;
     return this._http.get(url).pipe( tap( () => this.cargandoProdDest = false));
   }
   getDisenoHome(): Observable<any>{
@@ -63,7 +66,7 @@ export class SendHttpData {
       return of([]);
     }
     this.cargandoDisenoHome = true;
-    let url = `${this.baseUrl}disenoHome`;
+    let url = `${this.baseUrl}disenoHome?token=${this.token.token}`;
     return this._http.get(url).pipe( tap( () => this.cargandoDisenoHome = false));
   }
   getProductos(): Observable<any>{
@@ -71,7 +74,7 @@ export class SendHttpData {
       return of([]);
     }
     this.cargandoProductos = true;
-    var url = this.baseUrl;
+    var url = `${this.baseUrl}?token=${this.token.token}`;
     return this._http.get(url).pipe(tap( () => this.cargandoProductos = false));
   }
   getCategorias(): Observable<any>{
@@ -79,7 +82,7 @@ export class SendHttpData {
       return of([]);
     }
     this.cargandoCategoria = true;
-    let url = `${this.baseUrl}categorias`;
+    let url = `${this.baseUrl}categorias?token=${this.token.token}`;
     return this._http.get(url).pipe(tap( () => this.cargandoCategoria = false));
   }
 
@@ -88,7 +91,7 @@ export class SendHttpData {
       return of([]);
     }
     this.cargandoMarca = true;
-    let url = `${this.baseUrl}marcas`;
+    let url = `${this.baseUrl}marcas?token=${this.token.token}`;
     return this._http.get(url).pipe( tap (() => this.cargandoMarca = false));
   }
 
@@ -97,7 +100,7 @@ export class SendHttpData {
       return of([]);
     }
     this.cargandoCateProdBan = true;
-    let url = `${this.baseUrl}categorias-productos-banner`;
+    let url = `${this.baseUrl}categorias-productos-banner?token=${this.token.token}`;
     return this._http.get(url).pipe( tap( () => this.cargandoCateProdBan = false));
   }
 
@@ -106,7 +109,7 @@ export class SendHttpData {
       return of([]);
     }
     this.cargandoCateProd = true;
-    let url = `${this.baseUrl}categorias-productos/${id}`;
+    let url = `${this.baseUrl}categorias-productos/${id}?token=${this.token.token}`;
     return this._http.get(url).pipe( tap( () => this.cargandoCateProd = false));
   }
 
@@ -115,7 +118,7 @@ export class SendHttpData {
       return of([]);
     }
     this.cargandoProducto = true;
-    let url = `${this.baseUrl}productos/${id}`;
+    let url = `${this.baseUrl}productos/${id}?token=${this.token.token}`;
     this._http.get(url).pipe(tap(()=> this.cargandoProducto = false));
   }
 
@@ -124,25 +127,28 @@ export class SendHttpData {
       return of([]);
     }
     this.cargandoFiltro = true;
-    let url = `${this.baseUrl}filters`;
+    let url = `${this.baseUrl}filters?token=${this.token.token}`;
     return this._http.post(url, data).pipe(tap(() => this.cargandoFiltro = false));
   }
 
 
   // Peticion Http POST
   httpPost(route:string, data:any):Observable<any>{
-    var url = this.baseUrl + route;
+    var url = this.baseUrl + route +'?token='+ this.token.token;;
     return this._http.post(url, data);
   }
 
   // Peticion Http PUT
   httpPut(route:string, data:any):Observable<any>{
-    var url = this.baseUrl + route;
+    var url = this.baseUrl + route +'?token='+ this.token.token;;
     return this._http.put(url, data);
   }
 
   httpGetParamt(route:string, codigo: number, filter:string = null, full=true):Observable<any>{
-    var url = this.baseUrl + route + '/' + codigo;
+
+    var url = this.baseUrl + route + '/' + codigo +'?token='+ this.token.token;
+    
+
     return this._http.get(url);
   }
 
@@ -153,7 +159,7 @@ export class SendHttpData {
   }
 
   httpGetPaginar(route:string, filter:string = null, full=true):Observable<any>{
-    var url = route;
+    var url = route +'?token='+ this.token.token;;
     return this._http.get(url);
   }
 
