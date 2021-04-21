@@ -102,7 +102,7 @@ export class LoginSocialComponent implements OnInit {
         apellidos: respuesta[`lastName`],
         nombres: respuesta[`firstName`],
         email: respuesta[`email`],
-        fecha_nacimiento: '',
+        fecha_nacimiento: "1942-01-01",
         genero: 1,
         tipo_registro: 3,
         clave: respuesta[`email`]

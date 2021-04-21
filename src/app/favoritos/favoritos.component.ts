@@ -54,6 +54,7 @@ export class FavoritosComponent implements OnInit {
       .then(respuesta => {
           this.misFavoritos = respuesta[`data`];
           this.dominio = respuesta[`dominio`];
+          console.log(respuesta);
           console.log( this.misFavoritos);
          console.log( this.dominio);
       }).catch(error => {

@@ -153,19 +153,19 @@
 
                     <select *ngIf="almacenColores?.length > 0" class="my-own-form-control" placeholder="Elige tu talla" id="color"
                             (change)="checkColores($event.target.value)">
-                      <option selected value="" class="color-talla">Color</option>
+                      <option selected value="" *ngIf="!colorBool" class="color-talla">Color</option>
                       <option class="color-talla"
-                              *ngFor="let item of  almacenColores"  value="{{item.variation[0].valor_id}}">
-                        {{item.variation[0].valor}}
+                              *ngFor="let item of  almacenColores"  value="{{item.valor_id}}">
+                        {{item.valor}}
                       </option>
                     </select>
 
 
-                    <select *ngIf="almacenColores?.length > 0" [(ngModel)]="opcionSeleccionado" class="my-own-form-control" placeholder="Elige tu talla"
+                    <select *ngIf="almacenColores?.length > 0" [(ngModel)]="opcionSeleccionado" class="my-own-form-control" id="talla" placeholder="Elige tu talla"
                             id="talla" (change)="checkearTalla($event.target.value)">
-                      <option selected [value]="null" class="color-talla">Talla</option>
-                      <option class="color-talla"
-                              *ngFor="let value of  almacenTalals"  value="{{value.valor}}">
+                      <option selected [value]="null" *ngIf="!tallaBool" class="color-talla">Talla</option>
+                      <option class="color-talla" id="talla-default"
+                              *ngFor="let value of  almacenTalla"  value="{{value.valor}}">
                               <span>
                                 {{value.valor}}
                               </span>

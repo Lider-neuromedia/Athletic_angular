@@ -10,6 +10,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {ComentarioProductoComponent} from "../comentario-producto/comentario-producto.component";
 import {FavoritosService} from "../servicio/favoritos/favoritos.service";
 import Swal from "sweetalert2";
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-detalle-producto',
@@ -79,7 +80,7 @@ export class DetalleProductoComponent implements OnInit {
   tallasDelProductoFiltradas: any;
   returnEstadoProducto: boolean;
   almacenColores: any;
-  almacenTalals: any[];
+  almacenTalla: any[];
   coloralCarrito: any;
   combinacionesTemporales: any[] = [];
   productoTemp: any;
@@ -92,6 +93,8 @@ export class DetalleProductoComponent implements OnInit {
   };
   stockTotal: number;
   bandera: boolean;
+  colorBool: boolean;
+  tallaBool: boolean;
 
   constructor(
     public dialog: MatDialog,
@@ -298,12 +301,29 @@ export class DetalleProductoComponent implements OnInit {
 
   // Productos
   getProducts(id) {
+    let color = [];
+    let colorMap = [];
     this.http.httpGet('productos/' + id, null, false).subscribe(
       async response => {
         this.producto = response;
-        this.almacenColores = response.combinaciones
+        
+        response.combinaciones.forEach(element => {
+          color.push({
+            valor: element.variation[0].valor,
+            valor_id: element.variation[0].valor_id
+          })
+        });
+        
+        colorMap = color.map(item => [item.valor_id, item]);
+
+        let colorMapArr = new Map(colorMap);
+        
+        let unicos = [...colorMapArr.values()];
+
+        this.almacenColores = unicos;
+
         console.log(this.almacenColores);
-       // this.almacenTalals = response.combinacionesTallas
+       // this.almacenTalla = response.combinacionesTallas
         //await  this.validarEstadodelProducto();
         this.producto.precio = Math.round(this.producto.precio)
         $('#detalle').html(response.descripcion_prod);
@@ -606,27 +626,58 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   checkColores(event) {
+    this.colorBool = true;
     this.returnEstadoProducto = true;
-    // this.producto['combinaciones'].forEach(element => {
-    //   const variacion = [];
-    //   variacion.push(element.variation[1]);
-    //   this.almacenTalals = variacion;
-      
-    // });
-    // filter(item => item.valor_id == event);
+
     this.coloralCarrito = this.producto['combinaciones'].filter(item => item.variation[0].valor_id == event);
-    this.almacenTalals = this.coloralCarrito[0]['variation']
+
+    let combinaciones = [];
+    let combinacionesMap = [];
+
+    this.coloralCarrito.forEach(element1 => {
+      element1.variation.forEach(element2 => {
+        if(element2.grupo_id !== 1){
+
+          switch(element2.grupo_id){
+            case 2:
+              $('#talla').css("display","block");
+              combinaciones.push({
+                valor: element2.valor
+              })
+              break;
+            case 9:
+              break;
+            case 10:
+              break;
+          }
+        }
+      });
+    });
+
+    combinacionesMap = combinaciones.map(item => [item.valor, item]);
+
+    let combinacionesMapArr = new Map(combinacionesMap);
+
+    let unicos = [...combinacionesMapArr.values()];
+
+    this.almacenTalla = unicos;
+    
     console.log(this.coloralCarrito);
-    console.log(this.almacenTalals);
+    console.log(this.almacenTalla);
     console.log(this.producto);
     console.log(event);
     // console.log(this.coloralCarrito[1]['variation']?.valor);
 
 
-    if (event && this.almacenTalals.length == 0) {
-      console.log('esta vacio', this.almacenTalals.length);
-      this.returnEstadoProducto = false;
+    if (event && this.almacenTalla.length == 0) {
+      // this.tallaBool = false;
+      $('#talla').css("display","none");
+      $('#talla-default').attr("selected", "selected");
+      
+      console.log('esta vacio', this.almacenTalla.length);
+      // this.returnEstadoProducto = false;
     }
+    // $('#talla-default').attr("selected", "selected");
     this.producto.precio = this.coloralCarrito[0].precio;
     this.producto.precio_impuesto = this.coloralCarrito[0].precio_impuesto;
     let imagenSeleccionada = [];
@@ -639,6 +690,7 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   checkearTalla(evento) {
+    this.tallaBool = true;
     this.opcionSeleccionado = evento;
   }
 
