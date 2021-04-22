@@ -17,7 +17,6 @@ import Swal from "sweetalert2";
   styleUrls: ['./dialog-detalle-producto.component.css']
 })
 export class DialogDetalleProductoComponent implements OnInit {
-
   producto : any;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
@@ -78,7 +77,7 @@ export class DialogDetalleProductoComponent implements OnInit {
   tallasDelProductoFiltradas: any;
   returnEstadoProducto: boolean;
   almacenColores: any;
-  almacenTalals: any[];
+  almacenTalla: any[];
   coloralCarrito: any;
   combinacionesTemporales: any[] = [];
   productoTemp: any;
@@ -91,10 +90,15 @@ export class DialogDetalleProductoComponent implements OnInit {
   };
   stockTotal: number;
   bandera: boolean;
+  colorBool: boolean;
+  tallaBool: boolean;
+  sinCombinaciones: boolean;
+  opcionSabanas: any[] = [];
+  opcionTallas: any[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<DialogDetalleProductoComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
     private route_params: ActivatedRoute,
     public router: Router,
@@ -174,17 +178,17 @@ export class DialogDetalleProductoComponent implements OnInit {
       scrollTop: '0px'
     }, 300);
 
-    // this.activatedRoute.params.subscribe(value => {
-    //   this.getProducts(value.id);
-    //   this.calculoProductoResenia(value.id);
-    //   this.cargarLosComentarios(value.id);
-    //   this.listarProductosRelacionados(value.id);
-    // });
-
-    this.getProducts(this.data.id);
-    this.validarFavoritos(this.data.id);
-    this.cargarLosComentarios(this.data.id);
-    this.calculoProductoResenia(this.data.id);
+    this.activatedRoute.params.subscribe(value => {
+      this.getProducts(this.data.id);
+      this.calculoProductoResenia(this.data.id);
+      this.cargarLosComentarios(this.data.id);
+      this.listarProductosRelacionados(this.data.id);
+    });
+    // this.listarProductosRelacionados(this.route_params.snapshot.params.id);
+    // this.getProducts(this.route_params.snapshot.params.id);
+    // this.validarFavoritos(this.route_params.snapshot.params.id);
+    // this.cargarLosComentarios(this.route_params.snapshot.params.id);
+    // this.calculoProductoResenia(this.route_params.snapshot.params.id);
     this.galleryImages = [
       {
         small: "/N-1008/assets/img/productos/producto-interna.png",
@@ -299,12 +303,29 @@ export class DialogDetalleProductoComponent implements OnInit {
 
   // Productos
   getProducts(id) {
+    let color = [];
+    let colorMap = [];
     this.http.httpGet('productos/' + id, null, false).subscribe(
       async response => {
         this.producto = response;
-        this.almacenColores = response.combinaciones
+        
+        response.combinaciones.forEach(element => {
+          color.push({
+            valor: element.variation[0].valor,
+            valor_id: element.variation[0].valor_id
+          })
+        });
+        
+        colorMap = color.map(item => [item.valor_id, item]);
+
+        let colorMapArr = new Map(colorMap);
+        
+        let unicos = [...colorMapArr.values()];
+
+        this.almacenColores = unicos;
+
         console.log(this.almacenColores);
-       // this.almacenTalals = response.combinacionesTallas
+       // this.almacenTalla = response.combinacionesTallas
         //await  this.validarEstadodelProducto();
         this.producto.precio = Math.round(this.producto.precio)
         $('#detalle').html(response.descripcion_prod);
@@ -595,6 +616,12 @@ export class DialogDetalleProductoComponent implements OnInit {
     this.ruta.navigate(['login-movil']);
   }
 
+  cambiarProductoRelacionado(id: number){
+      this.router.navigateByUrl(`/detalle-producto/${id}`);
+      this.dialog.closeAll();
+      scrollTo(0,0);
+  }
+
   listarProductosRelacionados(codigo) {
     const data = {
       producto: codigo
@@ -602,32 +629,71 @@ export class DialogDetalleProductoComponent implements OnInit {
 
     this.http.httpPost('listar-productos-relacionados', data).toPromise().then(respuesta => {
       this.carouselDescatadosUno = respuesta[`data`];
+      console.log(respuesta);
       this.url = respuesta[`ruta`];
     });
   }
 
   checkColores(event) {
+    this.colorBool = true;
     this.returnEstadoProducto = true;
-    // this.producto['combinaciones'].forEach(element => {
-    //   const variacion = [];
-    //   variacion.push(element.variation[1]);
-    //   this.almacenTalals = variacion;
-      
-    // });
-    // filter(item => item.valor_id == event);
+
     this.coloralCarrito = this.producto['combinaciones'].filter(item => item.variation[0].valor_id == event);
-    this.almacenTalals = this.coloralCarrito[0]['variation']
+
+    let combinaciones = [];
+    let combinacionesMap = [];
+
+    this.coloralCarrito.forEach(element1 => {
+      element1.variation.forEach(element2 => {
+        if(element2.grupo_id !== 1){
+
+          $('#talla').css("display","block");
+              combinaciones.push({
+                valor: element2.valor,
+                grupo_id: element2.grupo_id
+              })
+              this.opcionSeleccionado = null;
+
+          // switch(element2.grupo_id){
+          //   case 2:
+              
+          //     break;
+          //   case 9:
+          //     break;
+          //   case 10:
+          //     break;
+          // }
+        }else if(element2.grupo_id === 1){
+          $('#talla-default').attr("selected","selected");
+          this.opcionSeleccionado = "N/A"
+        }
+      });
+    });
+
+    combinacionesMap = combinaciones.map(item => [item.valor, item]);
+
+    let combinacionesMapArr = new Map(combinacionesMap);
+
+    let unicos = [...combinacionesMapArr.values()];
+
+    this.almacenTalla = unicos;
+    
     console.log(this.coloralCarrito);
-    console.log(this.almacenTalals);
+    console.log(this.almacenTalla);
     console.log(this.producto);
     console.log(event);
     // console.log(this.coloralCarrito[1]['variation']?.valor);
 
 
-    if (event && this.almacenTalals.length == 0) {
-      console.log('esta vacio', this.almacenTalals.length);
-      this.returnEstadoProducto = false;
+    if (event && this.almacenTalla.length == 0) {
+      this.tallaBool = false;
+      $('#talla-default').attr("selected","selected");
+      $('#talla').css("display","none");
+      
+      console.log('esta vacio', this.almacenTalla.length);
+      // this.returnEstadoProducto = false;
     }
+    // $('#talla-default').attr("selected", "selected");
     this.producto.precio = this.coloralCarrito[0].precio;
     this.producto.precio_impuesto = this.coloralCarrito[0].precio_impuesto;
     let imagenSeleccionada = [];
@@ -640,7 +706,57 @@ export class DialogDetalleProductoComponent implements OnInit {
   }
 
   checkearTalla(evento) {
+    let combinacionVariedades = [];
+    this.opcionSabanas = [];
+    this.opcionTallas = [];
+    this.tallaBool = true;
     this.opcionSeleccionado = evento;
+    this.coloralCarrito.forEach(element1 => {
+      element1.variation.forEach(element2 => {
+        if(element2.valor == evento){
+          combinacionVariedades.push(element1.variation);  
+        }
+        
+      });
+    });
+    combinacionVariedades.forEach(element1 => {
+      console.log(element1);
+      element1.forEach(element2 => {
+        if(element2.grupo_id !== 1 && element2.grupo_id !== 2){
+        console.log(element2.grupo_id);
+        switch(element2.grupo_id){
+          case 9:
+              this.opcionSabanas.push({
+                valor: element2.valor
+              })
+            break;
+          case 10:
+              this.opcionTallas.push({
+                valor: element2.valor
+              })
+            break;
+          default:
+            Swal.fire('Debes crear la categoria en el case', '', 'info');
+            break;
+        }
+      }
+      });
+    })
+    let opcionSabanasTemp = [];
+    let opcionTallasTemp = [];
+    opcionSabanasTemp = this.opcionSabanas.map(item => [item.valor, item]);
+    let opcionSabanasMap = new Map(opcionSabanasTemp);
+    let unicosSabana = [... opcionSabanasMap.values()];
+    this.opcionSabanas = unicosSabana;
+
+    opcionTallasTemp = this.opcionTallas.map(item => [item.valor, item]);
+    let opcionTallasMap = new Map(opcionTallasTemp);
+    let unicosTallas = [... opcionTallasMap.values()]
+    this.opcionTallas = unicosTallas;
+
+    console.log(this.opcionSabanas);
+    console.log(this.opcionTallas);
+    console.log(combinacionVariedades);
   }
 
 

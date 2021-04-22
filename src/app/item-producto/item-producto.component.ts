@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import * as $ from 'jquery';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
-import {VistaPreviaComponent} from '../vista-previa/vista-previa.component';
 import { AgregarCarritoComponent } from '../agregar-carrito/agregar-carrito.component';
 import {SendHttpData} from "../tools/SendHttpData";
 import {AlertasService} from "../servicio/alertas/alertas.service";
@@ -84,6 +83,8 @@ export class ItemProductoComponent implements OnInit {
 
   openVistaPrevia() {
     const dialogRef = this.dialog.open(DialogDetalleProductoComponent, {
+      width: '1600px',
+      height: '1500px',
       data: {id: this.id}
     });
   }

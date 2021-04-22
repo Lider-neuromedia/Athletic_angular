@@ -708,6 +708,10 @@
     /*cursor: pointer;*/
     font-size: 40px;
   }
+
+  .relacionados{
+    height: 100% !important;
+  }
   
   
   .contenedor-fotos-mini {
