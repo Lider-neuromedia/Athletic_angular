@@ -197,7 +197,7 @@ export class ModalDireccionesComponent implements OnInit {
   }
   actualizarDirecciones() {
     this.direcciones.cliente_codigo =   this.usuario.id_cliente;
-
+    this.direcciones.direccion_celular = this.direcciones.direccion_celular.toString();
     this.setHtpp.httpPost('actualizar-direcciones', this.direcciones).toPromise().then(respuesta => {
       if (respuesta[`estado`]) {
         this.alertaService.showToasterFull(respuesta[`data`]);

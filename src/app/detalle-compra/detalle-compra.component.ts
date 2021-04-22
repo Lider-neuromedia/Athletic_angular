@@ -610,7 +610,7 @@ export class DetalleCompraComponent implements OnInit {
       if(element1.combinaciones.length == 0){
         dataDetalles.push({
           id_producto: element1.id_producto,
-          id_variacion: element1.id_combinacion,
+          id_variacion: null,
           cantidad: element1.stock.cantidad
         })
         productos.push(element1.id_producto);
@@ -1081,7 +1081,7 @@ console.log("No entro pasarela pago");
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success',
+        confirmButton: 'btn btn-success redondo',
         cancelButton: 'btn btn-danger'
       },
       buttonsStyling: false
@@ -1097,7 +1097,12 @@ console.log("No entro pasarela pago");
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success swal2-confirm-ok',
+          },
+          buttonsStyling: false
+        })
         this.valorConcupon = this.valorTotal * porcentaje / 100;
 
         swalWithBootstrapButtons.fire(

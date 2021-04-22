@@ -80,6 +80,7 @@ export class ProductosComponent implements OnInit {
   codigoFiltro: any;
   dataImagenesBanner: any;
   identificador = [];
+  cargando: boolean = true;
   constructor(
     private http: SendHttpData,
     public dialog: MatDialog,
@@ -94,7 +95,6 @@ export class ProductosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     localStorage.removeItem('favoritos');
     this.getDisenoHome();
     this.activatedRoute.params.subscribe(value => {
@@ -215,16 +215,18 @@ export class ProductosComponent implements OnInit {
 
   // Productos
   getProducts(filter = null) {
-    if(this.http.cargandoProductos){
-      return;
-    }
+    this.cargando = true;
     this.http.getProductos().subscribe(
       response => {
         this.productos = response;
+        this.cargando = false;
         this.calcularPaginas();
         this.calculoProductoResenia(this.productos['id_producto']);
       },
-      error => { console.error("error." + error); }
+      error => {
+        this.cargando = false;
+        console.error("error." + error);
+       }
     );
     // this.http.httpGet('productos').subscribe(
     //   response => {
@@ -283,6 +285,7 @@ export class ProductosComponent implements OnInit {
     this.http.getCategorias().subscribe(
       response => {
         var data = response.categorias;
+        
             var categorias = [];
             data.forEach((element) => {
               if (element.id_parent == 1) {

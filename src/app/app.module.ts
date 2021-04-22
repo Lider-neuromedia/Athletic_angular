@@ -11,6 +11,7 @@ import {Ng5SliderModule} from 'ng5-slider';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxGalleryModule} from 'ngx-gallery-9';
 import { NgxImgZoomModule } from 'ngx-img-zoom';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 
 
@@ -112,6 +113,7 @@ import { DialogDetalleProductoComponent } from './dialog-detalle-producto/dialog
     NgbModule,
     MatTreeModule,
     MatExpansionModule,
+    NgxSkeletonLoaderModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 10000,
       //positionClass: 'toast-bottom-right',

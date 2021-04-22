@@ -42,7 +42,7 @@
         </div>
 
         <div class="precio-acciones col-md-4">
-          <p class="precio-descuento">{{data['precio_general'] | currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
+          <p class="precio-descuento">{{data['precio_impuesto'] - (data['precio_impuesto'] * (data['valor']/100)) | currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
           <p class="precio-normal">{{data['precio_impuesto'] | currency:'COP':'symbol-narrow' :'1.0-0'}}</p>
         </div>
 

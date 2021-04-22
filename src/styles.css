@@ -1430,18 +1430,33 @@ img {
 
 
 .swal2-styled.swal2-confirm {
-  display: inline-block!important;
+  /* display: inline-block!important; */
   height: 45px!important;
-  border-radius: 25px!important;
+  border-radius: 25px !important;
   border: 1px solid #ff596a!important;
   background-color: #ff596a!important;
 }
+.redondo{
+    height: 45px!important;
+    border-radius: 25px !important;
+    border: 1px solid white !important;
+    background-color: #ff596a !important;
+    color: white !important;
+}
 
+.swal2-confirm-ok{
+    height: 45px!important;
+    width: 25% !important;
+    border: 1px solid white !important;
+    background-color: #ff596a !important;
+    color: white !important;
+}
 
 .swal2-cancel{
   display: inline-block;
   height: 45px!important;
   border-radius: 25px!important;
+  margin-right: 3% !important;
   border: 1px solid #ff596a!important;
   background-color: white!important;
   color: #ff596a!important;

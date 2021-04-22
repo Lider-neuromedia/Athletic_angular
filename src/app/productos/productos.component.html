@@ -188,8 +188,14 @@
                         </div>
                     </div>
                 </div>
-              <div class="content-productos content-productos-2" *ngIf="productos.length < 1">
-
+                <ngx-skeleton-loader count="10" *ngIf="productos.length < 1 && cargando" appearance="circle" [theme]="{
+                    'width.px': '150',
+                    'height.px': '200',
+                    'border-radius': '10px'
+                  }">
+                </ngx-skeleton-loader>
+              <div class="content-productos content-productos-2" *ngIf="productos.length < 1 && !cargando">
+                
                 <div class="icono-triste">
                     <span class="material-icons">
                     sentiment_very_dissatisfied
@@ -203,8 +209,6 @@
                             <p>Ningun producto disponible </p><mat-icon style="color: #ff596a;">sentiment_very_dissatisfied</mat-icon>
                         </div>
                     </ng-container>-->
-
-
 
                     <ng-container *ngIf="view_active == 1">
                       <div *ngFor="let item of productos | paginate:page_size:page_number"
@@ -236,7 +240,7 @@
                         [price]="(item.precio_descuento != null) ? item.precio_descuento : item.precio_impuesto"
                         [price_ant]="item.precio_general"
                         [showButtons]="true"
-                        [subtitle]="item.name_marca"
+                        [subtitle]="item.name_marca"                        
                         [title]="item.name_prod">
                       </app-item-producto>
                     </div>

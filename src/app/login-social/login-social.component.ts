@@ -39,9 +39,11 @@ export class LoginSocialComponent implements OnInit {
 
   }
 
-  signInWithGoogle(): void {
+  signInWithGoogle() {
+    
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(respuesta => {
-
+      Swal.fire('Cargando', 'Espere por favor validamos el email', 'info');
+      Swal.showLoading();
       console.log(respuesta);
 
       const data = {
@@ -58,12 +60,10 @@ export class LoginSocialComponent implements OnInit {
         clave: respuesta[`email`]
       };
       console.log(data);
-      Swal.fire('Espere por favor validamos el email', '', 'info');
-      Swal.showLoading();
       
       this.http.httpPost('clientes-register', data).toPromise().then(response => {
         console.log(response[`user`]);
-        Swal.close();
+        Swal.fire('Registrado correctamente', '', 'success');
 
         if (response && response['estado'] == true) {
           this.alertaS.showToasterWarning(response['mensaje']);
@@ -109,8 +109,12 @@ export class LoginSocialComponent implements OnInit {
       };
       console.log(data);
 
+      Swal.fire('Cargando', 'Espere por favor validamos el email', 'info');
+      Swal.showLoading();
+
       this.http.httpPost('clientes-register', data).toPromise().then(response => {
         console.log(response[`user`]);
+        Swal.fire('Registrado correctamente', '', 'success');
 
         if (response && response['estado'] == true) {
           this.alertaS.showToasterWarning(response['mensaje']);
@@ -134,6 +138,7 @@ export class LoginSocialComponent implements OnInit {
 
         }
       }).catch( error => {
+        Swal.fire(error.error.errors.email[0],'','error');
         console.log(error);
       })
 

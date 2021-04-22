@@ -163,12 +163,31 @@
 
                     <select *ngIf="almacenColores?.length > 0" [(ngModel)]="opcionSeleccionado" class="my-own-form-control" id="talla" placeholder="Elige tu talla"
                             id="talla" (change)="checkearTalla($event.target.value)">
-                      <option selected [value]="null" *ngIf="!tallaBool" class="color-talla">Talla</option>
-                      <option class="color-talla" id="talla-default"
-                              *ngFor="let value of  almacenTalla"  value="{{value.valor}}">
+                      <option selected [value]="null" id="talla-default" *ngIf="!tallaBool" class="color-talla">Talla</option>
+                      <ng-container *ngFor="let value of  almacenTalla">
+                      <option  *ngIf="value.grupo_id === 2" value="{{value.valor}}" class="color-talla">
                               <span>
                                 {{value.valor}}
                               </span>
+                      </option>
+                    </ng-container>
+                    </select>
+
+                    <select *ngIf="opcionSabanas?.length > 0" class="my-own-form-control" placeholder="Elige tu talla" id="color"
+                      (change)="checkColores($event.target.value)">
+                      <option selected value="" *ngIf="!colorBool" class="color-talla">Color</option>
+                      <option class="color-talla"
+                              *ngFor="let item of  opcionSabanas"  value="{{item.valor}}">
+                        {{item.valor}}
+                      </option>
+                    </select>
+
+                    <select *ngIf="opcionTallas?.length > 0" class="my-own-form-control" placeholder="Elige tu talla" id="color"
+                      (change)="checkColores($event.target.value)">
+                      <option selected value="" *ngIf="!colorBool" class="color-talla">Color</option>
+                      <option class="color-talla"
+                              *ngFor="let item of  opcionTallas"  value="{{item.valor}}">
+                        {{item.valor}}
                       </option>
                     </select>
 
@@ -528,9 +547,9 @@ z
               <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno"
                             [carouselClasses]="['owl-carousel', 'owl-theme']" style="height: 310px;">
                 <div class="content-item-product" *ngFor="let img of carouselDescatadosUno">
-                  <div class="item-product">
+                  <div class="item-product" (click)="cambiarProductoRelacionado(img.id_producto)">
                     <div class="content-img">
-                      <img src="{{url + '/' + img['img']}}" alt="">
+                      <img [src]="img['img']" alt="">
                       <img *ngIf="img.descuento" src="assets/img/home/descuento.png" class="img-descuento"
                            alt="">
                       <div></div>
@@ -539,7 +558,7 @@ z
                       <p class="subtitle-prod">{{img['name_cat']}}</p>
                       <p class="title-prod">{{img['name_prod']}}</p>
                       <div>
-                        <p class="price-prod">{{img['precio_general'] |currency}}</p>
+                        <p class="price-prod">{{img['precio_impuesto'] |currency}}</p>
                         <p class="price-prod-desc"></p>
                       </div>
                     </div>

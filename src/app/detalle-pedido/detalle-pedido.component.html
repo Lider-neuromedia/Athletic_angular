@@ -42,26 +42,26 @@
                   <div class="col-md-3">
                     <div class="row">
                       <div class="col-md-12 valor-inicial">
-                        {{encabezado.pedido_valor |currency}} /Unitario
+                        {{item['itempedido_valorunitario'] |currency}} /Unitario
                       </div>
                       <div class="col-md-12 cantidad">
                         {{item['itempedido_cantidad']}} / Cantidad
                       </div>
                       <div class="col-md-12 valor-total">
-                        {{encabezado.pedido_valor * item['itempedido_cantidad'] |currency}}
+                        {{item['itempedido_valorunitario'] * item['itempedido_cantidad'] |currency}}
                       </div>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="row">
-                      <div class="col-md-12 name">
+                      <!-- <div class="col-md-12 name">
                         {{item['ciudad']+'/'+item['departamento']}}
+                      </div> -->
+                      <div class="col-md-12 cantidad">
+                        {{encabezado.direccion.direccion_barrio}}
                       </div>
                       <div class="col-md-12 cantidad">
-                        {{item['direccion_barrio']}}
-                      </div>
-                      <div class="col-md-12 cantidad">
-                        {{item['direccion_ubicacion'] }}
+                        {{encabezado.direccion.direccion_ubicacion }}
                       </div>
                     </div>
                   </div>
