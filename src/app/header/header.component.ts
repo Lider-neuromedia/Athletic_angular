@@ -140,6 +140,7 @@ export class HeaderComponent {
 
     sessionStorage.clear();
     localStorage.removeItem('userAthletic');
+    localStorage.removeItem('token');
     this.loginGlobal.changeMessage();
     this.usuario = null;
 

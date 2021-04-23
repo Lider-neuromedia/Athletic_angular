@@ -173,6 +173,7 @@ export class ModalDireccionesComponent implements OnInit {
     }
     this.setHtpp.httpPost('editar-direcciones', data).toPromise().then(respuesta => {
       console.log(respuesta);
+      let idDepartamento: number = respuesta['data']['id_ciudad'];
       this.direcciones.direccion_nombre = respuesta['data']['direccion_nombre'];
       this.direcciones.direccion_codigo = respuesta['data']['direccion_codigo'];
       this.direcciones.direccion_telefono = respuesta['data']['direccion_telefono'];
@@ -186,7 +187,7 @@ export class ModalDireccionesComponent implements OnInit {
       this.direcciones.direccion_lugar = respuesta['data']['direccion_lugar'];
       this.direcciones.usuario_recibir_informacion = respuesta['data']['usuario_recibir_informacion'];
       this.direcciones.direccion_estado = respuesta['data']['direccion_estado'];
-      this.codigoDepartamento = respuesta['data']['id'];
+      this.codigoDepartamento = idDepartamento.toString().substring(0,2);
       this.onchangeCiudades();
       this.codigoCiudad = respuesta['data']['ciudad'];
       this.favoritoSe.changeMessage();

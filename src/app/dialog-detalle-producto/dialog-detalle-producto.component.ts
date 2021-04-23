@@ -95,6 +95,10 @@ export class DialogDetalleProductoComponent implements OnInit {
   sinCombinaciones: boolean;
   opcionSabanas: any[] = [];
   opcionTallas: any[] = [];
+  tallasBool: boolean;
+  sabanasBool: boolean;
+  opcionSelecionadaTallas: any;
+  opcionSelecionadaSabanas: any;
 
   constructor(
     public dialogRef: MatDialogRef<DialogDetalleProductoComponent>,
@@ -179,10 +183,10 @@ export class DialogDetalleProductoComponent implements OnInit {
     }, 300);
 
     this.activatedRoute.params.subscribe(value => {
-      this.getProducts(this.data.id);
-      this.calculoProductoResenia(this.data.id);
-      this.cargarLosComentarios(this.data.id);
-      this.listarProductosRelacionados(this.data.id);
+      this.getProducts(value.id);
+      this.calculoProductoResenia(value.id);
+      this.cargarLosComentarios(value.id);
+      this.listarProductosRelacionados(value.id);
     });
     // this.listarProductosRelacionados(this.route_params.snapshot.params.id);
     // this.getProducts(this.route_params.snapshot.params.id);
@@ -366,12 +370,23 @@ export class DialogDetalleProductoComponent implements OnInit {
     //   this.alertaS.showToasterError('Debes seleccionar una talla');
     //   return;
     // }
-    console.log(this.almacenColores.length);
+    // console.log(this.almacenColores.length);
+    console.log(this.opcionSelecionadaTallas);
+    console.log(this.opcionSelecionadaSabanas);
+    console.log(this.sabanasBool);
     if(this.almacenColores.length == 0){
     }else if(this.almacenColores.length > 0 && !this.opcionSeleccionado || this.opcionSeleccionado == '' || this.opcionSeleccionado == null){
       this.alertaS.showToasterError('Debes seleccionar una talla');
       return;
-    }
+    }else if(this.almacenColores.length > 0 && !this.opcionSeleccionado || this.opcionSeleccionado == '' || this.opcionSeleccionado == null
+             && this.sabanasBool  || this.opcionSelecionadaSabanas == '' || this.opcionSelecionadaSabanas == null){
+              this.alertaS.showToasterError('Debes seleccionar una sabana');
+              return;        
+             }else if(this.almacenColores.length > 0 && !this.opcionSeleccionado || this.opcionSeleccionado == '' || this.opcionSeleccionado == null
+                      && this.tallasBool  || this.opcionSelecionadaTallas == '' || this.opcionSelecionadaTallas == null){
+                this.alertaS.showToasterError('Debes seleccionar una tallas');
+                return;        
+             }
     if(JSON.parse(localStorage.getItem('athletic'))){
       this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
     }else{
@@ -394,7 +409,8 @@ export class DialogDetalleProductoComponent implements OnInit {
       if (this.cantidadProductos > 0) {
         if(this.almacenColores.length > 0){
         this.producto['talla'] = this.opcionSeleccionado;
-        // this.producto['cantidad'] = this.producto['cantidad'];
+        this.producto['tallas'] = this.opcionSelecionadaTallas;
+        this.producto['sabanas'] = this.opcionSelecionadaSabanas;
         this.producto['precio'] = this.coloralCarrito[0]['precio'];
         this.producto['precio_impuesto'] = this.coloralCarrito[0]['precio_impuesto'];
         this.producto['color'] = this.coloralCarrito[0]['variation'][0]['valor'];
@@ -618,7 +634,6 @@ export class DialogDetalleProductoComponent implements OnInit {
 
   cambiarProductoRelacionado(id: number){
       this.router.navigateByUrl(`/detalle-producto/${id}`);
-      this.dialog.closeAll();
       scrollTo(0,0);
   }
 
@@ -636,6 +651,11 @@ export class DialogDetalleProductoComponent implements OnInit {
 
   checkColores(event) {
     this.colorBool = true;
+    this.tallaBool = false;
+    this.tallasBool = false;
+    this.sabanasBool = false;
+    this.opcionSabanas = [];
+    this.opcionTallas = [];
     this.returnEstadoProducto = true;
 
     this.coloralCarrito = this.producto['combinaciones'].filter(item => item.variation[0].valor_id == event);
@@ -710,6 +730,10 @@ export class DialogDetalleProductoComponent implements OnInit {
     this.opcionSabanas = [];
     this.opcionTallas = [];
     this.tallaBool = true;
+    this.tallasBool = false;
+    this.sabanasBool = false;
+    this.opcionSelecionadaSabanas = null;
+    this.opcionSelecionadaTallas = null;
     this.opcionSeleccionado = evento;
     this.coloralCarrito.forEach(element1 => {
       element1.variation.forEach(element2 => {
@@ -757,6 +781,20 @@ export class DialogDetalleProductoComponent implements OnInit {
     console.log(this.opcionSabanas);
     console.log(this.opcionTallas);
     console.log(combinacionVariedades);
+  }
+
+  checkSabanas(event){
+    this.sabanasBool = true;
+    this.opcionSelecionadaSabanas = event;
+    console.log(event);
+  }
+  checkTallas(event){
+    this.tallasBool = true;
+    if(!this.sabanasBool){
+      this.opcionSelecionadaSabanas = "N/A";
+    }
+    this.opcionSelecionadaTallas = event;
+    console.log(event);
   }
 
 

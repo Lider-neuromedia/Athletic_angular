@@ -137,10 +137,11 @@ export class DireccionesComponent implements OnInit {
     }
     this.setHtpp.httpPost('editar-direcciones', data).toPromise().then(respuesta => {
       console.log(respuesta);
+      let idDepartamento: number = respuesta['data']['id_ciudad'];
 
       this.direcciones.direccion_nombre = respuesta['data']['direccion_nombre'];
       this.direcciones.direccion_codigo = respuesta['data']['direccion_codigo'];
-      this.direcciones.direccion_telefono = respuesta['data']['direccion_telefono'];
+      // this.direcciones.direccion_telefono = respuesta['data']['direccion_telefono'];
       this.direcciones.direccion_celular = respuesta['data']['direccion_celular'];
       this.direcciones.direccion_barrio = respuesta['data']['direccion_barrio'];
       this.direcciones.direccion_ubicacion = respuesta['data']['direccion_ubicacion'];
@@ -151,10 +152,11 @@ export class DireccionesComponent implements OnInit {
       this.direcciones.direccion_lugar = respuesta['data']['direccion_lugar'];
       this.direcciones.usuario_recibir_informacion = respuesta['data']['usuario_recibir_informacion'];
       this.direcciones.direccion_estado = respuesta['data']['direccion_estado'];
-      this.codigoDepartamento = respuesta['data']['id'];
-      this.onchangeCiudades();
+      this.codigoDepartamento = idDepartamento.toString().substring(0,2);
       this.codigoCiudad = respuesta['data']['ciudad'];
+      this.onchangeCiudades();
       console.log(this.direcciones);
+      console.log(this.codigoDepartamento);
     }).catch(error => {
       console.log(error);
     });
@@ -165,6 +167,7 @@ export class DireccionesComponent implements OnInit {
     console.log(this.direcciones);
 
     this.setHtpp.httpPost('actualizar-direcciones', this.direcciones).toPromise().then(respuesta => {
+      console.log(respuesta);
       if (respuesta[`estado`]) {
         this.alertaService.showToasterFull(respuesta[`data`]);
       } else {

@@ -153,7 +153,7 @@
 
                     <select *ngIf="almacenColores?.length > 0" class="my-own-form-control" placeholder="Elige tu talla" id="color"
                             (change)="checkColores($event.target.value)">
-                      <option selected value="" *ngIf="!colorBool" class="color-talla">Color</option>
+                      <option selected [value]="null" *ngIf="!colorBool" class="color-talla">Color</option>
                       <option class="color-talla"
                               *ngFor="let item of  almacenColores"  value="{{item.valor_id}}">
                         {{item.valor}}
@@ -173,18 +173,18 @@
                     </ng-container>
                     </select>
 
-                    <select *ngIf="opcionSabanas?.length > 0" class="my-own-form-control" placeholder="Elige tu talla" id="color"
-                      (change)="checkColores($event.target.value)">
-                      <option selected value="" *ngIf="!colorBool" class="color-talla">Color</option>
+                    <select *ngIf="opcionSabanas?.length > 0" [(ngModel)]="opcionSelecionadaSabanas" class="my-own-form-control" placeholder="Elige tu talla" id="color"
+                      (change)="checkSabanas($event.target.value)">
+                      <option selected [value]="null" *ngIf="!sabanasBool" class="color-talla">Sabanas</option>
                       <option class="color-talla"
                               *ngFor="let item of  opcionSabanas"  value="{{item.valor}}">
                         {{item.valor}}
                       </option>
                     </select>
 
-                    <select *ngIf="opcionTallas?.length > 0" class="my-own-form-control" placeholder="Elige tu talla" id="color"
-                      (change)="checkColores($event.target.value)">
-                      <option selected value="" *ngIf="!colorBool" class="color-talla">Color</option>
+                    <select *ngIf="opcionTallas?.length > 0" [(ngModel)]="opcionSelecionadaTallas" class="my-own-form-control" placeholder="Elige tu talla" id="color"
+                      (change)="checkTallas($event.target.value)">
+                      <option selected [value]="null" *ngIf="!tallasBool" class="color-talla">Tallas</option>
                       <option class="color-talla"
                               *ngFor="let item of  opcionTallas"  value="{{item.valor}}">
                         {{item.valor}}

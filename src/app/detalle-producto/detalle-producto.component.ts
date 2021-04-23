@@ -98,6 +98,11 @@ export class DetalleProductoComponent implements OnInit {
   sinCombinaciones: boolean;
   opcionSabanas: any[] = [];
   opcionTallas: any[] = [];
+  tallasBool: boolean;
+  sabanasBool: boolean;
+  opcionSelecionadaTallas: any;
+  opcionSelecionadaSabanas: any;
+  dattosGenerales: any[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -367,27 +372,38 @@ export class DetalleProductoComponent implements OnInit {
     //   this.alertaS.showToasterError('Debes seleccionar una talla');
     //   return;
     // }
-    console.log(this.almacenColores.length);
+    // console.log(this.almacenColores.length);
+    console.log(this.opcionSelecionadaTallas);
+    console.log(this.opcionSelecionadaSabanas);
+    console.log(this.sabanasBool);
     if(this.almacenColores.length == 0){
     }else if(this.almacenColores.length > 0 && !this.opcionSeleccionado || this.opcionSeleccionado == '' || this.opcionSeleccionado == null){
       this.alertaS.showToasterError('Debes seleccionar una talla');
       return;
-    }
+    }else if(this.almacenColores.length > 0 && !this.opcionSeleccionado || this.opcionSeleccionado == '' || this.opcionSeleccionado == null
+             && this.sabanasBool  || this.opcionSelecionadaSabanas == '' || this.opcionSelecionadaSabanas == null){
+              this.alertaS.showToasterError('Debes seleccionar una sabana');
+              return;        
+             }else if(this.almacenColores.length > 0 && !this.opcionSeleccionado || this.opcionSeleccionado == '' || this.opcionSeleccionado == null
+                      && this.tallasBool  || this.opcionSelecionadaTallas == '' || this.opcionSelecionadaTallas == null){
+                this.alertaS.showToasterError('Debes seleccionar una tallas');
+                return;        
+             }
     if(JSON.parse(localStorage.getItem('athletic'))){
       this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
     }else{
       this.carritoAnterior = [];
     }
-    if(localStorage.getItem('producto-borrado')){
-      let productoBorrados = JSON.parse(localStorage.getItem('producto-borrado'));
-      console.log(JSON.parse(localStorage.getItem('producto-borrado')));
-    if(this.producto.color == productoBorrados.color){
-      this.producto.combinaciones.forEach(element => {
-        // console.log(element.cantidad);
-        // console.log(element.stock.cantidadTemp);
-      });
-    }
-    }
+    // if(localStorage.getItem('producto-borrado')){
+    //   let productoBorrados = JSON.parse(localStorage.getItem('producto-borrado'));
+    //   console.log(JSON.parse(localStorage.getItem('producto-borrado')));
+    // if(this.producto.color == productoBorrados.color){
+    //   this.producto.combinaciones.forEach(element => {
+    //     // console.log(element.cantidad);
+    //     // console.log(element.stock.cantidadTemp);
+    //   });
+    // }
+    // }
     console.log(this.producto);
     console.log(this.carritoAnterior);
 
@@ -395,7 +411,8 @@ export class DetalleProductoComponent implements OnInit {
       if (this.cantidadProductos > 0) {
         if(this.almacenColores.length > 0){
         this.producto['talla'] = this.opcionSeleccionado;
-        // this.producto['cantidad'] = this.producto['cantidad'];
+        this.producto['tallas'] = this.opcionSelecionadaTallas;
+        this.producto['sabanas'] = this.opcionSelecionadaSabanas;
         this.producto['precio'] = this.coloralCarrito[0]['precio'];
         this.producto['precio_impuesto'] = this.coloralCarrito[0]['precio_impuesto'];
         this.producto['color'] = this.coloralCarrito[0]['variation'][0]['valor'];
@@ -425,16 +442,24 @@ export class DetalleProductoComponent implements OnInit {
             }else{
               if(item.id_producto == this.producto.id_producto){
                 this.carritoAnterior[i] = this.producto;
-              console.log(i);
-              console.log(this.carritoAnterior);
-              this.bandera = true;
-              return;
+                this.bandera = true;
+                return;
               }
-              this.carritoAnterior.push(this.producto);
-              console.log(i);
-              console.log(this.carritoAnterior);
-              this.bandera = true;
-              return;
+              // console.log(item.id_producto);
+              // console.log(this.producto.id_producto);
+              // if(item.id_producto == this.producto.id_producto){
+              //   this.carritoAnterior[i] = this.producto;
+              // console.log(i);
+              // console.log(this.carritoAnterior);
+              // this.bandera = true;
+              // return;
+              // }else{
+              //   this.carritoAnterior.push(this.producto);
+              //   console.log(i);
+              //   console.log(this.carritoAnterior);
+              //   this.bandera = true;
+              //   return;
+              // }
             }
             i++;
           })
@@ -636,6 +661,11 @@ export class DetalleProductoComponent implements OnInit {
 
   checkColores(event) {
     this.colorBool = true;
+    this.tallaBool = false;
+    this.tallasBool = false;
+    this.sabanasBool = false;
+    this.opcionSabanas = [];
+    this.opcionTallas = [];
     this.returnEstadoProducto = true;
 
     this.coloralCarrito = this.producto['combinaciones'].filter(item => item.variation[0].valor_id == event);
@@ -689,8 +719,6 @@ export class DetalleProductoComponent implements OnInit {
       this.tallaBool = false;
       $('#talla-default').attr("selected","selected");
       $('#talla').css("display","none");
-      
-      console.log('esta vacio', this.almacenTalla.length);
       // this.returnEstadoProducto = false;
     }
     // $('#talla-default').attr("selected", "selected");
@@ -710,6 +738,10 @@ export class DetalleProductoComponent implements OnInit {
     this.opcionSabanas = [];
     this.opcionTallas = [];
     this.tallaBool = true;
+    this.tallasBool = false;
+    this.sabanasBool = false;
+    this.opcionSelecionadaSabanas = null;
+    this.opcionSelecionadaTallas = null;
     this.opcionSeleccionado = evento;
     this.coloralCarrito.forEach(element1 => {
       element1.variation.forEach(element2 => {
@@ -754,9 +786,30 @@ export class DetalleProductoComponent implements OnInit {
     let unicosTallas = [... opcionTallasMap.values()]
     this.opcionTallas = unicosTallas;
 
+    if(this.opcionTallas.length === 0){
+      this.opcionSelecionadaTallas = "N/A";
+    }
+    if(this.opcionSabanas.length === 0){
+      this.opcionSelecionadaSabanas = "N/A";
+    }
+
     console.log(this.opcionSabanas);
     console.log(this.opcionTallas);
     console.log(combinacionVariedades);
+  }
+
+  checkSabanas(event){
+    this.sabanasBool = true;
+    this.opcionSelecionadaSabanas = event;
+      console.log(event);
+  }
+  checkTallas(event){
+    this.tallasBool = true;
+    if(!this.sabanasBool){
+      this.opcionSelecionadaSabanas = "N/A";
+    }
+    this.opcionSelecionadaTallas = event;
+    console.log(event);
   }
 
 
@@ -766,6 +819,7 @@ export class DetalleProductoComponent implements OnInit {
     //Filtro cual es la talla del producto que estan comprando
     let result;
     console.log(talla);
+    let dataForArr = {};
     this.producto['combinaciones'].forEach(element => {
       const variacion = [];
       variacion.push(element.variation[1]);
@@ -780,40 +834,71 @@ export class DetalleProductoComponent implements OnInit {
     //luego que obtengo los datos de la base de datos valido que si la cantidad que estan comprando es menor o igual a la que tengo
     //En la base de datos lo deje permitir comprando de lo contrario nooooooooo podra
     if(this.almacenColores.length == 0){
-    if (cantidad <= this.producto['cantidad']) {
       if(this.producto.stock){
-      if(cantidad <= this.producto.stock.cantidadTemp){
-      console.log("Sin combinaciones");
-        this.dattos = {
-          id: this.producto.id_producto,
-          producto: producto,
-          cantidad: this.producto.stock.cantidad += cantidad,
-          cantidadTemp: this.producto.stock.cantidadTemp -= cantidad,
-          cantidadTotal: this.producto.cantidad
-      };
-        this.producto['stock'] = this.dattos;
-      return true;
-    }else{
-      this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+this.producto.stock.cantidadTemp);
-      return false;
-    }
+        console.log(producto);
+        console.log(this.producto.stock.id);
+        if(this.producto.stock.id == producto){
+          this.dattos = {
+            id: producto,
+            producto: producto,
+            cantidad: this.producto.stock.cantidad += cantidad,
+            cantidadTemp: this.producto.stock.cantidadTemp -= cantidad,
+            cantidadTotal: this.producto.cantidad
+          }
+          this.producto.stock = this.dattos;
+          return true;
+        }else{
+          console.log("No tiene id igual");
+        }
       }else{
+        let cantidadTemp = this.producto.cantidad;
         this.dattos = {
-          id: this.producto.id,
+          id: producto,
           producto: producto,
           cantidad: cantidad,
-          cantidadTemp: this.producto.cantidad - cantidad,
+          cantidadTemp: cantidadTemp -= cantidad,
           cantidadTotal: this.producto.cantidad
-      };
-      this.producto['stock'] = this.dattos;
-      return true;
-      //Si esta corecta la cantida le devuelvo true al carrito de compras
+        }
+        this.producto.stock = this.dattos;
+        return true;
       }
-    }else {
-      this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+this.producto['cantidad']);
-      return false;
-      //De lo contrario devuelvo false y le digo que la cantidad maxima debe ser la que tengo en  la base de datos
-    }
+      // if(producto == this.dattos.id){
+      //   if(cantidad <= this.producto.stock.cantidadTemp){
+      //     console.log("Sin combinaciones");
+      //       dataForArr = {
+      //         producto: producto,
+      //         cantidad: this.producto.stock.cantidad += cantidad,
+      //         cantidadTemp: this.producto.stock.cantidadTemp -= cantidad,
+      //         cantidadTotal: this.producto.cantidad
+      //     };
+      //     let i = 0;
+      //     for (const iterator of this.producto) {
+      //       if(iterator.id_producto == this.dattos.id){
+      //         this.producto['stock'][i] = this.dattos;
+      //         return true;
+      //       }
+      //       i++;
+      //   }
+      //   }else{
+      //     this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+this.producto.stock.cantidadTemp);
+      //     return false;
+      //   }
+      // }
+      //     this.dattosGenerales = {
+      //     producto: producto,
+      //     cantidad: cantidad,
+      //     cantidadTemp: this.producto.cantidad - cantidad,
+      //     cantidadTotal: this.producto.cantidad
+      // }
+      //     let i = 0;
+      //     for (const iterator of this.producto) {
+      //       if(iterator.id_producto == this.dattos.id){
+      //         this.producto['stock'][i] = this.dattos;
+      //         return true;
+      //       }
+      //       i++;
+      // }
+      //Si esta corecta la cantida le devuelvo true al carrito de compras
 
     /*cantidad: 12
     id_atributo_group: 2
