@@ -41,8 +41,9 @@ export class SendHttpData {
   // }
 
   // Peticion Http GET
+   
   httpGet(route:string, filter:string = null, full=true):Observable<any>{
-    var url = this.baseUrl + route +'?token='+ this.token.token;;
+    var url = this.baseUrl + route +'?token='+ this.token.token;
     return this._http.get(url);
   }
   getProductosDestacadosPromociones(id: number): Observable<any>{

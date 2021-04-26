@@ -99,6 +99,8 @@ export class DialogDetalleProductoComponent implements OnInit {
   sabanasBool: boolean;
   opcionSelecionadaTallas: any;
   opcionSelecionadaSabanas: any;
+  variation: any;
+  productoBool: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<DialogDetalleProductoComponent>,
@@ -182,17 +184,17 @@ export class DialogDetalleProductoComponent implements OnInit {
       scrollTop: '0px'
     }, 300);
 
-    this.activatedRoute.params.subscribe(value => {
-      this.getProducts(value.id);
-      this.calculoProductoResenia(value.id);
-      this.cargarLosComentarios(value.id);
-      this.listarProductosRelacionados(value.id);
-    });
-    // this.listarProductosRelacionados(this.route_params.snapshot.params.id);
-    // this.getProducts(this.route_params.snapshot.params.id);
-    // this.validarFavoritos(this.route_params.snapshot.params.id);
-    // this.cargarLosComentarios(this.route_params.snapshot.params.id);
-    // this.calculoProductoResenia(this.route_params.snapshot.params.id);
+    // this.activatedRoute.params.subscribe(value => {
+    //   this.getProducts(value.id);
+    //   this.calculoProductoResenia(value.id);
+    //   this.cargarLosComentarios(value.id);
+    //   this.listarProductosRelacionados(value.id);
+    // });
+    this.listarProductosRelacionados(this.data.id);
+    this.getProducts(this.data.id);
+    this.validarFavoritos(this.data.id);
+    this.cargarLosComentarios(this.data.id);
+    this.calculoProductoResenia(this.data.id);
     this.galleryImages = [
       {
         small: "/N-1008/assets/img/productos/producto-interna.png",
@@ -387,23 +389,28 @@ export class DialogDetalleProductoComponent implements OnInit {
                 this.alertaS.showToasterError('Debes seleccionar una tallas');
                 return;        
              }
-    if(JSON.parse(localStorage.getItem('athletic'))){
+    if(localStorage.getItem('athletic') && JSON.parse(localStorage.getItem('athletic')).length > 0){
+      console.log("Carrito existe");
       this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
     }else{
+      console.log("Carrito no existe");
       this.carritoAnterior = [];
+    }
+    if(localStorage.getItem('athletic') && JSON.parse(localStorage.getItem('athletic')).length === 0){
+      localStorage.removeItem('athletic');
     }
     if(localStorage.getItem('producto-borrado')){
       let productoBorrados = JSON.parse(localStorage.getItem('producto-borrado'));
-      console.log(JSON.parse(localStorage.getItem('producto-borrado')));
-    if(this.producto.color == productoBorrados.color){
-      this.producto.combinaciones.forEach(element => {
-        // console.log(element.cantidad);
-        // console.log(element.stock.cantidadTemp);
-      });
+    if(this.producto.id_combinacion == productoBorrados.id_combinacion){
+      this.productoBool = true;
+      this.producto = productoBorrados;
+      this.coloralCarrito = this.producto['combinaciones'].filter(item => item.variation[0].valor_id == this.variation);
+      localStorage.removeItem('producto-borrado');
     }
     }
     console.log(this.producto);
     console.log(this.carritoAnterior);
+    console.log(this.coloralCarrito);
 
     if (this.verTalalsAgotadas(this.cantidadProductos, this.producto['id_producto'], this.opcionSeleccionado)) {
       if (this.cantidadProductos > 0) {
@@ -440,16 +447,24 @@ export class DialogDetalleProductoComponent implements OnInit {
             }else{
               if(item.id_producto == this.producto.id_producto){
                 this.carritoAnterior[i] = this.producto;
-              console.log(i);
-              console.log(this.carritoAnterior);
-              this.bandera = true;
-              return;
+                this.bandera = true;
+                return;
               }
-              this.carritoAnterior.push(this.producto);
-              console.log(i);
-              console.log(this.carritoAnterior);
-              this.bandera = true;
-              return;
+              // console.log(item.id_producto);
+              // console.log(this.producto.id_producto);
+              // if(item.id_producto == this.producto.id_producto){
+              //   this.carritoAnterior[i] = this.producto;
+              // console.log(i);
+              // console.log(this.carritoAnterior);
+              // this.bandera = true;
+              // return;
+              // }else{
+              //   this.carritoAnterior.push(this.producto);
+              //   console.log(i);
+              //   console.log(this.carritoAnterior);
+              //   this.bandera = true;
+              //   return;
+              // }
             }
             i++;
           })
@@ -657,6 +672,7 @@ export class DialogDetalleProductoComponent implements OnInit {
     this.opcionSabanas = [];
     this.opcionTallas = [];
     this.returnEstadoProducto = true;
+    this.variation = event;
 
     this.coloralCarrito = this.producto['combinaciones'].filter(item => item.variation[0].valor_id == event);
 
@@ -709,8 +725,6 @@ export class DialogDetalleProductoComponent implements OnInit {
       this.tallaBool = false;
       $('#talla-default').attr("selected","selected");
       $('#talla').css("display","none");
-      
-      console.log('esta vacio', this.almacenTalla.length);
       // this.returnEstadoProducto = false;
     }
     // $('#talla-default').attr("selected", "selected");
@@ -778,6 +792,13 @@ export class DialogDetalleProductoComponent implements OnInit {
     let unicosTallas = [... opcionTallasMap.values()]
     this.opcionTallas = unicosTallas;
 
+    if(this.opcionTallas.length === 0){
+      this.opcionSelecionadaTallas = "N/A";
+    }
+    if(this.opcionSabanas.length === 0){
+      this.opcionSelecionadaSabanas = "N/A";
+    }
+
     console.log(this.opcionSabanas);
     console.log(this.opcionTallas);
     console.log(combinacionVariedades);
@@ -786,7 +807,7 @@ export class DialogDetalleProductoComponent implements OnInit {
   checkSabanas(event){
     this.sabanasBool = true;
     this.opcionSelecionadaSabanas = event;
-    console.log(event);
+      console.log(event);
   }
   checkTallas(event){
     this.tallasBool = true;
@@ -800,7 +821,6 @@ export class DialogDetalleProductoComponent implements OnInit {
 
 
   verTalalsAgotadas(cantidad: number, producto: number, talla: string) {
-
     //Filtro cual es la talla del producto que estan comprando
     let result;
     console.log(talla);
@@ -818,40 +838,72 @@ export class DialogDetalleProductoComponent implements OnInit {
     //luego que obtengo los datos de la base de datos valido que si la cantidad que estan comprando es menor o igual a la que tengo
     //En la base de datos lo deje permitir comprando de lo contrario nooooooooo podra
     if(this.almacenColores.length == 0){
-    if (cantidad <= this.producto['cantidad']) {
-      if(this.producto.stock){
-      if(cantidad <= this.producto.stock.cantidadTemp){
-      console.log("Sin combinaciones");
-        this.dattos = {
-          id: this.producto.id_producto,
-          producto: producto,
-          cantidad: this.producto.stock.cantidad += cantidad,
-          cantidadTemp: this.producto.stock.cantidadTemp -= cantidad,
-          cantidadTotal: this.producto.cantidad
-      };
-        this.producto['stock'] = this.dattos;
-      return true;
-    }else{
-      this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+this.producto.stock.cantidadTemp);
-      return false;
-    }
+      if(this.producto.stock && !this.productoBool){
+        console.log(producto);
+        console.log(this.producto.stock.id);
+        if(this.producto.stock.id == producto){
+          this.dattos = {
+            id: producto,
+            producto: producto,
+            cantidad: this.producto.stock.cantidad += cantidad,
+            cantidadTemp: this.producto.stock.cantidadTemp -= cantidad,
+            cantidadTotal: this.producto.cantidad
+          }
+          this.producto.stock = this.dattos;
+          return true;
+        }else{
+          console.log("No tiene id igual");
+        }
       }else{
+        this.productoBool = false;
+        let cantidadTemp = this.producto.cantidad;
         this.dattos = {
-          id: this.producto.id,
+          id: producto,
           producto: producto,
           cantidad: cantidad,
-          cantidadTemp: this.producto.cantidad - cantidad,
+          cantidadTemp: cantidadTemp -= cantidad,
           cantidadTotal: this.producto.cantidad
-      };
-      this.producto['stock'] = this.dattos;
-      return true;
-      //Si esta corecta la cantida le devuelvo true al carrito de compras
+        }
+        this.producto.stock = this.dattos;
+        return true;
       }
-    }else {
-      this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+this.producto['cantidad']);
-      return false;
-      //De lo contrario devuelvo false y le digo que la cantidad maxima debe ser la que tengo en  la base de datos
-    }
+      // if(producto == this.dattos.id){
+      //   if(cantidad <= this.producto.stock.cantidadTemp){
+      //     console.log("Sin combinaciones");
+      //       dataForArr = {
+      //         producto: producto,
+      //         cantidad: this.producto.stock.cantidad += cantidad,
+      //         cantidadTemp: this.producto.stock.cantidadTemp -= cantidad,
+      //         cantidadTotal: this.producto.cantidad
+      //     };
+      //     let i = 0;
+      //     for (const iterator of this.producto) {
+      //       if(iterator.id_producto == this.dattos.id){
+      //         this.producto['stock'][i] = this.dattos;
+      //         return true;
+      //       }
+      //       i++;
+      //   }
+      //   }else{
+      //     this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+this.producto.stock.cantidadTemp);
+      //     return false;
+      //   }
+      // }
+      //     this.dattosGenerales = {
+      //     producto: producto,
+      //     cantidad: cantidad,
+      //     cantidadTemp: this.producto.cantidad - cantidad,
+      //     cantidadTotal: this.producto.cantidad
+      // }
+      //     let i = 0;
+      //     for (const iterator of this.producto) {
+      //       if(iterator.id_producto == this.dattos.id){
+      //         this.producto['stock'][i] = this.dattos;
+      //         return true;
+      //       }
+      //       i++;
+      // }
+      //Si esta corecta la cantida le devuelvo true al carrito de compras
 
     /*cantidad: 12
     id_atributo_group: 2
@@ -862,10 +914,9 @@ export class DialogDetalleProductoComponent implements OnInit {
     valor: "40"*/
   }else{
     console.log("Con combinaciones");
-    console.log(this.coloralCarrito);
     if(cantidad <= this.coloralCarrito[0].cantidad){      
       if(this.coloralCarrito[0].id == this.dattos.id){
-        if(cantidad <= this.dattos.cantidadTemp){
+        if(cantidad <= this.dattos.cantidadTemp && !this.productoBool){
           cantidad += this.dattos.cantidad;
           this.dattos = {
             id: this.coloralCarrito[0].id,
@@ -883,10 +934,30 @@ export class DialogDetalleProductoComponent implements OnInit {
               i++;
           }
         }else{
+          if(this.productoBool && cantidad <= this.coloralCarrito[0].cantidad){
+            this.productoBool = false;
+            console.log(this.productoBool);
+            this.dattos = {
+              id: this.coloralCarrito[0].id,
+              producto: producto,
+              cantidad: cantidad,
+              cantidadTemp: this.coloralCarrito[0].cantidad - cantidad,
+              cantidadTotal: this.coloralCarrito[0].cantidad
+          };
+          let i = 0;
+          for (const iterator of this.producto.combinaciones) {
+              if(iterator.id == this.dattos.id){
+                this.producto.combinaciones[i].stock = this.dattos;
+                return true;
+              }
+              i++;
+          }
+          }
           this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+ this.coloralCarrito[0].cantidad);
           return false;
         }
       }
+      this.productoBool = false;
     this.dattos = {
       id: this.coloralCarrito[0].id,
       producto: producto,
@@ -903,6 +974,7 @@ export class DialogDetalleProductoComponent implements OnInit {
       i++;
   }
     }else{
+      console.log("Falla");
       this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+ this.coloralCarrito[0].cantidad);
       return false;
     }

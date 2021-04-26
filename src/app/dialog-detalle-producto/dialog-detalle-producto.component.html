@@ -1,13 +1,12 @@
-<div class="scroll">
 <div class="color-gray">
   <div class="container detalles-producto-box">
       <div class="row">
-          <div class="col-md-8 content-images h-xs-300px detalle-slider" style="height: 10px !important;" (mouseout)="ocultarZoom()" >
+          <div class="col-md-8 content-images h-xs-300px detalle-slider" style="height: 246px;" (mouseout)="ocultarZoom()" >
 
             <div class="img-zoom-container" id="contenedor-imagen">
               <img id="myimage" *ngIf="imagenesView || imagenCambbiar"
                    (mouseover)="imageZoom('myimage', 'myresult')"
-                   [src]="imagenCambbiar?imagenCambbiar:imagenesView[0].img">
+                   [src]="imagenCambbiar?imagenCambbiar:imagenesView[0].img" style="height: 231px;">
 
               <div id="myresult" class="img-zoom-result mover-div" >
 
@@ -16,21 +15,11 @@
             </div>
 
             <div class="contenedor-fotos-mini mt-3">
-
                 <img  *ngFor="let data of imagenesView"
                       [src]="data['img']" height="100"
                       (mouseover)="cambiarImagen(data['img'])">
-
             </div>
-
-            <!--<ngx-gallery id="myimage" (mouseover)="imageZoom('ngx-gallery-image', 'myresult')"  class="w-100 ngx-gallery-100" [options]="galleryOptions" [images]="galleryImages">
-                      </ngx-gallery>-->
-
-
-
         </div>
-
-
       <div class="col-md-4 mrg-top-10 detalle-info">
               <div class="content-strech mrg-botn-30">
                   <p class="prod-subtitle" *ngIf="producto">{{producto.name_marca}}</p>
@@ -57,7 +46,7 @@
 
                   <select *ngIf="almacenColores?.length > 0" class="my-own-form-control" placeholder="Elige tu talla" id="color"
                           (change)="checkColores($event.target.value)">
-                    <option selected value="" *ngIf="!colorBool" class="color-talla">Color</option>
+                    <option selected [value]="null" *ngIf="!colorBool" class="color-talla">Color</option>
                     <option class="color-talla"
                             *ngFor="let item of  almacenColores"  value="{{item.valor_id}}">
                       {{item.valor}}
@@ -77,18 +66,18 @@
                   </ng-container>
                   </select>
 
-                  <select *ngIf="opcionSabanas?.length > 0" class="my-own-form-control" placeholder="Elige tu talla" id="color"
-                    (change)="checkColores($event.target.value)">
-                    <option selected value="" *ngIf="!colorBool" class="color-talla">Color</option>
+                  <select *ngIf="opcionSabanas?.length > 0" [(ngModel)]="opcionSelecionadaSabanas" class="my-own-form-control" placeholder="Elige tu talla" id="color"
+                    (change)="checkSabanas($event.target.value)">
+                    <option selected [value]="null" *ngIf="!sabanasBool" class="color-talla">Sabanas</option>
                     <option class="color-talla"
                             *ngFor="let item of  opcionSabanas"  value="{{item.valor}}">
                       {{item.valor}}
                     </option>
                   </select>
 
-                  <select *ngIf="opcionTallas?.length > 0" class="my-own-form-control" placeholder="Elige tu talla" id="color"
-                    (change)="checkColores($event.target.value)">
-                    <option selected value="" *ngIf="!colorBool" class="color-talla">Color</option>
+                  <select *ngIf="opcionTallas?.length > 0" [(ngModel)]="opcionSelecionadaTallas" class="my-own-form-control" placeholder="Elige tu talla" id="color"
+                    (change)="checkTallas($event.target.value)">
+                    <option selected [value]="null" *ngIf="!tallasBool" class="color-talla">Tallas</option>
                     <option class="color-talla"
                             *ngFor="let item of  opcionTallas"  value="{{item.valor}}">
                       {{item.valor}}
@@ -122,38 +111,69 @@
               </div>
           </div>
       </div>
-
       <section id="gosugerencias" class="producto-relacionados-detalle" *ngIf="carouselDescatadosUno && carouselDescatadosUno.length > 0">
-          <div class="container">
-              <div class="col-md-12">
-                  <h2 class="text-center">Productos Relacionados</h2>
-              </div>
-
-            <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno"
-                          [carouselClasses]="['owl-carousel', 'owl-theme']" style="height: 310px;">
-              <div class="content-item-product" *ngFor="let img of carouselDescatadosUno">
-                <div class="item-product relacionados" (click)="cambiarProductoRelacionado(img.id_producto)">
-                  <div class="content-img" style="margin-top: -100px;">
-                    <img [src]="img['img']" alt="">
-                    <img *ngIf="img.descuento" src="assets/img/home/descuento.png" class="img-descuento"
-                         alt="">
-                    <div></div>
+        <div class="container">
+            <div class="col-md-12">
+                <h2 class="text-center">Productos Relacionados</h2>
+            </div>
+      
+          <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno"
+                        [carouselClasses]="['owl-carousel', 'owl-theme']" style="height: 310px;">
+            <div class="content-item-product" *ngFor="let img of carouselDescatadosUno">
+              <div class="item-product relacionados" (click)="cambiarProductoRelacionado(img.id_producto)">
+                <div class="content-img" style="margin-top: -100px;">
+                  <img [src]="img['img']" alt="">
+                  <img *ngIf="img.descuento" src="assets/img/home/descuento.png" class="img-descuento"
+                       alt="">
+                  <div></div>
+                </div>
+                <div class="content-product">
+                  <p class="subtitle-prod">{{img['name_cat']}}</p>
+                  <p class="title-prod">{{img['name_prod']}}</p>
+                  <div>
+                    <p class="price-prod">{{img['precio_impuesto'] |currency}}</p>
+                    <p class="price-prod-desc"></p>
                   </div>
-                  <div class="content-product">
-                    <p class="subtitle-prod">{{img['name_cat']}}</p>
-                    <p class="title-prod">{{img['name_prod']}}</p>
-                    <div>
-                      <p class="price-prod">{{img['precio_impuesto'] |currency}}</p>
-                      <p class="price-prod-desc"></p>
+                </div>
                     </div>
-                  </div>
-                      </div>
-              </div>
-            </owl-carousel>
-
-          </div>
+            </div>
+          </owl-carousel>
+      
+        </div>
       </section>
   </div>
 </div>
-</div>
-<app-flecha-arriba></app-flecha-arriba>
+
+
+
+
+<!-- <section id="gosugerencias" class="producto-relacionados-detalle" *ngIf="carouselDescatadosUno && carouselDescatadosUno.length > 0">
+  <div class="container">
+      <div class="col-md-12">
+          <h2 class="text-center">Productos Relacionados</h2>
+      </div>
+
+    <owl-carousel [options]="optionSlideDestacados" [items]="carouselDescatadosUno"
+                  [carouselClasses]="['owl-carousel', 'owl-theme']" style="height: 310px;">
+      <div class="content-item-product" *ngFor="let img of carouselDescatadosUno">
+        <div class="item-product relacionados" (click)="cambiarProductoRelacionado(img.id_producto)">
+          <div class="content-img" style="margin-top: -100px;">
+            <img [src]="img['img']" alt="">
+            <img *ngIf="img.descuento" src="assets/img/home/descuento.png" class="img-descuento"
+                 alt="">
+            <div></div>
+          </div>
+          <div class="content-product">
+            <p class="subtitle-prod">{{img['name_cat']}}</p>
+            <p class="title-prod">{{img['name_prod']}}</p>
+            <div>
+              <p class="price-prod">{{img['precio_impuesto'] |currency}}</p>
+              <p class="price-prod-desc"></p>
+            </div>
+          </div>
+              </div>
+      </div>
+    </owl-carousel>
+
+  </div>
+</section> -->

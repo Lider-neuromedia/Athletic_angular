@@ -116,23 +116,30 @@ export class AppComponent implements OnInit {
         console.log(data);
         console.log(co);
         console.log(dataCarrito);
-        dataCarrito.forEach(element1 => {
-          if(element1.id_combinacion){
-            if(element1.id_combinacion == data.id_combinacion){
-              // console.log(element1.color);
-              // console.log(data.color);
-              return;
-            }
-          }else{
-            if(element1.id_producto == element1.id_producto){
-              return;
-            }
-          }
+        // dataCarrito.forEach(element1 => {
+        //   if(element1.id_combinacion){
+        //     if(element1.id_combinacion == data.id_combinacion){
+        //       element1.combinaciones.forEach(element2 => {
+        //         if(element2.stock){
+        //           if(element2.id == data.id_combinacion){
+        //             return;
+        //           }
+        //         }
+        //       });
+        //       return;
+        //     }
+        //     return;
+        //   }else{
+        //     if(element1.id_producto == data.id_producto){
+        //       return;
+        //     }
+        //   }
           
-          i++;
-        });
-
-        dataCarrito.splice(i, 1);
+        //   i++;
+        // });
+        console.log(i);
+        dataCarrito.splice(co, 1);
+        console.log(data);
         localStorage.setItem('athletic', JSON.stringify(dataCarrito));
         localStorage.setItem('producto-borrado', JSON.stringify(data));
         this.variablesGl.changeMessage();
@@ -159,6 +166,11 @@ export class AppComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
+        let borrarCarrito: any[] = JSON.parse(localStorage.getItem('athletic'));
+        for (let i = 0; i < borrarCarrito.length; i++) {
+          localStorage.setItem('producto-borrado', JSON.stringify(borrarCarrito[i]));
+          borrarCarrito.splice(i, 1);
+        }
         localStorage.removeItem('athletic');
         this.variablesGl.changeMessage();
         this.valorTotal = 0;

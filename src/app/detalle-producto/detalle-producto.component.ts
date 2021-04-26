@@ -103,10 +103,11 @@ export class DetalleProductoComponent implements OnInit {
   opcionSelecionadaTallas: any;
   opcionSelecionadaSabanas: any;
   dattosGenerales: any[] = [];
+  variation: any;
+  productoBool: boolean = false;
 
   constructor(
     public dialog: MatDialog,
-    private route_params: ActivatedRoute,
     public router: Router,
     private http: SendHttpData,
     private alertaS: AlertasService,
@@ -389,23 +390,28 @@ export class DetalleProductoComponent implements OnInit {
                 this.alertaS.showToasterError('Debes seleccionar una tallas');
                 return;        
              }
-    if(JSON.parse(localStorage.getItem('athletic'))){
+    if(localStorage.getItem('athletic') && JSON.parse(localStorage.getItem('athletic')).length > 0){
+      console.log("Carrito existe");
       this.carritoAnterior = JSON.parse(localStorage.getItem('athletic'));
     }else{
+      console.log("Carrito no existe");
       this.carritoAnterior = [];
     }
-    // if(localStorage.getItem('producto-borrado')){
-    //   let productoBorrados = JSON.parse(localStorage.getItem('producto-borrado'));
-    //   console.log(JSON.parse(localStorage.getItem('producto-borrado')));
-    // if(this.producto.color == productoBorrados.color){
-    //   this.producto.combinaciones.forEach(element => {
-    //     // console.log(element.cantidad);
-    //     // console.log(element.stock.cantidadTemp);
-    //   });
-    // }
-    // }
+    if(localStorage.getItem('athletic') && JSON.parse(localStorage.getItem('athletic')).length === 0){
+      localStorage.removeItem('athletic');
+    }
+    if(localStorage.getItem('producto-borrado')){
+      let productoBorrados = JSON.parse(localStorage.getItem('producto-borrado'));
+    if(this.producto.id_combinacion == productoBorrados.id_combinacion){
+      this.productoBool = true;
+      this.producto = productoBorrados;
+      this.coloralCarrito = this.producto['combinaciones'].filter(item => item.variation[0].valor_id == this.variation);
+      localStorage.removeItem('producto-borrado');
+    }
+    }
     console.log(this.producto);
     console.log(this.carritoAnterior);
+    console.log(this.coloralCarrito);
 
     if (this.verTalalsAgotadas(this.cantidadProductos, this.producto['id_producto'], this.opcionSeleccionado)) {
       if (this.cantidadProductos > 0) {
@@ -667,6 +673,7 @@ export class DetalleProductoComponent implements OnInit {
     this.opcionSabanas = [];
     this.opcionTallas = [];
     this.returnEstadoProducto = true;
+    this.variation = event;
 
     this.coloralCarrito = this.producto['combinaciones'].filter(item => item.variation[0].valor_id == event);
 
@@ -815,11 +822,9 @@ export class DetalleProductoComponent implements OnInit {
 
 
   verTalalsAgotadas(cantidad: number, producto: number, talla: string) {
-
     //Filtro cual es la talla del producto que estan comprando
     let result;
     console.log(talla);
-    let dataForArr = {};
     this.producto['combinaciones'].forEach(element => {
       const variacion = [];
       variacion.push(element.variation[1]);
@@ -834,7 +839,7 @@ export class DetalleProductoComponent implements OnInit {
     //luego que obtengo los datos de la base de datos valido que si la cantidad que estan comprando es menor o igual a la que tengo
     //En la base de datos lo deje permitir comprando de lo contrario nooooooooo podra
     if(this.almacenColores.length == 0){
-      if(this.producto.stock){
+      if(this.producto.stock && !this.productoBool){
         console.log(producto);
         console.log(this.producto.stock.id);
         if(this.producto.stock.id == producto){
@@ -851,6 +856,7 @@ export class DetalleProductoComponent implements OnInit {
           console.log("No tiene id igual");
         }
       }else{
+        this.productoBool = false;
         let cantidadTemp = this.producto.cantidad;
         this.dattos = {
           id: producto,
@@ -909,10 +915,9 @@ export class DetalleProductoComponent implements OnInit {
     valor: "40"*/
   }else{
     console.log("Con combinaciones");
-    console.log(this.coloralCarrito);
     if(cantidad <= this.coloralCarrito[0].cantidad){      
       if(this.coloralCarrito[0].id == this.dattos.id){
-        if(cantidad <= this.dattos.cantidadTemp){
+        if(cantidad <= this.dattos.cantidadTemp && !this.productoBool){
           cantidad += this.dattos.cantidad;
           this.dattos = {
             id: this.coloralCarrito[0].id,
@@ -930,10 +935,30 @@ export class DetalleProductoComponent implements OnInit {
               i++;
           }
         }else{
+          if(this.productoBool && cantidad <= this.coloralCarrito[0].cantidad){
+            this.productoBool = false;
+            console.log(this.productoBool);
+            this.dattos = {
+              id: this.coloralCarrito[0].id,
+              producto: producto,
+              cantidad: cantidad,
+              cantidadTemp: this.coloralCarrito[0].cantidad - cantidad,
+              cantidadTotal: this.coloralCarrito[0].cantidad
+          };
+          let i = 0;
+          for (const iterator of this.producto.combinaciones) {
+              if(iterator.id == this.dattos.id){
+                this.producto.combinaciones[i].stock = this.dattos;
+                return true;
+              }
+              i++;
+          }
+          }
           this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+ this.coloralCarrito[0].cantidad);
           return false;
         }
       }
+      this.productoBool = false;
     this.dattos = {
       id: this.coloralCarrito[0].id,
       producto: producto,
@@ -950,6 +975,7 @@ export class DetalleProductoComponent implements OnInit {
       i++;
   }
     }else{
+      console.log("Falla");
       this.alertaS.showToasterWarning('la cantidad ingresada debe ser igual o menor a existente en en el inventario, '+ this.coloralCarrito[0].cantidad);
       return false;
     }

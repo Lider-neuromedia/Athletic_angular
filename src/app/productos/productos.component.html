@@ -188,12 +188,18 @@
                         </div>
                     </div>
                 </div>
-                <ngx-skeleton-loader count="10" *ngIf="productos.length < 1 && cargando" appearance="circle" [theme]="{
-                    'width.px': '150',
-                    'height.px': '200',
-                    'border-radius': '10px'
-                  }">
-                </ngx-skeleton-loader>
+                <!-- *ngIf="productos.length < 1 && cargando" -->
+                <ng-container *ngIf="productos.length < 1 && cargando">
+                    <ngx-skeleton-loader count="10" appearance="circle" [theme]="{
+                        'width.px': '185',
+                        'margin-left.px':'0',
+                        'margin.px':'2',
+                        'height.px': '200',
+                        'display':'inline-block',
+                        'border-radius': '10px'
+                      }">
+                    </ngx-skeleton-loader>
+                </ng-container>
               <div class="content-productos content-productos-2" *ngIf="productos.length < 1 && !cargando">
                 
                 <div class="icono-triste">
