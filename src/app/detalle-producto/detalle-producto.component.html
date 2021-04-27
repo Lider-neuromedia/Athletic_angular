@@ -28,7 +28,7 @@
 
                   <img  *ngFor="let data of imagenesView"
                         [src]="data['img']" height="100"
-                        (mouseover)="cambiarImagen(data['img'])">
+                        (click)="cambiarImagen(data['img'])">
 
               </div>
 

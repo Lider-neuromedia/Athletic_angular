@@ -736,6 +736,7 @@ export class DetalleProductoComponent implements OnInit {
       img: this.coloralCarrito[0]['imagenes'][0]
     }) 
     this.imagenesView = imagenSeleccionada;
+    this.imagenCambbiar = this.coloralCarrito[0]['imagenes'][0];
     console.log(this.imagenesView);
 
   }
@@ -1097,7 +1098,7 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   cambiarImagen(imagen) {
-
+    console.log(imagen);
     this.imagenCambbiar = imagen;
   }
 
