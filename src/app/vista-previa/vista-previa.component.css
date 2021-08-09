@@ -118,12 +118,18 @@ mat-dialog-content {
     -webkit-appearance: none;
 }
 
-.cantidad{
-    width: 100%;
-    border-radius: 25px;
-    border: 1px solid #BBBBBB;
+.cantidad {
+  width: 208px;
+  border-radius: 25px;
+  border: 1px solid #D3D3D3;
+  height: 40px !important;
 }
 
+.cantidad label{
+  font-size: 14px;
+  font-weight: 800;
+  padding-left: 3px;
+}
 .input-cant::-webkit-inner-spin-button,
 .input-cant::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -158,8 +164,8 @@ mat-dialog-content {
 }
 
 #dec-button {
-    left: 141px;
-    top: -8px;
+  left: 95px;
+  top: -8px;
 }
 
 .lbl-cant{

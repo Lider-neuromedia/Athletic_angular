@@ -8,6 +8,7 @@ import {AlertasService} from "../servicio/alertas/alertas.service";
 import {LoginGlobalService} from "../servicio/login-global/login-global.service";
 import {VariablesService} from "../servicio/variable-global/variables.service";
 import { DialogDetalleProductoComponent } from '../dialog-detalle-producto/dialog-detalle-producto.component';
+import { VistaPreviaComponent } from '../vista-previa/vista-previa.component';
 
 @Component({
   selector: 'app-item-producto',
@@ -82,9 +83,9 @@ export class ItemProductoComponent implements OnInit {
   }
 
   openVistaPrevia() {
-    const dialogRef = this.dialog.open(DialogDetalleProductoComponent, {
+    const dialogRef = this.dialog.open(VistaPreviaComponent, {
       width: '1600px',
-      height: '1500px',
+      height: '750px',
       data: {id: this.id}
     });
   }

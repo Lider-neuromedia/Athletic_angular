@@ -24,19 +24,60 @@
             <div class="content-strech mrg-botn-15">
                 <p class="price">{{producto? (producto.precio |currency:'COP':'symbol-narrow' :'1.0-0'): ''}}</p>
                 <!--<p class="price-des" *ngIf="producto && producto.valor_descuento != null">{{producto? (producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0') : ''}}</p>-->
-              <p> <span class="price-prod-desc-full price-des"  *ngIf="producto && producto.valor_descuento != null">{{producto? (producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0') : ''}} </span> <span class="porcentaje-descuento" *ngIf="producto.valor_descuento">{{ " - " + producto.valor_descuento+"%"}}</span></p>
+              <p> 
+                <span class="price-prod-desc-full price-des"  *ngIf="producto && producto.valor_descuento != null">
+                  {{producto? (producto.precio_impuesto |currency:'COP':'symbol-narrow' :'1.0-0') : ''}} 
+                </span> 
+                <span class="porcentaje-descuento" *ngIf="producto.valor_descuento">
+                  {{ " - " + producto.valor_descuento+"%"}}
+                </span>
+              </p>
             </div>
 
-            <div class="box-select-tall">
+            <div class="box-select-talla">
 
-                <select class="my-own-form-control" (change)="checkearTalla($event.target.value)"  placeholder="Elige tu talla" id="talla">
+                <select *ngIf="almacenColores?.length > 0" class="my-own-form-control" placeholder="Elige tu talla" id="color"
+                    (change)="checkColores($event.target.value)">
+              <option selected [value]="null" *ngIf="!colorBool" class="color-talla">Color</option>
+              <option class="color-talla"
+                      *ngFor="let item of  almacenColores"  value="{{item.valor_id}}">
+                {{item.valor}}
+              </option>
+            </select>
 
-                    <option selected value="">Elige tu talla</option>
-                    <option *ngFor="let item of  producto ?producto['combinaciones'] : 0;" value="{{item.valor}}" >{{item.valor}}</option>
-                </select>
+
+            <select *ngIf="almacenColores?.length > 0" [(ngModel)]="opcionSeleccionado" class="my-own-form-control" id="talla" placeholder="Elige tu talla"
+                    id="talla" (change)="checkearTalla($event.target.value)">
+              <option selected [value]="null" id="talla-default" *ngIf="!tallaBool" class="color-talla">Talla</option>
+              <ng-container *ngFor="let value of  almacenTalla">
+              <option  *ngIf="value.grupo_id === 2" value="{{value.valor}}" class="color-talla">
+                      <span>
+                        {{value.valor}}
+                      </span>
+              </option>
+            </ng-container>
+            </select>
+
+            <select *ngIf="opcionSabanas?.length > 0" [(ngModel)]="opcionSelecionadaSabanas" class="my-own-form-control" placeholder="Elige tu talla" id="color"
+              (change)="checkSabanas($event.target.value)">
+              <option selected [value]="null" *ngIf="!sabanasBool" class="color-talla">Sabanas</option>
+              <option class="color-talla"
+                      *ngFor="let item of  opcionSabanas"  value="{{item.valor}}">
+                {{item.valor}}
+              </option>
+            </select>
+
+            <select *ngIf="opcionTallas?.length > 0" [(ngModel)]="opcionSelecionadaTallas" class="my-own-form-control" placeholder="Elige tu talla" id="color"
+              (change)="checkTallas($event.target.value)">
+              <option selected [value]="null" class="color-talla">Tallas</option>
+              <option class="color-talla"
+                      *ngFor="let item of  opcionTallas"  value="{{item.valor}}">
+                {{item.valor}}
+              </option>
+            </select>
                 <div class="cantidad mrg-botn-10 btn-select">
                     <label for="input-cant" class="lbl-cant">Cantidad</label>
-                    <input id="input-cant" class="mrg-botn-10 input-cant"  [ngModel]="cantidad" type="number">
+                    <input id="input-cant" class="mrg-botn-10 input-cant"  [ngModel]="cantidadProductos" type="number">
                     <button id="inc-button" (click)="changeCantidad(true)" mat-fab color="primary" class="spinner-button">
                         +
                     </button>
@@ -62,7 +103,7 @@
                 <div class="content-item-product" *ngFor="let img of carouselDescatadosUno">
                     <div class="item-product">
                         <div class="content-img">
-                          <img src="{{url + '/' + img['img']}}" alt="" routerLink="/detalle-producto/{{img['id_producto2']}}" (click)="onNoClick()">
+                          <img [src]="img['img']" alt="" routerLink="/detalle-producto/{{img['id_producto2']}}" (click)="onNoClick()">
                             <img *ngIf="img.descuento" src="assets/img/home/descuento.png" class="img-descuento" alt="">
                             <div></div>
                         </div>

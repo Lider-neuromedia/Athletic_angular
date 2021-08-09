@@ -84,7 +84,7 @@ export class PerfilComponent implements OnInit {
     }
 
     this.usuario.clave =  this.usuario.password;
-
+    // console.log(this.usuario);
     this.setHtpp.httpPost('actualizar-cliente', this.usuario).toPromise().then(respuesta => {
       console.log(respuesta)
 

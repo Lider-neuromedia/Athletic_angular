@@ -1,5 +1,5 @@
 <div class="content-item-product item-shadow-h">
-    <div (click)="router.navigate(['/detalle-producto/' + id]);" [class]="(small) ? 'item-product item-small' : 'item-product'">
+    <div style="padding-bottom: 15px;" (click)="router.navigate(['/detalle-producto/' + id]);" [class]="(small) ? 'item-product item-small' : 'item-product'">
         <div [class]="(small) ? 'content-img cont-small' : 'content-img'">
             <img [src]="image" alt="">
             <img src="assets/img/home/nuevo.png" *ngIf="nuevo === 1" class="img-nuevo" alt="">

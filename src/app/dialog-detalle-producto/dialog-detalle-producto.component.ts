@@ -176,7 +176,7 @@ export class DialogDetalleProductoComponent implements OnInit {
     this.returnEstadoProducto = true;
     localStorage.removeItem('favoritos');
     this.imagenCambbiar = '';
-    document.getElementById('myresult').style.display = 'none';
+    // document.getElementById('myresult').style.display = 'none';
 
     this.mostrarZoom = false;
 
@@ -247,7 +247,7 @@ export class DialogDetalleProductoComponent implements OnInit {
     this.color4 = '#b3aeae';
     this.color5 = '#b3aeae';
   }
-
+  
   async getDataProdRelac(id){
     return await this.http.httpGet('products/' + id, null, false).toPromise().then(
       response => {
@@ -350,6 +350,7 @@ export class DialogDetalleProductoComponent implements OnInit {
         this.tallasDelProductoFiltradas = this.producto['combinaciones'];
         //const result = this.producto['combinaciones'].filter(item => item.valor == talla);
         this.galleryImages = gallery;
+        console.log(this.galleryImages);
         this.imagenesView = response.imagenes;
       },
       error => { console.log("error." + error); }
@@ -649,6 +650,7 @@ export class DialogDetalleProductoComponent implements OnInit {
 
   cambiarProductoRelacionado(id: number){
       this.router.navigateByUrl(`/detalle-producto/${id}`);
+      this.dialogRef.close();
       scrollTo(0,0);
   }
 
@@ -663,7 +665,9 @@ export class DialogDetalleProductoComponent implements OnInit {
       this.url = respuesta[`ruta`];
     });
   }
-
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
   checkColores(event) {
     this.colorBool = true;
     this.tallaBool = false;
@@ -735,7 +739,8 @@ export class DialogDetalleProductoComponent implements OnInit {
       img: this.coloralCarrito[0]['imagenes'][0]
     }) 
     this.imagenesView = imagenSeleccionada;
-    console.log(this.imagenesView);
+    this.imagenCambbiar = this.coloralCarrito[0]['imagenes'][0];
+    // console.log(this.imagenesView);
 
   }
 

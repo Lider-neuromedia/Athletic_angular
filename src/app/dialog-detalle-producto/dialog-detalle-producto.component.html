@@ -1,12 +1,12 @@
 <div class="color-gray">
   <div class="container detalles-producto-box">
       <div class="row">
-          <div class="col-md-8 content-images h-xs-300px detalle-slider" style="height: 246px;" (mouseout)="ocultarZoom()" >
+          <div class="col-md-8 content-images h-xs-300px detalle-slider" (mouseout)="ocultarZoom()" >
 
             <div class="img-zoom-container" id="contenedor-imagen">
               <img id="myimage" *ngIf="imagenesView || imagenCambbiar"
                    (mouseover)="imageZoom('myimage', 'myresult')"
-                   [src]="imagenCambbiar?imagenCambbiar:imagenesView[0].img" style="height: 231px;">
+                   [src]="imagenCambbiar?imagenCambbiar:imagenesView[0].img">
 
               <div id="myresult" class="img-zoom-result mover-div" >
 
@@ -17,7 +17,7 @@
             <div class="contenedor-fotos-mini mt-3">
                 <img  *ngFor="let data of imagenesView"
                       [src]="data['img']" height="100"
-                      (mouseover)="cambiarImagen(data['img'])">
+                      (click)="cambiarImagen(data['img'])">
             </div>
         </div>
       <div class="col-md-4 mrg-top-10 detalle-info">
@@ -143,10 +143,6 @@
       </section>
   </div>
 </div>
-
-
-
-
 <!-- <section id="gosugerencias" class="producto-relacionados-detalle" *ngIf="carouselDescatadosUno && carouselDescatadosUno.length > 0">
   <div class="container">
       <div class="col-md-12">

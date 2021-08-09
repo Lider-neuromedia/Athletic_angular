@@ -60,7 +60,7 @@ export class LoginSocialComponent implements OnInit {
         clave: respuesta[`email`]
       };
       console.log(data);
-      
+      Swal.close();
       this.http.httpPost('clientes-register', data).toPromise().then(response => {
         console.log(response[`user`]);
         Swal.fire('Registrado correctamente', '', 'success');

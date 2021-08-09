@@ -48,6 +48,8 @@ export class FooterComponent implements OnInit {
       return;
     }
 
+    // console.log(this.filtro);
+
     this.http.httpPost('crear-suscripcion-tienda', this.filtro).toPromise().then(respuesta => {
       console.log(respuesta);
 

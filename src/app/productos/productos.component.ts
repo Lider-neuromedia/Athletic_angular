@@ -81,6 +81,8 @@ export class ProductosComponent implements OnInit {
   dataImagenesBanner: any;
   identificador = [];
   cargando: boolean = true;
+  skeleton:any = Array(10);
+  
   constructor(
     private http: SendHttpData,
     public dialog: MatDialog,

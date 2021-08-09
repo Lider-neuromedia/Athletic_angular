@@ -190,15 +190,14 @@
                 </div>
                 <!-- *ngIf="productos.length < 1 && cargando" -->
                 <ng-container *ngIf="productos.length < 1 && cargando">
-                    <ngx-skeleton-loader count="10" appearance="circle" [theme]="{
-                        'width.px': '185',
-                        'margin-left.px':'0',
-                        'margin.px':'2',
-                        'height.px': '200',
-                        'display':'inline-block',
-                        'border-radius': '10px'
-                      }">
-                    </ngx-skeleton-loader>
+                    <div class="row ml-1 mt-3">
+                        <ngx-skeleton-loader *ngFor="let item of skeleton" class="col-md-3" count="1" appearance="circle" [theme]="{
+                            'width.px': '220',
+                            'height.px': '330',
+                            'border-radius': '10px'
+                          }">
+                        </ngx-skeleton-loader>
+                    </div>
                 </ng-container>
               <div class="content-productos content-productos-2" *ngIf="productos.length < 1 && !cargando">
                 

@@ -120,7 +120,7 @@ export class SendHttpData {
     }
     this.cargandoProducto = true;
     let url = `${this.baseUrl}productos/${id}?token=${this.token.token}`;
-    this._http.get(url).pipe(tap(()=> this.cargandoProducto = false));
+    return this._http.get(url);
   }
 
   setProductoFiltro(data: any): Observable<any>{
